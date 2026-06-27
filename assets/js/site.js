@@ -39,7 +39,7 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const formData = new FormData(form);
-      const recipient = form.getAttribute('data-recipient') || 'contact@rootkernel.xyz';
+      const recipient = form.getAttribute('data-recipient') || 'irootkernel@gmail.com';
       const subjectPrefix = form.getAttribute('data-subject-prefix') || 'Root Kernel Inquiry';
       const topic = formData.get('topic') || 'General';
       const subjectInput = formData.get('subject') || '';

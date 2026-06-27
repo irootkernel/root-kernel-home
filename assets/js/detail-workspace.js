@@ -911,13 +911,13 @@ window.ROOT_KERNEL_DETAIL = {
     return list;
   }
 
-  function detailPlaceholderId(page, item, index) {
-    return 'detail-' + page + '-' + item.key + '-' + String(index + 1);
+  function detailPlaceholderId(index) {
+    return 'detail-' + String(index + 1);
   }
 
   function renderImageFigure(description, index, page, item) {
     const label = index === 0 ? text.primaryImage : text.visualPlan + ' ' + index;
-    return '<figure class="image-placeholder detail-image-placeholder" data-placeholder-id="' + escapeHtml(detailPlaceholderId(page, item, index)) + '">' +
+    return '<figure class="image-placeholder detail-image-placeholder" data-placeholder-id="' + escapeHtml(detailPlaceholderId(index)) + '">' +
       '<div class="placeholder-grid" aria-hidden="true"></div>' +
       '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(description) + '</span></figcaption>' +
       '</figure>';
