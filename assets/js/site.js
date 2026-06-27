@@ -126,9 +126,33 @@
     });
   }
 
-  const imageTriggers = Array.from(document.querySelectorAll('.image-modal-trigger'));
-  if (imageTriggers.length) {
-    const lang = document.body.getAttribute('data-lang') === 'en' ? 'en' : 'ko';
+  const lang = document.body.getAttribute('data-lang') === 'en' ? 'en' : 'ko';
+  const zoomableImageSelector = '.hero-image-figure > img, .card-asset-figure > img';
+
+  function imageModalTriggerLabel(image) {
+    const explicitLabel = image.getAttribute('data-modal-label') || image.closest('figure')?.getAttribute('data-modal-label');
+    if (explicitLabel) return explicitLabel;
+    return lang === 'en' ? 'Expand image' : '이미지 확대';
+  }
+
+  function enhanceImageModalTriggers(root) {
+    const images = [];
+    if (root.matches && root.matches(zoomableImageSelector)) images.push(root);
+    images.push(...Array.from(root.querySelectorAll(zoomableImageSelector)));
+    images.forEach((image) => {
+      if (image.closest('.image-modal-trigger')) return;
+      const trigger = document.createElement('button');
+      trigger.className = 'image-modal-trigger';
+      trigger.type = 'button';
+      trigger.setAttribute('aria-label', imageModalTriggerLabel(image));
+      image.parentNode.insertBefore(trigger, image);
+      trigger.appendChild(image);
+    });
+  }
+
+  enhanceImageModalTriggers(document);
+
+  if (document.querySelector('.image-modal-trigger')) {
     const closeLabel = lang === 'en' ? 'Close expanded image' : '확대 이미지 닫기';
     const dialogLabel = lang === 'en' ? 'Expanded image' : '확대 이미지';
     const dialog = document.createElement('dialog');
@@ -171,8 +195,9 @@
       closeButton.focus({ preventScroll: true });
     }
 
-    imageTriggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => openImageModal(trigger));
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('.image-modal-trigger');
+      if (trigger) openImageModal(trigger);
     });
     closeButton.addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', (event) => {
@@ -181,5 +206,16 @@
     dialog.addEventListener('close', () => {
       if (lastTrigger) lastTrigger.focus({ preventScroll: true });
     });
+
+    if ('MutationObserver' in window) {
+      const imageObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) enhanceImageModalTriggers(node);
+          });
+        });
+      });
+      imageObserver.observe(document.body, { childList: true, subtree: true });
+    }
   }
 })();

@@ -96,6 +96,13 @@ All spacing derives from a 4px base. Existing CSS uses rem values that map to th
 - **Purpose**: documents the image brief until final assets are available.
 - **Rule**: captions must specify an evidence asset, diagram, product screen, or workflow artifact.
 
+### Image Asset Figure
+
+- **Structure**: `<figure class="hero-image-figure">` or `<figure class="card-asset-figure">` containing a real `<img>`.
+- **Purpose**: replaces image placeholders with production visual assets while preserving the same warm technical surface language.
+- **Behavior**: `site.js` automatically turns images in these figures into keyboard-accessible expanded-image triggers.
+- **Rule**: every production image needs meaningful `alt`, `width`, and `height`; use `data-modal-label` only when the default expand label needs to be more specific.
+
 ### Pillar Card
 
 - **Structure**: `.pillar-card` with label, title, body, and text link.
