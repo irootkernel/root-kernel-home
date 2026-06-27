@@ -1070,6 +1070,11 @@ window.ROOT_KERNEL_DETAIL = {
     shell.setAttribute('aria-hidden', 'false');
     document.body.classList.add('detail-lock');
     setActive(entry.page, entry.item.key, false);
+    if (window.matchMedia('(max-width: 560px)').matches) {
+      const main = shell.querySelector('[data-workspace-main]');
+      if (main) main.focus();
+      return;
+    }
     const activeButton = shell.querySelector('[data-workspace-key="' + selectorValue(entry.item.key) + '"][data-workspace-page="' + selectorValue(entry.page) + '"]');
     if (activeButton) activeButton.focus();
   }
