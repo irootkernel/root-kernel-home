@@ -23,14 +23,22 @@
   --max: 1120px;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   background: radial-gradient(circle at top left, rgba(17,115,107,.10), transparent 34rem), var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", Inter, system-ui, sans-serif;
   line-height: 1.65;
+  overflow-x: clip;
   word-break: keep-all;
+}
+@supports not (overflow: clip) {
+  html,
+  body { overflow-x: hidden; }
 }
 a { color: inherit; }
 code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
@@ -889,6 +897,32 @@ body.detail-lock .scroll-progress {
 .consent-row:has(.consent-checkbox:focus-visible) { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(17,115,107,.12); }
 .form-footer-v3 { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: .25rem; flex-wrap: wrap; }
 .form-disclaimer-v3 { margin: 0; color: var(--muted); font-size: .86rem; max-width: 460px; }
+.form-status-v3 {
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 800;
+}
+.form-status-v3[data-state="pending"] { color: var(--teal); }
+.form-status-v3[data-state="success"] { color: var(--green); }
+.form-status-v3[data-state="error"] { color: var(--danger); }
+.button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
 .button-large { min-height: 52px; padding-left: 1.35rem; padding-right: 1.35rem; }
 @media (max-width: 900px) {
   .contact-shell-v3 { grid-template-columns: 1fr; }

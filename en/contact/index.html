@@ -47,9 +47,9 @@
 <div class="contact-form-card-head">
 <p class="eyebrow">Message form</p>
 <h2 id="contact-form-title">Write your message</h2>
-<p>The form prepares an email draft from your request.</p>
+<p>The form stores your request securely so we can review and follow up.</p>
 </div>
-<form action="mailto:contact@rootkernel.xyz" class="contact-form-v3" data-mail-form="" data-recipient="contact@rootkernel.xyz" data-subject-prefix="Root Kernel Inquiry" enctype="text/plain" method="post">
+<form action="#" class="contact-form-v3" data-firestore-contact="" method="post">
 <div class="topic-picker">
 <div class="topic-picker-label">Topic</div>
 <div aria-label="Inquiry topic" class="topic-options-v3" role="radiogroup">
@@ -99,14 +99,19 @@
 <span class="field-label">Message</span>
 <textarea class="textarea-v3" name="message" placeholder="Add the request background, expected output, audience/participants, timing, budget range if available, and reference links." required=""></textarea>
 </label>
+<label aria-hidden="true" class="contact-honeypot">
+<span>Website</span>
+<input autocomplete="off" name="website" tabindex="-1" type="text"/>
+</label>
 <label class="consent-row">
 <input class="consent-checkbox" name="consent" required="" type="checkbox" value="agreed"/>
-<span class="consent-copy">I agree that my personal information and message will be used to prepare the email inquiry draft.</span>
+<span class="consent-copy">I agree that my personal information and message will be stored for inquiry intake and response.</span>
 </label>
 <div class="form-footer-v3">
-<button class="button button-primary button-large" type="submit">Create email draft</button>
-<p class="form-disclaimer-v3">Submitting opens your default email app.</p>
+<button class="button button-primary button-large" type="submit">Save inquiry</button>
+<p class="form-disclaimer-v3">Only requests accepted by Firebase App Check and Firestore rules are stored.</p>
 </div>
+<p aria-live="polite" class="form-status-v3" data-contact-status="" role="status"></p>
 </form>
 </section>
 </div>
@@ -114,6 +119,8 @@
 </main>
 <footer class="site-footer"><div class="footer-minimal"><div class="footer-brand-stack"><a class="footer-brand" href="../index.html">Root Kernel</a><button class="footer-founder" data-founder-open="" type="button">Founder</button></div><span>© 2026 Root Kernel.</span></div></footer>
 <script defer="" src="../../assets/js/site.js"></script>
+<script src="../../assets/js/firebase-contact.config.js"></script>
+<script src="../../assets/js/firebase-contact.js" type="module"></script>
 <script defer="" src="../../assets/js/detail-workspace.js"></script>
 </body>
 </html>

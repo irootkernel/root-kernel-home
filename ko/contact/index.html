@@ -47,9 +47,9 @@
 <div class="contact-form-card-head">
 <p class="eyebrow">Message form</p>
 <h2 id="contact-form-title">메시지 작성</h2>
-<p>요청 내용을 이메일 초안으로 정리합니다.</p>
+<p>요청 내용을 안전하게 저장한 뒤 확인 후 연락드립니다.</p>
 </div>
-<form action="mailto:contact@rootkernel.xyz" class="contact-form-v3" data-mail-form="" data-recipient="contact@rootkernel.xyz" data-subject-prefix="Root Kernel Inquiry" enctype="text/plain" method="post">
+<form action="#" class="contact-form-v3" data-firestore-contact="" method="post">
 <div class="topic-picker">
 <div class="topic-picker-label">문의 주제</div>
 <div aria-label="문의 주제" class="topic-options-v3" role="radiogroup">
@@ -99,14 +99,19 @@
 <span class="field-label">내용</span>
 <textarea class="textarea-v3" name="message" placeholder="요청 배경, 원하는 결과물, 대상/참석자, 일정, 가능하다면 예산 범위와 참고 링크를 적어주세요." required=""></textarea>
 </label>
+<label aria-hidden="true" class="contact-honeypot">
+<span>Website</span>
+<input autocomplete="off" name="website" tabindex="-1" type="text"/>
+</label>
 <label class="consent-row">
 <input class="consent-checkbox" name="consent" required="" type="checkbox" value="agreed"/>
-<span class="consent-copy">입력한 개인정보와 문의 내용이 이메일 문의 초안 작성에 사용되는 것에 동의합니다.</span>
+<span class="consent-copy">입력한 개인정보와 문의 내용이 문의 접수 및 응답을 위해 저장되는 것에 동의합니다.</span>
 </label>
 <div class="form-footer-v3">
-<button class="button button-primary button-large" type="submit">이메일 초안 만들기</button>
-<p class="form-disclaimer-v3">제출하면 기본 메일 앱이 열립니다.</p>
+<button class="button button-primary button-large" type="submit">문의 저장하기</button>
+<p class="form-disclaimer-v3">Firebase App Check와 Firestore 규칙을 통과한 요청만 저장됩니다.</p>
 </div>
+<p aria-live="polite" class="form-status-v3" data-contact-status="" role="status"></p>
 </form>
 </section>
 </div>
@@ -114,6 +119,8 @@
 </main>
 <footer class="site-footer"><div class="footer-minimal"><div class="footer-brand-stack"><a class="footer-brand" href="../index.html">Root Kernel</a><button class="footer-founder" data-founder-open="" type="button">Founder</button></div><span>© 2026 Root Kernel.</span></div></footer>
 <script defer="" src="../../assets/js/site.js"></script>
+<script src="../../assets/js/firebase-contact.config.js"></script>
+<script src="../../assets/js/firebase-contact.js" type="module"></script>
 <script defer="" src="../../assets/js/detail-workspace.js"></script>
 </body>
 </html>

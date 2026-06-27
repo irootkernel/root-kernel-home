@@ -1,0 +1,77 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function requiredFields() {
+      return [
+        'topic',
+        'name',
+        'email',
+        'message',
+        'consent',
+        'locale',
+        'source',
+        'pageUrl',
+        'status',
+        'createdAt'
+      ];
+    }
+
+    function optionalFields() {
+      return [
+        'organization',
+        'subject'
+      ];
+    }
+
+    function hasExpectedFields() {
+      return request.resource.data.keys().hasAll(requiredFields()) &&
+        request.resource.data.keys().hasOnly(requiredFields().concat(optionalFields()));
+    }
+
+    function validTopic() {
+      return request.resource.data.topic == 'Lecture' ||
+        request.resource.data.topic == 'Workshop' ||
+        request.resource.data.topic == 'Consulting' ||
+        request.resource.data.topic == 'PoC / Outsourcing';
+    }
+
+    function requiredString(field, maxLength) {
+      return request.resource.data[field] is string &&
+        request.resource.data[field].size() > 0 &&
+        request.resource.data[field].size() <= maxLength;
+    }
+
+    function optionalString(field, maxLength) {
+      return !(field in request.resource.data) ||
+        (request.resource.data[field] is string &&
+          request.resource.data[field].size() <= maxLength);
+    }
+
+    function validContactSubmission() {
+      return hasExpectedFields() &&
+        validTopic() &&
+        requiredString('name', 80) &&
+        requiredString('email', 120) &&
+        request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$') &&
+        optionalString('organization', 120) &&
+        optionalString('subject', 160) &&
+        requiredString('message', 4000) &&
+        request.resource.data.consent == true &&
+        (request.resource.data.locale == 'ko' || request.resource.data.locale == 'en') &&
+        request.resource.data.source == 'rootkernel-homepage-v4' &&
+        requiredString('pageUrl', 500) &&
+        request.resource.data.status == 'new' &&
+        request.resource.data.createdAt == request.time;
+    }
+
+    match /contactSubmissions/{submissionId} {
+      allow create: if validContactSubmission();
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
