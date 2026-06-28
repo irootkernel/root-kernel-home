@@ -29,8 +29,7 @@ window.ROOT_KERNEL_DETAIL = {
             {
               "heading": "수집하는 데이터",
               "list": [
-                "텍스트 기반 밸런스 게임 선택",
-                "이미지 기반 forced-choice 선택",
+                "텍스트 + 이미지 기반 밸런스 게임",
                 "컬러, 디자인, 스타일, 분위기에 대한 visual preference signal",
                 "질문 맥락과 반복 선택 패턴"
               ]
@@ -71,20 +70,12 @@ window.ROOT_KERNEL_DETAIL = {
               "body": "MIRT와 TIRT는 Space Compiler가 전문성을 갖는 핵심 모델링 방향입니다. MIRT는 취향을 여러 축으로 나누어 추정하고, TIRT는 A/B 선택처럼 서로 비교하는 응답을 잠재 유틸리티 비교로 해석합니다. 이를 통해 단순 선호 집계보다 더 안정적인 취향 벡터를 만드는 것을 목표로 합니다."
             },
             {
-              "heading": "범위와 한계",
-              "body": "Space Compiler는 임상적 심리 진단 도구가 아니며, 개인의 모든 내면을 완벽히 아는 것을 목표로 하지 않습니다. 실제 오프라인 고객 조사를 100% 대체하기보다, 고비용의 본 조사 진행 전에 가설을 빠르게 좁히고 아이디어를 반복 탐색하는 사전 연구(Pre-research) 인프라로 정의됩니다. R&D MVP 단계는 deterministic baseline(weighted_linear_v0)으로 안정적으로 시작하여, 충분한 calibration 데이터가 쌓인 이후 TIRT/MIRT 기반 적합 모델로 단계적으로 고도화합니다."
-            },
-            {
               "heading": "예상 산출물",
               "list": [
-                "Persona Artifact",
                 "Persona Pool",
                 "Synthetic Audience",
-                "Segment Map",
                 "Visual Preference Profile",
-                "Design Response Report",
-                "Coverage Report",
-                "Confidence Report"
+                "Design Response Report"
               ]
             },
             {
@@ -96,7 +87,7 @@ window.ROOT_KERNEL_DETAIL = {
         {
           "key": "vision-feedback",
           "title": "Vision Feedback with AI Persona",
-          "subtitle": "AI Persona Synthesis Research의 첫 적용 방향",
+          "subtitle": "First product of AI Persona Synthesis Research",
           "status": "direction",
           "summary": "상품, 브랜드, 광고, 패키지, UI 디자인 반응을 AI Persona와 synthetic audience로 탐색하는 첫 적용 방향입니다.",
           "placeholder": "Vision Feedback 초기 탐색 화면. 세 개의 디자인 시안 옆에 AI Persona 반응 카드가 붙고, 선호 이유, 거부 이유, 다음 확인 질문만 짧게 표시.",
@@ -165,7 +156,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Doksuri",
           "subtitle": "Markdown-native Human-AI Collaboration Platform",
           "status": "operating_dev",
-          "summary": "사람과 AI Agent가 같은 Markdown 문서를 보며 요구사항, 작업 결과, 근거, 리뷰를 함께 남기는 협업 표면입니다.",
+          "summary": "사람과 AI Agent가 같은 Markdown 문서를 보며 요구사항, 작업 결과, 근거, 리뷰를 함께 남기는 협업 도구입니다.",
           "placeholder": "Doksuri 은유 이미지. 독수리가 흩어진 Markdown 문서 조각 중 필요한 요구사항과 evidence를 정확히 낚아채고, 오른쪽 작업 문서에 Agent comment, 작업 결과, review 상태로 정리되는 장면.",
           "data-placeholder-id": "detail-5",
           "sections": [
@@ -183,7 +174,7 @@ window.ROOT_KERNEL_DETAIL = {
                 "사람이 문서에 업무 요구사항, 판단 기준, 작업 지시를 작성합니다.",
                 "Agent가 같은 문서를 읽고 작업하며 필요한 질문과 결과를 남깁니다.",
                 "작업 결과, 근거, 리뷰, 결정 기록이 같은 문서 상태 안에 남습니다.",
-                "KAO와 연결되어 회사 전반의 Agent 작업 지시와 결과 기록 표면이 됩니다."
+                "Kkachi Agent들과 연결되어 회사 전반의 Agent 작업 지시와 결과 기록 도구가 됩니다."
               ]
             }
           ]
@@ -207,7 +198,7 @@ window.ROOT_KERNEL_DETAIL = {
                 "Moderator가 다음 발언자를 지정합니다.",
                 "각 Agent가 역할 기반 의견을 냅니다.",
                 "다른 Agent가 이전 발언을 보고 동의하거나 반박합니다.",
-                "누가 어떤 순서로 말했고 무엇을 반박했는지 대본처럼 남습니다.",
+                "누가 어떤 순서로 말했고 무엇을 반박했는지 실제 대화처럼 남습니다.",
                 "사람의 최종 판단 전에 구조화된 decision material을 제공합니다."
               ]
             },
@@ -220,7 +211,7 @@ window.ROOT_KERNEL_DETAIL = {
         {
           "key": "ai-spark",
           "title": "AI-SPARK",
-          "subtitle": "AI Spec, Policy, Approval, Runtime Kernel",
+          "subtitle": "AI Spec, Policy, Approval, Runtime Kit",
           "status": "patent",
           "summary": "AI가 제안한 서버 변경을 바로 적용하지 않고, 명세화, 검증, 승인 단계를 거쳐 안전하게 반영하는 백엔드 개발 거버넌스 기술입니다.",
           "placeholder": "AI-SPARK 승인 게이트 이미지. Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime 흐름을 통해 승인된 서버 변경만 반영되는 구조.",
@@ -554,7 +545,7 @@ window.ROOT_KERNEL_DETAIL = {
         {
           "key": "ai-spark",
           "title": "AI-SPARK",
-          "subtitle": "AI Spec, Policy, Approval, Runtime Kernel",
+          "subtitle": "AI Spec, Policy, Approval, Runtime Kit",
           "status": "patent",
           "summary": "Backend development governance technology that turns AI-proposed server changes into specifications, validation steps, and approval gates before runtime adoption.",
           "placeholder": "AI-SPARK approval-gate image showing Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime as the approved-change flow.",
@@ -1140,7 +1131,7 @@ window.ROOT_KERNEL_DETAIL = {
     'detail-5': {
       src: '/assets/images/detail-5.png',
       alt: {
-        ko: 'Doksuri에서 작업 항목, 프로젝트, Agent 설정, Command Center, Review 흐름이 하나의 협업 표면으로 연결되는 제품 이미지',
+        ko: 'Doksuri에서 작업 항목, 프로젝트, Agent 설정, Command Center, Review 흐름이 하나의 협업 도구로 연결되는 제품 이미지',
         en: 'Doksuri product image showing work items, projects, agent settings, Command Center, and review flow connected in one collaboration surface'
       }
     },
@@ -1325,9 +1316,10 @@ window.ROOT_KERNEL_DETAIL = {
     const label = index === 0 ? text.primaryImage : text.visualPlan + ' ' + index;
     const asset = imageAsset(image);
     if (!asset) return '';
+    const caption = index === 0 ? '' : '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(asset.alt) + '</span></figcaption>';
     return '<figure class="card-asset-figure detail-image-asset" data-placeholder-id="' + escapeHtml(image.placeholderId) + '">' +
       '<img src="' + escapeHtml(asset.src) + '" alt="' + escapeHtml(asset.alt) + '" width="1672" height="941" decoding="async" loading="lazy">' +
-      '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(asset.alt) + '</span></figcaption>' +
+      caption +
       '</figure>';
   }
 
