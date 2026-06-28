@@ -1138,7 +1138,7 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-5': {
-      src: '/assets/images/agent-1.png',
+      src: '/assets/images/detail-5.png',
       alt: {
         ko: 'Doksuri에서 작업 항목, 프로젝트, Agent 설정, Command Center, Review 흐름이 하나의 협업 표면으로 연결되는 제품 이미지',
         en: 'Doksuri product image showing work items, projects, agent settings, Command Center, and review flow connected in one collaboration surface'
@@ -1152,10 +1152,10 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-7': {
-      src: '/assets/images/home-2.png',
+      src: '/assets/images/detail-7.png',
       alt: {
-        ko: 'AI가 제안한 서버 변경이 Spec Check, Policy Check, Human Approval을 거쳐 안전한 runtime 변경으로 이어지는 AI-SPARK 승인 게이트 이미지',
-        en: 'AI-SPARK approval-gate image showing an AI-proposed server change passing Spec Check, Policy Check, and Human Approval before reaching runtime'
+        ko: 'AI-SPARK에서 Requirement, Spec Bundle, Validator, Human Approval, Safe Runtime 흐름과 Fail-Closed, Audit Trail이 함께 표시되는 승인 게이트 이미지',
+        en: 'AI-SPARK approval-gate image showing Requirement, Spec Bundle, Validator, Human Approval, Safe Runtime, Fail-Closed, and Audit Trail in one governed flow'
       }
     },
     'detail-8': {
@@ -1173,7 +1173,7 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-10': {
-      src: '/assets/images/hermes-3.png',
+      src: '/assets/images/detail-10.png',
       alt: {
         ko: 'KRQ에서 조사 자료가 검토 가능한 지식 카드로 정리되고 역할별 Agent 작업에 재사용되는 연구 운영 이미지',
         en: 'KRQ research-operations image showing research material becoming reusable knowledge cards for role-based agent work'
