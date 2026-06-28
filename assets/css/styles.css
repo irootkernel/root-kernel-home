@@ -1163,6 +1163,34 @@ body.detail-lock .scroll-progress {
   font-size: .88rem;
   line-height: 1.46;
 }
+.detail-image-asset {
+  margin: 0;
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+.detail-image-asset img {
+  aspect-ratio: 1672 / 941;
+}
+.detail-image-asset figcaption {
+  padding: 1.05rem;
+  background: #fffdf8;
+  border-top: 1px solid var(--line);
+}
+.detail-image-asset strong {
+  display: block;
+  margin-bottom: .25rem;
+  color: var(--teal);
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.detail-image-asset span {
+  display: block;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.46;
+}
 .doc-block {
   padding: 1.08rem 1.2rem;
 }
