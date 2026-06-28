@@ -14,7 +14,7 @@ const ALLOWED_TOPICS = new Set([
   'Lecture',
   'Workshop',
   'Consulting',
-  'PoC / Outsourcing'
+  'PoC / Product Development Collaboration'
 ]);
 
 const LIMITS = {

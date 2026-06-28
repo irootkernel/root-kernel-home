@@ -33,7 +33,7 @@ service cloud.firestore {
       return request.resource.data.topic == 'Lecture' ||
         request.resource.data.topic == 'Workshop' ||
         request.resource.data.topic == 'Consulting' ||
-        request.resource.data.topic == 'PoC / Outsourcing';
+        request.resource.data.topic == 'PoC / Product Development Collaboration';
     }
 
     function requiredString(field, maxLength) {

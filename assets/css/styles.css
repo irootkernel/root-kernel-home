@@ -474,6 +474,7 @@ body.detail-lock { overflow: hidden; }
   .site-nav a { border-radius: 12px; }
   h1 { font-size: clamp(2rem, 10.5vw, 2.8rem); }
   h1, h2, h3, p, .tech-subtitle, .status-chip { overflow-wrap: anywhere; }
+  .contact-shell-v3 .contact-copy-card h1 { overflow-wrap: normal; word-break: keep-all; }
   .card-grid.three, .card-grid.four, .card-grid.two, .pillar-grid, .principle-grid, .contact-grid, .timeline, .card-grid.tech-grid, .card-grid.tech-grid.four, .mini-tech-grid { grid-template-columns: 1fr; }
   .mini-card-list > div { grid-template-columns: 1fr; }
   .footer-minimal { align-items: flex-start; flex-direction: column; }
