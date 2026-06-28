@@ -2,10 +2,10 @@ window.ROOT_KERNEL_DETAIL = {
   "ko": {
     "ui": {
       "close": "닫기",
-      "technologies": "TECHNOLOGIES",
-      "current_file": "CURRENT FILE",
-      "placeholder": "Image Placeholder",
-      "detail": "Detail Workspace"
+      "technologies": "기술 영역",
+      "current_file": "상세 설명",
+      "placeholder": "작동 예시",
+      "detail": "기술 상세"
     },
     "pages": {
       "aipsr": [
@@ -19,15 +19,15 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-1",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Sudal은 사람들이 이미지 기반 A/B 선택, 밸런스 게임, 실시간 비교를 통해 자연스럽게 취향, 선호, 컬러, 디자인, 스타일 데이터를 남기도록 설계된 interactive preference data collection layer입니다."
+              "heading": "무엇인가",
+              "body": "Sudal은 사람들이 이미지 기반 A/B 선택과 밸런스 게임을 통해 자연스럽게 취향, 선호, 컬러, 디자인, 스타일 데이터를 남기도록 설계된 interactive preference data collection layer입니다."
             },
             {
-              "heading": "Role in AI Persona Synthesis Research",
+              "heading": "AI Persona 연구에서의 역할",
               "body": "Sudal의 반복 선택 데이터와 visual preference signal은 Space Compiler가 preference-grounded AI Persona를 만들기 위한 입력 데이터가 됩니다."
             },
             {
-              "heading": "What it collects",
+              "heading": "수집하는 데이터",
               "list": [
                 "텍스트 기반 밸런스 게임 선택",
                 "이미지 기반 forced-choice 선택",
@@ -36,8 +36,8 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Current position",
-              "body": "외부 공개 출시는 아직 전입니다. 홈페이지에서는 출시 준비중 제품으로 표현하고, 실제 동작 화면을 통해 제품 실체를 보여주는 것이 좋습니다."
+              "heading": "현재 단계",
+              "body": "Sudal은 출시 준비 단계의 제품입니다. 현재는 이미지 기반 선택 경험과 반복 선택 데이터를 안정적으로 수집하는 구조를 중심으로 준비하고 있습니다."
             }
           ]
         },
@@ -51,31 +51,31 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-2",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Space Compiler는 AI 기술과 심리계량학(Psychometrics) 연구를 결합하여, 사람의 반복 선택 데이터와 이미지 기반 취향 데이터를 신뢰할 수 있는 취향 공간 및 가상 고객 페르소나로 변환하는 시스템을 구축하고 있습니다."
+              "heading": "무엇인가",
+              "body": "Space Compiler는 Sudal에서 쌓인 반복 선택 데이터와 이미지 기반 취향 신호를 Preference Vector와 AI Persona로 변환하는 분석 엔진입니다. 쉽게 말해, 사용자가 어떤 이미지와 스타일을 반복해서 선택했는지를 바탕으로 취향의 방향과 강도를 추정합니다."
             },
             {
-              "heading": "Processing flow",
-              "body": "Raw Choice → Visual and Text Preference Signal → Latent Trait Estimation → Demographic Calibration → Evidence Mapping → Confidence Scoring → Persona Artifact 흐름을 지향합니다."
+              "heading": "처리 흐름",
+              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact 흐름으로 작동합니다. 각 단계는 선택 데이터를 바로 결론으로 바꾸지 않고, 근거와 신뢰도를 함께 남기기 위한 구조입니다."
             },
             {
-              "heading": "Research Foundations (학술 연구 기반)",
+              "heading": "연구 기반",
               "list": [
-                "Generative Agents (Park et al., 2023): LLM 기반 에이전트의 기억(Memory), 반성(Reflection), 계획(Planning) 메커니즘을 통한 인간 행동 시뮬레이션 타당성을 에이전트 설계의 근간으로 삼습니다. [arXiv:2304.03442](https://arxiv.org/abs/2304.03442)",
-                "Forced-Choice Image Assessment (Hilliard et al., 2022): 약 5분간의 이미지 A/B 선택(Forced-Choice)만으로도 기존 120문항의 Big Five 성격검사(IPIP-NEO-120)와 높은 상관관계(수렴 타당도 O=.71, C=.70, E=.78, A=.60, ES=.70)를 낼 수 있음을 입증하여, Sudal의 A/B 선택 데이터를 신뢰도 높은 심리적 선호 신호로 다룰 수 있는 근거를 제공합니다. [DOI: 10.3390/jintelligence10010012](https://doi.org/10.3390/jintelligence10010012)",
-                "MIRT & Thurstonian IRT (TIRT): 일반 척도와 달리 A/B 선택은 ipsative(상호 간섭) 문제를 유발하여 단순히 점수를 합산할 수 없습니다. Space Compiler는 Thurstonian IRT 모델을 적용해 선택을 잠재 유틸리티의 상대적 크기로 모델링하여 다차원 성향(Multidimensional Item Response Theory)을 강인하게 추정합니다."
+                "Generative Agents: AI Persona가 기억, 반성, 계획을 가진 에이전트처럼 동작할 수 있다는 연구 흐름을 참고합니다.",
+                "Forced-Choice Image Assessment: 짧은 이미지 A/B 선택이 성향 추정에 유의미한 신호가 될 수 있다는 연구를 참고합니다.",
+                "MIRT/TIRT: A/B 선택의 상대 비교 특성을 다차원 취향 추정으로 연결하기 위한 모델링 방향입니다."
               ]
             },
             {
-              "heading": "Mathematical Model (수학적 유틸리티 모델링)",
-              "body": "선택지 j와 k에 대해 사용자가 j를 더 선호할 확률은 Thurstonian IRT 프레임워크에 따라 다음과 같이 모델링됩니다: P(U_j > U_k) = Φ((μ_j - μ_k) / sqrt(σ_j^2 + σ_k^2 - 2σ_jk)). 이를 통해 각 문항의 정보량(Item Information)하고 변별력(Discrimination)을 계산하고, 추정 벡터의 신뢰도(Confidence)와 근거(Evidence)를 통계적으로 도출합니다."
+              "heading": "MIRT/TIRT 모델링",
+              "body": "MIRT와 TIRT는 Space Compiler가 전문성을 갖는 핵심 모델링 방향입니다. MIRT는 취향을 여러 축으로 나누어 추정하고, TIRT는 A/B 선택처럼 서로 비교하는 응답을 잠재 유틸리티 비교로 해석합니다. 이를 통해 단순 선호 집계보다 더 안정적인 취향 벡터를 만드는 것을 목표로 합니다."
             },
             {
-              "heading": "Safe Scope & Limitations (안전성 범위 및 제약)",
+              "heading": "범위와 한계",
               "body": "Space Compiler는 임상적 심리 진단 도구가 아니며, 개인의 모든 내면을 완벽히 아는 것을 목표로 하지 않습니다. 실제 오프라인 고객 조사를 100% 대체하기보다, 고비용의 본 조사 진행 전에 가설을 빠르게 좁히고 아이디어를 반복 탐색하는 사전 연구(Pre-research) 인프라로 정의됩니다. R&D MVP 단계는 deterministic baseline(weighted_linear_v0)으로 안정적으로 시작하여, 충분한 calibration 데이터가 쌓인 이후 TIRT/MIRT 기반 적합 모델로 단계적으로 고도화합니다."
             },
             {
-              "heading": "Outputs",
+              "heading": "예상 산출물",
               "list": [
                 "Persona Artifact",
                 "Persona Pool",
@@ -88,8 +88,8 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Current position",
-              "body": "핵심 엔진이지만 아직 연구 및 초기 구현 단계입니다. 완성형 dashboard보다 데이터 흐름, 모델 경계, confidence와 evidence 연결 방식을 보여주는 rough diagram이 적합합니다."
+              "heading": "현재 단계",
+              "body": "Space Compiler는 연구 및 초기 구현 단계의 핵심 엔진입니다. 현재는 선택 데이터가 Preference Vector, Evidence, Confidence, AI Persona로 이어지는 흐름을 검증하는 데 집중하고 있습니다."
             }
           ]
         },
@@ -103,11 +103,11 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-3",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Vision Feedback은 디자인 반응을 가진 AI Persona와 synthetic audience 활용해 상품, 브랜드, 광고, 패키지, UI 시안 반응을 사전 탐색하는 AI Persona Synthesis Research의 첫 적용 방향입니다."
+              "heading": "무엇인가",
+              "body": "Vision Feedback은 제품, 브랜드, 광고, 패키지, UI 시안을 AI Persona 관점에서 먼저 검토하는 적용 시나리오입니다."
             },
             {
-              "heading": "Use cases",
+              "heading": "적용 영역",
               "list": [
                 "상품 패키지 디자인",
                 "브랜드 이미지와 무드보드",
@@ -117,12 +117,12 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Output direction",
+              "heading": "예상 산출물",
               "body": "Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, Risk and Question List 같은 산출물로 이어지는 방향을 지향합니다."
             },
             {
-              "heading": "Current position",
-              "body": "현재 판매 가능한 PoC로 표현하지 않습니다. Sudal 데이터 수집과 Space Compiler 구현 이후에 연결될 첫 application direction으로 보여주는 것이 적절합니다."
+              "heading": "현재 단계",
+              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조가 연결된 이후 가장 먼저 적용할 수 있는 디자인 검토 방향입니다. 실제 고객 조사 전에 디자인 가설, 선호 이유, 거부 요인, 추가 확인 질문을 빠르게 정리하는 것을 목표로 합니다."
             }
           ]
         },
@@ -132,15 +132,15 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "AI Persona Pool as a Service",
           "status": "platform",
           "summary": "Vision Feedback을 넘어 설문조사와 여론조사에 활용할 수 있는 AI Persona Pool을 만들고, 장기적으로 조사 기관에 persona pool을 제공하는 서비스형 인프라를 지향합니다.",
-          "placeholder": "AI Persona Pool 컨셉 이미지. 실제 사람 사진 없이 추상 Persona Card들이 하나의 Synthetic Audience로 묶이고, 옆에는 coverage, confidence, limitation만 작은 신뢰 표시로 배치. 완성형 SaaS 대시보드가 아니라 장기 플랫폼 방향처럼 보이게 처리.",
+          "placeholder": "AI Persona Pool 컨셉 이미지. 추상 Persona Card들이 하나의 Synthetic Audience로 묶이고, coverage, confidence, limitation 신뢰 정보가 함께 배치된 장기 플랫폼 방향 이미지.",
           "data-placeholder-id": "detail-4",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "AI Persona & Synthetic Audience는 개별 AI Persona, persona pool, synthetic audience를 하나의 장기 플랫폼 방향으로 묶은 개념입니다. Vision Feedback에서 시작하되, 최종적으로는 설문조사와 여론조사에도 활용할 수 있는 AI Persona Pool as a Service를 지향합니다."
+              "heading": "무엇인가",
+              "body": "AI Persona & Synthetic Audience는 개별 AI Persona, persona pool, synthetic audience를 하나의 장기 플랫폼 방향으로 묶은 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
             },
             {
-              "heading": "What it provides",
+              "heading": "제공 방향",
               "list": [
                 "조사 목적에 맞는 AI Persona Pool 구성",
                 "모집단 조건, 세그먼트, confidence, coverage 확인",
@@ -149,12 +149,12 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Why it matters",
+              "heading": "왜 필요한가",
               "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 제품·디자인 반응을 넘어 브랜드 조사, 설문조사, 여론조사의 사전 가설 탐색과 패널 보완에 쓰일 수 있는 인프라로 발전시키는 계획입니다."
             },
             {
-              "heading": "Boundary",
-              "body": "실제 사람 조사를 대체한다고 표현하지 않습니다. 실제 조사 전에 가설을 좁히고, 질문을 정리하고, 조사기관이 보유한 패널과 함께 사용할 수 있는 보완적 persona pool로 설명하는 것이 적절합니다."
+              "heading": "사용 범위",
+              "body": "AI Persona & Synthetic Audience는 실제 사람 조사를 대체하지 않습니다. 대신 본 조사 전에 가설을 좁히고, 질문을 다듬고, 조사 설계의 리스크를 줄이는 보완 인프라로 사용하는 것을 목표로 합니다."
             }
           ]
         }
@@ -165,20 +165,20 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Doksuri",
           "subtitle": "Markdown-native Human-AI Collaboration Platform",
           "status": "operating_dev",
-          "summary": "회사 활동 전반에서 사람과 AI Agent가 같은 Markdown 문서를 읽고 쓰며 업무 지시, 결과, evidence, review를 기록하는 협업 표면입니다.",
+          "summary": "사람과 AI Agent가 같은 Markdown 문서를 보며 요구사항, 작업 결과, 근거, 리뷰를 함께 남기는 협업 표면입니다.",
           "placeholder": "Doksuri 은유 이미지. 독수리가 흩어진 Markdown 문서 조각 중 필요한 요구사항과 evidence를 정확히 낚아채고, 오른쪽 작업 문서에 Agent comment, 작업 결과, review 상태로 정리되는 장면.",
           "data-placeholder-id": "detail-5",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Doksuri는 Markdown을 기반으로 사람과 AI Agent가 같은 사내 문서를 읽고 쓰며 협업하는 Human-AI Collaboration Platform입니다. Root Kernel에서는 AI Agent와 소통하고 작업 기록을 남기는 기본 표면으로 사용됩니다."
+              "heading": "무엇인가",
+              "body": "Doksuri는 Markdown-native Human-AI Collaboration Platform입니다. 쉽게 말하면, AI와의 작업이 채팅창에 흩어지지 않고 하나의 문서 안에 요구사항, 결과, 근거, 리뷰 기록으로 남게 하는 협업 도구입니다."
             },
             {
-              "heading": "Why Markdown",
+              "heading": "왜 Markdown인가",
               "body": "Markdown은 단순 문서 포맷이 아니라, 사람과 Agent가 함께 읽고 쓰는 업무 인터페이스가 됩니다."
             },
             {
-              "heading": "Workflow",
+              "heading": "작동 흐름",
               "list": [
                 "사람이 문서에 업무 요구사항, 판단 기준, 작업 지시를 작성합니다.",
                 "Agent가 같은 문서를 읽고 작업하며 필요한 질문과 결과를 남깁니다.",
@@ -193,16 +193,16 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "ATN",
           "subtitle": "Agent Turn Network",
           "status": "improving",
-          "summary": "Moderator가 turn을 배정해 여러 AI Agent가 각자의 역할과 관점에서 발언하고, 서로의 주장에 반박하도록 만드는 deliberation layer입니다.",
+          "summary": "여러 AI Agent가 하나의 문제를 역할별로 검토하고, 발언 순서와 반박 과정을 남기는 multi-agent deliberation layer입니다.",
           "placeholder": "ATN 대본형 토론 화면. Moderator가 Product, Architecture, Risk, User 역할의 발언 순서를 배정하고, 마지막에는 Decision Brief 하나만 표시.",
           "data-placeholder-id": "detail-6",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "ATN, Agent Turn Network는 moderator가 발언 순서를 배정해 여러 AI Agent가 하나의 문제에 대해 관점을 나누어 토론하도록 만드는 multi-agent deliberation system입니다. Root Kernel에서는 AI들이 말만 많이 한 뒤 마지막에 합성되는 방식이 아니라, 발언과 반박의 흐름을 대본처럼 확인할 수 있는 토론 구조로 사용합니다."
+              "heading": "무엇인가",
+              "body": "ATN, Agent Turn Network는 Moderator가 발언 순서를 관리해 여러 AI Agent가 하나의 문제를 역할별로 검토하도록 만드는 구조입니다. 단순히 여러 답변을 모아 요약하는 방식이 아니라, 누가 어떤 근거로 말했고 어떤 반박이 있었는지를 대본처럼 남깁니다."
             },
             {
-              "heading": "Deliberation flow",
+              "heading": "토론 흐름",
               "list": [
                 "Moderator가 다음 발언자를 지정합니다.",
                 "각 Agent가 역할 기반 의견을 냅니다.",
@@ -212,7 +212,7 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Use cases",
+              "heading": "적용 영역",
               "body": "제품 방향, architecture decision, risk review, research question refinement처럼 회사 전반의 중요한 판단에 사용됩니다."
             }
           ]
@@ -222,29 +222,27 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI-SPARK",
           "subtitle": "AI Spec, Policy, Approval, Runtime Kernel",
           "status": "patent",
-          "summary": "Sudal 서비스 서버 개발에 사용된 특허 출원 기술로, 서버 변경을 명세, 정책 검증, 승인 게이트를 통해 다루는 agentic backend development 체계입니다.",
-          "placeholder": "AI-SPARK 승인 게이트 그림. Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime을 주 흐름으로 두고, Fail-closed와 ReverseMap은 작은 보조 배지로 표시.",
+          "summary": "AI가 제안한 서버 변경을 바로 적용하지 않고, 명세화, 검증, 승인 단계를 거쳐 안전하게 반영하는 백엔드 개발 거버넌스 기술입니다.",
+          "placeholder": "AI-SPARK 승인 게이트 이미지. Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime 흐름을 통해 승인된 서버 변경만 반영되는 구조.",
           "data-placeholder-id": "detail-7",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "AI-SPARK는 Sudal 서비스 서버 개발 과정에서 사용된 Root Kernel의 특허 출원 기술입니다. 자연어 요구사항을 곧바로 서버 변경으로 보내지 않고, Spec Bundle, Validator, Approval Gate, FSM Runtime 흐름으로 구조화합니다."
+              "heading": "무엇인가",
+              "body": "AI-SPARK는 자연어 요구사항을 바로 서버 변경으로 반영하지 않고, 먼저 Spec Bundle로 정리한 뒤 Validator와 Approval Gate를 거치게 합니다. 핵심은 AI 개발 속도를 활용하되, 승인되지 않은 변경이나 정책 위반이 런타임에 반영되지 않도록 막는 것입니다."
             },
             {
-              "heading": "Components",
+              "heading": "핵심 구성",
               "list": [
-                "Spec Bundle",
-                "Validator",
-                "Approval Gate",
-                "bundle_revision_id",
-                "FSM Runtime",
-                "ReverseMap",
-                "Fail-Closed principle"
+                "Spec Bundle: 요구사항, API, 상태 변경, 권한 조건을 검토 가능한 명세로 묶습니다.",
+                "Validator: 정책 위반, 스키마 오류, 승인되지 않은 변경을 사전에 점검합니다.",
+                "Approval Gate: 사람이 승인한 변경만 다음 단계로 넘어가게 합니다.",
+                "Fail-Closed: 불확실하거나 승인되지 않은 변경은 기본적으로 차단합니다.",
+                "Audit Trail: 어떤 요구사항이 어떤 서버 변경으로 이어졌는지 추적 가능하게 남깁니다."
               ]
             },
             {
-              "heading": "Workflow",
-              "body": "Sudal 서버 변경이 필요할 때 요구사항을 먼저 Spec Bundle로 정리하고, 검증과 승인 절차를 통과한 revision만 runtime에 반영하는 구조로 사용되었습니다."
+              "heading": "작동 흐름",
+              "body": "서버 변경이 필요할 때 요구사항을 먼저 검토 가능한 명세로 정리하고, 정책 검증과 사람의 승인 절차를 통과한 변경만 반영하는 구조입니다."
             }
           ]
         }
@@ -255,24 +253,24 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KAO",
           "subtitle": "Kkachi Agent Organization",
           "status": "operating",
-          "summary": "Hermes 위에서 수십 개의 project-scoped, role-scoped Kkachi Agent를 운영하는 Agent Operating Model입니다.",
+          "summary": "Hermes 위에서 Kkachi Agent를 프로젝트별, 역할별로 분리해 운영하는 Agent Operating Model입니다.",
           "placeholder": "KAO 오작교 협업 이미지. 사람이 정한 Epic을 향해 Blue, Red, Orange, Grey, Teal 색 포인트를 가진 까치 Agent들이 작업 조각을 이어 다리를 놓고, 중앙의 deliverable을 완성하는 장면.",
           "data-placeholder-id": "detail-8",
           "sections": [
             {
-              "heading": "Overview",
+              "heading": "무엇인가",
               "body": "KAO, Kkachi Agent Organization은 Root Kernel이 Hermes 위에서 운영하는 AI Agent 조직 모델입니다."
             },
             {
-              "heading": "Organization",
-              "body": "수십 개의 project-scoped, role-scoped Kkachi Agent가 Blue, Red, Orange, Grey, Teal, Green, Yellow, White, Black 역할 체계로 운영됩니다."
+              "heading": "운영 구조",
+              "body": "KAO는 하나의 AI에게 모든 일을 맡기지 않고, Kkachi Agent를 프로젝트별, 역할별로 분리해 운영합니다. 실행, 리뷰, 사용자 관점, 문서 정합성, UX 판단을 나누어 다루는 것이 핵심입니다."
             },
             {
-              "heading": "Role Bridge",
+              "heading": "대표 역할",
               "body": "각 색의 Kkachi Agent가 build, review, user check, docs, UX처럼 서로 다른 역할을 맡고, 사람이 정한 목표를 향해 작업 조각을 이어 하나의 결과물로 완성합니다."
             },
             {
-              "heading": "Development Delegation",
+              "heading": "개발 위임",
               "body": "Blue는 실행, Red는 리뷰, Orange는 사용자 관점, Grey는 문서 정합성, Teal은 UX/UI 판단을 보완합니다. 사람은 방향 설정, 검증 기준, 테스트, 최종 승인에 집중합니다."
             }
           ]
@@ -282,27 +280,26 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KLM",
           "subtitle": "Kkachi Letta Memory",
           "status": "improving",
-          "summary": "Hermes Agent가 Letta memory와 LLM Wiki를 더 정확하게 활용하도록 돕는 plugin, daemon, CLI 프로젝트입니다.",
+          "summary": "AI Agent가 승인된 지식, 프로젝트 메모리, 임시 검색 결과를 구분해 사용하도록 돕는 메모리 신뢰 경계 시스템입니다.",
           "placeholder": "KLM 신뢰 경계 이미지. Approved Knowledge, Project Memory, Retrieval Result를 분리하고, Agent가 승인된 지식과 임시 검색 결과를 다르게 취급하는 장면.",
           "data-placeholder-id": "detail-9",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "KLM, Kkachi Letta Memory는 Hermes Agent가 Letta 기반 memory와 LLM Wiki를 더 정확하게 활용하도록 돕는 plugin, daemon, CLI 프로젝트입니다."
+              "heading": "무엇인가",
+              "body": "KLM, Kkachi Letta Memory는 Hermes Agent가 과거 작업 기억과 승인된 지식, 임시 검색 결과를 구분해 사용하도록 돕는 메모리 관리 체계입니다. AI가 검증되지 않은 정보를 사실처럼 사용하는 위험을 줄이는 것이 목적입니다."
             },
             {
-              "heading": "Components",
+              "heading": "신뢰 경계",
               "list": [
-                "KLM Plugin",
-                "KLM Daemon",
-                "KLM CLI",
-                "Letta memory integration",
-                "LLM Wiki retrieval and update policy"
+                "Approved Knowledge: 사람이 검토했거나 기준 문서로 승인한 지식입니다.",
+                "Project Memory: 프로젝트 진행 중 쌓인 작업 맥락입니다.",
+                "Retrieval Result: 검색이나 조회로 가져온 임시 정보입니다.",
+                "Review Boundary: 임시 정보가 승인된 지식으로 섞이기 전에 검토 단계를 둡니다."
               ]
             },
             {
-              "heading": "Memory boundary",
-              "body": "KLM은 memory, source of truth, retrieval result를 구분해 Agent가 더 정확하게 작업하도록 돕는 integration layer입니다."
+              "heading": "운영 방향",
+              "body": "Letta 기반 memory와 LLM Wiki를 활용하되, 승인된 지식과 임시 정보를 구분하는 방향으로 운영합니다."
             }
           ]
         },
@@ -316,19 +313,19 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-10",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "KRQ, Kkachi Research Queue는 Black과 Yellow Kkachi Agent가 주로 사용하는 Agent Knowledge Operations Pipeline입니다."
+              "heading": "무엇인가",
+              "body": "KRQ, Kkachi Research Queue는 조사한 자료를 일회성 검색으로 끝내지 않고, 검토 가능한 지식 카드로 정리해 다음 작업에서 다시 사용할 수 있게 만드는 연구 운영 큐입니다."
             },
             {
-              "heading": "Flow",
-              "body": "Research Topic → Verified Notes → LLM Wiki Entry → Index Update → Search CLI → Project Agents and Human Review 흐름으로 작동합니다."
+              "heading": "운영 흐름",
+              "body": "Research Topic → Verified Notes → Knowledge Card → Human Review → Reused by Agents 흐름으로 작동합니다."
             },
             {
-              "heading": "Roles",
+              "heading": "역할",
               "list": [
-                "Black은 회사와 프로젝트 committee 관점에서 필요한 정보를 수집하고 재구성합니다.",
+                "Black은 프로젝트와 회사 의사결정에 필요한 배경 지식을 정리합니다.",
                 "Yellow는 연구 주제의 논리적 배경과 가설 후보를 강화합니다.",
-                "사용자는 필요할 때 방향을 조정해 탐색 범위를 넓힙니다."
+                "사람은 조사 범위와 검증 기준을 조정하고, 재사용 가능한 지식으로 승인합니다."
               ]
             }
           ]
@@ -339,10 +336,10 @@ window.ROOT_KERNEL_DETAIL = {
   "en": {
     "ui": {
       "close": "Close",
-      "technologies": "TECHNOLOGIES",
-      "current_file": "CURRENT FILE",
-      "placeholder": "Image Placeholder",
-      "detail": "Detail Workspace"
+      "technologies": "Technology Areas",
+      "current_file": "Detail",
+      "placeholder": "Example",
+      "detail": "Technology Detail"
     },
     "pages": {
       "aipsr": [
@@ -352,19 +349,19 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "Interactive Preference Data Collection Layer",
           "status": "prelaunch",
           "summary": "A product for collecting preference and visual taste data through image-based A/B choices and balance games.",
-          "placeholder": "Sudal product screen. Show a mobile moment where a user chooses between two images and that choice is saved as a small preference-signal chip.",
+          "placeholder": "Sudal product screen where a user chooses between two images and the choice is saved as a preference signal.",
           "data-placeholder-id": "detail-1",
           "sections": [
             {
-              "heading": "Overview",
+              "heading": "What it is",
               "body": "Sudal is an interactive preference data collection layer designed for people to leave preference, color, design, and style signals through image-based A/B choices, balance games, and repeated comparison."
             },
             {
-              "heading": "Role in AI Persona Synthesis Research",
+              "heading": "Role in AI Persona Research",
               "body": "Sudal’s repeated choice data and visual preference signals become inputs for Space Compiler."
             },
             {
-              "heading": "What it collects",
+              "heading": "Collected data",
               "list": [
                 "Text-based balance-game choices",
                 "Image-based forced-choice signals",
@@ -373,8 +370,8 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Current position",
-              "body": "Sudal is presented as a pre-launch product. Real working screens should make the product tangible."
+              "heading": "Current stage",
+              "body": "Sudal is a pre-launch product. The current focus is preparing a stable image-based choice experience and repeatable preference-signal collection flow."
             }
           ]
         },
@@ -384,35 +381,35 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "Preference & Persona Synthesis Engine",
           "status": "research",
           "summary": "A synthesis engine fusing AI with psychometrics to research and build systems that transform choice data into persona artifacts.",
-          "placeholder": "Space Compiler transformation image. Show repeated choices and visual taste signals compressed into one Preference Vector, then transformed into a taste-grounded Persona Artifact. Evidence and Confidence appear only as small trust badges.",
+          "placeholder": "Space Compiler transformation image where repeated choices and visual taste signals become a Preference Vector and then a taste-grounded Persona Artifact with Evidence and Confidence markers.",
           "data-placeholder-id": "detail-2",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Space Compiler is a Preference & Persona Synthesis Engine fusing AI with psychometrics, researching and building systems to transform repeated choice data into reliable preference spaces and persona artifacts."
+              "heading": "What it is",
+              "body": "Space Compiler is an analysis engine that turns repeated Sudal choices and visual preference signals into Preference Vectors and AI Personas. In simpler terms, it estimates the direction and strength of taste from the images and styles a person repeatedly chooses."
             },
             {
               "heading": "Processing flow",
-              "body": "Raw Choice → Visual and Text Preference Signal → Latent Trait Estimation → Demographic Calibration → Evidence Mapping → Confidence Scoring → Persona Artifact."
+              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact. The flow is designed to keep evidence and confidence attached instead of turning choices directly into unsupported conclusions."
             },
             {
               "heading": "Research Foundations",
               "list": [
-                "Generative Agents (Park et al., 2023): Adopts the memory, reflection, and planning mechanisms of LLM agents as architectural validation for human behavior simulation. [arXiv:2304.03442](https://arxiv.org/abs/2304.03442)",
-                "Forced-Choice Image Assessment (Hilliard et al., 2022): Leverages empirical findings showing a 5-minute image-based forced-choice test correlates strongly with traditional Big Five personality inventories (IPIP-NEO-120 convergent validity: O=.71, C=.70, E=.78, A=.60, ES=.70), validating Sudal's A/B UX as a robust behavioral preference signal. [DOI: 10.3390/jintelligence10010012](https://doi.org/10.3390/jintelligence10010012)",
-                "MIRT & Thurstonian IRT (TIRT): Unlike standard rating scales, A/B choices introduce ipsative measurement issues (where choosing one option automatically constrains other scores). We apply a Thurstonian IRT model to represent pairwise choices as utility comparisons, enabling robust estimation of multidimensional trait vectors."
+                "Generative Agents: draws from research showing how memory, reflection, and planning can make AI Personas a testable research direction.",
+                "Forced-Choice Image Assessment: draws from research suggesting that short image A/B choices can carry meaningful personality and preference signals.",
+                "MIRT/TIRT: connects relative-choice data to multidimensional preference estimation."
               ]
             },
             {
-              "heading": "Mathematical Model",
-              "body": "By setting latent utility variables U_j and U_k for options j and k, the probability of selecting option j over k is modeled using a Thurstonian IRT framework: P(U_j > U_k) = Φ((μ_j - μ_k) / sqrt(σ_j^2 + σ_k^2 - 2σ_jk)). This enables the calculation of Item Information and discrimination, outputting statistical confidence scores and evidence trails."
+              "heading": "MIRT/TIRT modeling",
+              "body": "MIRT and TIRT are core modeling directions for Space Compiler. MIRT estimates taste across multiple dimensions, while TIRT treats A/B choices as comparisons of latent utility. The goal is a more stable preference vector than a simple popularity count."
             },
             {
-              "heading": "Safe Scope & Limitations",
+              "heading": "Scope and limitations",
               "body": "Space Compiler is not a clinical diagnostic tool and does not aim to perfectly predict individual psychology. Instead of replacing real-world customer research, it serves as a pre-research exploratory infrastructure to narrow down design hypotheses. The MVP starts with a robust deterministic baseline (weighted_linear_v0), and will scale to fully calibrated TIRT/MIRT models as empirical response data accumulates."
             },
             {
-              "heading": "Outputs",
+              "heading": "Expected outputs",
               "list": [
                 "Persona Artifact",
                 "Persona Pool",
@@ -425,8 +422,8 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Current position",
-              "body": "It is a core engine in research and early implementation. Use rough system diagrams rather than polished product dashboards."
+              "heading": "Current stage",
+              "body": "Space Compiler is a core engine in research and early implementation. The current focus is validating how choice data connects to Preference Vectors, Evidence, Confidence, and AI Personas."
             }
           ]
         },
@@ -436,12 +433,12 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "First application direction for AI Persona Synthesis Research",
           "status": "direction",
           "summary": "The first application direction for exploring reactions to product, brand, advertising, package, and UI designs with AI Personas and synthetic audiences.",
-          "placeholder": "Vision Feedback early exploration screen. Place three design variants beside AI Persona reaction cards showing only preference reason, rejection reason, and next validation question.",
+          "placeholder": "Vision Feedback early exploration screen with design variants beside AI Persona reaction cards for preference reasons, rejection reasons, and next validation questions.",
           "data-placeholder-id": "detail-3",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Vision Feedback is the first application direction for using AI Personas and synthetic audiences to explore reactions to product, brand, advertising, packaging, and UI design variants."
+              "heading": "What it is",
+              "body": "Vision Feedback is an application scenario for reviewing product, brand, advertising, packaging, and UI design drafts through AI Persona perspectives."
             },
             {
               "heading": "Use cases",
@@ -454,12 +451,12 @@ window.ROOT_KERNEL_DETAIL = {
               ]
             },
             {
-              "heading": "Output direction",
+              "heading": "Expected outputs",
               "body": "It connects to Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, and Risk and Question List."
             },
             {
-              "heading": "Current position",
-              "body": "Do not present it as a currently sold PoC product. Present it as the first application direction after Sudal data collection and Space Compiler implementation."
+              "heading": "Current stage",
+              "body": "Vision Feedback is the first design-review direction to apply after Sudal choice data and Space Compiler persona synthesis are connected. It aims to organize design hypotheses, preference reasons, rejection factors, and follow-up questions before real customer research."
             }
           ]
         },
@@ -469,15 +466,15 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "AI Persona Pool as a Service",
           "status": "platform",
           "summary": "Beyond Vision Feedback, Root Kernel aims to build AI Persona Pools for surveys and polling, and long-term infrastructure that can provide persona pools to research and polling organizations.",
-          "placeholder": "AI Persona Pool concept image. Abstract Persona Cards combine into one Synthetic Audience, with coverage, confidence, and limitation shown only as small trust markers. Keep it from looking like a finished SaaS dashboard.",
+          "placeholder": "AI Persona Pool concept image where abstract Persona Cards combine into one Synthetic Audience with coverage, confidence, and limitation trust markers.",
           "data-placeholder-id": "detail-4",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "AI Persona & Synthetic Audience groups individual AI Personas, persona pools, and synthetic audiences into one long-term platform direction. It starts from Vision Feedback, but ultimately points toward AI Persona Pool as a Service for surveys and polling."
+              "heading": "What it is",
+              "body": "AI Persona & Synthetic Audience groups individual AI Personas, persona pools, and synthetic audiences into one long-term platform direction. A Synthetic Audience is a virtual customer group assembled from AI Personas for a specific research purpose."
             },
             {
-              "heading": "What it provides",
+              "heading": "Service direction",
               "list": [
                 "AI Persona Pools configured for a research goal",
                 "Population conditions, segments, confidence, and coverage",
@@ -490,8 +487,8 @@ window.ROOT_KERNEL_DETAIL = {
               "body": "Vision Feedback is the first application product. AI Persona Pool as a Service is the later expansion path: infrastructure for pre-research, question design, and panel augmentation across brand research, surveys, and polling."
             },
             {
-              "heading": "Boundary",
-              "body": "It should not be presented as a replacement for real-human research. It is better framed as a complementary persona pool for narrowing hypotheses, improving questions, and supporting research organizations alongside their own panels."
+              "heading": "Usage boundary",
+              "body": "AI Persona & Synthetic Audience does not replace real-human research. It is intended as complementary infrastructure for narrowing hypotheses, improving questions, and reducing research-design risk before the main study."
             }
           ]
         }
@@ -507,8 +504,8 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-5",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "Doksuri is a Markdown-native Human-AI Collaboration Platform where people and AI Agents read and write the same internal documents. Root Kernel uses it as the main surface for communicating with AI Agents and preserving work records."
+              "heading": "What it is",
+              "body": "Doksuri is a Markdown-native Human-AI Collaboration Platform. In practical terms, it keeps requirements, results, evidence, and review records in one shared document instead of letting AI work scatter across chat logs."
             },
             {
               "heading": "Why Markdown",
@@ -535,8 +532,8 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-6",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "ATN, Agent Turn Network, is a multi-agent deliberation system where a moderator assigns speaking turns so AI Agents can discuss one problem from different roles. Root Kernel uses it to avoid loose multi-agent chatter that only gets summarized at the end, making the sequence of statements and challenges visible like a script."
+              "heading": "What it is",
+              "body": "ATN, Agent Turn Network, lets a Moderator manage speaking turns so multiple AI Agents can review one problem from different roles. Instead of collecting several answers and summarizing them at the end, ATN preserves who said what, what evidence they used, and which claims were challenged."
             },
             {
               "heading": "Deliberation flow",
@@ -559,29 +556,27 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI-SPARK",
           "subtitle": "AI Spec, Policy, Approval, Runtime Kernel",
           "status": "patent",
-          "summary": "Patent-pending technology used in Sudal service server development to handle server changes through specifications, validation policies, and approval gates.",
-          "placeholder": "AI-SPARK approval-gate image. Use Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime as the main flow, with Fail-closed and ReverseMap as small support badges.",
+          "summary": "Backend development governance technology that turns AI-proposed server changes into specifications, validation steps, and approval gates before runtime adoption.",
+          "placeholder": "AI-SPARK approval-gate image showing Requirement → Spec Bundle → Validator → Human Approval → Safe Runtime as the approved-change flow.",
           "data-placeholder-id": "detail-7",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "AI-SPARK is Root Kernel’s patent-pending technology used during Sudal service server development. Instead of sending natural language requirements directly into server changes, it structures them through Spec Bundle, Validator, Approval Gate, and FSM Runtime."
+              "heading": "What it is",
+              "body": "AI-SPARK does not send natural-language requirements directly into server changes. It first organizes them into a Spec Bundle, then routes them through a Validator and Approval Gate. The core idea is to use AI development speed while preventing unapproved or policy-violating changes from reaching runtime."
             },
             {
-              "heading": "Components",
+              "heading": "Core components",
               "list": [
-                "Spec Bundle",
-                "Validator",
-                "Approval Gate",
-                "bundle_revision_id",
-                "FSM Runtime",
-                "ReverseMap",
-                "Fail-Closed principle"
+                "Spec Bundle: groups requirements, API behavior, state changes, and permission conditions into a reviewable specification.",
+                "Validator: checks policy violations, schema errors, and unapproved changes before adoption.",
+                "Approval Gate: lets only human-approved changes move forward.",
+                "Fail-Closed: blocks uncertain or unapproved changes by default.",
+                "Audit Trail: preserves how a requirement became a server change."
               ]
             },
             {
               "heading": "Workflow",
-              "body": "When Sudal server changes are needed, requirements are first organized into a Spec Bundle, then only validated and approved revisions are reflected into runtime."
+              "body": "When server changes are needed, requirements are first organized into a reviewable specification. Only changes that pass policy validation and human approval are reflected into the system."
             }
           ]
         }
@@ -592,24 +587,24 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KAO",
           "subtitle": "Kkachi Agent Organization",
           "status": "operating",
-          "summary": "A Hermes-based Agent Operating Model with dozens of project-scoped and role-scoped Kkachi Agents.",
+          "summary": "A Hermes-based Agent Operating Model that separates Kkachi Agents by project and role.",
           "placeholder": "KAO magpie-bridge collaboration image. Toward one human-defined Epic, magpie Agents with Blue, Red, Orange, Grey, and Teal color accents connect work pieces like a bridge and complete one central deliverable.",
           "data-placeholder-id": "detail-8",
           "sections": [
             {
-              "heading": "Overview",
+              "heading": "What it is",
               "body": "KAO, Kkachi Agent Organization, is Root Kernel’s AI Agent organization model operating on Hermes."
             },
             {
-              "heading": "Organization",
-              "body": "Dozens of project-scoped and role-scoped Kkachi Agents operate across Blue, Red, Orange, Grey, Teal, Green, Yellow, White, and Black roles."
+              "heading": "Operating structure",
+              "body": "KAO does not ask one AI to do everything. It separates Kkachi Agents by project and role so execution, review, user perspective, documentation consistency, and UX judgment can be handled as distinct responsibilities."
             },
             {
-              "heading": "Role Bridge",
+              "heading": "Representative roles",
               "body": "Each colored Kkachi Agent carries a different role such as build, review, user check, docs, or UX, then connects its work piece toward the human-defined goal."
             },
             {
-              "heading": "Development Delegation",
+              "heading": "Development delegation",
               "body": "Blue leads execution, Red reviews, Orange checks user perspective, Grey handles document consistency, and Teal supports UX/UI judgment. The human keeps direction, validation criteria, testing, and final approval."
             }
           ]
@@ -619,27 +614,26 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KLM",
           "subtitle": "Kkachi Letta Memory",
           "status": "improving",
-          "summary": "A plugin, daemon, and CLI project that helps Hermes Agents use Letta memory and LLM Wiki more accurately.",
+          "summary": "A memory trust-boundary system that helps AI Agents distinguish approved knowledge, project memory, and temporary retrieval results.",
           "placeholder": "KLM trust-boundary image. Separate Approved Knowledge, Project Memory, and Retrieval Result, showing that an Agent treats approved knowledge differently from temporary search results.",
           "data-placeholder-id": "detail-9",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "KLM, Kkachi Letta Memory, is a plugin, daemon, and CLI project that helps Hermes Agents use Letta-based memory and LLM Wiki more accurately."
+              "heading": "What it is",
+              "body": "KLM, Kkachi Letta Memory, helps Hermes Agents distinguish past work memory, approved knowledge, and temporary retrieval results. Its purpose is to reduce the risk of treating unverified information as fact."
             },
             {
-              "heading": "Components",
+              "heading": "Trust boundary",
               "list": [
-                "KLM Plugin",
-                "KLM Daemon",
-                "KLM CLI",
-                "Letta memory integration",
-                "LLM Wiki retrieval and update policy"
+                "Approved Knowledge: reviewed or canonical knowledge.",
+                "Project Memory: context accumulated during project work.",
+                "Retrieval Result: temporary information from search or lookup.",
+                "Review Boundary: the check before temporary information is promoted into approved knowledge."
               ]
             },
             {
-              "heading": "Memory boundary",
-              "body": "KLM helps separate memory, source of truth, and retrieval results so Agents can work with more accurate context."
+              "heading": "Operating direction",
+              "body": "KLM uses Letta-based memory and LLM Wiki while keeping approved knowledge separate from temporary information."
             }
           ]
         },
@@ -653,19 +647,19 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-10",
           "sections": [
             {
-              "heading": "Overview",
-              "body": "KRQ, Kkachi Research Queue, is an Agent Knowledge Operations Pipeline mainly used by Black and Yellow Kkachi Agents."
+              "heading": "What it is",
+              "body": "KRQ, Kkachi Research Queue, turns research from one-off lookup into reviewable knowledge cards that can be reused by later agent work."
             },
             {
               "heading": "Flow",
-              "body": "Research Topic → Verified Notes → LLM Wiki Entry → Index Update → Search CLI → Project Agents and Human Review."
+              "body": "Research Topic → Verified Notes → Knowledge Card → Human Review → Reused by Agents."
             },
             {
               "heading": "Roles",
               "list": [
-                "Black collects and reframes project support knowledge from a company committee perspective.",
+                "Black organizes background knowledge needed for project and company decisions.",
                 "Yellow strengthens the logical background and hypothesis candidates for research topics.",
-                "The user can guide scope and direction when needed."
+                "The human adjusts research scope and verification criteria, then approves knowledge for reuse."
               ]
             }
           ]
@@ -735,7 +729,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-13"
         },
         {
-          "placeholder": "Sudal 제품 경험 이미지. 분석 dashboard보다 사용자가 취향을 표현하는 선택의 순간을 중심에 둔 화면.",
+          "placeholder": "Sudal 제품 경험 이미지. 사용자가 취향을 표현하는 선택의 순간을 중심에 둔 제품 화면.",
           "data-placeholder-id": "detail-14"
         }
       ],
@@ -753,7 +747,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-17"
         },
         {
-          "placeholder": "Persona artifact preview. demographic profile, visual preference profile, evidence links, confidence, version이 하나의 artifact로 정리된 mockup.",
+          "placeholder": "Persona Artifact 이미지. demographic profile, visual preference profile, evidence links, confidence, version이 하나의 결과물로 정리된 화면.",
           "data-placeholder-id": "detail-18"
         }
       ],
@@ -771,7 +765,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-21"
         },
         {
-          "placeholder": "초기 검토 결과 화면. 완성형 리포트가 아니라 다음 디자인 실험을 정하기 위한 shortlist와 risk question 중심.",
+          "placeholder": "초기 검토 결과 화면. 다음 디자인 실험을 정하기 위한 shortlist와 risk question 중심의 결과 영역.",
           "data-placeholder-id": "detail-22"
         }
       ],
@@ -817,7 +811,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-31"
         },
         {
-          "placeholder": "Deliberation transcript mockup. 발언, 근거, 반론, unresolved issue가 시간순으로 정리되고 마지막에 Decision Brief가 붙은 화면.",
+          "placeholder": "Deliberation transcript 화면. 발언, 근거, 반론, unresolved issue가 시간순으로 정리되고 마지막에 Decision Brief가 붙은 화면.",
           "data-placeholder-id": "detail-32"
         },
         {
@@ -835,7 +829,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-35"
         },
         {
-          "placeholder": "Spec Bundle 화면. API, state model, binding, permission policy, bundle_revision_id가 하나의 명세 묶음으로 정리된 mockup.",
+          "placeholder": "Spec Bundle 화면. API, state model, binding, permission policy가 하나의 검토 가능한 명세 묶음으로 정리된 화면.",
           "data-placeholder-id": "detail-36"
         },
         {
@@ -843,7 +837,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-37"
         },
         {
-          "placeholder": "ReverseMap debug flow. 테스트 실패가 관련 spec, state transition, API contract로 되돌아가 원인을 찾는 리포트.",
+          "placeholder": "검증 추적 리포트. 테스트 실패가 관련 spec, state transition, API contract와 연결되어 원인을 찾는 화면.",
           "data-placeholder-id": "detail-38"
         }
       ],
@@ -885,7 +879,7 @@ window.ROOT_KERNEL_DETAIL = {
       ],
       "krq": [
         {
-          "placeholder": "Research Topic → Verified Knowledge Card → Reused by Agents 흐름. Wiki Entry와 Search CLI는 작은 보조 표식으로만 표시.",
+          "placeholder": "Research Topic → Verified Knowledge Card → Human Review → Reused by Agents 흐름.",
           "data-placeholder-id": "detail-47"
         },
         {
@@ -917,7 +911,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-13"
         },
         {
-          "placeholder": "Sudal product-experience image centered on the user’s moment of expressing taste, not an analytics dashboard.",
+          "placeholder": "Sudal product-experience image centered on the user’s moment of expressing taste.",
           "data-placeholder-id": "detail-14"
         }
       ],
@@ -999,7 +993,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-31"
         },
         {
-          "placeholder": "Deliberation transcript mockup showing statements, evidence, objections, unresolved issues, and one final Decision Brief.",
+          "placeholder": "Deliberation transcript showing statements, evidence, objections, unresolved issues, and one final Decision Brief.",
           "data-placeholder-id": "detail-32"
         },
         {
@@ -1017,7 +1011,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-35"
         },
         {
-          "placeholder": "Spec Bundle screen with API, state model, binding, permission policy, and bundle_revision_id.",
+          "placeholder": "Spec Bundle screen with API, state model, binding, and permission policy organized as a reviewable specification.",
           "data-placeholder-id": "detail-36"
         },
         {
@@ -1025,7 +1019,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-37"
         },
         {
-          "placeholder": "ReverseMap debug report mapping test failure back to the relevant spec, state transition, or API contract.",
+          "placeholder": "Verification trace report mapping a test failure back to the relevant spec, state transition, or API contract.",
           "data-placeholder-id": "detail-38"
         }
       ],
@@ -1067,7 +1061,7 @@ window.ROOT_KERNEL_DETAIL = {
       ],
       "krq": [
         {
-          "placeholder": "Research Topic → Verified Knowledge Card → Reused by Agents flow, with Wiki Entry and Search CLI only as small support marks.",
+          "placeholder": "Research Topic → Verified Knowledge Card → Human Review → Reused by Agents flow.",
           "data-placeholder-id": "detail-47"
         },
         {
@@ -1090,24 +1084,24 @@ window.ROOT_KERNEL_DETAIL = {
     ko: {
       close: '닫기',
       back: '돌아가기',
-      explorer: 'EXPLORER',
-      technologies: 'Technologies',
-      imagePlaceholders: 'Image Placeholders',
-      currentFile: 'CURRENT FILE',
-      primaryImage: 'Primary image',
-      visualPlan: 'Visual plan',
+      explorer: '관련 기술',
+      technologies: '기술 영역',
+      imagePlaceholders: '작동 예시',
+      currentFile: '상세 설명',
+      primaryImage: '대표 이미지',
+      visualPlan: '추가 예시',
       folderAria: '기술 폴더 열기 또는 닫기'
     },
     en: {
       close: 'Close',
       back: 'Back',
-      explorer: 'EXPLORER',
-      technologies: 'Technologies',
-      imagePlaceholders: 'Image Placeholders',
-      currentFile: 'CURRENT FILE',
-      primaryImage: 'Primary image',
-      visualPlan: 'Visual plan',
-      folderAria: 'Open or close technology folder'
+      explorer: 'Related technologies',
+      technologies: 'Technology areas',
+      imagePlaceholders: 'Examples',
+      currentFile: 'Detail',
+      primaryImage: 'Main visual',
+      visualPlan: 'Additional example',
+      folderAria: 'Open or close technology area'
     }
   };
 
@@ -1143,11 +1137,25 @@ window.ROOT_KERNEL_DETAIL = {
         en: 'AI Persona Pool concept image showing abstract persona cards combining into one Synthetic Audience with coverage, confidence, and limitation trust markers'
       }
     },
+    'detail-5': {
+      src: '/assets/images/agent-1.png',
+      alt: {
+        ko: 'Doksuri에서 작업 항목, 프로젝트, Agent 설정, Command Center, Review 흐름이 하나의 협업 표면으로 연결되는 제품 이미지',
+        en: 'Doksuri product image showing work items, projects, agent settings, Command Center, and review flow connected in one collaboration surface'
+      }
+    },
     'detail-6': {
       src: '/assets/images/agent-2.png',
       alt: {
         ko: 'Moderator가 여러 AI Agent의 토론 순서를 배정하고 Challenge, Risk, Final brief 항목이 있는 Decision Brief로 정리하는 Agent Turn Network 이미지',
         en: 'Agent Turn Network image showing a moderator-led multi-agent discussion thread connected by turn-order markers to a Decision Brief with challenge, risk, and final brief rows'
+      }
+    },
+    'detail-7': {
+      src: '/assets/images/home-2.png',
+      alt: {
+        ko: 'AI가 제안한 서버 변경이 Spec Check, Policy Check, Human Approval을 거쳐 안전한 runtime 변경으로 이어지는 AI-SPARK 승인 게이트 이미지',
+        en: 'AI-SPARK approval-gate image showing an AI-proposed server change passing Spec Check, Policy Check, and Human Approval before reaching runtime'
       }
     },
     'detail-8': {
@@ -1163,6 +1171,13 @@ window.ROOT_KERNEL_DETAIL = {
         ko: 'Kkachi Agent가 Approved Knowledge, Project Memory, Retrieval Result를 분리해 승인된 지식과 임시 검색 결과를 다르게 취급하는 KLM 신뢰 경계 이미지',
         en: 'KLM trust-boundary image showing a Kkachi Agent separating Approved Knowledge, Project Memory, and Retrieval Result so approved knowledge is handled differently from temporary search results'
       }
+    },
+    'detail-10': {
+      src: '/assets/images/hermes-3.png',
+      alt: {
+        ko: 'KRQ에서 조사 자료가 검토 가능한 지식 카드로 정리되고 역할별 Agent 작업에 재사용되는 연구 운영 이미지',
+        en: 'KRQ research-operations image showing research material becoming reusable knowledge cards for role-based agent work'
+      }
     }
   };
   let shell = null;
@@ -1177,10 +1192,6 @@ window.ROOT_KERNEL_DETAIL = {
 
   function selectorValue(value) {
     return String(value == null ? '' : value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-  }
-
-  function slug(value) {
-    return String(value || 'detail').toLowerCase().replace(/[^a-z0-9가-힣]+/gi, '-').replace(/^-|-$/g, '') || 'detail';
   }
 
   function pageItems(page) {
@@ -1211,7 +1222,7 @@ window.ROOT_KERNEL_DETAIL = {
   function imageEntry(value) {
     if (value && typeof value === 'object') {
       return {
-        description: value.placeholder,
+        description: value.caption || value.placeholder,
         placeholderId: value['data-placeholder-id'] || ''
       };
     }
@@ -1313,20 +1324,15 @@ window.ROOT_KERNEL_DETAIL = {
   function renderImageFigure(image, index) {
     const label = index === 0 ? text.primaryImage : text.visualPlan + ' ' + index;
     const asset = imageAsset(image);
-    if (asset) {
-      return '<figure class="card-asset-figure detail-image-asset" data-placeholder-id="' + escapeHtml(image.placeholderId) + '">' +
-        '<img src="' + escapeHtml(asset.src) + '" alt="' + escapeHtml(asset.alt) + '" width="1672" height="941" decoding="async" loading="lazy">' +
-        '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(image.description) + '</span></figcaption>' +
-        '</figure>';
-    }
-    return '<figure class="image-placeholder detail-image-placeholder" data-placeholder-id="' + escapeHtml(image.placeholderId) + '">' +
-      '<div class="placeholder-grid" aria-hidden="true"></div>' +
-      '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(image.description) + '</span></figcaption>' +
+    if (!asset) return '';
+    return '<figure class="card-asset-figure detail-image-asset" data-placeholder-id="' + escapeHtml(image.placeholderId) + '">' +
+      '<img src="' + escapeHtml(asset.src) + '" alt="' + escapeHtml(asset.alt) + '" width="1672" height="941" decoding="async" loading="lazy">' +
+      '<figcaption><strong>' + escapeHtml(label) + '</strong><span>' + escapeHtml(asset.alt) + '</span></figcaption>' +
       '</figure>';
   }
 
   function renderImageSection(page, item) {
-    const images = imageList(page, item).slice(1);
+    const images = imageList(page, item).slice(1).filter(imageAsset);
     if (!images.length) return '';
     return '<section class="doc-image-section">' +
       '<h3>' + escapeHtml(text.imagePlaceholders) + '</h3>' +
@@ -1343,16 +1349,34 @@ window.ROOT_KERNEL_DETAIL = {
   }
 
   function renderMain(page, item) {
-    const filename = (labels[page]?.path || page) + '/' + slug(item.title) + '.md';
+    const breadcrumb = (labels[page]?.title || page) + ' / ' + item.title;
     const images = imageList(page, item);
-    const heroImage = images[0] ? '<div class="doc-hero-image">' + renderImageFigure(images[0], 0) + '</div>' : '';
+    const heroFigure = images[0] ? renderImageFigure(images[0], 0) : '';
+    const heroImage = heroFigure ? '<div class="doc-hero-image">' + heroFigure + '</div>' : '';
     return '<article class="workspace-document">' +
-      '<div class="file-tab"><span>' + escapeHtml(filename) + '</span>' + chip(item.status) + '</div>' +
+      '<div class="file-tab"><span>' + escapeHtml(breadcrumb) + '</span>' + chip(item.status) + '</div>' +
       '<header class="doc-head"><p class="eyebrow">' + escapeHtml(text.currentFile) + '</p><h2>' + escapeHtml(item.title) + '</h2><p class="hero-lead">' + escapeHtml(item.subtitle) + '</p><p>' + escapeHtml(item.summary || '') + '</p></header>' +
       heroImage +
       '<div class="doc-sections">' + renderSections(item) + '</div>' +
       renderImageSection(page, item) +
       '</article>';
+  }
+
+  function removeBrokenDetailImage(event) {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement)) return;
+    const figure = image.closest('.detail-image-asset');
+    if (!figure) return;
+
+    const heroWrap = figure.closest('.doc-hero-image');
+    const imageSection = figure.closest('.doc-image-section');
+    figure.remove();
+    if (heroWrap && !heroWrap.querySelector('.detail-image-asset')) {
+      heroWrap.remove();
+    }
+    if (imageSection && !imageSection.querySelector('.detail-image-asset')) {
+      imageSection.remove();
+    }
   }
 
   function renderTree() {
@@ -1423,6 +1447,7 @@ window.ROOT_KERNEL_DETAIL = {
         '<main class="workspace-main" tabindex="-1" data-workspace-main></main>' +
       '</div>';
     document.body.appendChild(el);
+    el.addEventListener('error', removeBrokenDetailImage, true);
     el.querySelector('.workspace-close').addEventListener('click', closeWorkspace);
     el.querySelector('.sidebar-back').addEventListener('click', closeWorkspace);
     el.addEventListener('click', (event) => {
