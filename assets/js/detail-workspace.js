@@ -7,28 +7,28 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Sudal",
           "subtitle": "Interactive Preference Data Collection Layer",
           "status": "prelaunch",
-          "summary": "이미지 기반 A/B 선택과 밸런스 게임을 통해 취향과 시각적 선호 데이터를 수집하는 제품입니다.",
+          "summary": "이미지 기반 A/B 선택과 밸런스 게임을 통해 취향과 시각적 선호 데이터를 수집합니다.",
           "data-placeholder-id": "detail-1",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "Sudal은 사람들이 이미지 기반 A/B 선택과 밸런스 게임을 통해 자연스럽게 취향, 선호, 컬러, 디자인, 스타일 데이터를 남기도록 설계된 interactive preference data collection layer입니다."
+              "body": "Sudal은 사람들이 이미지 기반 A/B 선택과 밸런스 게임을 하며 자연스럽게 취향과 시각적 선호 데이터를 남기도록 설계된 interactive preference data collection layer입니다."
             },
             {
               "heading": "AI Persona 연구에서의 역할",
-              "body": "Sudal의 반복 선택 데이터와 visual preference signal은 Space Compiler가 preference-grounded AI Persona를 만들기 위한 입력 데이터가 됩니다."
+              "body": "Sudal에서 쌓이는 반복 선택 데이터와 시각적 선호 신호는 Space Compiler가 preference-grounded AI Persona를 만드는 기반 데이터가 됩니다."
             },
             {
               "heading": "수집하는 데이터",
               "list": [
-                "텍스트 + 이미지 기반 밸런스 게임",
-                "컬러, 디자인, 스타일, 분위기에 대한 visual preference signal",
+                "텍스트와 이미지 기반 밸런스 게임",
+                "컬러, 디자인, 스타일, 분위기에 대한 시각적 선호 신호",
                 "질문 맥락과 반복 선택 패턴"
               ]
             },
             {
               "heading": "현재 단계",
-              "body": "Sudal은 출시 준비 단계의 제품입니다. 현재는 이미지 기반 선택 경험과 반복 선택 데이터를 안정적으로 수집하는 구조를 중심으로 준비하고 있습니다."
+              "body": "Sudal은 출시 준비 단계의 제품으로, 이미지 기반 선택 경험과 반복 선택 데이터를 안정적으로 수집하는 구조를 중심으로 개발되고 있습니다."
             }
           ]
         },
@@ -37,28 +37,28 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Space Compiler",
           "subtitle": "Preference & Persona Synthesis Engine",
           "status": "research",
-          "summary": "AI와 심리계량학(Psychometrics)을 결합하여 선택 데이터와 이미지 기반 취향 신호를 가상 고객 페르소나로 합성하는 R&D 엔진입니다.",
+          "summary": "AI와 심리계량학을 결합해 선택 데이터와 이미지 기반 선호를 신뢰성 높은 persona artifact로 변환하는 R&D 엔진입니다.",
           "data-placeholder-id": "detail-2",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "Space Compiler는 Sudal에서 쌓인 반복 선택 데이터와 이미지 기반 취향 신호를 Preference Vector와 AI Persona로 변환하는 분석 엔진입니다. 쉽게 말해, 사용자가 어떤 이미지와 스타일을 반복해서 선택했는지를 바탕으로 취향의 방향과 강도를 추정합니다."
+              "body": "Space Compiler는 Sudal에서 쌓인 반복 선택 데이터와 시각적 선호 신호를 분석해 Preference Vector와 AI Persona로 변환합니다. 사용자가 어떤 이미지와 스타일을 반복해서 선택했는지를 바탕으로 취향의 방향과 강도를 추정합니다."
             },
             {
               "heading": "처리 흐름",
-              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact 흐름으로 작동합니다. 각 단계는 선택 데이터를 바로 결론으로 바꾸지 않고, 근거와 신뢰도를 함께 남기기 위한 구조입니다."
+              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact 순서로 처리합니다. 선택 데이터를 곧바로 결론으로 바꾸기보다, 각 단계에서 근거와 신뢰도를 함께 남기도록 설계되어 있습니다."
             },
             {
               "heading": "연구 기반",
               "list": [
-                "Generative Agents: AI Persona가 기억, 반성, 계획을 가진 에이전트처럼 동작할 수 있다는 연구 흐름을 참고합니다.",
-                "Forced-Choice Image Assessment: 짧은 이미지 A/B 선택이 성향 추정에 유의미한 신호가 될 수 있다는 연구를 참고합니다.",
-                "MIRT/TIRT: A/B 선택의 상대 비교 특성을 다차원 취향 추정으로 연결하기 위한 모델링 방향입니다."
+                "Generative Agents: 기억, 반성, 계획을 가진 에이전트처럼 동작하는 AI Persona 연구 흐름을 참고합니다.",
+                "Forced-Choice Image Assessment: 짧은 이미지 A/B 선택이 성향 추정에 의미 있는 신호가 될 수 있다는 연구를 참고합니다.",
+                "MIRT/TIRT: A/B 선택의 상대 비교를 다차원 취향 추정으로 연결하는 모델링 방향을 참고합니다."
               ]
             },
             {
               "heading": "MIRT/TIRT 모델링",
-              "body": "MIRT와 TIRT는 Space Compiler가 전문성을 갖는 핵심 모델링 방향입니다. MIRT는 취향을 여러 축으로 나누어 추정하고, TIRT는 A/B 선택처럼 서로 비교하는 응답을 잠재 유틸리티 비교로 해석합니다. 이를 통해 단순 선호 집계보다 더 안정적인 취향 벡터를 만드는 것을 목표로 합니다."
+              "body": "MIRT와 TIRT는 Space Compiler의 핵심 모델링 방향입니다. MIRT는 취향을 여러 축으로 나누어 추정하고, TIRT는 A/B 선택처럼 서로 비교하는 응답을 잠재 유틸리티 비교로 해석합니다. Space Compiler는 이를 바탕으로 단순 선호 집계보다 더 안정적인 취향 벡터를 만드는 것을 목표로 합니다."
             },
             {
               "heading": "예상 산출물",
@@ -71,7 +71,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "현재 단계",
-              "body": "Space Compiler는 연구 및 초기 구현 단계의 핵심 엔진입니다. 현재는 선택 데이터가 Preference Vector, Evidence, Confidence, AI Persona로 이어지는 흐름을 검증하는 데 집중하고 있습니다."
+              "body": "Space Compiler는 연구 및 초기 구현 단계의 핵심 엔진입니다. 선택 데이터가 Preference Vector, Evidence, Confidence, AI Persona로 이어지는 흐름을 검증하는 데 집중하고 있습니다."
             }
           ]
         },
@@ -80,12 +80,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Vision Feedback with AI Persona",
           "subtitle": "First product of AI Persona Synthesis Research",
           "status": "direction",
-          "summary": "상품, 브랜드, 광고, 패키지, UI 디자인 반응을 AI Persona와 synthetic audience로 탐색하는 첫 적용 방향입니다.",
+          "summary": "상품, 브랜드, 광고, 패키지, UI 디자인 반응 분석에 먼저 적용합니다.",
           "data-placeholder-id": "detail-3",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "Vision Feedback은 제품, 브랜드, 광고, 패키지, UI 시안을 AI Persona 관점에서 먼저 검토하는 적용 시나리오입니다."
+              "body": "Vision Feedback은 제품, 브랜드, 광고, 패키지, UI 시안에 대한 반응을 AI Persona로 먼저 확인하는 적용 시나리오입니다."
             },
             {
               "heading": "적용 영역",
@@ -99,11 +99,11 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "예상 산출물",
-              "body": "Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, Risk and Question List 같은 산출물로 이어지는 방향을 지향합니다."
+              "body": "Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, Risk and Question List 형태의 산출물로 정리하는 것을 목표로 합니다."
             },
             {
               "heading": "현재 단계",
-              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조가 연결된 이후 가장 먼저 적용할 수 있는 디자인 반응 조사 방향입니다. 제품, 브랜드, 광고, 패키지, UI 시안에 대한 선호 이유와 거부 요인을 AI Persona와 synthetic audience로 빠르게 수집하고 비교하는 것을 목표로 합니다."
+              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조를 연결해 가장 먼저 적용할 디자인 반응 조사 영역입니다. 제품, 브랜드, 광고, 패키지, UI 시안에 대한 선호 이유와 거부 요인을 AI Persona와 synthetic audience로 빠르게 수집하고 비교하는 것을 목표로 합니다."
             }
           ]
         },
@@ -112,29 +112,29 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI Persona & Synthetic Audience",
           "subtitle": "AI Persona Pool as a Service",
           "status": "platform",
-          "summary": "Vision Feedback을 넘어 설문조사와 여론조사에 활용할 수 있는 AI Persona Pool을 만들고, 기존 조사보다 빠르고 낮은 비용으로 반복 실행할 수 있는 서비스형 인프라를 지향합니다.",
+          "summary": "Vision Feedback을 넘어 설문조사와 여론조사에 활용할 수 있는 AI Persona Pool을 만들고, 장기적으로 조사 기관에 persona pool을 제공하는 서비스형 인프라로 확장합니다.",
           "data-placeholder-id": "detail-4",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "AI Persona & Synthetic Audience는 개별 AI Persona, persona pool, synthetic audience를 하나의 장기 플랫폼 방향으로 묶은 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
+              "body": "AI Persona & Synthetic Audience는 개별 AI Persona를 persona pool과 synthetic audience로 확장해 가는 장기 플랫폼 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
             },
             {
               "heading": "제공 방향",
               "list": [
                 "조사 목적에 맞는 AI Persona Pool 구성",
                 "모집단 조건, 세그먼트, confidence, coverage 확인",
-                "설문 문항 응답 시뮬레이션과 persona interview",
-                "여론조사·시장조사 기관이 사용할 수 있는 persona pool 제공"
+                "설문 문항 응답 시뮬레이션과 persona interview 지원",
+                "여론조사·시장조사 기관을 위한 persona pool 제공"
               ]
             },
             {
               "heading": "왜 필요한가",
-              "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 기존 설문조사와 여론조사가 응답자 모집, raw data 수집, 분석에 며칠 이상과 인건비·패널 비용을 쓰는 반면, AIPSR은 브랜드 조사, 설문조사, 여론조사에서 접촉 가능한 사람 응답과 AI Persona 응답을 함께 다루며 더 빠르고 낮은 비용으로 반복 조사하는 인프라로 발전시키는 계획입니다."
+              "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 기존 설문조사와 여론조사는 응답자 모집, raw data 수집, 분석에 며칠 이상의 시간과 인건비·패널 비용이 필요합니다. AIPSR은 접촉 가능한 사람 응답과 AI Persona 응답을 함께 다루며, 브랜드 조사와 설문조사, 여론조사를 더 빠르고 낮은 비용으로 반복할 수 있는 인프라로 발전하는 것을 목표로 합니다."
             },
             {
               "heading": "사용 범위",
-              "body": "AI Persona & Synthetic Audience는 모든 사람 응답을 무차별적으로 대체하는 방식이 아닙니다. 실제 접촉 가능한 사람군은 사람 응답으로 다루고, 접촉하기 어렵거나 응답이 부족한 사람군은 AI Persona와 synthetic audience로 확장하거나 일부 대체하는 조사 인프라를 목표로 합니다."
+              "body": "AI Persona & Synthetic Audience는 모든 사람 응답을 AI로 대체하려는 방식이 아닙니다. 실제 접촉 가능한 응답자는 사람 응답으로 다루고, 접촉하기 어렵거나 응답이 부족한 세그먼트는 AI Persona와 synthetic audience로 보완하는 조사 인프라를 목표로 합니다."
             }
           ]
         }
@@ -145,24 +145,24 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Doksuri",
           "subtitle": "Markdown-native Human-AI Collaboration Platform",
           "status": "operating_dev",
-          "summary": "사람과 AI Agent가 같은 Markdown 문서를 보며 요구사항, 작업 결과, 근거, 리뷰를 함께 남기는 협업 도구입니다.",
+          "summary": "사람과 AI Agent가 같은 Markdown 문서를 기반으로 소통하고, 업무 지시부터 작업 결과, evidence, review까지 한곳에 기록하는 협업 도구입니다.",
           "data-placeholder-id": "detail-5",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "Doksuri는 Markdown-native Human-AI Collaboration Platform입니다. 쉽게 말하면, AI와의 작업이 채팅창에 흩어지지 않고 하나의 문서 안에 요구사항, 결과, 근거, 리뷰 기록으로 남게 하는 협업 도구입니다."
+              "body": "Doksuri는 Markdown-native Human-AI Collaboration Platform입니다. AI와의 작업이 채팅창에 흩어지지 않고, 요구사항, 결과, 근거, 리뷰 기록이 하나의 문서 안에 남도록 돕는 협업 도구입니다."
             },
             {
               "heading": "왜 Markdown인가",
-              "body": "Markdown은 단순 문서 포맷이 아니라, 사람과 Agent가 함께 읽고 쓰는 업무 인터페이스가 됩니다."
+              "body": "Markdown은 단순한 문서 포맷이 아니라, 사람과 Agent가 함께 읽고 쓰며 일하는 업무 인터페이스입니다."
             },
             {
               "heading": "작동 흐름",
               "list": [
                 "사람이 문서에 업무 요구사항, 판단 기준, 작업 지시를 작성합니다.",
-                "Agent가 같은 문서를 읽고 작업하며 필요한 질문과 결과를 남깁니다.",
-                "작업 결과, 근거, 리뷰, 결정 기록이 같은 문서 상태 안에 남습니다.",
-                "Kkachi Agent들과 연결되어 회사 전반의 Agent 작업 지시와 결과 기록 도구가 됩니다."
+                "Agent는 같은 문서를 읽고 작업하며, 필요한 질문과 결과를 남깁니다.",
+                "작업 결과, 근거, 리뷰, 결정 기록은 같은 문서 안에 남습니다.",
+                "Kkachi Agent들과 연결되어 회사 전반의 Agent 작업 지시와 결과 기록을 관리합니다."
               ]
             }
           ]
@@ -172,26 +172,26 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "ATN",
           "subtitle": "Agent Turn Network",
           "status": "improving",
-          "summary": "여러 AI Agent가 하나의 문제를 역할별로 검토하고, 발언 순서와 반박 과정을 남기는 multi-agent deliberation layer입니다.",
+          "summary": "Moderator가 발언 순서를 배정하고, 여러 AI Agent가 각자의 역할과 관점에서 의견을 내고 서로 검토하도록 돕는 deliberation layer입니다.",
           "data-placeholder-id": "detail-6",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "ATN, Agent Turn Network는 Moderator가 발언 순서를 관리해 여러 AI Agent가 하나의 문제를 역할별로 검토하도록 만드는 구조입니다. 단순히 여러 답변을 모아 요약하는 방식이 아니라, 누가 어떤 근거로 말했고 어떤 반박이 있었는지를 대본처럼 남깁니다."
+              "body": "ATN, Agent Turn Network는 Moderator가 발언 순서를 관리해 여러 AI Agent가 하나의 문제를 역할별로 검토하도록 만드는 구조입니다. 단순히 여러 답변을 모아 요약하는 방식이 아니라, 누가 어떤 근거로 말했고 어떤 반박이 있었는지를 대화 흐름으로 남깁니다."
             },
             {
               "heading": "토론 흐름",
               "list": [
                 "Moderator가 다음 발언자를 지정합니다.",
-                "각 Agent가 역할 기반 의견을 냅니다.",
+                "각 Agent가 역할에 맞는 의견을 냅니다.",
                 "다른 Agent가 이전 발언을 보고 동의하거나 반박합니다.",
-                "누가 어떤 순서로 말했고 무엇을 반박했는지 실제 대화처럼 남습니다.",
-                "사람의 최종 판단 전에 구조화된 decision material을 제공합니다."
+                "누가 어떤 순서로 말했고 무엇을 검토했는지 실제 대화 흐름처럼 남습니다.",
+                "사람이 최종 판단을 내리기 전에 구조화된 판단 자료를 제공합니다."
               ]
             },
             {
               "heading": "적용 영역",
-              "body": "제품 방향, architecture decision, risk review, research question refinement처럼 회사 전반의 중요한 판단에 사용됩니다."
+              "body": "제품 방향, architecture decision, risk review, research question refinement 등 회사 전반의 중요한 판단을 검토하는 데 활용합니다."
             }
           ]
         },
@@ -200,26 +200,26 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI-SPARK",
           "subtitle": "AI Spec, Policy, Approval, Runtime Kit",
           "status": "patent",
-          "summary": "AI가 제안한 서버 변경을 바로 적용하지 않고, 명세화, 검증, 승인 단계를 거쳐 안전하게 반영하는 백엔드 개발 거버넌스 기술입니다.",
+          "summary": "AI가 제안한 서버 변경을 바로 적용하지 않고, 명세화, 검증, 승인 단계를 거쳐 안전하게 반영하는 agentic backend development 기술입니다.",
           "data-placeholder-id": "detail-7",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "AI-SPARK는 자연어 요구사항을 바로 서버 변경으로 반영하지 않고, 먼저 Spec Bundle로 정리한 뒤 Validator와 Approval Gate를 거치게 합니다. 핵심은 AI 개발 속도를 활용하되, 승인되지 않은 변경이나 정책 위반이 런타임에 반영되지 않도록 막는 것입니다."
+              "body": "AI-SPARK는 자연어 요구사항을 바로 서버 변경으로 반영하지 않고, 먼저 Spec Bundle로 정리한 뒤 Validator와 Approval Gate를 거치게 합니다. AI 개발 속도를 활용하면서도, 승인되지 않은 변경이나 정책 위반이 런타임에 반영되지 않도록 관리합니다."
             },
             {
               "heading": "핵심 구성",
               "list": [
                 "Spec Bundle: 요구사항, API, 상태 변경, 권한 조건을 검토 가능한 명세로 묶습니다.",
                 "Validator: 정책 위반, 스키마 오류, 승인되지 않은 변경을 사전에 점검합니다.",
-                "Approval Gate: 사람이 승인한 변경만 다음 단계로 넘어가게 합니다.",
+                "Approval Gate: 사람이 승인한 변경만 다음 단계로 진행되도록 합니다.",
                 "Fail-Closed: 불확실하거나 승인되지 않은 변경은 기본적으로 차단합니다.",
-                "Audit Trail: 어떤 요구사항이 어떤 서버 변경으로 이어졌는지 추적 가능하게 남깁니다."
+                "Audit Trail: 어떤 요구사항이 어떤 서버 변경으로 이어졌는지 추적할 수 있게 남깁니다."
               ]
             },
             {
               "heading": "작동 흐름",
-              "body": "서버 변경이 필요할 때 요구사항을 먼저 검토 가능한 명세로 정리하고, 정책 검증과 사람의 승인 절차를 통과한 변경만 반영하는 구조입니다."
+              "body": "서버 변경이 필요할 때 요구사항을 먼저 검토 가능한 명세로 정리하고, 정책 검증과 사람의 승인을 거친 변경만 반영하는 구조입니다."
             }
           ]
         }
@@ -230,24 +230,24 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KAO",
           "subtitle": "Kkachi Agent Organization",
           "status": "operating",
-          "summary": "Hermes 위에서 Kkachi Agent를 프로젝트별, 역할별로 분리해 운영하는 Agent Operating Model입니다.",
+          "summary": "Hermes를 기반으로 여러 Kkachi Agent를 프로젝트와 역할별로 나누어 운영하는 Agent Operating Model입니다.",
           "data-placeholder-id": "detail-8",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "KAO, Kkachi Agent Organization은 Root Kernel이 Hermes 위에서 운영하는 AI Agent 조직 모델입니다."
+              "body": "KAO, Kkachi Agent Organization은 Root Kernel이 Hermes를 기반으로 운영하는 AI Agent 조직 모델입니다."
             },
             {
               "heading": "운영 구조",
-              "body": "KAO는 하나의 AI에게 모든 일을 맡기지 않고, Kkachi Agent를 프로젝트별, 역할별로 분리해 운영합니다. 실행, 리뷰, 사용자 관점, 문서 정합성, UX 판단을 나누어 다루는 것이 핵심입니다."
+              "body": "KAO는 하나의 AI에게 모든 일을 맡기지 않고, Kkachi Agent를 프로젝트별, 역할별로 나누어 운영합니다. 실행, 리뷰, 사용자 관점, 문서 일관성, UX 판단을 각기 다른 역할로 분리해 다룹니다."
             },
             {
               "heading": "대표 역할",
-              "body": "각 색의 Kkachi Agent가 build, review, user check, docs, UX처럼 서로 다른 역할을 맡고, 사람이 정한 목표를 향해 작업 조각을 이어 하나의 결과물로 완성합니다."
+              "body": "색상별 Kkachi Agent가 build, review, user check, docs, UX 등 서로 다른 역할을 맡고, 사람이 정한 목표를 여러 작업 조각으로 나누어 하나의 결과물로 완성합니다."
             },
             {
               "heading": "개발 위임",
-              "body": "Blue는 실행, Red는 리뷰, Orange는 사용자 관점, Grey는 문서 정합성, Teal은 UX/UI 판단을 보완합니다. 사람은 방향 설정, 검증 기준, 테스트, 최종 승인에 집중합니다."
+              "body": "Blue는 실행을 맡고, Red는 리뷰, Orange는 사용자 관점, Grey는 문서 일관성, Teal은 UX/UI 판단을 검토합니다. 사람은 방향 설정, 검증 기준, 테스트, 최종 승인에 집중합니다."
             }
           ]
         },
@@ -256,12 +256,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KLM",
           "subtitle": "Kkachi Letta Memory",
           "status": "improving",
-          "summary": "AI Agent가 승인된 지식, 프로젝트 메모리, 임시 검색 결과를 구분해 사용하도록 돕는 메모리 신뢰 경계 시스템입니다.",
+          "summary": "AI Agent가 승인된 지식, 프로젝트 메모리, 임시 검색 결과를 구분해 사용하도록 돕는 memory trust boundary 시스템입니다.",
           "data-placeholder-id": "detail-9",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "KLM, Kkachi Letta Memory는 Hermes Agent가 과거 작업 기억과 승인된 지식, 임시 검색 결과를 구분해 사용하도록 돕는 메모리 관리 체계입니다. AI가 검증되지 않은 정보를 사실처럼 사용하는 위험을 줄이는 것이 목적입니다."
+              "body": "KLM, Kkachi Letta Memory는 Hermes Agent가 과거 작업 기억과 승인된 지식, 임시 검색 결과를 구분해 사용하도록 돕는 메모리 관리 체계입니다. AI가 검증되지 않은 정보를 사실처럼 사용하는 위험을 줄이기 위해 설계되었습니다."
             },
             {
               "heading": "신뢰 경계",
@@ -269,12 +269,12 @@ window.ROOT_KERNEL_DETAIL = {
                 "Approved Knowledge: 사람이 검토했거나 기준 문서로 승인한 지식입니다.",
                 "Project Memory: 프로젝트 진행 중 쌓인 작업 맥락입니다.",
                 "Retrieval Result: 검색이나 조회로 가져온 임시 정보입니다.",
-                "Review Boundary: 임시 정보가 승인된 지식으로 섞이기 전에 검토 단계를 둡니다."
+                "Review Boundary: 임시 정보가 승인된 지식과 섞이기 전에 검토 과정을 거치게 합니다."
               ]
             },
             {
               "heading": "운영 방향",
-              "body": "Letta 기반 memory와 LLM Wiki를 활용하되, 승인된 지식과 임시 정보를 구분하는 방향으로 운영합니다."
+              "body": "Letta 기반 memory와 LLM Wiki를 활용하면서도, 승인된 지식과 임시 정보를 구분해 운영합니다."
             }
           ]
         },
@@ -283,23 +283,23 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KRQ",
           "subtitle": "Kkachi Research Queue",
           "status": "improving",
-          "summary": "Black과 Yellow Kkachi Agent가 자료 조사와 지식 재구성을 통해 검증된 지식 카드를 만들고, 다른 Agent가 재사용하게 하는 연구와 지식 운영 큐입니다.",
+          "summary": "Black과 Yellow Kkachi Agent가 자료 조사와 지식 재구성을 맡아 검증된 지식 카드를 만들고, 이를 다른 Agent가 재사용할 수 있도록 관리하는 연구·지식 운영 시스템입니다.",
           "data-placeholder-id": "detail-10",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "KRQ, Kkachi Research Queue는 조사한 자료를 일회성 검색으로 끝내지 않고, 검토 가능한 지식 카드로 정리해 다음 작업에서 다시 사용할 수 있게 만드는 연구 운영 큐입니다."
+              "body": "KRQ, Kkachi Research Queue는 조사한 자료를 일회성 검색으로 끝내지 않고, 검토 가능한 지식 카드로 정리해 다음 작업에서 다시 사용할 수 있도록 돕는 연구·지식 운영 시스템입니다."
             },
             {
               "heading": "운영 흐름",
-              "body": "Research Topic → Verified Notes → Knowledge Card → Human Review → Reused by Agents 흐름으로 작동합니다."
+              "body": "Research Topic → Verified Notes → Knowledge Card → Human Review → Agent Reuse 순서로 지식을 정리하고 다시 활용합니다."
             },
             {
               "heading": "역할",
               "list": [
                 "Black은 프로젝트와 회사 의사결정에 필요한 배경 지식을 정리합니다.",
                 "Yellow는 연구 주제의 논리적 배경과 가설 후보를 강화합니다.",
-                "사람은 조사 범위와 검증 기준을 조정하고, 재사용 가능한 지식으로 승인합니다."
+                "사람은 조사 범위와 검증 기준을 조정하고, 재사용 가능한 지식으로 남길지 승인합니다."
               ]
             }
           ]
