@@ -11,10 +11,10 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
 
 const ALLOWED_TOPICS = new Set([
-  'Lecture',
-  'Workshop',
+  'PoC / Product Development Collaboration',
+  'Partnership',
   'Consulting',
-  'PoC / Product Development Collaboration'
+  'Lecture / Workshop'
 ]);
 
 const LIMITS = {
@@ -30,18 +30,18 @@ const copy = {
   ko: {
     disabled: '문의 저장 설정이 아직 완료되지 않았습니다. 직접 이메일로 연락해 주세요.',
     invalid: '필수 항목과 동의 여부를 확인해 주세요.',
-    sending: '저장 중...',
-    success: '문의가 저장되었습니다. 확인 후 연락드리겠습니다.',
-    failure: '문의 저장에 실패했습니다. 잠시 후 다시 시도하거나 직접 이메일로 연락해 주세요.',
-    button: '문의 저장하기'
+    sending: '전송 중...',
+    success: '문의가 접수되었습니다. 확인 후 연락드리겠습니다.',
+    failure: '문의 전송에 실패했습니다. 잠시 후 다시 시도하거나 직접 이메일로 연락해 주세요.',
+    button: '문의 보내기'
   },
   en: {
     disabled: 'Contact storage is not configured yet. Please use direct email.',
     invalid: 'Check the required fields and consent checkbox.',
-    sending: 'Saving...',
-    success: 'Your inquiry was saved. We will review it and follow up.',
-    failure: 'Could not save the inquiry. Try again later or use direct email.',
-    button: 'Save inquiry'
+    sending: 'Sending...',
+    success: 'Your inquiry has been received. We will review it and follow up.',
+    failure: 'Could not send the inquiry. Try again later or use direct email.',
+    button: 'Send inquiry'
   }
 };
 

@@ -99,11 +99,11 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "예상 산출물",
-              "body": "Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, Risk and Question List 형태의 산출물로 정리하는 것을 목표로 합니다."
+              "body": "시안별 선호안, 비선호 이유, 응답군별 후속 질문, 전체 패널 개선 방향, 응답 집계처럼 실제 조사 흐름에서 바로 쓰이는 단위로 정리하는 것을 목표로 합니다."
             },
             {
               "heading": "현재 단계",
-              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조를 연결해 가장 먼저 적용할 디자인 반응 조사 영역입니다. 제품, 브랜드, 광고, 패키지, UI 시안에 대한 선호 이유와 거부 요인을 AI Persona와 synthetic audience로 빠르게 수집하고 비교하는 것을 목표로 합니다."
+              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조를 연결해 가장 먼저 적용할 디자인 반응 조사 영역입니다. 사람 패널을 매번 모집하지 않고, 수만·수십만·수백만 단위의 대규모 Synthetic Audience와 빠르게 대화하며 제품, 브랜드, 광고, 패키지, UI 시안에 대한 선호 이유와 거부 요인, 개선 방향을 수집하고 비교하는 것을 목표로 합니다."
             }
           ]
         },
@@ -112,12 +112,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI Persona & Synthetic Audience",
           "subtitle": "AI Persona Pool as a Service",
           "status": "platform",
-          "summary": "Vision Feedback을 넘어 설문조사와 여론조사에 활용할 수 있는 AI Persona Pool을 만들고, 장기적으로 조사 기관에 persona pool을 제공하는 서비스형 인프라로 확장합니다.",
+          "summary": "Vision Feedback을 넘어 더 넓은 설문, 인터뷰, 후속 리서치 흐름을 지원할 AI Persona Pool과 Synthetic Audience 인프라로 확장합니다.",
           "data-placeholder-id": "detail-4",
           "sections": [
             {
               "heading": "무엇인가",
-              "body": "AI Persona & Synthetic Audience는 개별 AI Persona를 persona pool과 synthetic audience로 확장해 가는 장기 플랫폼 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
+              "body": "AI Persona & Synthetic Audience는 개별 AI Persona를 persona pool과 Synthetic Audience로 확장해 가는 장기 플랫폼 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
             },
             {
               "heading": "제공 방향",
@@ -125,16 +125,16 @@ window.ROOT_KERNEL_DETAIL = {
                 "조사 목적에 맞는 AI Persona Pool 구성",
                 "모집단 조건, 세그먼트, confidence, coverage 확인",
                 "설문 문항 응답 시뮬레이션과 persona interview 지원",
-                "여론조사·시장조사 기관을 위한 persona pool 제공"
+                "더 넓은 리서치 흐름에서 재사용 가능한 persona pool"
               ]
             },
             {
               "heading": "왜 필요한가",
-              "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 기존 설문조사와 여론조사는 응답자 모집, raw data 수집, 분석에 며칠 이상의 시간과 인건비·패널 비용이 필요합니다. AIPSR은 접촉 가능한 사람 응답과 AI Persona 응답을 함께 다루며, 브랜드 조사와 설문조사, 여론조사를 더 빠르고 낮은 비용으로 반복할 수 있는 인프라로 발전하는 것을 목표로 합니다."
+              "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 기존 설문조사와 인터뷰는 응답자 모집, raw data 수집, 분석에 며칠 이상의 시간과 인건비·패널 비용이 필요합니다. AIPSR은 접촉 가능한 사람 응답과 Synthetic Audience 응답을 함께 다루며, 브랜드 조사와 설문, 후속 인터뷰를 더 빠르고 낮은 비용으로 반복할 수 있는 인프라로 발전하는 것을 목표로 합니다."
             },
             {
               "heading": "사용 범위",
-              "body": "AI Persona & Synthetic Audience는 모든 사람 응답을 AI로 대체하려는 방식이 아닙니다. 실제 접촉 가능한 응답자는 사람 응답으로 다루고, 접촉하기 어렵거나 응답이 부족한 세그먼트는 AI Persona와 synthetic audience로 보완하는 조사 인프라를 목표로 합니다."
+              "body": "AI Persona & Synthetic Audience는 모든 사람 응답을 AI로 대체하려는 방식이 아닙니다. 실제 접촉 가능한 응답자는 사람 응답으로 다루고, 접촉하기 어렵거나 응답이 부족한 세그먼트는 AI Persona와 Synthetic Audience로 보완하는 조사 인프라를 목표로 합니다."
             }
           ]
         }
@@ -371,7 +371,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "Scope and limitations",
-              "body": "Space Compiler is not a clinical diagnostic tool and does not aim to perfectly predict individual psychology. It is designed to turn grounded choice and preference signals into AI Personas that can participate in survey, polling, and design-response workflows, especially where some audience segments are hard to contact or underrepresented. The MVP starts with a robust deterministic baseline (weighted_linear_v0), and will scale to fully calibrated TIRT/MIRT models as empirical response data accumulates."
+              "body": "Space Compiler is not a clinical diagnostic tool and does not aim to perfectly predict individual psychology. It is designed to turn grounded choice and preference signals into AI Personas that can participate in Synthetic Audience and design-response workflows, especially where some audience segments are hard to contact or underrepresented. The MVP starts with a robust deterministic baseline (weighted_linear_v0), and will scale to fully calibrated TIRT/MIRT models as empirical response data accumulates."
             },
             {
               "heading": "Expected outputs",
@@ -397,12 +397,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Vision Feedback with AI Persona",
           "subtitle": "First application direction for AI Persona Synthesis Research",
           "status": "direction",
-          "summary": "The first application direction for exploring reactions to product, brand, advertising, package, and UI designs with AI Personas and synthetic audiences.",
+          "summary": "The first application direction for asking Synthetic Audiences about product, brand, advertising, packaging, and UI design drafts.",
           "data-placeholder-id": "detail-3",
           "sections": [
             {
               "heading": "What it is",
-              "body": "Vision Feedback is an application scenario for reviewing product, brand, advertising, packaging, and UI design drafts through AI Persona perspectives."
+              "body": "Vision Feedback is an application scenario for asking Synthetic Audiences about reactions to product, brand, advertising, packaging, and UI design drafts."
             },
             {
               "heading": "Use cases",
@@ -416,11 +416,11 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "Expected outputs",
-              "body": "It connects to Design Response Report, Segment Reaction Map, Visual Preference Profile, Persona Reaction Note, and Risk and Question List."
+              "body": "It is designed to organize draft preference, rejection reasons, segment-level follow-up questions, full-panel improvement directions, and response aggregation into units teams can use directly in a research workflow."
             },
             {
               "heading": "Current stage",
-              "body": "Vision Feedback is the first design-response research direction to apply after Sudal choice data and Space Compiler persona synthesis are connected. It aims to gather and compare preference reasons and rejection factors for product, brand, advertising, packaging, and UI variants through AI Personas and synthetic audiences."
+              "body": "Vision Feedback is the first design-response research direction to apply after Sudal choice data and Space Compiler persona synthesis are connected. Instead of recruiting a new human panel every time, it aims to let teams quickly interact with Synthetic Audiences at tens of thousands, hundreds of thousands, or millions of responses, gathering and comparing preference reasons, rejection factors, and improvement directions for product, brand, advertising, packaging, and UI variants."
             }
           ]
         },
@@ -429,12 +429,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "AI Persona & Synthetic Audience",
           "subtitle": "AI Persona Pool as a Service",
           "status": "platform",
-          "summary": "Beyond Vision Feedback, Root Kernel aims to build AI Persona Pools for surveys and polling, and service infrastructure that can run repeated research faster and at lower cost than conventional survey workflows.",
+          "summary": "Beyond Vision Feedback, Root Kernel aims to build AI Persona Pools and Synthetic Audience infrastructure that can support broader surveys, interviews, and research workflows as a later platform direction.",
           "data-placeholder-id": "detail-4",
           "sections": [
             {
               "heading": "What it is",
-              "body": "AI Persona & Synthetic Audience groups individual AI Personas, persona pools, and synthetic audiences into one long-term platform direction. A Synthetic Audience is a virtual customer group assembled from AI Personas for a specific research purpose."
+              "body": "AI Persona & Synthetic Audience groups individual AI Personas, persona pools, and Synthetic Audiences into one long-term platform direction. A Synthetic Audience is a virtual customer group assembled from AI Personas for a specific research purpose."
             },
             {
               "heading": "Service direction",
@@ -442,16 +442,16 @@ window.ROOT_KERNEL_DETAIL = {
                 "AI Persona Pools configured for a research goal",
                 "Population conditions, segments, confidence, and coverage",
                 "Survey response simulation and persona interviews",
-                "Persona pools that research and polling organizations can use"
+                "Reusable persona pools for broader research workflows"
               ]
             },
             {
               "heading": "Why it matters",
-              "body": "Vision Feedback is the first application product. AI Persona Pool as a Service is the later expansion path: while conventional surveys and polling can spend days on respondent recruitment, raw-data collection, analysis, labor, and panel costs, AIPSR is planned as infrastructure for combining reachable human responses with AI Persona responses across brand research, surveys, and polling at faster iteration speed and lower unit cost."
+              "body": "Vision Feedback is the first application product. AI Persona Pool as a Service is the later expansion path: while conventional surveys and interviews can spend days on respondent recruitment, raw-data collection, analysis, labor, and panel costs, AIPSR is planned as infrastructure for combining reachable human responses with Synthetic Audience responses across brand research, surveys, and follow-up interviews at faster iteration speed and lower unit cost."
             },
             {
               "heading": "Usage boundary",
-              "body": "AI Persona & Synthetic Audience is not a blanket replacement for every human response. It is intended as research infrastructure that can use real human responses where people can be contacted, while extending or partially replacing hard-to-contact and underrepresented segments with AI Personas and synthetic audiences."
+              "body": "AI Persona & Synthetic Audience is not a blanket replacement for every human response. It is intended as research infrastructure that can use real human responses where people can be contacted, while extending or partially replacing hard-to-contact and underrepresented segments with AI Personas and Synthetic Audiences."
             }
           ]
         }
@@ -462,7 +462,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Doksuri",
           "subtitle": "Markdown-native Human-AI Collaboration Platform",
           "status": "operating_dev",
-          "summary": "A collaboration surface used across company work where people and AI Agents read and write the same Markdown documents.",
+          "summary": "A collaboration tool where people and AI Agents use the same Markdown documents for task instructions, results, evidence, and review.",
           "data-placeholder-id": "detail-5",
           "sections": [
             {
@@ -552,7 +552,7 @@ window.ROOT_KERNEL_DETAIL = {
           "sections": [
             {
               "heading": "What it is",
-              "body": "KAO, Kkachi Agent Organization, is Root Kernel’s AI Agent organization model operating on Hermes."
+              "body": "KAO, Kkachi Agent Organization, is Root Kernel’s role-based AI Agent operating model built on Hermes."
             },
             {
               "heading": "Operating structure",
@@ -560,7 +560,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "Representative roles",
-              "body": "Each colored Kkachi Agent carries a different role such as build, review, user check, docs, or UX, then connects its work piece toward the human-defined goal."
+              "body": "Each colored Kkachi Agent carries a different role such as build, review, user check, docs, or UX, then connects its work piece toward the human-defined goal and final deliverable."
             },
             {
               "heading": "Development delegation",
@@ -600,7 +600,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "KRQ",
           "subtitle": "Kkachi Research Queue",
           "status": "improving",
-          "summary": "A research and knowledge operations queue where Black and Yellow Kkachi Agents collect, reframe, store, and index knowledge.",
+          "summary": "A research and knowledge operations system where Black and Yellow Kkachi Agents create verified knowledge cards for reuse by other Agents.",
           "data-placeholder-id": "detail-10",
           "sections": [
             {
