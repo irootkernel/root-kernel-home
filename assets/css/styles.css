@@ -98,6 +98,7 @@ p { color: var(--muted); }
 .tech-card .card-asset-figure { margin-top: auto !important; }
 .card-actions { padding-top: .7rem; }
 .tech-card .card-actions { margin-top: 0; }
+.card-actions-split { display: flex; align-items: center; justify-content: space-between; gap: .75rem; width: 100%; }
 .pillar-card .card-actions, .contact-card .card-actions { margin-top: auto; }
 .status-chip { display: inline-flex; align-items: center; gap: .35rem; padding: .27rem .56rem; border-radius: 999px; border: 1px solid rgba(17,115,107,.18); background: rgba(17,115,107,.08); color: var(--teal); font-size: .76rem; font-weight: 900; }
 .status-operating { color: var(--green); border-color: rgba(36,116,80,.22); background: rgba(36,116,80,.09); }
