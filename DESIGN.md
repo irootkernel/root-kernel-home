@@ -87,8 +87,16 @@ All spacing derives from a 4px base. Existing CSS uses rem values that map to th
 ### Sticky Navigation
 
 - **Structure**: `.site-header` containing `.nav-shell`, `.brand`, `.site-nav`, `.lang-switch`.
+- **Brand asset**: use `rootkernel-wide-logo-light.svg` on the site's light surfaces. Keep the linked image decorative and preserve the link's accessible name.
 - **States**: active and hover states use muted teal surface.
 - **Accessibility**: skip link and mobile menu button are present.
+
+### Brand Assets
+
+- Use `rootkernel-wide-logo-light.svg` for the header, footer, and other light-background wordmark placements.
+- Use `rootkernel-wide-logo.svg` only on dark backgrounds.
+- Derive browser and installed-app icons from the dark `rootkernel-logo-square.png` master so the symbol remains visible against browser chrome.
+- Keep explicit image dimensions on rendered logos to prevent layout shift.
 
 ### Image Placeholder
 
