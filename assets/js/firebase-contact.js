@@ -11,6 +11,10 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
 
 const ALLOWED_TOPICS = new Set([
+  'AI-SPARK',
+  'AI Harness',
+  'AI Agent',
+  'Partnership / Other',
   'PoC / Product Development Collaboration',
   'Partnership',
   'Consulting',
@@ -28,18 +32,18 @@ const LIMITS = {
 
 const copy = {
   ko: {
-    disabled: '문의 저장 설정이 아직 완료되지 않았습니다. 직접 이메일로 연락해 주세요.',
-    invalid: '필수 항목과 동의 여부를 확인해 주세요.',
+    disabled: '현재 온라인 문의를 이용할 수 없습니다. contact@rootkernel.xyz로 직접 문의해 주세요.',
+    invalid: '필수 입력 항목과 개인정보 처리 동의 여부를 확인해 주세요.',
     sending: '전송 중...',
-    success: '문의가 접수되었습니다. 확인 후 연락드리겠습니다.',
-    failure: '문의 전송에 실패했습니다. 잠시 후 다시 시도하거나 직접 이메일로 연락해 주세요.',
-    button: '문의 보내기'
+    success: '문의가 접수되었습니다.',
+    failure: '문의 전송 중 오류가 발생했습니다. 잠시 후 다시 시도하거나 contact@rootkernel.xyz로 문의해 주세요.',
+    button: '프로젝트 문의 보내기'
   },
   en: {
-    disabled: 'Contact storage is not configured yet. Please use direct email.',
+    disabled: 'The online form is currently unavailable. Please email contact@rootkernel.xyz.',
     invalid: 'Check the required fields and consent checkbox.',
     sending: 'Sending...',
-    success: 'Your inquiry has been received. We will review it and follow up.',
+    success: 'Your inquiry has been received.',
     failure: 'Could not send the inquiry. Try again later or use direct email.',
     button: 'Send inquiry'
   }
@@ -125,7 +129,7 @@ function buildSubmission(form) {
     message,
     consent: true,
     locale: getLanguage(),
-    source: 'rootkernel-homepage-v4',
+    source: 'rootkernel-homepage-v5',
     pageUrl: window.location.href.slice(0, LIMITS.pageUrl),
     status: 'new',
     createdAt: serverTimestamp()

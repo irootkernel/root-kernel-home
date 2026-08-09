@@ -70,23 +70,23 @@
     const copy = {
       ko: {
         title: 'Founder',
-        intro: '컴퓨터공학 석사, 15년차 SW 엔지니어',
-        body: '국내 대기업과 외국계 Enterprise SW 기업에서 OS, RDBMS, Cloud 시스템을 연구·개발했으며, 현재 Root Kernel의 제품 방향, 리서치 설계, UX 검증, 최종 의사결정을 직접 맡고 있습니다.',
+        intro: '컴퓨터공학 석사 · 소프트웨어 엔지니어 경력 15년',
+        body: '국내 대기업과 글로벌 엔터프라이즈 소프트웨어 기업에서 OS, RDBMS, 클라우드 시스템을 연구·개발했습니다.',
         credentials: [
           'CNCF CKA, CKAD 자격 취득',
-          '해외 특허 1건 등록, 1건 출원중',
-          '국내 특허 1건 출원중'
+          '해외 특허 1건 등록 · 1건 출원 중',
+          '국내 특허 1건 출원 중'
         ],
         close: '닫기'
       },
       en: {
         title: 'Founder',
-        intro: 'M.S. in Computer Science, 15 years of software engineering experience.',
-        body: 'The founder has researched and developed OS, RDBMS, and Cloud systems at major Korean enterprises and global Enterprise SW companies, and currently owns product direction, research design, UX validation, and final decisions at Root Kernel.',
+        intro: 'M.S. in Computer Science · 15 years of software engineering experience',
+        body: 'Research and development experience spanning operating systems, relational databases, and cloud systems at leading Korean enterprises and global enterprise software companies.',
         credentials: [
-          'CNCF CKA and CKAD certified',
-          '1 international patent registered, 1 international patent pending',
-          '1 Korean patent pending'
+          'CNCF Certified Kubernetes Administrator (CKA) and Application Developer (CKAD)',
+          'One international patent granted · one pending',
+          'One Korean patent pending'
         ],
         close: 'Close'
       }
@@ -152,7 +152,7 @@
 
   enhanceImageModalTriggers(document);
 
-  if (document.querySelector('.image-modal-trigger')) {
+  if (document.querySelector('.image-modal-trigger') || document.querySelector('[data-detail-key]')) {
     const closeLabel = lang === 'en' ? 'Close expanded image' : '확대 이미지 닫기';
     const dialogLabel = lang === 'en' ? 'Expanded image' : '확대 이미지';
     const dialog = document.createElement('dialog');

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Agent | Root Kernel</title>
+  <meta name="description" content="Root Kernel은 NousResearch Hermes Agent 기반의 운영 환경과 Agent Turn Network를 통해 역할별 AI의 자율 실행·상호 검토를 사람의 결정과 연결합니다.">
+  <meta name="theme-color" content="#fbf6ed">
+  <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website"><meta property="og:title" content="AI Agent | Root Kernel"><meta property="og:description" content="AI는 함께 논의하고, 사람은 방향을 정합니다. 역할별 실행과 턴 기반 토론을 근거 있는 결정으로 연결합니다."><meta property="og:image" content="/assets/images/og-root-kernel.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Root Kernel">
+  <link rel="alternate" hreflang="ko" href="index.html"><link rel="alternate" hreflang="en" href="../../en/ai-agent/index.html">
+  <link rel="stylesheet" href="../../assets/css/styles.css?v=3.6"><link rel="stylesheet" href="../../assets/css/brand-v5.css?v=2.1">
+</head>
+<body data-detail-page="ai-agent" data-lang="ko" data-page="ai-agent" class="brand-v5">
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <header class="site-header"><div class="nav-shell"><a class="brand" href="../index.html" aria-label="Root Kernel 홈"><img class="brand-logo" src="../../assets/images/rootkernel-wide-logo-light.svg" alt="" width="226" height="25"></a><button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false">Menu</button><nav class="site-nav" id="primary-nav" aria-label="Primary navigation"><a href="../ai-spark/index.html">AI-SPARK</a><a href="../ai-harness/index.html">AI Harness</a><a class="active" href="index.html">AI Agent</a><a href="../contact/index.html">Contact</a></nav><div class="lang-switch" aria-label="언어 선택"><a class="active" href="index.html" hreflang="ko">KO</a><span aria-hidden="true">/</span><a href="../../en/ai-agent/index.html" hreflang="en">EN</a></div></div></header>
+
+  <main id="main">
+    <section class="rk-hero rk-editorial-hero">
+      <div class="rk-hero-head reveal">
+        <p class="rk-kicker">Autonomous Agents · Structured Deliberation</p>
+        <h1>AI는 함께 논의하고<br>사람은 방향을 정합니다</h1>
+      </div>
+      <div class="rk-hero-body">
+        <div class="rk-hero-copy reveal"><p class="rk-hero-lead">역할별 Agent가 실행하고 서로의 근거를 검토합니다. 토론의 기록은 남기고 최종 방향은 사람이 결정합니다.</p></div>
+        <figure class="rk-brand-art rk-hero-art reveal" aria-hidden="true"><img src="../../assets/images/brand-agent-deliberation.webp" alt="" width="1600" height="1000" fetchpriority="high"></figure>
+      </div>
+    </section>
+
+    <section class="rk-section" id="agent-system">
+      <div class="rk-section-head reveal"><p class="rk-kicker">One Agent System</p><h2>실행에서 토론으로,<br>토론에서 결정으로</h2></div>
+      <ol class="agent-compact-flow" aria-label="Root Kernel AI Agent 운영 흐름">
+        <li class="reveal"><span>01 · Execute</span><strong>Role-bound Agents</strong><p>사람이 정한 목표와 권한 안에서 역할별로 실행합니다.</p></li>
+        <li class="reveal"><span>02 · Deliberate</span><strong>Structured Review</strong><p>주장과 근거를 턴 단위로 이어서 검토합니다.</p></li>
+        <li class="agent-human reveal"><span>03 · Decide</span><strong>Human Authority</strong><p>사람이 기록을 바탕으로 다음 방향을 결정합니다.</p></li>
+      </ol>
+    </section>
+
+    <section class="rk-section rk-section-tinted">
+      <div class="rk-section-head reveal"><p class="rk-kicker">Agent Technologies</p><h2>실행하는 기반과<br>토론을 남기는 구조</h2></div>
+      <div class="agent-tech-grid">
+        <article class="rk-tech-entry reveal"><span>Open-source Foundation</span><h3>Hermes Agent</h3><p>NousResearch 기반 위에 실제 운영에서 필요한 승인·복구·작업 흐름을 보완합니다.</p><div class="agent-attribution"><span>Upstream</span><strong>NousResearch Hermes Agent</strong><span>Root Kernel</span><strong>운영 보완 레이어</strong></div><div class="rk-tech-actions"><button class="rk-inline-detail" type="button" data-detail-page="ai-agent" data-detail-key="hermes-agent">자세히 보기 <span aria-hidden="true">→</span></button><a href="https://github.com/irootkernel/hermes-agent" target="_blank" rel="noopener">GitHub ↗</a></div></article>
+        <article class="rk-tech-entry rk-tech-entry-dark reveal"><span>Agent Turn Network</span><h3>ATN</h3><p>Plugin은 Hermes에 참여 도구를 제공하고, Control은 토론 이벤트·상태·재생·복구의 기준을 관리합니다.</p><div class="atn-mini-flow" aria-hidden="true"><span>Moderator</span><i>→</i><span>Participant</span><i>→</i><span>Record</span><i>→</i><span>Brief</span></div><div class="rk-tech-actions"><button class="rk-inline-detail" type="button" data-detail-page="ai-agent" data-detail-key="atn">자세히 보기 <span aria-hidden="true">→</span></button><a href="https://github.com/irootkernel/agent-turn-network-plugin" target="_blank" rel="noopener">Plugin GitHub ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="rk-section rk-cta reveal"><p class="rk-kicker">Agent Operations</p><h2>Agent는 함께 움직이고<br>사람은 방향을 정합니다</h2><a class="button button-primary" href="../contact/index.html">AI Agent 운영 문의</a></section>
+  </main>
+  <footer class="site-footer"><div class="footer-minimal"><div class="footer-brand-stack"><a class="footer-brand" href="../index.html" aria-label="Root Kernel 홈"><img class="footer-brand-logo" src="../../assets/images/rootkernel-wide-logo-light.svg" alt="" width="181" height="20"></a><button class="footer-founder" data-founder-open type="button">Founder</button></div><span>© 2026 Root Kernel.</span></div></footer>
+  <script defer src="../../assets/js/site.js?v=2.6"></script><script defer src="../../assets/js/detail-workspace.js?v=3.21"></script>
+</body>
+</html>

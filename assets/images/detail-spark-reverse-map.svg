@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI-SPARK ReverseMap evidence trace</title>
+  <desc id="desc">A failed test step traces through its rule, specification element, request, log, and file location to determine the focused rerun scope.</desc>
+  <defs>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#15202b" stroke-opacity=".04"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-25%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="11" stdDeviation="13" flood-color="#15202b" flood-opacity=".1"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l7 3.5L1 8z" fill="#11736b"/>
+    </marker>
+    <style>
+      .card{fill:#fffdf8;stroke:#11736b;stroke-width:3}
+      .flow{fill:none;stroke:#11736b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+      .step{font:800 52px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#15202b;text-anchor:middle}
+      .num{font:800 31px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#fffdf8;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fbf6ed"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <path class="flow" d="M380 245H470"/>
+  <path class="flow" d="M750 245H840"/>
+  <path class="flow" d="M1120 245H1210"/>
+  <path class="flow" d="M1350 355V505"/>
+  <path class="flow" d="M1210 615H1120"/>
+  <path class="flow" d="M840 615H750"/>
+
+  <g filter="url(#shadow)">
+    <rect x="80" y="135" width="300" height="220" rx="26" fill="#fffdf8" stroke="#ad5428" stroke-width="4"/>
+    <circle cx="230" cy="194" r="30" fill="#ad5428"/>
+    <path d="M230 174v25m0 18v2" stroke="#fffdf8" stroke-width="7" stroke-linecap="round"/>
+    <text class="step" x="230" y="291">Failed Step</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="470" y="135" width="280" height="220" rx="26"/>
+    <circle cx="610" cy="194" r="28" fill="#11736b"/><text class="num" x="610" y="202">02</text>
+    <text class="step" x="610" y="291">Rule</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="840" y="135" width="280" height="220" rx="26"/>
+    <circle cx="980" cy="194" r="28" fill="#11736b"/><text class="num" x="980" y="202">03</text>
+    <text class="step" x="980" y="291">Spec</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="1210" y="135" width="280" height="220" rx="26"/>
+    <circle cx="1350" cy="194" r="28" fill="#11736b"/><text class="num" x="1350" y="202">04</text>
+    <text class="step" x="1350" y="291">Request</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1210" y="505" width="280" height="220" rx="26" fill="#15202b" stroke="#15202b" stroke-width="3"/>
+    <circle cx="1350" cy="564" r="28" fill="#11736b"/><text class="num" x="1350" y="572">05</text>
+    <text x="1350" y="665" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="52" font-weight="800" fill="#fffdf8" text-anchor="middle">Log</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="840" y="505" width="280" height="220" rx="26"/>
+    <circle cx="980" cy="564" r="28" fill="#11736b"/><text class="num" x="980" y="572">06</text>
+    <text class="step" x="980" y="665">File</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="450" y="505" width="300" height="220" rx="26" fill="#fffdf8" stroke="#ad5428" stroke-width="4"/>
+    <circle cx="600" cy="564" r="28" fill="#ad5428"/><text class="num" x="600" y="572">07</text>
+    <text class="step" x="600" y="665">Rerun</text>
+  </g>
+
+  <g transform="translate(80 794)">
+    <rect width="1410" height="70" rx="20" fill="#15202b"/>
+    <path d="M48 35h1277" stroke="#11736b" stroke-width="5" stroke-dasharray="8 14" stroke-linecap="round"/>
+    <circle cx="1342" cy="35" r="12" fill="#ad5428"/>
+  </g>
+</svg>

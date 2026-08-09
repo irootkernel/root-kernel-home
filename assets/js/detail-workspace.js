@@ -1,169 +1,232 @@
 window.ROOT_KERNEL_DETAIL = {
   "ko": {
     "pages": {
-      "aipsr": [
+      "aipsr": [],
+     "ai-spark": [
         {
-          "key": "sudal",
-          "title": "Sudal",
-          "subtitle": "Interactive Preference Data Collection Layer",
-          "status": "prelaunch",
-          "summary": "이미지 기반 A/B 선택과 밸런스 게임을 통해 취향과 시각적 선호 데이터를 수집합니다.",
-          "data-placeholder-id": "detail-1",
+          "key": "spec-bundle",
+          "title": "Spec Bundle",
+          "subtitle": "Spec Bundle · Revision Identity",
+          "status": "patent",
+          "summary": "서버의 인터페이스, 상태, 바인딩, 권한 정책과 전역 설정을 하나의 선언형 번들로 묶어 함께 검증하고 원자적으로 승인합니다.",
           "sections": [
             {
-              "heading": "무엇인가",
-              "body": "Sudal은 사람들이 이미지 기반 A/B 선택과 밸런스 게임을 하며 자연스럽게 취향과 시각적 선호 데이터를 남기도록 설계된 interactive preference data collection layer입니다."
+              "heading": "번들의 구성",
+              "body": "gRPC proto 또는 OpenAPI 인터페이스, state.yaml의 상태 전이, binding.yaml의 처리 방식, auth_policies.yaml의 권한 규칙과 전역 설정을 함께 관리합니다."
             },
             {
-              "heading": "AI Persona 연구에서의 역할",
-              "body": "Sudal에서 쌓이는 반복 선택 데이터와 시각적 선호 신호는 Space Compiler가 preference-grounded AI Persona를 만드는 기반 데이터가 됩니다."
+              "heading": "하나의 리비전",
+              "body": "번들 파일을 정규화하고 파일별 digest를 정렬한 manifest를 해시해 bundle_revision_id를 만듭니다. 구성 파일 하나가 바뀌면 전체 번들의 리비전도 달라집니다."
             },
             {
-              "heading": "수집하는 데이터",
-              "list": [
-                "텍스트와 이미지 기반 밸런스 게임",
-                "컬러, 디자인, 스타일, 분위기에 대한 시각적 선호 신호",
-                "질문 맥락과 반복 선택 패턴"
-              ]
+              "heading": "검증과 승인 단위",
+              "body": "서로 참조하는 명세가 같은 리비전으로 묶이므로 불일치를 검사하고, 번들 전체를 하나의 단위로 승인하거나 다시 검토할 수 있습니다."
             },
             {
-              "heading": "현재 단계",
-              "body": "Sudal은 출시 준비 단계의 제품으로, 이미지 기반 선택 경험과 반복 선택 데이터를 안정적으로 수집하는 구조를 중심으로 개발되고 있습니다."
+              "heading": "사람과 AI의 역할",
+              "list": ["사람은 서버가 따라야 할 의도와 정책, 승인 기준을 정합니다.", "AI는 명세가 제시하는 목표와 확장 지점을 기준으로 구현에 집중합니다.", "Spec Bundle의 구성 파일이 수정되면 새 bundle_revision_id가 생성되며, 변경된 번들은 다시 검증과 승인을 거칩니다."]
+            }
+          ],
+          "data-placeholder-id": "detail-spark-spec-bundle"
+        },
+        {
+          "key": "validator-gate",
+          "title": "Validator · Approval Gate",
+          "subtitle": "Deterministic Validation · Exact Approval",
+          "status": "patent",
+          "summary": "Validator는 명세 정합성을 결정적으로 검사하고, Approval Gate는 검증된 바로 그 리비전과 규칙 조건이 일치하는지 확인합니다.",
+          "data-placeholder-id": "detail-7",
+          "sections": [
+            {
+              "heading": "결정적 Validator",
+              "body": "같은 명세 번들을 같은 규칙과 profile로 검사하면 항상 같은 ValidationResult를 냅니다. Interface-Binding 완비성, Binding-State 참조, 권한 정책 누락, 구현 Registry와 상태 도달성을 확인합니다."
+            },
+            {
+              "heading": "검증 결과의 식별자",
+              "body": "ValidationResult에는 bundle_revision_id, validation_profile, rule_set_version, validator_version, 위반 rule_id와 근거가 함께 남습니다."
+            },
+            {
+              "heading": "Approval Attestation",
+              "body": "사람의 승인은 정확한 리비전에 대한 증명으로 기록됩니다. Gate는 리비전, 검증 성공 여부, profile, rule-set과 Validator 버전이 모두 일치하는지 확인합니다."
+            },
+            {
+              "heading": "적용 지점",
+              "body": "승인 전제조건은 CI/CD의 빌드·테스트·배포와 서버 기동에 적용할 수 있습니다. 요청 단위 검증은 운영 구성에 따라 선택적으로 적용합니다."
             }
           ]
         },
         {
-          "key": "space-compiler",
-          "title": "Space Compiler",
-          "subtitle": "Preference & Persona Synthesis Engine",
-          "status": "research",
-          "summary": "AI와 심리계량학을 결합해 선택 데이터와 이미지 기반 선호를 신뢰성 높은 persona artifact로 변환하는 R&D 엔진입니다.",
-          "data-placeholder-id": "detail-2",
+          "key": "fsm-runtime",
+          "title": "FSM Runtime",
+          "subtitle": "Binding · FSM Runtime",
+          "status": "patent",
+          "summary": "Binding은 연산을 Stateful과 Stateless 경로로 분류하고, FSM Runtime은 상태 변경의 정상 경로에서 선언된 전이 규칙을 평가합니다.",
           "sections": [
             {
-              "heading": "무엇인가",
-              "body": "Space Compiler는 Sudal에서 쌓인 반복 선택 데이터와 시각적 선호 신호를 분석해 Preference Vector와 AI Persona로 변환합니다. 사용자가 어떤 이미지와 스타일을 반복해서 선택했는지를 바탕으로 취향의 방향과 강도를 추정합니다."
+              "heading": "두 가지 실행 경로",
+              "body": "Stateful 연산은 runtime_event를 통해 FSM으로 연결되고, 상태 전이가 없는 연산은 entrypoint_id로 Usecase를 호출합니다. binding.yaml 자체는 설계·검증 명세이며 런타임 입력이 아닙니다."
             },
             {
-              "heading": "처리 흐름",
-              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact 순서로 처리합니다. 선택 데이터를 곧바로 결론으로 바꾸기보다, 각 단계에서 근거와 신뢰도를 함께 남기도록 설계되어 있습니다."
+              "heading": "FSM Runtime의 역할",
+              "body": "전이 규칙 평가, 상태 버전 확인과 동시성 제어, 상태 변경 기록, 롤백과 스트림 발행 같은 공통 동작을 Runtime이 담당합니다."
             },
             {
-              "heading": "연구 기반",
-              "list": [
-                "Generative Agents: 기억, 반성, 계획을 가진 에이전트처럼 동작하는 AI Persona 연구 흐름을 참고합니다.",
-                "Forced-Choice Image Assessment: 짧은 이미지 A/B 선택이 성향 추정에 의미 있는 신호가 될 수 있다는 연구를 참고합니다.",
-                "MIRT/TIRT: A/B 선택의 상대 비교를 다차원 취향 추정으로 연결하는 모델링 방향을 참고합니다."
-              ]
+              "heading": "AI가 구현하는 범위",
+              "body": "AI는 어떤 event를 발화할지 결정하고 Guard, Action, Usecase처럼 목적이 분명한 확장 지점을 구현합니다. 상태 저장과 전이 엔진을 반복해서 작성하는 부담과 검증 범위를 줄입니다."
             },
             {
-              "heading": "MIRT/TIRT 모델링",
-              "body": "MIRT와 TIRT는 Space Compiler의 핵심 모델링 방향입니다. MIRT는 취향을 여러 축으로 나누어 추정하고, TIRT는 A/B 선택처럼 서로 비교하는 응답을 잠재 유틸리티 비교로 해석합니다. Space Compiler는 이를 바탕으로 단순 선호 집계보다 더 안정적인 취향 벡터를 만드는 것을 목표로 합니다."
-            },
-            {
-              "heading": "예상 산출물",
-              "list": [
-                "Persona Pool",
-                "Synthetic Audience",
-                "Visual Preference Profile",
-                "Design Response Report"
-              ]
-            },
-            {
-              "heading": "현재 단계",
-              "body": "Space Compiler는 연구 및 초기 구현 단계의 핵심 엔진입니다. 선택 데이터가 Preference Vector, Evidence, Confidence, AI Persona로 이어지는 흐름을 검증하는 데 집중하고 있습니다."
+              "heading": "하나의 상태 명세",
+              "list": ["AI 구현의 목표", "FSM Runtime의 실행 기준", "테스트의 기대값", "ReverseMap이 참조하는 명세 좌표"]
             }
           ]
         },
         {
-          "key": "vision-feedback",
-          "title": "Vision Feedback with AI Persona",
-          "subtitle": "First product of AI Persona Synthesis Research",
-          "status": "direction",
-          "summary": "상품, 브랜드, 광고, 패키지, UI 디자인 반응 분석에 먼저 적용합니다.",
-          "data-placeholder-id": "detail-3",
+          "key": "reverse-map",
+          "title": "ReverseMap",
+          "subtitle": "Test Synthesis · ReverseMap",
+          "status": "patent",
+          "summary": "거부되어야 하는 시나리오를 명세에서 합성하고, 실패한 테스트 단계와 관련 명세 요소·요청·로그 근거·파일 위치를 연결합니다.",
+          "data-placeholder-id": "detail-spark-reverse-map",
           "sections": [
             {
-              "heading": "무엇인가",
-              "body": "Vision Feedback은 제품, 브랜드, 광고, 패키지, UI 시안에 대한 반응을 AI Persona로 먼저 확인하는 적용 시나리오입니다."
+              "heading": "제약 위반 테스트 합성",
+              "body": "권한 정책과 상태 모델, 인터페이스 명세에서 허용되지 않아야 하는 요청과 상태 전이를 E2E 시나리오로 만듭니다."
             },
             {
-              "heading": "적용 영역",
-              "list": [
-                "상품 패키지 디자인",
-                "브랜드 이미지와 무드보드",
-                "광고 소재와 썸네일",
-                "UI 화면과 온보딩",
-                "컬러 팔레트와 스타일 방향"
-              ]
+              "heading": "연결되는 근거",
+              "body": "실패 시나리오와 단계, rule_id, operation·policy·binding·state event의 spec_element_id, 실제 요청·응답과 로그, 관련 파일 위치를 하나의 리포트로 묶습니다."
             },
             {
-              "heading": "예상 산출물",
-              "body": "시안별 선호안, 비선호 이유, 응답군별 후속 질문, 전체 패널 개선 방향, 응답 집계처럼 실제 조사 흐름에서 바로 쓰이는 단위로 정리하는 것을 목표로 합니다."
+              "heading": "RunIdentity",
+              "body": "번들 리비전과 검증 profile, rule-set, Validator 버전을 함께 기록해 어떤 검증 기준과 명세 리비전에서 발생한 실패인지 확인할 수 있습니다."
             },
             {
-              "heading": "현재 단계",
-              "body": "Vision Feedback은 Sudal의 선택 데이터와 Space Compiler의 Persona 변환 구조를 연결해 가장 먼저 적용할 디자인 반응 조사 영역입니다. 사람 패널을 매번 모집하지 않고, 수만·수십만·수백만 단위의 대규모 Synthetic Audience와 빠르게 대화하며 제품, 브랜드, 광고, 패키지, UI 시안에 대한 선호 이유와 거부 요인, 개선 방향을 수집하고 비교하는 것을 목표로 합니다."
-            }
-          ]
-        },
-        {
-          "key": "ai-persona-synthetic-audience",
-          "title": "AI Persona & Synthetic Audience",
-          "subtitle": "AI Persona Pool as a Service",
-          "status": "platform",
-          "summary": "Vision Feedback을 넘어 더 넓은 설문, 인터뷰, 후속 리서치 흐름을 지원할 AI Persona Pool과 Synthetic Audience 인프라로 확장합니다.",
-          "data-placeholder-id": "detail-4",
-          "sections": [
-            {
-              "heading": "무엇인가",
-              "body": "AI Persona & Synthetic Audience는 개별 AI Persona를 persona pool과 Synthetic Audience로 확장해 가는 장기 플랫폼 개념입니다. Synthetic Audience는 여러 AI Persona를 조사 목적에 맞게 묶은 가상 고객군입니다."
+              "heading": "Inverted Mapping",
+              "body": "명세 요소의 Key를 기준으로 관련 시나리오 단계를 연결해 중복을 줄이고, 명세가 바뀌었을 때 다시 실행해야 할 테스트의 범위를 파악합니다."
             },
             {
-              "heading": "제공 방향",
-              "list": [
-                "조사 목적에 맞는 AI Persona Pool 구성",
-                "모집단 조건, 세그먼트, confidence, coverage 확인",
-                "설문 문항 응답 시뮬레이션과 persona interview 지원",
-                "더 넓은 리서치 흐름에서 재사용 가능한 persona pool"
-              ]
-            },
-            {
-              "heading": "왜 필요한가",
-              "body": "Vision Feedback은 첫 적용 제품이고, AI Persona Pool as a Service는 그 이후의 확장 방향입니다. 기존 설문조사와 인터뷰는 응답자 모집, raw data 수집, 분석에 며칠 이상의 시간과 인건비·패널 비용이 필요합니다. AIPSR은 접촉 가능한 사람 응답과 Synthetic Audience 응답을 함께 다루며, 브랜드 조사와 설문, 후속 인터뷰를 더 빠르고 낮은 비용으로 반복할 수 있는 인프라로 발전하는 것을 목표로 합니다."
-            },
-            {
-              "heading": "사용 범위",
-              "body": "AI Persona & Synthetic Audience는 모든 사람 응답을 AI로 대체하려는 방식이 아닙니다. 실제 접촉 가능한 응답자는 사람 응답으로 다루고, 접촉하기 어렵거나 응답이 부족한 세그먼트는 AI Persona와 Synthetic Audience로 보완하는 조사 인프라를 목표로 합니다."
+              "heading": "다음 검토",
+              "body": "개발자와 AI는 리포트가 가리키는 명세 요소와 실행 근거에서 검토를 시작합니다. 구현을 수정하면 E2E 테스트를 다시 실행하고, Spec Bundle을 수정하면 새 리비전으로 검증과 승인을 거칩니다."
             }
           ]
         }
       ],
-      "agent-technologies": [
+      "ai-harness": [
         {
           "key": "doksuri",
           "title": "Doksuri",
-          "subtitle": "Markdown-native Human-AI Collaboration Platform",
+          "subtitle": "Markdown-first PMS · Human-AI Collaboration",
           "status": "operating_dev",
-          "summary": "사람과 AI Agent가 같은 Markdown 문서를 기반으로 소통하고, 업무 지시부터 작업 결과, evidence, review까지 한곳에 기록하는 협업 도구입니다.",
+          "summary": "소규모 팀의 Epic·Task·Bug·Doc을 Markdown으로 관리하고, 사람과 AI Agent가 같은 item·comment·review 맥락에서 협업하는 PMS입니다.",
           "data-placeholder-id": "detail-5",
           "sections": [
+            {"heading": "업무 입력", "body": "요구사항과 작업 지시는 Markdown item으로, Agent 결과는 댓글과 작업 결과로, 중요한 변경은 검토 가능한 proposal로 입력됩니다."},
+            {"heading": "검증과 동기화", "body": "로컬 daemon이 workspace 변경을 schema와 version 기준으로 검증하고 중앙 서버와 동기화합니다. 현재 쓰기와 동기화에는 활성 서버 연결과 인증이 필요합니다."},
+            {"heading": "사람의 결정", "body": "AI는 기본적으로 읽기·댓글 범위에서 작업합니다. 본문·메타데이터·상태·담당자 변경과 item 생성은 proposal로 제출하며, 사람이 검토한 뒤 적용 여부를 결정합니다."},
+            {"heading": "남는 결과", "body": "동기화된 Markdown workspace와 서버가 관리하는 comment·review state, proposal 적용 결과와 결정 기록이 함께 남습니다."}
+          ]
+        },
+        {
+          "key": "dolgorae",
+          "title": "Dolgorae",
+          "subtitle": "Local-first development control plane",
+          "status": "direction",
+          "summary": "Mission·Task·Workflow의 상태와 정책, 실행 근거, 복구 지점, 승인 이력을 실행 엔진과 분리해 관리하도록 설계하는 로컬 제어 계층입니다.",
+          "sections": [
+            {"heading": "설계 역할", "body": "실행 엔진과 분리된 control plane에서 작업의 현재 상태와 전달 계약, 정책과 승인 경계를 복구 가능한 형태로 유지합니다."},
+            {"heading": "입력과 출력", "list": ["입력: Mission과 Task 정의, Workflow, 정책, 실행 근거", "출력: 현재 상태, 다음 허용 동작, 전달 결과, 승인과 복구 지점"]},
+            {"heading": "실행 경계", "body": "Dolgorae는 상태와 정책을 관리하고 실제 코드 작성·빌드·테스트·Git 동작은 연결된 실행 도구가 수행하는 구조를 지향합니다."},
+            {"heading": "현재 상태", "body": "현재 canonical 구현은 CLI와 daemon의 기반 계약을 구축하는 단계이며, 공개 제품 동작은 help·version·config check 범위에서 시작합니다."}
+          ]
+        },
+        {
+          "key": "podway",
+          "title": "Podway",
+          "subtitle": "Procedure guard for one worktree",
+          "status": "operating",
+          "summary": "Goal과 FSM을 함께 유지해 AI가 긴 작업에서도 목적과 현재 단계를 잃지 않고, 세션이 바뀐 뒤에도 같은 과정에서 이어가도록 돕는 로컬 도구입니다.",
+          "data-placeholder-id": "detail-harness-podway-goal-fsm",
+          "sections": [
+            {"heading": "절차의 현재 상태", "body": "현재 단계, 누락된 필수 항목, 허용 동작과 다음 명령을 사람이 읽는 형식과 버전된 JSON으로 제공합니다."},
+            {"heading": "복구와 동시성", "body": "retry·return·block·reopen으로 재작업을 기록하고, precondition과 idempotency key로 재시도하거나 겹친 호출의 상태 손상을 막습니다."},
+            {"heading": "Agent 계약", "body": "Agent는 대화 기억이 아니라 worktree의 authoritative status와 next 응답에서 다음 행동을 다시 계산합니다."},
+            {"heading": "작동 범위", "body": "절차 상태를 관리하며 실제 빌드 명령과 Git 변경, 원격 서비스 호출은 기존 실행 도구에서 수행합니다. 현재 공개 릴리스 대상은 Apple Silicon macOS입니다."},
+            {"heading": "공개 저장소", "link": "https://github.com/irootkernel/podway", "linkLabel": "GitHub에서 보기"}
+          ]
+        },
+        {
+          "key": "sanho",
+          "title": "Sanho",
+          "subtitle": "Canonical docs sync",
+          "status": "operating",
+          "summary": "하나의 프로젝트를 여러 저장소로 나눠 작업할 때 각 저장소의 문서를 같은 프로젝트 지식에 맞춰, 팀과 Agent가 동일한 기준을 보도록 돕는 동기화 기술입니다.",
+          "data-placeholder-id": "detail-harness-sanho-project-docs",
+          "sections": [
+            {"heading": "두 시점의 계약", "body": "git commit에서는 로컬 상태만 읽어 기준 문서와의 drift를 한 줄로 알리고 차단하지 않습니다. git push에서는 docs 변경을 기준 저장소에 게시합니다."},
+            {"heading": "충돌과 복구", "body": "sanho sync는 일반 Git conflict marker를 작업 공간에 남기며, 사용자가 편집·add·commit한 뒤 --continue로 완료하거나 --abort로 되돌립니다."},
+            {"heading": "신뢰 경계", "body": "Sanho는 애플리케이션 저장소의 commit을 작성하거나 ref를 이동하지 않습니다. 문서 내용의 검토는 기존 Git 리뷰 절차와 연결합니다."},
+            {"heading": "공개 저장소", "link": "https://github.com/irootkernel/sanho", "linkLabel": "GitHub에서 보기"}
+          ]
+        },
+        {
+          "key": "mulgae",
+          "title": "Mulgae",
+          "subtitle": "Multi-provider AI code review",
+          "status": "operating",
+          "summary": "여러 AI가 Security·Logic·Maintainability 역할을 나눠 같은 코드 변경을 서로 다른 관점에서 살펴보고, 결과와 근거를 하나의 리뷰로 모으는 도구입니다.",
+          "data-placeholder-id": "detail-harness-mulgae-role-review",
+          "sections": [
+            {"heading": "고정된 검토 대상", "body": "workspace·stage·dirty·revision diff·patch·stdin 중 정확히 하나를 캡처해 각 역할이 같은 변경을 검토하게 합니다."},
+            {"heading": "역할별 실행", "body": "각 역할은 설정된 provider 하나에서 독립적으로 실행됩니다. 한 역할이 실패해도 다른 검토는 이어지고 실패 이유와 재실행 명령이 보고됩니다."},
+            {"heading": "지속 가능한 근거", "body": "자유 형식 역할 보고서와 선택적 구조화 finding·evidence, provider identity를 .mulgae/에 보존합니다."},
+            {"heading": "사람의 결정", "body": "Mulgae의 검토는 advisory evidence입니다. 병합·release·waiver와 조직의 승인은 개발팀이 결정합니다."},
+            {"heading": "공개 저장소", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "GitHub에서 보기"}
+          ]
+        },
+        {
+          "key": "gaori",
+          "title": "Gaori",
+          "subtitle": "Test evidence compression",
+          "status": "operating",
+          "summary": "긴 테스트 명령의 원본 출력을 보존하면서 실패 지점과 핵심 문맥을 사람과 Agent가 검토하기 좋은 작은 근거로 압축하는 로컬 adapter입니다.",
+          "data-placeholder-id": "detail-harness-gaori-evidence",
+          "sections": [
+            {"heading": "실행과 압축", "body": "설정된 테스트나 ad-hoc 명령을 실행하고 parser와 로컬 extraction rule로 실패 중심 Markdown·JSON summary를 만듭니다."},
+            {"heading": "원본과 민감 정보", "body": "요약에는 redaction을 적용할 수 있지만 raw log는 원문 그대로 로컬에 보존하므로 필요할 때만 제한적으로 열어봅니다."},
+            {"heading": "두 개의 상태", "body": "명령의 exit code와 artifact status가 테스트 결과를 나타내고, extractor_status는 근거 압축의 품질만 설명합니다."},
+            {"heading": "작동 범위", "body": "Gaori는 테스트 결과를 바꾸거나 acceptance를 결정하지 않습니다. 원본 로그와 작은 실패 근거를 제공해 다음 검토를 돕습니다."},
+            {"heading": "공개 저장소", "link": "https://github.com/irootkernel/gaori", "linkLabel": "GitHub에서 보기"}
+          ]
+        }
+      ],
+     "ai-agent": [
+        {
+          "key": "hermes-agent",
+          "title": "Hermes Agent",
+          "subtitle": "Root Kernel–tuned agent runtime",
+          "status": "operating",
+          "summary": "NousResearch Hermes Agent의 검증된 오픈소스 릴리스를 기반으로, 다중 프로필·다중 Agent 환경에 필요한 보완을 선별해 관리하는 Root Kernel 운영 환경입니다.",
+          "sections": [
             {
-              "heading": "무엇인가",
-              "body": "Doksuri는 Markdown-native Human-AI Collaboration Platform입니다. AI와의 작업이 채팅창에 흩어지지 않고, 요구사항, 결과, 근거, 리뷰 기록이 하나의 문서 안에 남도록 돕는 협업 도구입니다."
+              "heading": "Upstream foundation",
+              "body": "Agent loop와 도구, skill·memory, subagent, scheduler와 messaging gateway 등 Hermes Agent의 기반 기능은 NousResearch의 오픈소스 프로젝트에서 옵니다."
             },
             {
-              "heading": "왜 Markdown인가",
-              "body": "Markdown은 단순한 문서 포맷이 아니라, 사람과 Agent가 함께 읽고 쓰며 일하는 업무 인터페이스입니다."
+              "heading": "검증된 운영 보완",
+              "body": "Root Kernel은 CJK 세션 복구, fail-closed skill write 승인, 프로필별 Codex credential pinning, Discord thread ownership과 같은 운영 보완을 선별해 유지합니다."
             },
             {
-              "heading": "작동 흐름",
-              "list": [
-                "사람이 문서에 업무 요구사항, 판단 기준, 작업 지시를 작성합니다.",
-                "Agent는 같은 문서를 읽고 작업하며, 필요한 질문과 결과를 남깁니다.",
-                "작업 결과, 근거, 리뷰, 결정 기록은 같은 문서 안에 남습니다.",
-                "Kkachi Agent들과 연결되어 회사 전반의 Agent 작업 지시와 결과 기록을 관리합니다."
-              ]
+              "heading": "Multi-agent workflow",
+              "body": "같은 Kanban card에서 구현·review·변경 요청·최종 수락을 이어가고, mutex key와 workflow type으로 동시 claim과 작업 규칙을 제어합니다."
+            },
+            {
+              "heading": "운영 변경 관리",
+              "body": "각 보완은 이유와 검증 결과, 복구 경로와 종료 기준을 기록하며 upstream이 같은 해결을 제공하면 제거합니다."
+            },
+            {
+              "heading": "공개 저장소",
+              "link": "https://github.com/irootkernel/hermes-agent",
+              "linkLabel": "GitHub에서 보기"
             }
           ]
         },
@@ -172,58 +235,34 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "ATN",
           "subtitle": "Agent Turn Network",
           "status": "improving",
-          "summary": "Moderator가 발언 순서를 배정하고, 여러 AI Agent가 각자의 역할과 관점에서 의견을 내고 서로 검토하도록 돕는 deliberation layer입니다.",
+          "summary": "Hermes Agent가 참여하는 위임과 협의의 턴·이벤트·상태를 로컬에 영속적으로 기록하고, 검토할 수 있는 대화록과 요약 자료로 연결합니다.",
           "data-placeholder-id": "detail-6",
           "sections": [
             {
-              "heading": "무엇인가",
-              "body": "ATN, Agent Turn Network는 Moderator가 발언 순서를 관리해 여러 AI Agent가 하나의 문제를 역할별로 검토하도록 만드는 구조입니다. 단순히 여러 답변을 모아 요약하는 방식이 아니라, 누가 어떤 근거로 말했고 어떤 반박이 있었는지를 대화 흐름으로 남깁니다."
+              "heading": "Plugin boundary",
+              "body": "atn-plugin은 Hermes-facing 도구와 Moderator·Participant skill, 명시적인 daemon client를 제공합니다. 요청 payload를 검증하고 구조화된 command envelope를 control에 전달합니다."
             },
             {
-              "heading": "토론 흐름",
-              "list": [
-                "Moderator가 다음 발언자를 지정합니다.",
-                "각 Agent가 역할에 맞는 의견을 냅니다.",
-                "다른 Agent가 이전 발언을 보고 동의하거나 반박합니다.",
-                "누가 어떤 순서로 말했고 무엇을 검토했는지 실제 대화 흐름처럼 남습니다.",
-                "사람이 최종 판단을 내리기 전에 구조화된 판단 자료를 제공합니다."
-              ]
+              "heading": "Control authority",
+              "body": "atn-control daemon과 CLI가 registry, channel.jsonl event source of truth, SQLite projection, 상태 전이, replay·ack·recovery와 transcript·export를 소유합니다."
             },
             {
-              "heading": "적용 영역",
-              "body": "제품 방향, architecture decision, risk review, research question refinement 등 회사 전반의 중요한 판단을 검토하는 데 활용합니다."
-            }
-          ]
-        },
-        {
-          "key": "ai-spark",
-          "title": "AI-SPARK",
-          "subtitle": "AI Spec, Policy, Approval, Runtime Kit",
-          "status": "patent",
-          "summary": "AI가 제안한 서버 변경을 바로 적용하지 않고, 명세화, 검증, 승인 단계를 거쳐 안전하게 반영하는 agentic backend development 기술입니다.",
-          "data-placeholder-id": "detail-7",
-          "sections": [
-            {
-              "heading": "무엇인가",
-              "body": "AI-SPARK는 자연어 요구사항을 바로 서버 변경으로 반영하지 않고, 먼저 Spec Bundle로 정리한 뒤 Validator와 Approval Gate를 거치게 합니다. AI 개발 속도를 활용하면서도, 승인되지 않은 변경이나 정책 위반이 런타임에 반영되지 않도록 관리합니다."
+              "heading": "Council and delegation",
+              "body": "Moderator가 참여자와 턴을 조율하는 council, 작업을 맡기고 결과를 review하는 delegation을 event와 state transition으로 기록합니다."
             },
             {
-              "heading": "핵심 구성",
-              "list": [
-                "Spec Bundle: 요구사항, API, 상태 변경, 권한 조건을 검토 가능한 명세로 묶습니다.",
-                "Validator: 정책 위반, 스키마 오류, 승인되지 않은 변경을 사전에 점검합니다.",
-                "Approval Gate: 사람이 승인한 변경만 다음 단계로 진행되도록 합니다.",
-                "Fail-Closed: 불확실하거나 승인되지 않은 변경은 기본적으로 차단합니다.",
-                "Audit Trail: 어떤 요구사항이 어떤 서버 변경으로 이어졌는지 추적할 수 있게 남깁니다."
-              ]
+              "heading": "검토와 결정",
+              "body": "Transcript와 export bundle에는 세션 이력과 brief, event log와 registry snapshot이 함께 남습니다. 사람은 이 기록을 검토해 방향과 다음 실행을 결정합니다."
             },
             {
-              "heading": "작동 흐름",
-              "body": "서버 변경이 필요할 때 요구사항을 먼저 검토 가능한 명세로 정리하고, 정책 검증과 사람의 승인을 거친 변경만 반영하는 구조입니다."
+              "heading": "공개 저장소",
+              "link": "https://github.com/irootkernel/agent-turn-network-plugin",
+              "linkLabel": "GitHub에서 보기"
             }
           ]
         }
       ],
+      "agent-technologies": [],
       "hermes-supports": [
         {
           "key": "kao",
@@ -309,319 +348,162 @@ window.ROOT_KERNEL_DETAIL = {
   },
   "en": {
     "pages": {
-      "aipsr": [
+      "ai-spark": [
         {
-          "key": "sudal",
-          "title": "Sudal",
-          "subtitle": "Interactive Preference Data Collection Layer",
-          "status": "prelaunch",
-          "summary": "A product for collecting preference and visual taste data through image-based A/B choices and balance games.",
-          "data-placeholder-id": "detail-1",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "Sudal is an interactive preference data collection layer designed for people to leave preference, color, design, and style signals through image-based A/B choices, balance games, and repeated comparison."
-            },
-            {
-              "heading": "Role in AI Persona Research",
-              "body": "Sudal’s repeated choice data and visual preference signals become inputs for Space Compiler."
-            },
-            {
-              "heading": "Collected data",
-              "list": [
-                "Text-based balance-game choices",
-                "Image-based forced-choice signals",
-                "Visual preference around color, design, style, and mood",
-                "Question context and repeated choice patterns"
-              ]
-            },
-            {
-              "heading": "Current stage",
-              "body": "Sudal is a pre-launch product. The current focus is preparing a stable image-based choice experience and repeatable preference-signal collection flow."
-            }
-          ]
-        },
-        {
-          "key": "space-compiler",
-          "title": "Space Compiler",
-          "subtitle": "Preference & Persona Synthesis Engine",
-          "status": "research",
-          "summary": "A synthesis engine fusing AI with psychometrics to research and build systems that transform choice data into persona artifacts.",
-          "data-placeholder-id": "detail-2",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "Space Compiler is an analysis engine that turns repeated Sudal choices and visual preference signals into Preference Vectors and AI Personas. In simpler terms, it estimates the direction and strength of taste from the images and styles a person repeatedly chooses."
-            },
-            {
-              "heading": "Processing flow",
-              "body": "Raw Choice → Preference Signal → Preference Vector → Evidence Mapping → Confidence Scoring → Persona Artifact. The flow is designed to keep evidence and confidence attached instead of turning choices directly into unsupported conclusions."
-            },
-            {
-              "heading": "Research Foundations",
-              "list": [
-                "Generative Agents: draws from research showing how memory, reflection, and planning can make AI Personas a testable research direction.",
-                "Forced-Choice Image Assessment: draws from research suggesting that short image A/B choices can carry meaningful personality and preference signals.",
-                "MIRT/TIRT: connects relative-choice data to multidimensional preference estimation."
-              ]
-            },
-            {
-              "heading": "MIRT/TIRT modeling",
-              "body": "MIRT and TIRT are core modeling directions for Space Compiler. MIRT estimates taste across multiple dimensions, while TIRT treats A/B choices as comparisons of latent utility. The goal is a more stable preference vector than a simple popularity count."
-            },
-            {
-              "heading": "Scope and limitations",
-              "body": "Space Compiler is not a clinical diagnostic tool and does not aim to perfectly predict individual psychology. It is designed to turn grounded choice and preference signals into AI Personas that can participate in Synthetic Audience and design-response workflows, especially where some audience segments are hard to contact or underrepresented. The MVP starts with a robust deterministic baseline (weighted_linear_v0), and will scale to fully calibrated TIRT/MIRT models as empirical response data accumulates."
-            },
-            {
-              "heading": "Expected outputs",
-              "list": [
-                "Persona Artifact",
-                "Persona Pool",
-                "Synthetic Audience",
-                "Segment Map",
-                "Visual Preference Profile",
-                "Design Response Report",
-                "Coverage Report",
-                "Confidence Report"
-              ]
-            },
-            {
-              "heading": "Current stage",
-              "body": "Space Compiler is a core engine in research and early implementation. The current focus is validating how choice data connects to Preference Vectors, Evidence, Confidence, and AI Personas."
-            }
-          ]
-        },
-        {
-          "key": "vision-feedback",
-          "title": "Vision Feedback with AI Persona",
-          "subtitle": "First application direction for AI Persona Synthesis Research",
-          "status": "direction",
-          "summary": "The first application direction for asking Synthetic Audiences about product, brand, advertising, packaging, and UI design drafts.",
-          "data-placeholder-id": "detail-3",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "Vision Feedback is an application scenario for asking Synthetic Audiences about reactions to product, brand, advertising, packaging, and UI design drafts."
-            },
-            {
-              "heading": "Use cases",
-              "list": [
-                "Product packaging",
-                "Brand images and moodboards",
-                "Ad creatives and thumbnails",
-                "UI screens and onboarding",
-                "Color palettes and style directions"
-              ]
-            },
-            {
-              "heading": "Expected outputs",
-              "body": "It is designed to organize draft preference, rejection reasons, segment-level follow-up questions, full-panel improvement directions, and response aggregation into units teams can use directly in a research workflow."
-            },
-            {
-              "heading": "Current stage",
-              "body": "Vision Feedback is the first design-response research direction to apply after Sudal choice data and Space Compiler persona synthesis are connected. Instead of recruiting a new human panel every time, it aims to let teams quickly interact with Synthetic Audiences at tens of thousands, hundreds of thousands, or millions of responses, gathering and comparing preference reasons, rejection factors, and improvement directions for product, brand, advertising, packaging, and UI variants."
-            }
-          ]
-        },
-        {
-          "key": "ai-persona-synthetic-audience",
-          "title": "AI Persona & Synthetic Audience",
-          "subtitle": "AI Persona Pool as a Service",
-          "status": "platform",
-          "summary": "Beyond Vision Feedback, Root Kernel aims to build AI Persona Pools and Synthetic Audience infrastructure that can support broader surveys, interviews, and research workflows as a later platform direction.",
-          "data-placeholder-id": "detail-4",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "AI Persona & Synthetic Audience groups individual AI Personas, persona pools, and Synthetic Audiences into one long-term platform direction. A Synthetic Audience is a virtual customer group assembled from AI Personas for a specific research purpose."
-            },
-            {
-              "heading": "Service direction",
-              "list": [
-                "AI Persona Pools configured for a research goal",
-                "Population conditions, segments, confidence, and coverage",
-                "Survey response simulation and persona interviews",
-                "Reusable persona pools for broader research workflows"
-              ]
-            },
-            {
-              "heading": "Why it matters",
-              "body": "Vision Feedback is the first application product. AI Persona Pool as a Service is the later expansion path: while conventional surveys and interviews can spend days on respondent recruitment, raw-data collection, analysis, labor, and panel costs, AIPSR is planned as infrastructure for combining reachable human responses with Synthetic Audience responses across brand research, surveys, and follow-up interviews at faster iteration speed and lower unit cost."
-            },
-            {
-              "heading": "Usage boundary",
-              "body": "AI Persona & Synthetic Audience is not a blanket replacement for every human response. It is intended as research infrastructure that can use real human responses where people can be contacted, while extending or partially replacing hard-to-contact and underrepresented segments with AI Personas and Synthetic Audiences."
-            }
-          ]
-        }
-      ],
-      "agent-technologies": [
-        {
-          "key": "doksuri",
-          "title": "Doksuri",
-          "subtitle": "Markdown-native Human-AI Collaboration Platform",
-          "status": "operating_dev",
-          "summary": "A collaboration tool where people and AI Agents use the same Markdown documents for task instructions, results, evidence, and review.",
-          "data-placeholder-id": "detail-5",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "Doksuri is a Markdown-native Human-AI Collaboration Platform. In practical terms, it keeps requirements, results, evidence, and review records in one shared document instead of letting AI work scatter across chat logs."
-            },
-            {
-              "heading": "Why Markdown",
-              "body": "Markdown becomes a shared work interface for humans and Agents, not just a document format."
-            },
-            {
-              "heading": "Workflow",
-              "list": [
-                "A person writes requirements, decision criteria, and task instructions in a document.",
-                "An Agent reads from the same document and leaves questions, results, and evidence.",
-                "Results, evidence, reviews, and decisions remain in the same document state.",
-                "It connects to KAO as the company-wide instruction and result surface for Agent work."
-              ]
-            }
-          ]
-        },
-        {
-          "key": "atn",
-          "title": "ATN",
-          "subtitle": "Agent Turn Network",
-          "status": "improving",
-          "summary": "A deliberation layer where a moderator assigns turns so multiple AI Agents speak from their roles and challenge each other's claims.",
-          "data-placeholder-id": "detail-6",
-          "sections": [
-            {
-              "heading": "What it is",
-              "body": "ATN, Agent Turn Network, lets a Moderator manage speaking turns so multiple AI Agents can review one problem from different roles. Instead of collecting several answers and summarizing them at the end, ATN preserves who said what, what evidence they used, and which claims were challenged."
-            },
-            {
-              "heading": "Deliberation flow",
-              "list": [
-                "The moderator assigns the next speaker.",
-                "Agents provide role-based opinions.",
-                "Other Agents see previous statements and agree or challenge them.",
-                "The sequence shows who said what and which claim was challenged.",
-                "It provides structured decision material before human judgment."
-              ]
-            },
-            {
-              "heading": "Use cases",
-              "body": "Product direction, architecture decisions, risk review, and research question refinement across company work."
-            }
-          ]
-        },
-        {
-          "key": "ai-spark",
-          "title": "AI-SPARK",
-          "subtitle": "AI Spec, Policy, Approval, Runtime Kit",
+          "key": "spec-bundle",
+          "title": "Spec Bundle",
+          "subtitle": "Spec Bundle · Revision Identity",
           "status": "patent",
-          "summary": "Backend development governance technology that turns AI-proposed server changes into specifications, validation steps, and approval gates before runtime adoption.",
+          "summary": "Packages server interfaces, state, bindings, authorization policies, and global settings into one declarative bundle for joint validation and atomic approval.",
+          "data-placeholder-id": "detail-spark-spec-bundle",
+          "sections": [
+            {"heading": "Bundle composition", "body": "The bundle manages gRPC proto or OpenAPI interfaces, state transitions in state.yaml, handling modes in binding.yaml, authorization rules in auth_policies.yaml, and global settings together."},
+            {"heading": "One revision", "body": "AI-SPARK normalizes the bundle files, sorts their digests into a manifest, and hashes it to create bundle_revision_id. Changing any constituent file changes the revision of the entire bundle."},
+            {"heading": "Unit of validation and approval", "body": "Because cross-referencing specifications share one revision, the Validator can detect inconsistencies and the entire bundle can be approved or returned for review as a single unit."},
+            {"heading": "People and AI", "list": ["People define the server intent, policies, and approval criteria.", "AI focuses implementation on the goals and extension points defined by the specification.", "Changing a Spec Bundle file creates a new bundle_revision_id, and the revised bundle must pass validation and approval again."]}
+          ]
+        },
+        {
+          "key": "validator-gate",
+          "title": "Validator · Approval Gate",
+          "subtitle": "Deterministic Validation · Exact Approval",
+          "status": "patent",
+          "summary": "The Validator checks specification consistency deterministically. The Approval Gate verifies that the exact validated revision and rule conditions still match.",
           "data-placeholder-id": "detail-7",
           "sections": [
-            {
-              "heading": "What it is",
-              "body": "AI-SPARK does not send natural-language requirements directly into server changes. It first organizes them into a Spec Bundle, then routes them through a Validator and Approval Gate. The core idea is to use AI development speed while preventing unapproved or policy-violating changes from reaching runtime."
-            },
-            {
-              "heading": "Core components",
-              "list": [
-                "Spec Bundle: groups requirements, API behavior, state changes, and permission conditions into a reviewable specification.",
-                "Validator: checks policy violations, schema errors, and unapproved changes before adoption.",
-                "Approval Gate: lets only human-approved changes move forward.",
-                "Fail-Closed: blocks uncertain or unapproved changes by default.",
-                "Audit Trail: preserves how a requirement became a server change."
-              ]
-            },
-            {
-              "heading": "Workflow",
-              "body": "When server changes are needed, requirements are first organized into a reviewable specification. Only changes that pass policy validation and human approval are reflected into the system."
-            }
+            {"heading": "Deterministic Validator", "body": "The same specification bundle, rules, and profile always produce the same ValidationResult. Checks cover Interface–Binding completeness, Binding–State references, missing authorization policies, the implementation Registry, and state reachability."},
+            {"heading": "Validation identity", "body": "ValidationResult records bundle_revision_id, validation_profile, rule_set_version, validator_version, violated rule_id values, and supporting evidence."},
+            {"heading": "Approval Attestation", "body": "Human approval is recorded as an attestation for an exact revision. The Gate verifies the revision, successful validation, profile, rule-set version, and Validator version together."},
+            {"heading": "Enforcement points", "body": "Approval prerequisites can be enforced during CI/CD build, test, and deployment, as well as server startup. Per-request verification is optional and depends on the operating configuration."}
+          ]
+        },
+        {
+          "key": "fsm-runtime",
+          "title": "FSM Runtime",
+          "subtitle": "Binding · FSM Runtime",
+          "status": "patent",
+          "summary": "Bindings classify operations into Stateful and Stateless paths. The FSM Runtime evaluates declared transition rules on the canonical state-changing path.",
+          "sections": [
+            {"heading": "Two execution paths", "body": "Stateful operations connect to the FSM through runtime_event. Operations without state transitions invoke a Usecase through entrypoint_id. binding.yaml is a design and validation specification, not a runtime input."},
+            {"heading": "Runtime responsibilities", "body": "The Runtime handles transition-rule evaluation, state-version and concurrency checks, state-change records, rollback, and stream publication."},
+            {"heading": "What AI implements", "body": "AI decides which event to emit and implements focused extension points such as Guard, Action, and Usecase. This reduces repeated state-engine code and narrows the surface that needs review."},
+            {"heading": "One state specification", "list": ["Implementation target for AI", "Execution standard for the FSM Runtime", "Expected behavior for tests", "Specification coordinates referenced by ReverseMap"]}
+          ]
+        },
+        {
+          "key": "reverse-map",
+          "title": "ReverseMap",
+          "subtitle": "Test Synthesis · ReverseMap",
+          "status": "patent",
+          "summary": "Synthesizes scenarios that should be rejected, then links failed test steps to relevant specification elements, requests, log evidence, and file locations.",
+          "data-placeholder-id": "detail-spark-reverse-map",
+          "sections": [
+            {"heading": "Constraint-violation test synthesis", "body": "Authorization policies, state models, and interface specifications are used to generate E2E scenarios for requests and transitions that the system must reject."},
+            {"heading": "Connected evidence", "body": "A report brings together the failed scenario and step, rule_id, spec_element_id for the operation, policy, binding, or state event, actual requests and responses, logs, and related file locations."},
+            {"heading": "RunIdentity", "body": "The bundle revision, validation profile, rule-set version, and Validator version identify the exact specification and validation conditions under which a failure occurred."},
+            {"heading": "Inverted Mapping", "body": "Related scenario steps are indexed by each specification element's Key, reducing duplication and identifying which tests must run again after a specification change."},
+            {"heading": "Next review", "body": "Developers and AI begin from the specification element and execution evidence named in the report. Implementation changes rerun E2E tests; Spec Bundle changes create a new revision that must pass validation and approval again."}
           ]
         }
       ],
-      "hermes-supports": [
+      "ai-harness": [
         {
-          "key": "kao",
-          "title": "KAO",
-          "subtitle": "Kkachi Agent Organization",
-          "status": "operating",
-          "summary": "A Hermes-based Agent Operating Model that separates Kkachi Agents by project and role.",
-          "data-placeholder-id": "detail-8",
+          "key": "doksuri", "title": "Doksuri", "subtitle": "Markdown-first PMS · Human-AI Collaboration", "status": "operating_dev",
+          "summary": "A Markdown-based PMS where small teams manage Epics, Tasks, Bugs, and Docs while people and AI agents work in the same item, comment, and review context.",
+          "data-placeholder-id": "detail-5",
           "sections": [
-            {
-              "heading": "What it is",
-              "body": "KAO, Kkachi Agent Organization, is Root Kernel’s role-based AI Agent operating model built on Hermes."
-            },
-            {
-              "heading": "Operating structure",
-              "body": "KAO does not ask one AI to do everything. It separates Kkachi Agents by project and role so execution, review, user perspective, documentation consistency, and UX judgment can be handled as distinct responsibilities."
-            },
-            {
-              "heading": "Representative roles",
-              "body": "Each colored Kkachi Agent carries a different role such as build, review, user check, docs, or UX, then connects its work piece toward the human-defined goal and final deliverable."
-            },
-            {
-              "heading": "Development delegation",
-              "body": "Blue leads execution, Red reviews, Orange checks user perspective, Grey handles document consistency, and Teal supports UX/UI judgment. The human keeps direction, validation criteria, testing, and final approval."
-            }
+            {"heading": "Work input", "body": "Requirements and instructions enter as Markdown items, agent results as comments and work output, and consequential changes as reviewable proposals."},
+            {"heading": "Validation and synchronization", "body": "A local daemon validates workspace changes against schema and version rules before synchronizing them with the central server. Writing and synchronization currently require an active server connection and authentication."},
+            {"heading": "Human decision", "body": "AI works within read and comment permissions by default. Changes to content, metadata, state, ownership, or item creation are submitted as proposals for human review and acceptance."},
+            {"heading": "Durable result", "body": "The synchronized Markdown workspace remains connected to server-managed comments, review state, proposal outcomes, and decision records."}
           ]
         },
         {
-          "key": "klm",
-          "title": "KLM",
-          "subtitle": "Kkachi Letta Memory",
-          "status": "improving",
-          "summary": "A memory trust-boundary system that helps AI Agents distinguish approved knowledge, project memory, and temporary retrieval results.",
-          "data-placeholder-id": "detail-9",
+          "key": "dolgorae", "title": "Dolgorae", "subtitle": "Local-first development control plane", "status": "direction",
+          "summary": "A local control layer designed to manage Mission, Task, and Workflow state, policies, execution evidence, recovery points, and approval history separately from execution engines.",
           "sections": [
-            {
-              "heading": "What it is",
-              "body": "KLM, Kkachi Letta Memory, helps Hermes Agents distinguish past work memory, approved knowledge, and temporary retrieval results. Its purpose is to reduce the risk of treating unverified information as fact."
-            },
-            {
-              "heading": "Trust boundary",
-              "list": [
-                "Approved Knowledge: reviewed or canonical knowledge.",
-                "Project Memory: context accumulated during project work.",
-                "Retrieval Result: temporary information from search or lookup.",
-                "Review Boundary: the check before temporary information is promoted into approved knowledge."
-              ]
-            },
-            {
-              "heading": "Operating direction",
-              "body": "KLM uses Letta-based memory and LLM Wiki while keeping approved knowledge separate from temporary information."
-            }
+            {"heading": "Design role", "body": "The control plane preserves current work state, handoff contracts, policies, and approval boundaries in recoverable form while remaining separate from execution engines."},
+            {"heading": "Input and output", "list": ["Input: Mission and Task definitions, Workflows, policies, and execution evidence", "Output: current state, next allowed action, handoff result, approval, and recovery point"]},
+            {"heading": "Execution boundary", "body": "Dolgorae manages state and policy. Connected execution tools perform code edits, builds, tests, and Git operations."},
+            {"heading": "Current state", "body": "The canonical implementation is establishing its CLI and daemon contracts. Public product behavior begins with help, version, and configuration checks."}
           ]
         },
         {
-          "key": "krq",
-          "title": "KRQ",
-          "subtitle": "Kkachi Research Queue",
-          "status": "improving",
-          "summary": "A research and knowledge operations system where Black and Yellow Kkachi Agents create verified knowledge cards for reuse by other Agents.",
-          "data-placeholder-id": "detail-10",
+          "key": "podway", "title": "Podway", "subtitle": "Procedure guard for one worktree", "status": "operating",
+          "summary": "A local tool that keeps Goal and FSM together so an AI retains its purpose and current stage through long work and resumes the same process after a session changes.",
+          "data-placeholder-id": "detail-harness-podway-goal-fsm",
           "sections": [
-            {
-              "heading": "What it is",
-              "body": "KRQ, Kkachi Research Queue, turns research from one-off lookup into reviewable knowledge cards that can be reused by later agent work."
-            },
-            {
-              "heading": "Flow",
-              "body": "Research Topic → Verified Notes → Knowledge Card → Human Review → Reused by Agents."
-            },
-            {
-              "heading": "Roles",
-              "list": [
-                "Black organizes background knowledge needed for project and company decisions.",
-                "Yellow strengthens the logical background and hypothesis candidates for research topics.",
-                "The human adjusts research scope and verification criteria, then approves knowledge for reuse."
-              ]
-            }
+            {"heading": "Current procedure state", "body": "Provides the current stage, missing requirements, allowed actions, and next command in both human-readable output and versioned JSON."},
+            {"heading": "Recovery and concurrency", "body": "retry, return, block, and reopen record rework. Preconditions and idempotency Keys protect state from retries and overlapping calls."},
+            {"heading": "Agent contract", "body": "An agent recalculates its next action from the worktree's authoritative status and next response, not from conversational memory."},
+            {"heading": "Operating boundary", "body": "Podway manages procedural state, while existing execution tools run builds, make Git changes, and call remote services. The current public release targets Apple Silicon macOS."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/podway", "linkLabel": "View on GitHub"}
+          ]
+        },
+        {
+          "key": "sanho", "title": "Sanho", "subtitle": "Canonical docs sync", "status": "operating",
+          "summary": "A synchronization technology that keeps documents across multiple repositories aligned with the same project knowledge so teams and agents work from one shared reference.",
+          "data-placeholder-id": "detail-harness-sanho-project-docs",
+          "sections": [
+            {"heading": "Two-point contract", "body": "On git commit, Sanho reads local state and reports canonical-document drift in one line without blocking. On git push, it publishes docs changes to the canonical repository."},
+            {"heading": "Conflict and recovery", "body": "sanho sync leaves ordinary Git conflict markers in the workspace. The user edits, adds, and commits before finishing with --continue, or restores the prior state with --abort."},
+            {"heading": "Trust boundary", "body": "Sanho does not create commits or move refs in the application repository. Documentation content remains subject to the existing Git review process."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/sanho", "linkLabel": "View on GitHub"}
+          ]
+        },
+        {
+          "key": "mulgae", "title": "Mulgae", "subtitle": "Multi-provider AI code review", "status": "operating",
+          "summary": "A tool that assigns Security, Logic, and Maintainability roles to multiple AIs, reviews the same code change from distinct perspectives, and combines their evidence into one review.",
+          "data-placeholder-id": "detail-harness-mulgae-role-review",
+          "sections": [
+            {"heading": "Fixed review target", "body": "Captures exactly one of workspace, stage, dirty, revision diff, patch, or stdin so every role reviews the same change."},
+            {"heading": "Role-based execution", "body": "Each role runs independently with one configured provider. If one role fails, other reviews continue while the failure reason and rerun command are recorded."},
+            {"heading": "Durable evidence", "body": "Free-form role reports, optional structured findings and evidence, and provider identity are preserved under .mulgae/."},
+            {"heading": "Human decision", "body": "Mulgae produces advisory evidence. The development team retains authority over merge, release, waiver, and organizational approval."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "View on GitHub"}
+          ]
+        },
+        {
+          "key": "gaori", "title": "Gaori", "subtitle": "Test evidence compression", "status": "operating",
+          "summary": "A local adapter that preserves the raw output of long test commands while compressing failures and essential context into evidence people and agents can review quickly.",
+          "data-placeholder-id": "detail-harness-gaori-evidence",
+          "sections": [
+            {"heading": "Execution and compression", "body": "Runs configured tests or ad hoc commands, then uses parsers and local extraction rules to create failure-focused Markdown and JSON summaries."},
+            {"heading": "Raw output and sensitive data", "body": "Summaries can apply redaction, but raw logs remain unchanged on the local machine and should be opened only when necessary."},
+            {"heading": "Two statuses", "body": "The command exit code and artifact status represent the test result. extractor_status describes only the quality of evidence compression."},
+            {"heading": "Operating boundary", "body": "Gaori neither changes test outcomes nor decides acceptance. It provides the raw log and focused failure evidence for the next review."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/gaori", "linkLabel": "View on GitHub"}
           ]
         }
-      ]
+      ],
+      "ai-agent": [
+        {
+          "key": "hermes-agent", "title": "Hermes Agent", "subtitle": "Root Kernel–tuned agent runtime", "status": "operating",
+          "summary": "A Root Kernel operating environment based on verified open-source releases of NousResearch Hermes Agent, with selected enhancements for multi-profile and multi-agent operations.",
+          "sections": [
+            {"heading": "Upstream foundation", "body": "The agent loop, tools, skills, memory, subagents, scheduler, and messaging gateways originate in the NousResearch open-source project."},
+            {"heading": "Verified operational enhancements", "body": "Root Kernel selectively maintains CJK session recovery, fail-closed approval for skill writes, per-profile Codex credential pinning, and Discord thread ownership."},
+            {"heading": "Multi-agent workflow", "body": "Implementation, review, change requests, and final acceptance continue on the same Kanban card, while mutex Keys and workflow types control concurrent claims and work rules."},
+            {"heading": "Operational change management", "body": "Each enhancement records its rationale, validation evidence, recovery path, and retirement criteria, and is removed when upstream provides an equivalent solution."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/hermes-agent", "linkLabel": "View on GitHub"}
+          ]
+        },
+        {
+          "key": "atn", "title": "ATN", "subtitle": "Agent Turn Network", "status": "improving",
+          "summary": "Persistently records delegation and council turns, events, and state for Hermes agents, then connects them to reviewable transcripts and briefs.",
+          "data-placeholder-id": "detail-6",
+          "sections": [
+            {"heading": "Plugin boundary", "body": "atn-plugin provides Hermes-facing tools, Moderator and Participant skills, and an explicit daemon client. It validates request payloads and passes structured command envelopes to Control."},
+            {"heading": "Control authority", "body": "The atn-control daemon and CLI own the registry, channel.jsonl event source of truth, SQLite projection, state transitions, replay, acknowledgment, recovery, transcripts, and exports."},
+            {"heading": "Council and delegation", "body": "Council sessions coordinated by a Moderator and delegated work reviewed on completion are both recorded as events and state transitions."},
+            {"heading": "Review and decision", "body": "A transcript and export bundle preserve session history and briefs alongside the event log and registry snapshot. People review this record to determine direction and the next execution."},
+            {"heading": "Public repository", "link": "https://github.com/irootkernel/agent-turn-network-plugin", "linkLabel": "View on GitHub"}
+          ]
+        }
+      ],
+      "aipsr": [],
+      "agent-technologies": [],
+      "hermes-supports": [],
     }
   }
 };
@@ -647,46 +529,57 @@ window.ROOT_KERNEL_DETAIL = {
         operating: 'In operation',
         prelaunch: 'Pre-launch',
         research: 'Research / early implementation',
-        direction: 'First application direction / in development',
-        improving: 'In operation / improving',
-        operating_dev: 'In operation / development',
+        direction: 'In development',
+        improving: 'In operation · evolving',
+        operating_dev: 'In operation · evolving',
         platform: 'Long-term platform direction',
-        patent: 'Patent pending / in development'
+        patent: 'Patent pending'
       }
     };
 
     const pageMeta = {
       ko: {
-        aipsr: { title: 'AI Persona Synthesis Research' },
-        'agent-technologies': { title: 'Agent Technologies' },
-        'hermes-supports': { title: 'Hermes Agent Supports' }
+        'ai-spark': { title: 'AI-SPARK' },
+        'ai-harness': { title: 'AI Harness' },
+        'ai-agent': { title: 'AI Agent' },
+        'agent-technologies': { title: 'AI Harness' },
+        'hermes-supports': { title: 'AI Agent' }
       },
       en: {
-        aipsr: { title: 'AI Persona Synthesis Research' },
-        'agent-technologies': { title: 'Agent Technologies' },
-        'hermes-supports': { title: 'Hermes Agent Supports' }
+        'ai-spark': { title: 'AI-SPARK' },
+        'ai-harness': { title: 'AI Harness' },
+        'ai-agent': { title: 'AI Agent' },
+        aipsr: { title: 'AI-SPARK' },
+        'agent-technologies': { title: 'AI Harness' },
+        'hermes-supports': { title: 'AI Agent' }
       }
     };
     const uiText = {
       ko: {
         close: '닫기',
         back: '돌아가기',
-        explorer: '관련 기술',
-        technologies: '기술 영역',
+        explorer: 'Technology Dossier',
+        technologies: '기술 상세',
         currentFile: '상세 설명',
-        folderAria: '기술 폴더 열기 또는 닫기'
+        folderAria: '기술 분류 열기 또는 닫기',
+        chooseTechnology: '다른 기술 보기',
+        previous: '이전 기술',
+        next: '다음 기술'
       },
       en: {
         close: 'Close',
         back: 'Back',
-        explorer: 'Related technologies',
-        technologies: 'Technology areas',
-        currentFile: 'Detail',
-        folderAria: 'Open or close technology area'
+        explorer: 'Technology Dossier',
+        technologies: 'Technology details',
+        currentFile: 'Detailed overview',
+        folderAria: 'Open or close technology group',
+        chooseTechnology: 'Explore another technology',
+        previous: 'Previous technology',
+        next: 'Next technology'
       }
     };
 
-  const order = ['aipsr', 'agent-technologies', 'hermes-supports'];
+  const order = ['ai-spark', 'ai-harness', 'ai-agent'];
   const labels = pageMeta[lang] || pageMeta.ko;
   const text = uiText[lang] || uiText.ko;
   const reusableDetailImages = {
@@ -719,24 +612,120 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-5': {
-      src: '/assets/images/detail-5.png',
+      src: '/assets/images/detail-5.webp',
+      width: 1672,
+      height: 941,
+      caption: {
+        ko: '제품 구조 예시',
+        en: 'Product structure example'
+      },
       alt: {
         ko: 'Doksuri에서 작업 항목, 프로젝트, Agent 설정, Command Center, Review 흐름이 하나의 협업 도구로 연결되는 제품 이미지',
         en: 'Doksuri product image showing work items, projects, agent settings, Command Center, and review flow connected in one collaboration surface'
       }
     },
     'detail-6': {
-      src: '/assets/images/agent-2.png',
+      src: '/assets/images/agent-2.webp',
+      width: 1672,
+      height: 941,
+      caption: {
+        ko: '토론·결정 흐름 예시',
+        en: 'Discussion and decision flow example'
+      },
       alt: {
         ko: 'Moderator가 여러 AI Agent의 토론 순서를 배정하고 Challenge, Risk, Final brief 항목이 있는 Decision Brief로 정리하는 Agent Turn Network 이미지',
         en: 'Agent Turn Network image showing a moderator-led multi-agent discussion thread connected by turn-order markers to a Decision Brief with challenge, risk, and final brief rows'
       }
     },
     'detail-7': {
-      src: '/assets/images/detail-7.png',
+      src: '/assets/images/detail-7.webp',
+      width: 1672,
+      height: 941,
+      caption: {
+        ko: '승인 게이트 구조 예시',
+        en: 'Approval gate structure example'
+      },
       alt: {
         ko: 'AI-SPARK에서 Requirement, Spec Bundle, Validator, Human Approval, Safe Runtime 흐름과 Fail-Closed, Audit Trail이 함께 표시되는 승인 게이트 이미지',
         en: 'AI-SPARK approval-gate image showing Requirement, Spec Bundle, Validator, Human Approval, Safe Runtime, Fail-Closed, and Audit Trail in one governed flow'
+      }
+    },
+    'detail-spark-spec-bundle': {
+      src: '/assets/images/detail-spark-spec-bundle.svg?v=3',
+      width: 1200,
+      height: 900,
+      caption: {
+        ko: '다섯 명세 모듈을 하나의 리비전으로 묶어 함께 검증하는 구조',
+        en: 'Five specification modules bound into one revision and validated together'
+      },
+      alt: {
+        ko: 'Interface, State, Binding, Policy, Config 다섯 명세 모듈이 하나의 Revision으로 묶여 함께 검증되는 구조도',
+        en: 'Diagram showing Interface, State, Binding, Policy, and Config modules bound into one revision and validated together'
+      }
+    },
+    'detail-spark-reverse-map': {
+      src: '/assets/images/detail-spark-reverse-map.svg?v=2',
+      width: 1600,
+      height: 900,
+      caption: {
+        ko: '실패 단계에서 명세와 실행 근거를 거쳐 재실행 범위를 찾는 흐름',
+        en: 'Tracing a failed step through specifications and evidence to the rerun scope'
+      },
+      alt: {
+        ko: '실패한 단계가 Rule, Spec, Request, Log, File 근거를 거쳐 재실행 대상으로 연결되는 ReverseMap 구조도',
+        en: 'ReverseMap diagram tracing a failed step through rule, specification, request, log, and file evidence to a rerun target'
+      }
+    },
+    'detail-harness-podway-goal-fsm': {
+      src: '/assets/images/detail-harness-podway-goal-fsm.svg?v=4',
+      width: 1200,
+      height: 900,
+      caption: {
+        ko: 'Goal과 FSM을 함께 유지해 세션이 바뀌어도 목적과 현재 단계에서 이어가는 구조',
+        en: 'Keeping Goal and FSM together so work resumes with the same purpose and current stage'
+      },
+      alt: {
+        ko: '고정된 Goal이 FSM의 Orient, Plan, Work, Verify 단계를 안내하고 AI가 세션 변경 후에도 현재 Work 단계로 돌아오는 Podway 개념도',
+        en: 'Podway concept diagram showing a fixed Goal guiding Orient, Plan, Work, and Verify FSM states while an AI resumes the current Work state after a session change'
+      }
+    },
+    'detail-harness-sanho-project-docs': {
+      src: '/assets/images/detail-harness-sanho-project-docs.svg?v=4',
+      width: 1200,
+      height: 900,
+      caption: {
+        ko: '하나의 프로젝트에 속한 여러 저장소의 문서를 같은 프로젝트 지식으로 맞추는 구조',
+        en: 'Aligning documents across multiple repositories with the same project knowledge'
+      },
+      alt: {
+        ko: '하나의 Project 안에서 Repo A, Repo B, Repo C의 문서가 중앙 Project Docs와 연결되어 모두 In Sync 상태가 되는 Sanho 개념도',
+        en: 'Sanho concept diagram showing documents in Repo A, Repo B, and Repo C connected to central Project Docs and brought into sync within one project'
+      }
+    },
+    'detail-harness-mulgae-role-review': {
+      src: '/assets/images/detail-harness-mulgae-role-review.svg?v=4',
+      width: 1200,
+      height: 900,
+      caption: {
+        ko: '여러 AI가 역할을 나눠 같은 변경을 살펴보고 하나의 리뷰로 모으는 구조',
+        en: 'Multiple AIs reviewing the same change by role and combining their perspectives into one review'
+      },
+      alt: {
+        ko: '같은 코드 변경을 Security, Logic, Maintainability 역할의 AI가 각각 검토하고 결과를 One Review로 모으는 Mulgae 개념도',
+        en: 'Mulgae concept diagram showing Security, Logic, and Maintainability AIs reviewing the same code change and combining their findings into one review'
+      }
+    },
+    'detail-harness-gaori-evidence': {
+      src: '/assets/images/detail-harness-gaori-evidence.svg?v=4',
+      width: 1200,
+      height: 900,
+      caption: {
+        ko: '원본 로그를 보존하며 실패 요약과 두 상태를 분리하는 구조',
+        en: 'Preserving raw logs while separating the failure summary and two statuses'
+      },
+      alt: {
+        ko: 'Raw Log가 Parser를 거쳐 Summary로 압축되고 Test Status와 Extractor Status가 별도로 표시되는 Gaori 구조도',
+        en: 'Gaori diagram showing a raw log compressed through a parser into a summary with separate test and extractor statuses'
       }
     },
     'detail-8': {
@@ -765,7 +754,9 @@ window.ROOT_KERNEL_DETAIL = {
   let activePage = pageFromBody;
   let activeKey = null;
   let previousFocus = null;
+  let backgroundState = [];
   const folderState = { aipsr: true, 'agent-technologies': true, 'hermes-supports': true };
+  const detailParam = 'detail';
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -795,6 +786,17 @@ window.ROOT_KERNEL_DETAIL = {
     return null;
   }
 
+  function allEntries() {
+    return order.flatMap((page) => pageItems(page).map((item) => ({ page, item })));
+  }
+
+  function updateDetailUrl(key) {
+    const url = new URL(window.location.href);
+    if (key) url.searchParams.set(detailParam, key);
+    else url.searchParams.delete(detailParam);
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+  }
+
   function chip(status) {
     const label = (statusLabels[lang] || statusLabels.ko)[status] || status;
     return '<span class="status-chip status-' + escapeHtml(status) + '">' + escapeHtml(label) + '</span>';
@@ -810,7 +812,10 @@ window.ROOT_KERNEL_DETAIL = {
     if (!asset) return null;
     return {
       src: asset.src,
-      alt: (asset.alt && (asset.alt[lang] || asset.alt.ko || asset.alt.en)) || ''
+      alt: (asset.alt && (asset.alt[lang] || asset.alt.ko || asset.alt.en)) || '',
+      caption: (asset.caption && (asset.caption[lang] || asset.caption.ko || asset.caption.en)) || '',
+      width: Number(asset.width) || 1672,
+      height: Number(asset.height) || 941
     };
   }
 
@@ -818,7 +823,8 @@ window.ROOT_KERNEL_DETAIL = {
     const asset = imageAsset(image);
     if (!asset) return '';
     return '<figure class="card-asset-figure detail-image-asset" data-placeholder-id="' + escapeHtml(image.placeholderId) + '">' +
-      '<img src="' + escapeHtml(asset.src) + '" alt="' + escapeHtml(asset.alt) + '" width="1672" height="941" decoding="async" loading="lazy">' +
+      '<img src="' + escapeHtml(asset.src) + '" alt="' + escapeHtml(asset.alt) + '" width="' + escapeHtml(asset.width) + '" height="' + escapeHtml(asset.height) + '" decoding="async" loading="lazy">' +
+      (asset.caption ? '<figcaption><span>' + escapeHtml(asset.caption) + '</span></figcaption>' : '') +
       '</figure>';
   }
 
@@ -826,20 +832,30 @@ window.ROOT_KERNEL_DETAIL = {
     return (item.sections || []).map((section) => {
       const list = Array.isArray(section.list) ? '<ul>' + section.list.map((li) => '<li>' + escapeHtml(li) + '</li>').join('') + '</ul>' : '';
       const body = section.body ? '<p>' + escapeHtml(section.body) + '</p>' : '';
-      return '<section class="doc-block"><h3>' + escapeHtml(section.heading) + '</h3>' + body + list + '</section>';
+      const link = section.link ? '<p><a class="text-link" href="' + escapeHtml(section.link) + '" target="_blank" rel="noopener">' + escapeHtml(section.linkLabel || section.link) + '</a></p>' : '';
+      return '<section class="doc-block"><h3>' + escapeHtml(section.heading) + '</h3>' + body + list + link + '</section>';
     }).join('');
   }
 
   function renderMain(page, item) {
     const breadcrumb = (labels[page]?.title || page) + ' / ' + item.title;
+    const statusChip = page === 'ai-spark' ? '' : chip(item.status);
     const images = imageList(item);
     const heroFigure = images[0] ? renderImageFigure(images[0]) : '';
     const heroImage = heroFigure ? '<div class="doc-hero-image">' + heroFigure + '</div>' : '';
+    const entries = allEntries();
+    const index = entries.findIndex((entry) => entry.page === page && entry.item.key === item.key);
+    const previous = entries[index - 1];
+    const next = entries[index + 1];
+    const pagerButton = (entry, label, direction) => entry
+      ? '<button type="button" class="doc-pager-button doc-pager-' + direction + '" data-workspace-page="' + escapeHtml(entry.page) + '" data-workspace-key="' + escapeHtml(entry.item.key) + '"><span>' + escapeHtml(label) + '</span><strong>' + escapeHtml(entry.item.title) + '</strong></button>'
+      : '<span></span>';
     return '<article class="workspace-document">' +
-      '<div class="file-tab"><span>' + escapeHtml(breadcrumb) + '</span>' + chip(item.status) + '</div>' +
+      '<div class="file-tab"><span>' + escapeHtml(breadcrumb) + '</span>' + statusChip + '</div>' +
       '<header class="doc-head"><p class="eyebrow">' + escapeHtml(text.currentFile) + '</p><h2>' + escapeHtml(item.title) + '</h2><p class="hero-lead">' + escapeHtml(item.subtitle) + '</p><p>' + escapeHtml(item.summary || '') + '</p></header>' +
       heroImage +
       '<div class="doc-sections">' + renderSections(item) + '</div>' +
+      '<nav class="doc-pagination" aria-label="' + escapeHtml(text.technologies) + '">' + pagerButton(previous, text.previous, 'previous') + pagerButton(next, text.next, 'next') + '</nav>' +
       '</article>';
   }
 
@@ -880,6 +896,12 @@ window.ROOT_KERNEL_DETAIL = {
     if (!shell) return;
     const nav = shell.querySelector('[data-workspace-nav]');
     if (nav) nav.innerHTML = renderTree();
+    const select = shell.querySelector('[data-workspace-select]');
+    if (select) select.value = activePage + '|' + activeKey;
+  }
+
+  function renderMobileSelect() {
+    return allEntries().map((entry) => '<option value="' + escapeHtml(entry.page + '|' + entry.item.key) + '">' + escapeHtml((labels[entry.page]?.title || entry.page) + ' · ' + entry.item.title) + '</option>').join('');
   }
 
   function setActive(page, key, focusMain) {
@@ -901,24 +923,36 @@ window.ROOT_KERNEL_DETAIL = {
       if (focusMain) main.focus();
     }
     updateTree();
+    updateDetailUrl(activeKey);
   }
 
-  function closeWorkspace() {
+  function closeWorkspace(options) {
     if (!shell) return;
     shell.classList.remove('is-open');
     shell.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('detail-lock');
+    backgroundState.forEach(({ node, ariaHidden }) => {
+      node.inert = false;
+      if (ariaHidden == null) node.removeAttribute('aria-hidden');
+      else node.setAttribute('aria-hidden', ariaHidden);
+    });
+    backgroundState = [];
+    if (!options || options.updateUrl !== false) updateDetailUrl('');
     if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
   }
 
   function buildShell() {
     const el = document.createElement('div');
     el.className = 'detail-root';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-label', text.technologies);
     el.setAttribute('aria-hidden', 'true');
     el.innerHTML = '<div class="workspace-body">' +
         '<button class="workspace-close" type="button" aria-label="' + escapeHtml(text.close) + '">×</button>' +
         '<aside class="workspace-sidebar" aria-label="' + escapeHtml(text.technologies) + '">' +
           '<div class="sidebar-header"><button class="sidebar-back" type="button" aria-label="' + escapeHtml(text.back) + '">‹</button><div class="sidebar-head-text"><span>' + escapeHtml(text.explorer) + '</span><strong>' + escapeHtml(text.technologies) + '</strong></div></div>' +
+          '<label class="workspace-mobile-picker"><span>' + escapeHtml(text.chooseTechnology) + '</span><select data-workspace-select>' + renderMobileSelect() + '</select></label>' +
           '<nav class="sidebar-tree" role="tree" data-workspace-nav></nav>' +
         '</aside>' +
         '<main class="workspace-main" tabindex="-1" data-workspace-main></main>' +
@@ -927,6 +961,10 @@ window.ROOT_KERNEL_DETAIL = {
     el.addEventListener('error', removeBrokenDetailImage, true);
     el.querySelector('.workspace-close').addEventListener('click', closeWorkspace);
     el.querySelector('.sidebar-back').addEventListener('click', closeWorkspace);
+    el.querySelector('[data-workspace-select]').addEventListener('change', (event) => {
+      const parts = event.target.value.split('|');
+      openWorkspace(parts[0], parts[1]);
+    });
     el.addEventListener('click', (event) => {
       const folderButton = event.target.closest('[data-folder-toggle]');
       if (folderButton) {
@@ -973,6 +1011,13 @@ window.ROOT_KERNEL_DETAIL = {
     shell.classList.add('is-open');
     shell.setAttribute('aria-hidden', 'false');
     document.body.classList.add('detail-lock');
+    if (!backgroundState.length) {
+      backgroundState = Array.from(document.querySelectorAll('body > .site-header, body > main, body > .site-footer, body > .scroll-progress')).map((node) => ({ node, ariaHidden: node.getAttribute('aria-hidden') }));
+      backgroundState.forEach(({ node }) => {
+        node.inert = true;
+        node.setAttribute('aria-hidden', 'true');
+      });
+    }
     setActive(entry.page, entry.item.key, false);
     if (window.matchMedia('(max-width: 560px)').matches) {
       const main = shell.querySelector('[data-workspace-main]');
@@ -989,4 +1034,18 @@ window.ROOT_KERNEL_DETAIL = {
     event.preventDefault();
     openWorkspace(trigger.getAttribute('data-detail-page') || pageFromBody, trigger.getAttribute('data-detail-key'));
   });
+  window.addEventListener('popstate', () => {
+    const key = new URL(window.location.href).searchParams.get(detailParam);
+    if (!key) {
+      closeWorkspace({ updateUrl: false });
+      return;
+    }
+    const entry = findEntry(key);
+    if (entry) openWorkspace(entry.page, entry.item.key);
+  });
+  const initialKey = new URL(window.location.href).searchParams.get(detailParam);
+  if (initialKey) {
+    const entry = findEntry(initialKey, pageFromBody);
+    if (entry) openWorkspace(entry.page, entry.item.key);
+  }
 })();
