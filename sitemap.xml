@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://rootkernel.xyz/</loc></url>
-  <url><loc>https://rootkernel.xyz/ko/</loc></url>
-  <url><loc>https://rootkernel.xyz/ko/ai-spark/</loc></url>
-  <url><loc>https://rootkernel.xyz/ko/ai-harness/</loc></url>
-  <url><loc>https://rootkernel.xyz/ko/ai-agent/</loc></url>
-  <url><loc>https://rootkernel.xyz/ko/contact/</loc></url>
-  <url><loc>https://rootkernel.xyz/en/</loc></url>
-  <url><loc>https://rootkernel.xyz/en/ai-spark/</loc></url>
-  <url><loc>https://rootkernel.xyz/en/ai-harness/</loc></url>
-  <url><loc>https://rootkernel.xyz/en/ai-agent/</loc></url>
-  <url><loc>https://rootkernel.xyz/en/contact/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/ko/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/ko/ai-spark/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/ko/ai-harness/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/ko/ai-agent/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/ko/contact/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/en/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/en/ai-spark/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/en/ai-harness/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/en/ai-agent/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/en/contact/</loc></url>
 </urlset>
