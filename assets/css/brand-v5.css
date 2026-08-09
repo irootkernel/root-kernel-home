@@ -59,13 +59,6 @@
 .rk-layer p { max-width: 610px; margin: 0; }
 .rk-arrow-link { min-height: 44px; display: inline-flex; align-items: center; gap: .7rem; color: var(--rk-ink); font-weight: 850; text-decoration: none; white-space: nowrap; }
 .rk-arrow-link span { color: var(--rk-orange); font-size: 1.3rem; }
-.rk-proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.rk-proof-grid article { padding: 1.45rem; border-left: 2px solid var(--rk-teal); background: rgba(255,253,248,.72); }
-.rk-proof-grid strong { display: block; color: var(--rk-ink); }
-.rk-proof-grid span { display: block; margin: .22rem 0 .8rem; color: var(--rk-teal); font: 700 .74rem/1.35 ui-monospace, monospace; }
-.rk-proof-grid p { margin: 0; font-size: .9rem; }
-.rk-proof-grid a { min-height: 44px; margin-top: .75rem; display: inline-flex; align-items: center; gap: .45rem; color: var(--rk-ink); font-size: .84rem; font-weight: 850; text-decoration: none; }
-.rk-proof-grid a i { color: var(--rk-orange); font-style: normal; }
 .brand-v5 .site-footer { border-top: 1px solid rgba(21,32,43,.15); }
 
 @media (max-width: 900px) {
@@ -86,8 +79,6 @@
   .rk-editorial-hero .rk-hero-head { margin-bottom:2rem; }
   .rk-editorial-hero .rk-hero-head h1 { font-size:clamp(2.7rem,12.8vw,4.2rem); }
   .rk-section { padding-block: 4rem; }
-  .rk-proof-grid { grid-template-columns: 1fr; }
-  .rk-proof-grid { gap: .7rem; }
 }
 @media (max-width: 480px) {
   .rk-hero,
@@ -215,9 +206,6 @@ body.brand-v5 .doc-block h3 { color:var(--rk-ink); }
 .rk-layer { min-height:260px; grid-template-columns:1fr; align-items:start; gap:1rem; padding:1.5rem; }
 .rk-layer > p { margin:0; }
 .rk-layer .rk-arrow-link { margin-top:auto; }
-.rk-proof-grid article { min-height:170px; display:flex; flex-direction:column; }
-.rk-proof-grid a { margin-top:auto; }
-
 .spark-flow { position:relative; margin:0; padding:0; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.65rem; list-style:none; }
 .spark-flow::before { content:""; position:absolute; top:50%; left:8%; right:8%; border-top:1px solid var(--rk-teal); }
 .spark-flow li { position:relative; min-height:132px; padding:1.1rem; display:grid; align-content:center; border:1px solid var(--rk-line); border-top:3px solid var(--rk-teal); background:var(--rk-paper); z-index:1; }
