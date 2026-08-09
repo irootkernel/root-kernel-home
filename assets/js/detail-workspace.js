@@ -61,6 +61,7 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "Binding · FSM Runtime",
           "status": "patent",
           "summary": "Binding은 연산을 Stateful과 Stateless 경로로 분류하고, FSM Runtime은 상태 변경의 정상 경로에서 선언된 전이 규칙을 평가합니다.",
+          "data-placeholder-id": "detail-spark-fsm-runtime",
           "sections": [
             {
               "heading": "두 가지 실행 경로",
@@ -383,6 +384,7 @@ window.ROOT_KERNEL_DETAIL = {
           "subtitle": "Binding · FSM Runtime",
           "status": "patent",
           "summary": "Bindings classify operations into Stateful and Stateless paths. The FSM Runtime evaluates declared transition rules on the canonical state-changing path.",
+          "data-placeholder-id": "detail-spark-fsm-runtime",
           "sections": [
             {"heading": "Two execution paths", "body": "Stateful operations connect to the FSM through runtime_event. Operations without state transitions invoke a Usecase through entrypoint_id. binding.yaml is a design and validation specification, not a runtime input."},
             {"heading": "Runtime responsibilities", "body": "The Runtime handles transition-rule evaluation, state-version and concurrency checks, state-change records, rollback, and stream publication."},
@@ -661,6 +663,19 @@ window.ROOT_KERNEL_DETAIL = {
       alt: {
         ko: 'Interface, State, Binding, Policy, Config 다섯 명세 모듈이 하나의 Revision으로 묶여 함께 검증되는 구조도',
         en: 'Diagram showing Interface, State, Binding, Policy, and Config modules bound into one revision and validated together'
+      }
+    },
+    'detail-spark-fsm-runtime': {
+      src: '/assets/images/detail-spark-fsm-runtime.svg?v=1',
+      width: 1600,
+      height: 900,
+      caption: {
+        ko: '선언된 전이 규칙을 따라 상태를 변경하고 실패 시 기존 상태를 보존하는 Runtime 흐름',
+        en: 'The Runtime transition path that changes state through declared rules and preserves the current state on failure'
+      },
+      alt: {
+        ko: 'runtime_event가 현재 상태와 버전 확인, 전이 규칙, Guard, Action, 새 상태, 변경 기록, 스트림 발행으로 이어지고 실패하면 전이를 거부하거나 롤백해 기존 상태를 보존하는 FSM Runtime 구조도',
+        en: 'FSM Runtime diagram showing a runtime event passing through current-state and version checks, transition rules, Guard, Action, a new state, a change record, and stream publication, with rejection or rollback preserving the current state on failure'
       }
     },
     'detail-spark-reverse-map': {
@@ -982,6 +997,7 @@ window.ROOT_KERNEL_DETAIL = {
     });
     document.addEventListener('keydown', (event) => {
       if (!el.classList.contains('is-open')) return;
+      if (document.querySelector('.image-modal-dialog[open]')) return;
       if (event.key === 'Escape') {
         event.preventDefault();
         closeWorkspace();
