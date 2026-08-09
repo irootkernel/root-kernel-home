@@ -8,7 +8,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Spec Bundle",
           "subtitle": "Spec Bundle · Revision Identity",
           "status": "patent",
-          "summary": "서버의 인터페이스, 상태, 바인딩, 권한 정책과 전역 설정을 하나의 선언형 번들로 묶어 함께 검증하고 원자적으로 승인합니다.",
+          "summary": "서버의 인터페이스, 상태, 바인딩, 권한 정책과 전역 설정을 하나의 선언형 번들로 묶어 함께 검증하고 하나의 단위로 승인합니다.",
           "sections": [
             {
               "heading": "번들의 구성",
@@ -47,7 +47,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "Approval Attestation",
-              "body": "사람의 승인은 정확한 리비전에 대한 증명으로 기록됩니다. Gate는 리비전, 검증 성공 여부, profile, rule-set과 Validator 버전이 모두 일치하는지 확인합니다."
+              "body": "사람의 승인은 검증된 바로 그 리비전에 대한 증명으로 기록됩니다. Gate는 리비전, 검증 성공 여부, profile, rule-set과 Validator 버전이 모두 일치하는지 확인합니다."
             },
             {
               "heading": "적용 지점",
@@ -72,7 +72,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "AI가 구현하는 범위",
-              "body": "AI는 어떤 event를 발화할지 결정하고 Guard, Action, Usecase처럼 목적이 분명한 확장 지점을 구현합니다. 상태 저장과 전이 엔진을 반복해서 작성하는 부담과 검증 범위를 줄입니다."
+              "body": "AI는 어떤 event를 발화할지 결정하고 Guard, Action, Usecase처럼 목적이 분명한 확장 지점을 구현합니다. 상태 저장과 전이 엔진을 반복 작성할 부담을 덜고, 검증 범위도 좁혀줍니다."
             },
             {
               "heading": "하나의 상태 명세",
@@ -122,7 +122,7 @@ window.ROOT_KERNEL_DETAIL = {
           "sections": [
             {"heading": "업무 입력", "body": "요구사항과 작업 지시는 Markdown item으로, Agent 결과는 댓글과 작업 결과로, 중요한 변경은 검토 가능한 proposal로 입력됩니다."},
             {"heading": "검증과 동기화", "body": "로컬 daemon이 workspace 변경을 schema와 version 기준으로 검증하고 중앙 서버와 동기화합니다. 현재 쓰기와 동기화에는 활성 서버 연결과 인증이 필요합니다."},
-            {"heading": "사람의 결정", "body": "AI는 기본적으로 읽기·댓글 범위에서 작업합니다. 본문·메타데이터·상태·담당자 변경과 item 생성은 proposal로 제출하며, 사람이 검토한 뒤 적용 여부를 결정합니다."},
+            {"heading": "적용 전 검토", "body": "AI는 기본적으로 읽기·댓글 범위에서 작업합니다. 본문·메타데이터·상태·담당자 변경과 item 생성은 proposal로 제출하며, 사람이 검토한 뒤 적용 여부를 결정합니다."},
             {"heading": "남는 결과", "body": "동기화된 Markdown workspace와 서버가 관리하는 comment·review state, proposal 적용 결과와 결정 기록이 함께 남습니다."}
           ]
         },
@@ -131,7 +131,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Dolgorae",
           "subtitle": "Local-first development control plane",
           "status": "direction",
-          "summary": "Mission·Task·Workflow의 상태와 정책, 실행 근거, 복구 지점, 승인 이력을 실행 엔진과 분리해 관리하도록 설계하는 로컬 제어 계층입니다.",
+          "summary": "Mission·Task·Workflow의 상태와 정책, 실행 근거, 복구 지점, 승인 이력을 실행 엔진과 분리해 관리하는 로컬 제어 계층입니다.",
           "sections": [
             {"heading": "설계 역할", "body": "실행 엔진과 분리된 control plane에서 작업의 현재 상태와 전달 계약, 정책과 승인 경계를 복구 가능한 형태로 유지합니다."},
             {"heading": "입력과 출력", "list": ["입력: Mission과 Task 정의, Workflow, 정책, 실행 근거", "출력: 현재 상태, 다음 허용 동작, 전달 결과, 승인과 복구 지점"]},
@@ -144,11 +144,11 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Podway",
           "subtitle": "Procedure guard for one worktree",
           "status": "operating",
-          "summary": "Goal과 FSM을 함께 유지해 AI가 긴 작업에서도 목적과 현재 단계를 잃지 않고, 세션이 바뀐 뒤에도 같은 과정에서 이어가도록 돕는 로컬 도구입니다.",
+          "summary": "Goal과 FSM을 함께 유지해 AI가 긴 작업에서도 목적과 현재 단계를 잃지 않고, 세션이 바뀐 뒤에도 같은 과정을 이어가도록 돕는 로컬 도구입니다.",
           "data-placeholder-id": "detail-harness-podway-goal-fsm",
           "sections": [
-            {"heading": "절차의 현재 상태", "body": "현재 단계, 누락된 필수 항목, 허용 동작과 다음 명령을 사람이 읽는 형식과 버전된 JSON으로 제공합니다."},
-            {"heading": "복구와 동시성", "body": "retry·return·block·reopen으로 재작업을 기록하고, precondition과 idempotency key로 재시도하거나 겹친 호출의 상태 손상을 막습니다."},
+            {"heading": "절차의 현재 상태", "body": "현재 단계, 누락된 필수 항목, 허용 동작과 다음 명령을 사람이 읽는 형식과 버전 관리되는 JSON으로 제공합니다."},
+            {"heading": "복구와 동시성", "body": "retry·return·block·reopen으로 재작업을 기록하고, precondition과 idempotency key로 재시도·중복 호출로 인한 상태 손상을 막습니다."},
             {"heading": "Agent 계약", "body": "Agent는 대화 기억이 아니라 worktree의 authoritative status와 next 응답에서 다음 행동을 다시 계산합니다."},
             {"heading": "작동 범위", "body": "절차 상태를 관리하며 실제 빌드 명령과 Git 변경, 원격 서비스 호출은 기존 실행 도구에서 수행합니다. 현재 공개 릴리스 대상은 Apple Silicon macOS입니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/podway", "linkLabel": "GitHub에서 보기"}
@@ -179,7 +179,7 @@ window.ROOT_KERNEL_DETAIL = {
             {"heading": "고정된 검토 대상", "body": "workspace·stage·dirty·revision diff·patch·stdin 중 정확히 하나를 캡처해 각 역할이 같은 변경을 검토하게 합니다."},
             {"heading": "역할별 실행", "body": "각 역할은 설정된 provider 하나에서 독립적으로 실행됩니다. 한 역할이 실패해도 다른 검토는 이어지고 실패 이유와 재실행 명령이 보고됩니다."},
             {"heading": "지속 가능한 근거", "body": "자유 형식 역할 보고서와 선택적 구조화 finding·evidence, provider identity를 .mulgae/에 보존합니다."},
-            {"heading": "사람의 결정", "body": "Mulgae의 검토는 advisory evidence입니다. 병합·release·waiver와 조직의 승인은 개발팀이 결정합니다."},
+            {"heading": "자문과 최종 승인", "body": "Mulgae의 검토는 advisory evidence입니다. 병합·릴리스·waiver 적용과 조직의 승인은 사람의 몫입니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "GitHub에서 보기"}
           ]
         },
@@ -235,7 +235,7 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "ATN",
           "subtitle": "Agent Turn Network",
           "status": "improving",
-          "summary": "Hermes Agent가 참여하는 위임과 협의의 턴·이벤트·상태를 로컬에 영속적으로 기록하고, 검토할 수 있는 대화록과 요약 자료로 연결합니다.",
+          "summary": "Hermes Agent가 참여하는 위임과 협의의 턴·이벤트·상태를 로컬에 지속적으로 기록하고, 사람의 검토와 다음 실행으로 엮습니다.",
           "data-placeholder-id": "detail-6",
           "sections": [
             {
@@ -360,7 +360,7 @@ window.ROOT_KERNEL_DETAIL = {
             {"heading": "Bundle composition", "body": "The bundle manages gRPC proto or OpenAPI interfaces, state transitions in state.yaml, handling modes in binding.yaml, authorization rules in auth_policies.yaml, and global settings together."},
             {"heading": "One revision", "body": "AI-SPARK normalizes the bundle files, sorts their digests into a manifest, and hashes it to create bundle_revision_id. Changing any constituent file changes the revision of the entire bundle."},
             {"heading": "Unit of validation and approval", "body": "Because cross-referencing specifications share one revision, the Validator can detect inconsistencies and the entire bundle can be approved or returned for review as a single unit."},
-            {"heading": "People and AI", "list": ["People define the server intent, policies, and approval criteria.", "AI focuses implementation on the goals and extension points defined by the specification.", "Changing a Spec Bundle file creates a new bundle_revision_id, and the revised bundle must pass validation and approval again."]}
+            {"heading": "People and AI roles", "list": ["People define the server intent, policies, and approval criteria.", "AI focuses implementation on the goals and extension points defined by the specification.", "Changing a Spec Bundle file creates a new bundle_revision_id, and the revised bundle must pass validation and approval again."]}
           ]
         },
         {
@@ -399,7 +399,7 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-spark-reverse-map",
           "sections": [
             {"heading": "Constraint-violation test synthesis", "body": "Authorization policies, state models, and interface specifications are used to generate E2E scenarios for requests and transitions that the system must reject."},
-            {"heading": "Connected evidence", "body": "A report brings together the failed scenario and step, rule_id, spec_element_id for the operation, policy, binding, or state event, actual requests and responses, logs, and related file locations."},
+            {"heading": "Linked evidence", "body": "A report brings together the failed scenario and step, rule_id, spec_element_id for the operation, policy, binding, or state event, actual requests and responses, logs, and related file locations."},
             {"heading": "RunIdentity", "body": "The bundle revision, validation profile, rule-set version, and Validator version identify the exact specification and validation conditions under which a failure occurred."},
             {"heading": "Inverted Mapping", "body": "Related scenario steps are indexed by each specification element's Key, reducing duplication and identifying which tests must run again after a specification change."},
             {"heading": "Next review", "body": "Developers and AI begin from the specification element and execution evidence named in the report. Implementation changes rerun E2E tests; Spec Bundle changes create a new revision that must pass validation and approval again."}
@@ -414,7 +414,7 @@ window.ROOT_KERNEL_DETAIL = {
           "sections": [
             {"heading": "Work input", "body": "Requirements and instructions enter as Markdown items, agent results as comments and work output, and consequential changes as reviewable proposals."},
             {"heading": "Validation and synchronization", "body": "A local daemon validates workspace changes against schema and version rules before synchronizing them with the central server. Writing and synchronization currently require an active server connection and authentication."},
-            {"heading": "Human decision", "body": "AI works within read and comment permissions by default. Changes to content, metadata, state, ownership, or item creation are submitted as proposals for human review and acceptance."},
+            {"heading": "Review before apply", "body": "AI works within read and comment permissions by default. Changes to content, metadata, state, ownership, or item creation are submitted as proposals for human review and acceptance."},
             {"heading": "Durable result", "body": "The synchronized Markdown workspace remains connected to server-managed comments, review state, proposal outcomes, and decision records."}
           ]
         },
@@ -459,7 +459,7 @@ window.ROOT_KERNEL_DETAIL = {
             {"heading": "Fixed review target", "body": "Captures exactly one of workspace, stage, dirty, revision diff, patch, or stdin so every role reviews the same change."},
             {"heading": "Role-based execution", "body": "Each role runs independently with one configured provider. If one role fails, other reviews continue while the failure reason and rerun command are recorded."},
             {"heading": "Durable evidence", "body": "Free-form role reports, optional structured findings and evidence, and provider identity are preserved under .mulgae/."},
-            {"heading": "Human decision", "body": "Mulgae produces advisory evidence. The development team retains authority over merge, release, waiver, and organizational approval."},
+            {"heading": "Advisory vs approval", "body": "Mulgae produces advisory evidence. The development team retains authority over merge, release, waiver, and organizational approval."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "View on GitHub"}
           ]
         },
@@ -516,12 +516,12 @@ window.ROOT_KERNEL_DETAIL = {
 
     const statusLabels = {
       ko: {
-        operating: '운영중',
-        prelaunch: '출시 준비중',
-        research: '연구·구현중',
-        direction: '개발중',
-        improving: '운영중',
-        operating_dev: '운영중',
+        operating: '운영 중',
+        prelaunch: '출시 준비 중',
+        research: '연구·구현 중',
+        direction: '개발 중',
+        improving: '운영 중',
+        operating_dev: '운영 중',
         platform: '장기 플랫폼 방향',
         patent: '특허 출원'
       },
@@ -651,7 +651,7 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-spark-spec-bundle': {
-      src: '/assets/images/detail-spark-spec-bundle.svg?v=3',
+      src: '/assets/images/detail-spark-spec-bundle.svg?v=4',
       width: 1200,
       height: 900,
       caption: {

@@ -45,7 +45,7 @@ const copy = {
     sending: 'Sending...',
     success: 'Your inquiry has been received.',
     failure: 'Could not send the inquiry. Try again later or use direct email.',
-    button: 'Send inquiry'
+    button: 'Send project inquiry'
   }
 };
 
