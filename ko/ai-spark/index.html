@@ -10,11 +10,11 @@
   <meta property="og:type" content="website"><meta property="og:title" content="AI-SPARK | Root Kernel"><meta property="og:description" content="명세가 먼저, 코드는 그다음. 한 리비전이 검증·승인·구현·테스트·실행의 기준이 됩니다."><meta property="og:url" content="https://home.rootkernel.xyz/ko/ai-spark/"><meta property="og:site_name" content="Root Kernel"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="og:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Root Kernel">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AI-SPARK | Root Kernel"><meta name="twitter:description" content="명세가 먼저, 코드는 그다음. 한 리비전이 검증·승인·구현·테스트·실행의 기준이 됩니다."><meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png"><meta name="twitter:image:alt" content="Root Kernel">
   <link rel="canonical" href="https://home.rootkernel.xyz/ko/ai-spark/"><link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/ai-spark/"><link rel="alternate" hreflang="en" href="https://home.rootkernel.xyz/en/ai-spark/">
-  <link rel="stylesheet" href="../../assets/css/styles.css?v=3.6"><link rel="stylesheet" href="../../assets/css/brand-v5.css?v=2.1">
+  <link rel="stylesheet" href="../../assets/css/styles.css?v=3.7"><link rel="stylesheet" href="../../assets/css/brand-v5.css?v=2.1">
 </head>
 <body data-detail-page="ai-spark" data-lang="ko" data-page="ai-spark" class="brand-v5">
   <a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="scroll-progress" aria-hidden="true"><span></span></div>
-  <header class="site-header"><div class="nav-shell"><a class="brand" href="../index.html" aria-label="Root Kernel 홈"><img class="brand-logo" src="../../assets/images/rootkernel-wide-logo-light.svg" alt="" width="226" height="25"></a><button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false">Menu</button><nav class="site-nav" id="primary-nav" aria-label="Primary navigation"><a class="active" href="index.html">AI-SPARK</a><a href="../ai-harness/index.html">AI Harness</a><a href="../ai-agent/index.html">AI Agent</a><a href="../contact/index.html">Contact</a></nav><div class="lang-switch" aria-label="언어 선택"><a class="active" href="index.html" hreflang="ko">KO</a><span aria-hidden="true">/</span><a href="../../en/ai-spark/index.html" hreflang="en">EN</a></div></div></header>
+  <header class="site-header"><div class="nav-shell"><a class="brand" href="../index.html" aria-label="Root Kernel 홈"><img class="brand-logo" src="../../assets/images/rootkernel-wide-logo-light.svg" alt="" width="226" height="25"></a><button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false">Menu</button><nav class="site-nav" id="primary-nav" aria-label="주요 메뉴"><a class="active" href="index.html">AI-SPARK</a><a href="../ai-harness/index.html">AI Harness</a><a href="../ai-agent/index.html">AI Agent</a><a href="../contact/index.html">Contact</a></nav><div class="lang-switch" aria-label="언어 선택"><a class="active" href="index.html" hreflang="ko">KO</a><span aria-hidden="true">/</span><a href="../../en/ai-spark/index.html" hreflang="en">EN</a></div></div></header>
 
   <main id="main">
     <section class="rk-hero rk-editorial-hero">
@@ -23,13 +23,13 @@
         <h1>명세가 먼저<br>코드는 그다음</h1>
       </div>
       <div class="rk-hero-body">
-        <div class="rk-hero-copy reveal"><p class="rk-hero-lead">AI-SPARK는 서버의 의도와 정책을 먼저 명세합니다. 검증과 사람의 승인을 거친 리비전만 구현·테스트·실행으로 넘깁니다.</p></div>
+        <div class="rk-hero-copy reveal"><p class="rk-hero-lead">AI-SPARK는 서버가 따라야 할 동작과 정책을 구현 전에 명세합니다. 결정론적 검증과 사람의 승인을 통과한 리비전만 구현과 테스트를 거쳐 런타임에 적용됩니다.</p></div>
         <figure class="rk-brand-art rk-hero-art reveal" aria-hidden="true"><img src="../../assets/images/brand-spark-governance.webp" alt="" width="1600" height="1000" fetchpriority="high"></figure>
       </div>
     </section>
 
     <section class="rk-section" id="chain">
-      <div class="rk-section-head reveal"><p class="rk-kicker">One Revision · End to End</p><h2>설계부터 실행까지<br>같은 기준으로</h2><p>명세와 승인, 구현과 테스트가 한 리비전을 기준으로 움직입니다.</p></div>
+      <div class="rk-section-head reveal"><p class="rk-kicker">One Revision · End to End</p><h2>설계부터 실행까지<br>같은 기준으로</h2><p>명세, 승인, 구현, 테스트가 모두 같은 리비전에 연결됩니다.</p></div>
       <ol class="spark-flow" aria-label="AI-SPARK 실행 흐름">
         <li class="reveal"><span>01</span><strong>Spec</strong></li>
         <li class="reveal"><span>02</span><strong>Validate</strong></li>
@@ -43,8 +43,8 @@
     <section class="rk-section rk-section-tinted">
       <div class="rk-section-head reveal"><p class="rk-kicker">Core Technologies</p><h2>명세부터 구현,<br>복구까지</h2></div>
       <div class="rk-tech-entry-grid">
-        <article class="rk-tech-entry reveal"><span>Specification</span><h3>Spec Bundle</h3><p>서버의 인터페이스·상태·권한을 하나의 실행 계약으로 묶습니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="spec-bundle">자세히 보기 <span aria-hidden="true">→</span></button></article>
-        <article class="rk-tech-entry reveal"><span>Governance</span><h3>Validation · Approval</h3><p>같은 규칙으로 검사하고, 검증된 바로 그 리비전만 사람이 승인합니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="validator-gate">자세히 보기 <span aria-hidden="true">→</span></button></article>
+        <article class="rk-tech-entry reveal"><span>Specification</span><h3>Spec Bundle</h3><p>서버의 인터페이스·상태 모델·바인딩·권한 정책을 하나의 실행 계약으로 묶습니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="spec-bundle">자세히 보기 <span aria-hidden="true">→</span></button></article>
+        <article class="rk-tech-entry reveal"><span>Governance</span><h3>Validation · Approval</h3><p>동일한 규칙으로 검증하고, 검증을 통과한 바로 그 리비전만 사람이 승인합니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="validator-gate">자세히 보기 <span aria-hidden="true">→</span></button></article>
         <article class="rk-tech-entry rk-tech-entry-dark reveal"><span>Runtime</span><h3>FSM Runtime</h3><p>승인된 상태와 전이만 런타임에서 실행되도록 통제합니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="fsm-runtime">자세히 보기 <span aria-hidden="true">→</span></button></article>
         <article class="rk-tech-entry reveal"><span>Recovery</span><h3>ReverseMap</h3><p>실패한 E2E 단계를 관련 명세·요청·로그·파일로 추적합니다.</p><button class="rk-inline-detail" type="button" data-detail-page="ai-spark" data-detail-key="reverse-map">자세히 보기 <span aria-hidden="true">→</span></button></article>
       </div>
@@ -52,6 +52,6 @@
 
   </main>
   <footer class="site-footer"><div class="footer-minimal"><div class="footer-brand-stack"><a class="footer-brand" href="../index.html" aria-label="Root Kernel 홈"><img class="footer-brand-logo" src="../../assets/images/rootkernel-wide-logo-light.svg" alt="" width="181" height="20"></a><button class="footer-founder" data-founder-open type="button">Founder</button></div><span>© 2026 Root Kernel.</span></div></footer>
-  <script defer src="../../assets/js/site.js?v=2.6"></script><script defer src="../../assets/js/detail-workspace.js?v=3.24"></script>
+  <script defer src="../../assets/js/site.js?v=2.7"></script><script defer src="../../assets/js/detail-workspace.js?v=3.26"></script>
 </body>
 </html>

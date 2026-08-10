@@ -41,10 +41,10 @@ const copy = {
   },
   en: {
     disabled: 'The online form is currently unavailable. Please email contact@rootkernel.xyz.',
-    invalid: 'Check the required fields and consent checkbox.',
+    invalid: 'Please complete all required fields and select the consent checkbox.',
     sending: 'Sending...',
     success: 'Your inquiry has been received.',
-    failure: 'Could not send the inquiry. Try again later or use direct email.',
+    failure: 'We could not send your inquiry. Please try again later or email contact@rootkernel.xyz directly.',
     button: 'Send project inquiry'
   }
 };

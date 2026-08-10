@@ -338,6 +338,13 @@ tr:last-child td { border-bottom: 0; }
   color: var(--muted);
 }
 .not-found { max-width: 760px; margin: 0 auto; min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
+.not-found > div { display: grid; gap: 1rem; }
+.not-found section { display: grid; gap: .35rem; }
+.not-found h1,
+.not-found h2,
+.not-found p { margin: 0; }
+.not-found h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+.not-found-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .35rem; }
 
 
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .48s ease, transform .48s ease; }
@@ -498,6 +505,17 @@ body.detail-lock { overflow: hidden; }
 .doc-block p { margin: 0; max-width: 760px; color: var(--muted); }
 .doc-block ul { margin: .1rem 0 0; padding-left: 1.1rem; color: var(--muted); }
 .doc-block li { margin: .3rem 0; }
+.doc-head code,
+.doc-block code {
+  padding: .08em .32em;
+  border: 1px solid rgba(17,115,107,.16);
+  border-radius: .35em;
+  background: rgba(17,115,107,.08);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: .9em;
+  overflow-wrap: anywhere;
+}
 .doc-placeholder { border-style: dashed; background: linear-gradient(135deg, rgba(17,115,107,.075), rgba(255,253,248,.94)); }
 
 /* Contact page */

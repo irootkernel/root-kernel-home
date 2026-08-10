@@ -1,4 +1,5 @@
 (function () {
+  const pageLang = document.body.getAttribute('data-lang') === 'en' ? 'en' : 'ko';
   const progress = document.querySelector('.scroll-progress span');
   function updateProgress() {
     if (!progress) return;
@@ -13,9 +14,14 @@
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('#primary-nav');
   if (toggle && nav) {
+    const menuLabels = pageLang === 'en'
+      ? { open: 'Open menu', close: 'Close menu' }
+      : { open: '메뉴 열기', close: '메뉴 닫기' };
+    toggle.setAttribute('aria-label', menuLabels.open);
     toggle.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? menuLabels.close : menuLabels.open);
     });
   }
 
@@ -66,31 +72,33 @@
 
   const founderButtons = Array.from(document.querySelectorAll('[data-founder-open]'));
   if (founderButtons.length) {
-    const lang = document.body.getAttribute('data-lang') === 'en' ? 'en' : 'ko';
+    const lang = pageLang;
     const copy = {
       ko: {
         title: 'Founder',
-        intro: '컴퓨터공학 석사 · 소프트웨어 엔지니어 경력 15년',
-        body: '국내 대기업과 글로벌 엔터프라이즈 소프트웨어 기업에서 OS, RDBMS, 클라우드 시스템을 연구·개발했습니다.',
+        intro: '컴퓨터공학 석사 · 10년 이상의 소프트웨어 엔지니어링 경력',
+        body: '운영체제, 관계형 데이터베이스, 클라우드 시스템을 연구·개발했습니다.',
         credentials: [
-          'CNCF CKA, CKAD 자격 취득',
-          '해외 특허 1건 등록 · 1건 출원 중',
-          '국내 특허 1건 출원 중'
+          'Certified Kubernetes Administrator (CKA)',
+          'Certified Kubernetes Application Developer (CKAD)'
         ],
         close: '닫기'
       },
       en: {
         title: 'Founder',
-        intro: 'M.S. in Computer Science · 15 years of software engineering experience',
-        body: 'Research and development experience spanning operating systems, relational databases, and cloud systems at leading Korean enterprises and global enterprise software companies.',
+        intro: 'M.S. in Computer Engineering · Over 10 years of software engineering experience',
+        body: 'Research and development across operating systems, relational database systems, and cloud platforms.',
         credentials: [
-          'CNCF Certified Kubernetes Administrator (CKA) and Application Developer (CKAD)',
-          'One international patent granted · one pending',
-          'One Korean patent pending'
+          'Certified Kubernetes Administrator (CKA)',
+          'Certified Kubernetes Application Developer (CKAD)'
         ],
         close: 'Close'
       }
     }[lang];
+
+    founderButtons.forEach((button) => {
+      button.setAttribute('aria-label', lang === 'en' ? 'Founder profile' : '대표 소개');
+    });
 
     const dialog = document.createElement('dialog');
     dialog.className = 'founder-dialog';
@@ -126,7 +134,7 @@
     });
   }
 
-  const lang = document.body.getAttribute('data-lang') === 'en' ? 'en' : 'ko';
+  const lang = pageLang;
   const zoomableImageSelector = '.hero-image-figure > img, .card-asset-figure > img';
 
   function imageModalTriggerLabel(image) {

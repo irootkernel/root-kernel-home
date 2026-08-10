@@ -22,12 +22,12 @@
   <text x="600" y="95" fill="#15202b" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="43" font-weight="850" text-anchor="middle">ROLE-BASED REVIEW TEAM</text>
   <text x="600" y="139" fill="#11736b" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="24" font-weight="800" letter-spacing="2" text-anchor="middle">ONE CHANGE · MANY PERSPECTIVES</text>
 
-  <path class="flow" d="M335 450C390 450 382 260 435 260"/>
+  <path class="flow" d="M335 450C377 450 411 315 435 260"/>
   <path class="flow" d="M335 450H435"/>
-  <path class="flow" d="M335 450c55 0 47 190 100 190"/>
-  <path class="flow" d="M735 260c55 0 62 110 110 110"/>
-  <path class="flow" d="M735 450h110"/>
-  <path class="flow" d="M735 640c55 0 62-110 110-110"/>
+  <path class="flow" d="M335 450C377 450 411 585 435 640"/>
+  <path class="flow" d="M735 260C777 260 821 315 845 370"/>
+  <path class="flow" d="M735 450H845"/>
+  <path class="flow" d="M735 640C777 640 821 585 845 530"/>
 
   <g filter="url(#shadow)">
     <rect x="55" y="270" width="280" height="360" rx="32" fill="#15202b"/>

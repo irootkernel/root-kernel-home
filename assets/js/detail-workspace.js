@@ -12,11 +12,11 @@ window.ROOT_KERNEL_DETAIL = {
           "sections": [
             {
               "heading": "번들의 구성",
-              "body": "gRPC proto 또는 OpenAPI 인터페이스, state.yaml의 상태 전이, binding.yaml의 처리 방식, auth_policies.yaml의 권한 규칙과 전역 설정을 함께 관리합니다."
+              "body": "gRPC proto 또는 OpenAPI 인터페이스, `state.yaml`의 상태 전이, `binding.yaml`의 처리 방식, `auth_policies.yaml`의 권한 규칙과 전역 설정을 함께 관리합니다."
             },
             {
               "heading": "하나의 리비전",
-              "body": "번들 파일을 정규화하고 파일별 digest를 정렬한 manifest를 해시해 bundle_revision_id를 만듭니다. 구성 파일 하나가 바뀌면 전체 번들의 리비전도 달라집니다."
+              "body": "번들 파일을 정규화하고 파일별 다이제스트를 정렬한 매니페스트를 해시해 `bundle_revision_id`를 만듭니다. 구성 파일 하나가 바뀌면 전체 번들의 리비전도 달라집니다."
             },
             {
               "heading": "검증과 승인 단위",
@@ -24,7 +24,7 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "사람과 AI의 역할",
-              "list": ["사람은 서버가 따라야 할 의도와 정책, 승인 기준을 정합니다.", "AI는 명세가 제시하는 목표와 확장 지점을 기준으로 구현에 집중합니다.", "Spec Bundle의 구성 파일이 수정되면 새 bundle_revision_id가 생성되며, 변경된 번들은 다시 검증과 승인을 거칩니다."]
+              "list": ["사람은 서버가 따라야 할 의도와 정책, 승인 기준을 정합니다.", "AI는 명세가 제시하는 목표와 확장 지점을 기준으로 구현에 집중합니다.", "Spec Bundle의 구성 파일이 수정되면 새 `bundle_revision_id`가 생성되며, 변경된 번들은 다시 검증과 승인을 거칩니다."]
             }
           ],
           "data-placeholder-id": "detail-spark-spec-bundle"
@@ -34,20 +34,20 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Validator · Approval Gate",
           "subtitle": "Deterministic Validation · Exact Approval",
           "status": "patent",
-          "summary": "Validator는 명세 정합성을 결정적으로 검사하고, Approval Gate는 검증된 바로 그 리비전과 규칙 조건이 일치하는지 확인합니다.",
+          "summary": "Validator는 명세 정합성을 결정론적으로 검증합니다. Approval Gate는 승인 대상이 검증을 통과한 바로 그 리비전이며, 적용된 검증 프로필과 규칙 집합도 동일한지 확인합니다.",
           "data-placeholder-id": "detail-7",
           "sections": [
             {
-              "heading": "결정적 Validator",
-              "body": "같은 명세 번들을 같은 규칙과 profile로 검사하면 항상 같은 ValidationResult를 냅니다. Interface-Binding 완비성, Binding-State 참조, 권한 정책 누락, 구현 Registry와 상태 도달성을 확인합니다."
+              "heading": "결정론적 Validator",
+              "body": "같은 명세 번들을 동일한 규칙과 프로필로 검사하면 항상 동일한 `ValidationResult`를 생성합니다. Interface-Binding 완비성, Binding-State 참조, 권한 정책 누락, 구현 레지스트리와 상태 도달성을 확인합니다."
             },
             {
               "heading": "검증 결과의 식별자",
-              "body": "ValidationResult에는 bundle_revision_id, validation_profile, rule_set_version, validator_version, 위반 rule_id와 근거가 함께 남습니다."
+              "body": "`ValidationResult`에는 `bundle_revision_id`, `validation_profile`, `rule_set_version`, `validator_version`, 위반 `rule_id`와 근거가 함께 남습니다."
             },
             {
               "heading": "Approval Attestation",
-              "body": "사람의 승인은 검증된 바로 그 리비전에 대한 증명으로 기록됩니다. Gate는 리비전, 검증 성공 여부, profile, rule-set과 Validator 버전이 모두 일치하는지 확인합니다."
+              "body": "사람의 승인은 검증된 바로 그 리비전에 대한 증명으로 기록됩니다. Gate는 리비전, 검증 결과, 프로필, 규칙 집합, Validator 버전이 모두 일치하는지 확인합니다."
             },
             {
               "heading": "적용 지점",
@@ -60,12 +60,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "FSM Runtime",
           "subtitle": "Binding · FSM Runtime",
           "status": "patent",
-          "summary": "Binding은 연산을 Stateful과 Stateless 경로로 분류하고, FSM Runtime은 상태 변경의 정상 경로에서 선언된 전이 규칙을 평가합니다.",
+          "summary": "Binding은 연산을 Stateful과 Stateless 경로로 분류하고, FSM Runtime은 상태 변경을 위한 기준 경로에서 선언된 전이 규칙을 평가합니다.",
           "data-placeholder-id": "detail-spark-fsm-runtime",
           "sections": [
             {
               "heading": "두 가지 실행 경로",
-              "body": "Stateful 연산은 runtime_event를 통해 FSM으로 연결되고, 상태 전이가 없는 연산은 entrypoint_id로 Usecase를 호출합니다. binding.yaml 자체는 설계·검증 명세이며 런타임 입력이 아닙니다."
+              "body": "Stateful 연산은 `runtime_event`를 통해 FSM으로 연결되고, 상태 전이가 없는 연산은 `entrypoint_id`로 Usecase를 호출합니다. `binding.yaml` 자체는 설계·검증 명세이며 런타임 입력이 아닙니다."
             },
             {
               "heading": "FSM Runtime의 역할",
@@ -95,15 +95,15 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "연결되는 근거",
-              "body": "실패 시나리오와 단계, rule_id, operation·policy·binding·state event의 spec_element_id, 실제 요청·응답과 로그, 관련 파일 위치를 하나의 리포트로 묶습니다."
+              "body": "실패 시나리오와 단계, `rule_id`, operation·policy·binding·state event의 `spec_element_id`, 실제 요청·응답과 로그, 관련 파일 위치를 하나의 리포트로 묶습니다."
             },
             {
               "heading": "RunIdentity",
-              "body": "번들 리비전과 검증 profile, rule-set, Validator 버전을 함께 기록해 어떤 검증 기준과 명세 리비전에서 발생한 실패인지 확인할 수 있습니다."
+              "body": "번들 리비전과 검증 프로필, 규칙 집합, Validator 버전을 함께 기록해 어떤 검증 기준과 명세 리비전에서 발생한 실패인지 확인할 수 있습니다."
             },
             {
               "heading": "Inverted Mapping",
-              "body": "명세 요소의 Key를 기준으로 관련 시나리오 단계를 연결해 중복을 줄이고, 명세가 바뀌었을 때 다시 실행해야 할 테스트의 범위를 파악합니다."
+              "body": "명세 요소의 `key`를 기준으로 관련 시나리오 단계를 연결해 중복을 줄이고, 명세가 바뀌었을 때 다시 실행해야 할 테스트의 범위를 파악합니다."
             },
             {
               "heading": "다음 검토",
@@ -118,13 +118,13 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Doksuri",
           "subtitle": "Markdown-first PMS · Human-AI Collaboration",
           "status": "operating_dev",
-          "summary": "소규모 팀의 Epic·Task·Bug·Doc을 Markdown으로 관리하고, 사람과 AI Agent가 같은 item·comment·review 맥락에서 협업하는 PMS입니다.",
+          "summary": "소규모 팀이 Epic, Task, Bug, Doc을 Markdown으로 관리하고, 사람과 AI 에이전트가 같은 작업 항목·댓글·리뷰 맥락에서 협업하는 프로젝트 관리 시스템입니다.",
           "data-placeholder-id": "detail-5",
           "sections": [
-            {"heading": "업무 입력", "body": "요구사항과 작업 지시는 Markdown item으로, Agent 결과는 댓글과 작업 결과로, 중요한 변경은 검토 가능한 proposal로 입력됩니다."},
-            {"heading": "검증과 동기화", "body": "로컬 daemon이 workspace 변경을 schema와 version 기준으로 검증하고 중앙 서버와 동기화합니다. 현재 쓰기와 동기화에는 활성 서버 연결과 인증이 필요합니다."},
-            {"heading": "적용 전 검토", "body": "AI는 기본적으로 읽기·댓글 범위에서 작업합니다. 본문·메타데이터·상태·담당자 변경과 item 생성은 proposal로 제출하며, 사람이 검토한 뒤 적용 여부를 결정합니다."},
-            {"heading": "남는 결과", "body": "동기화된 Markdown workspace와 서버가 관리하는 comment·review state, proposal 적용 결과와 결정 기록이 함께 남습니다."}
+            {"heading": "업무 입력", "body": "요구사항과 작업 지시는 Markdown 작업 항목으로, 에이전트의 결과는 댓글과 작업 산출물로, 중요한 변경은 검토 가능한 제안으로 기록합니다."},
+            {"heading": "검증과 동기화", "body": "로컬 데몬이 작업 공간 변경을 스키마와 버전 기준으로 검증하고 중앙 서버와 동기화합니다. 현재 쓰기와 동기화에는 활성 서버 연결과 인증이 필요합니다."},
+            {"heading": "적용 전 검토", "body": "AI는 기본적으로 읽기·댓글 범위에서 작업합니다. 본문·메타데이터·상태·담당자 변경과 작업 항목 생성은 제안으로 제출하며, 사람이 검토한 뒤 적용 여부를 결정합니다."},
+            {"heading": "남는 결과", "body": "동기화된 Markdown 작업 공간과 서버가 관리하는 댓글·리뷰 상태, 제안 적용 결과와 결정 기록이 함께 남습니다."}
           ]
         },
         {
@@ -134,10 +134,10 @@ window.ROOT_KERNEL_DETAIL = {
           "status": "direction",
           "summary": "Mission·Task·Workflow의 상태와 정책, 실행 근거, 복구 지점, 승인 이력을 실행 엔진과 분리해 관리하는 로컬 제어 계층입니다.",
           "sections": [
-            {"heading": "설계 역할", "body": "실행 엔진과 분리된 control plane에서 작업의 현재 상태와 전달 계약, 정책과 승인 경계를 복구 가능한 형태로 유지합니다."},
+            {"heading": "설계 역할", "body": "실행 엔진과 분리된 제어 계층에서 작업의 현재 상태와 전달 계약, 정책과 승인 경계를 복구 가능한 형태로 유지합니다."},
             {"heading": "입력과 출력", "list": ["입력: Mission과 Task 정의, Workflow, 정책, 실행 근거", "출력: 현재 상태, 다음 허용 동작, 전달 결과, 승인과 복구 지점"]},
             {"heading": "실행 경계", "body": "Dolgorae는 상태와 정책을 관리하고 실제 코드 작성·빌드·테스트·Git 동작은 연결된 실행 도구가 수행하는 구조를 지향합니다."},
-            {"heading": "현재 상태", "body": "현재 canonical 구현은 CLI와 daemon의 기반 계약을 구축하는 단계이며, 공개 제품 동작은 help·version·config check 범위에서 시작합니다."}
+            {"heading": "현재 상태", "body": "현재 기준 구현은 CLI와 데몬의 핵심 계약을 구축하는 단계입니다. 공개된 기능은 현재 `help`, `version`, `config check` 명령으로 제한됩니다."}
           ]
         },
         {
@@ -150,7 +150,7 @@ window.ROOT_KERNEL_DETAIL = {
           "sections": [
             {"heading": "절차의 현재 상태", "body": "현재 단계, 누락된 필수 항목, 허용 동작과 다음 명령을 사람이 읽는 형식과 버전 관리되는 JSON으로 제공합니다."},
             {"heading": "복구와 동시성", "body": "retry·return·block·reopen으로 재작업을 기록하고, precondition과 idempotency key로 재시도·중복 호출로 인한 상태 손상을 막습니다."},
-            {"heading": "Agent 계약", "body": "Agent는 대화 기억이 아니라 worktree의 authoritative status와 next 응답에서 다음 행동을 다시 계산합니다."},
+            {"heading": "에이전트 계약", "body": "에이전트는 대화 기억에 의존하지 않고, `worktree`의 기준 상태와 `next` 응답을 바탕으로 다음 행동을 다시 계산합니다."},
             {"heading": "작동 범위", "body": "절차 상태를 관리하며 실제 빌드 명령과 Git 변경, 원격 서비스 호출은 기존 실행 도구에서 수행합니다. 현재 공개 릴리스 대상은 Apple Silicon macOS입니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/podway", "linkLabel": "GitHub에서 보기"}
           ]
@@ -160,12 +160,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Sanho",
           "subtitle": "Canonical docs sync",
           "status": "operating",
-          "summary": "하나의 프로젝트를 여러 저장소로 나눠 작업할 때 각 저장소의 문서를 같은 프로젝트 지식에 맞춰, 팀과 Agent가 동일한 기준을 보도록 돕는 동기화 기술입니다.",
+          "summary": "하나의 프로젝트가 여러 저장소로 구성된 경우, 각 저장소의 문서를 공통된 기준 프로젝트 지식에 맞춰 동기화합니다.",
           "data-placeholder-id": "detail-harness-sanho-project-docs",
           "sections": [
             {"heading": "두 시점의 계약", "body": "git commit에서는 로컬 상태만 읽어 기준 문서와의 drift를 한 줄로 알리고 차단하지 않습니다. git push에서는 docs 변경을 기준 저장소에 게시합니다."},
             {"heading": "충돌과 복구", "body": "sanho sync는 일반 Git conflict marker를 작업 공간에 남기며, 사용자가 편집·add·commit한 뒤 --continue로 완료하거나 --abort로 되돌립니다."},
-            {"heading": "신뢰 경계", "body": "Sanho는 애플리케이션 저장소의 commit을 작성하거나 ref를 이동하지 않습니다. 문서 내용의 검토는 기존 Git 리뷰 절차와 연결합니다."},
+            {"heading": "신뢰 경계", "body": "Sanho는 애플리케이션 저장소의 커밋을 작성하거나 ref를 이동하지 않습니다. 문서 내용은 기존 Git 리뷰 절차에서 검토합니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/sanho", "linkLabel": "GitHub에서 보기"}
           ]
         },
@@ -177,10 +177,10 @@ window.ROOT_KERNEL_DETAIL = {
           "summary": "여러 AI가 Security·Logic·Maintainability 역할을 나눠 같은 코드 변경을 서로 다른 관점에서 살펴보고, 결과와 근거를 하나의 리뷰로 모으는 도구입니다.",
           "data-placeholder-id": "detail-harness-mulgae-role-review",
           "sections": [
-            {"heading": "고정된 검토 대상", "body": "workspace·stage·dirty·revision diff·patch·stdin 중 정확히 하나를 캡처해 각 역할이 같은 변경을 검토하게 합니다."},
-            {"heading": "역할별 실행", "body": "각 역할은 설정된 provider 하나에서 독립적으로 실행됩니다. 한 역할이 실패해도 다른 검토는 이어지고 실패 이유와 재실행 명령이 보고됩니다."},
-            {"heading": "지속 가능한 근거", "body": "자유 형식 역할 보고서와 선택적 구조화 finding·evidence, provider identity를 .mulgae/에 보존합니다."},
-            {"heading": "자문과 최종 승인", "body": "Mulgae의 검토는 advisory evidence입니다. 병합·릴리스·waiver 적용과 조직의 승인은 사람의 몫입니다."},
+            {"heading": "고정된 검토 대상", "body": "`workspace`, `stage`, `dirty`, `revision diff`, `patch`, `stdin` 중 정확히 하나를 캡처해 각 역할이 같은 변경을 검토하게 합니다."},
+            {"heading": "역할별 실행", "body": "각 역할은 설정된 프로바이더 하나에서 독립적으로 실행됩니다. 한 역할이 실패해도 다른 검토는 이어지고 실패 이유와 재실행 명령이 보고됩니다."},
+            {"heading": "보존되는 검토 근거", "body": "자유 형식 역할 보고서와 선택적 구조화 결과·근거, 프로바이더 식별 정보를 `.mulgae/`에 보존합니다."},
+            {"heading": "자문과 최종 승인", "body": "Mulgae는 자문용 검토 근거를 제공합니다. 병합, 릴리스, 예외 승인, 조직 차원의 최종 결정은 개발팀이 담당합니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "GitHub에서 보기"}
           ]
         },
@@ -189,13 +189,13 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Gaori",
           "subtitle": "Test evidence compression",
           "status": "operating",
-          "summary": "긴 테스트 명령의 원본 출력을 보존하면서 실패 지점과 핵심 문맥을 사람과 Agent가 검토하기 좋은 작은 근거로 압축하는 로컬 adapter입니다.",
+          "summary": "긴 테스트 명령의 원본 출력을 보존하면서 실패 지점과 핵심 문맥을 사람과 AI 에이전트가 빠르게 검토할 수 있는 간결한 근거로 정리하는 로컬 어댑터입니다.",
           "data-placeholder-id": "detail-harness-gaori-evidence",
           "sections": [
-            {"heading": "실행과 압축", "body": "설정된 테스트나 ad-hoc 명령을 실행하고 parser와 로컬 extraction rule로 실패 중심 Markdown·JSON summary를 만듭니다."},
-            {"heading": "원본과 민감 정보", "body": "요약에는 redaction을 적용할 수 있지만 raw log는 원문 그대로 로컬에 보존하므로 필요할 때만 제한적으로 열어봅니다."},
-            {"heading": "두 개의 상태", "body": "명령의 exit code와 artifact status가 테스트 결과를 나타내고, extractor_status는 근거 압축의 품질만 설명합니다."},
-            {"heading": "작동 범위", "body": "Gaori는 테스트 결과를 바꾸거나 acceptance를 결정하지 않습니다. 원본 로그와 작은 실패 근거를 제공해 다음 검토를 돕습니다."},
+            {"heading": "실행과 요약", "body": "설정된 테스트나 임시 명령을 실행하고 파서와 로컬 추출 규칙으로 실패 중심의 Markdown 및 JSON 요약을 생성합니다."},
+            {"heading": "원본과 민감 정보", "body": "요약에는 민감 정보 제거 규칙을 적용할 수 있지만 원본 로그는 변경하지 않고 로컬에 보존하므로 필요할 때만 제한적으로 열어봅니다."},
+            {"heading": "두 개의 상태", "body": "명령의 종료 코드와 산출물 상태가 테스트 결과를 나타내고, `extractor_status`는 근거 요약의 품질만 설명합니다."},
+            {"heading": "작동 범위", "body": "Gaori는 테스트 결과를 변경하거나 수락 여부를 결정하지 않습니다. 원본 로그와 간결한 실패 근거를 제공해 다음 검토를 돕습니다."},
             {"heading": "공개 저장소", "link": "https://github.com/irootkernel/gaori", "linkLabel": "GitHub에서 보기"}
           ]
         }
@@ -206,11 +206,11 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Hermes Agent",
           "subtitle": "Root Kernel–tuned agent runtime",
           "status": "operating",
-          "summary": "NousResearch Hermes Agent의 검증된 오픈소스 릴리스를 기반으로, 다중 프로필·다중 Agent 환경에 필요한 보완을 선별해 관리하는 Root Kernel 운영 환경입니다.",
+          "summary": "NousResearch Hermes Agent의 검증된 오픈소스 릴리스를 기반으로, 다중 프로필·다중 에이전트 환경에 필요한 보완을 선별해 관리하는 Root Kernel 운영 환경입니다.",
           "sections": [
             {
               "heading": "Upstream foundation",
-              "body": "Agent loop와 도구, skill·memory, subagent, scheduler와 messaging gateway 등 Hermes Agent의 기반 기능은 NousResearch의 오픈소스 프로젝트에서 옵니다."
+              "body": "Hermes Agent의 에이전트 루프, 도구, 스킬, 메모리, 서브에이전트, 스케줄러, 메시징 게이트웨이는 NousResearch의 오픈소스 프로젝트에 기반합니다."
             },
             {
               "heading": "검증된 운영 보완",
@@ -218,11 +218,11 @@ window.ROOT_KERNEL_DETAIL = {
             },
             {
               "heading": "Multi-agent workflow",
-              "body": "같은 Kanban card에서 구현·review·변경 요청·최종 수락을 이어가고, mutex key와 workflow type으로 동시 claim과 작업 규칙을 제어합니다."
+              "body": "같은 Kanban 카드에서 구현·리뷰·변경 요청·최종 수락을 이어가고, `mutex key`와 workflow type으로 동시 작업 선점과 작업 규칙을 제어합니다."
             },
             {
               "heading": "운영 변경 관리",
-              "body": "각 보완은 이유와 검증 결과, 복구 경로와 종료 기준을 기록하며 upstream이 같은 해결을 제공하면 제거합니다."
+              "body": "각 보완 사항마다 도입 이유, 검증 결과, 복구 경로, 종료 기준을 기록합니다. Upstream이 동등한 기능을 제공하면 해당 보완을 제거합니다."
             },
             {
               "heading": "공개 저장소",
@@ -236,16 +236,16 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "ATN",
           "subtitle": "Agent Turn Network",
           "status": "improving",
-          "summary": "Hermes Agent가 참여하는 위임과 협의의 턴·이벤트·상태를 로컬에 지속적으로 기록하고, 사람의 검토와 다음 실행으로 엮습니다.",
+          "summary": "Hermes Agent가 참여하는 위임과 협의의 턴·이벤트·상태를 지속적으로 기록하고, 이를 검토 가능한 transcript와 brief로 정리해 사람이 다음 실행을 결정하도록 합니다.",
           "data-placeholder-id": "detail-6",
           "sections": [
             {
               "heading": "Plugin boundary",
-              "body": "atn-plugin은 Hermes-facing 도구와 Moderator·Participant skill, 명시적인 daemon client를 제공합니다. 요청 payload를 검증하고 구조화된 command envelope를 control에 전달합니다."
+              "body": "`atn-plugin`은 Hermes에서 사용할 도구와 Moderator·Participant 스킬, 명시적인 데몬 클라이언트를 제공합니다. 요청 payload를 검증하고 구조화된 command envelope를 Control에 전달합니다."
             },
             {
               "heading": "Control authority",
-              "body": "atn-control daemon과 CLI가 registry, channel.jsonl event source of truth, SQLite projection, 상태 전이, replay·ack·recovery와 transcript·export를 소유합니다."
+              "body": "`atn-control` 데몬과 CLI가 레지스트리, 기준 `channel.jsonl` 이벤트 로그, SQLite projection, 상태 전이, replay·ack·recovery와 transcript·export를 관리합니다."
             },
             {
               "heading": "Council and delegation",
@@ -355,13 +355,13 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Spec Bundle",
           "subtitle": "Spec Bundle · Revision Identity",
           "status": "patent",
-          "summary": "Packages server interfaces, state, bindings, authorization policies, and global settings into one declarative bundle for joint validation and atomic approval.",
+          "summary": "Packages server interfaces, state models, bindings, authorization policies, and global settings into one declarative bundle for bundle-wide validation and approval as a single unit.",
           "data-placeholder-id": "detail-spark-spec-bundle",
           "sections": [
-            {"heading": "Bundle composition", "body": "The bundle manages gRPC proto or OpenAPI interfaces, state transitions in state.yaml, handling modes in binding.yaml, authorization rules in auth_policies.yaml, and global settings together."},
-            {"heading": "One revision", "body": "AI-SPARK normalizes the bundle files, sorts their digests into a manifest, and hashes it to create bundle_revision_id. Changing any constituent file changes the revision of the entire bundle."},
+            {"heading": "Bundle composition", "body": "The bundle manages gRPC proto or OpenAPI interfaces, state transitions in `state.yaml`, handling modes in `binding.yaml`, authorization rules in `auth_policies.yaml`, and global settings together."},
+            {"heading": "One revision", "body": "AI-SPARK normalizes the bundle files, sorts their digests into a manifest, and hashes it to create `bundle_revision_id`. Changing any constituent file changes the revision of the entire bundle."},
             {"heading": "Unit of validation and approval", "body": "Because cross-referencing specifications share one revision, the Validator can detect inconsistencies and the entire bundle can be approved or returned for review as a single unit."},
-            {"heading": "People and AI roles", "list": ["People define the server intent, policies, and approval criteria.", "AI focuses implementation on the goals and extension points defined by the specification.", "Changing a Spec Bundle file creates a new bundle_revision_id, and the revised bundle must pass validation and approval again."]}
+            {"heading": "People and AI roles", "list": ["People define the server intent, policies, and approval criteria.", "AI focuses implementation on the goals and extension points defined by the specification.", "Changing a Spec Bundle file creates a new `bundle_revision_id`, and the revised bundle must pass validation and approval again."]}
           ]
         },
         {
@@ -369,12 +369,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "Validator · Approval Gate",
           "subtitle": "Deterministic Validation · Exact Approval",
           "status": "patent",
-          "summary": "The Validator checks specification consistency deterministically. The Approval Gate verifies that the exact validated revision and rule conditions still match.",
+          "summary": "The Validator checks specification consistency deterministically. The Approval Gate verifies that the approval targets the exact validated revision and that the validation profile and rule set still match.",
           "data-placeholder-id": "detail-7",
           "sections": [
-            {"heading": "Deterministic Validator", "body": "The same specification bundle, rules, and profile always produce the same ValidationResult. Checks cover Interface–Binding completeness, Binding–State references, missing authorization policies, the implementation Registry, and state reachability."},
-            {"heading": "Validation identity", "body": "ValidationResult records bundle_revision_id, validation_profile, rule_set_version, validator_version, violated rule_id values, and supporting evidence."},
-            {"heading": "Approval Attestation", "body": "Human approval is recorded as an attestation for an exact revision. The Gate verifies the revision, successful validation, profile, rule-set version, and Validator version together."},
+            {"heading": "Deterministic Validator", "body": "The same specification bundle, rules, and profile always produce the same `ValidationResult`. Checks cover Interface-Binding completeness, Binding-State references, missing authorization policies, the implementation registry, and state reachability."},
+            {"heading": "Validation identity", "body": "`ValidationResult` records `bundle_revision_id`, `validation_profile`, `rule_set_version`, `validator_version`, violated `rule_id` values, and supporting evidence."},
+            {"heading": "Approval Attestation", "body": "Human approval is recorded as an attestation for that exact revision. The Gate verifies the revision, successful validation, profile, rule-set version, and Validator version together."},
             {"heading": "Enforcement points", "body": "Approval prerequisites can be enforced during CI/CD build, test, and deployment, as well as server startup. Per-request verification is optional and depends on the operating configuration."}
           ]
         },
@@ -383,12 +383,12 @@ window.ROOT_KERNEL_DETAIL = {
           "title": "FSM Runtime",
           "subtitle": "Binding · FSM Runtime",
           "status": "patent",
-          "summary": "Bindings classify operations into Stateful and Stateless paths. The FSM Runtime evaluates declared transition rules on the canonical state-changing path.",
+          "summary": "Bindings classify operations into Stateful and Stateless paths. The FSM Runtime evaluates declared transition rules along the canonical state-transition path.",
           "data-placeholder-id": "detail-spark-fsm-runtime",
           "sections": [
-            {"heading": "Two execution paths", "body": "Stateful operations connect to the FSM through runtime_event. Operations without state transitions invoke a Usecase through entrypoint_id. binding.yaml is a design and validation specification, not a runtime input."},
+            {"heading": "Two execution paths", "body": "Stateful operations connect to the FSM through `runtime_event`. Operations without state transitions invoke a Usecase through `entrypoint_id`. `binding.yaml` is a design and validation specification, not a runtime input."},
             {"heading": "Runtime responsibilities", "body": "The Runtime handles transition-rule evaluation, state-version and concurrency checks, state-change records, rollback, and stream publication."},
-            {"heading": "What AI implements", "body": "AI decides which event to emit and implements focused extension points such as Guard, Action, and Usecase. This reduces repeated state-engine code and narrows the surface that needs review."},
+            {"heading": "What AI implements", "body": "AI decides which event to emit and implements focused extension points such as Guard, Action, and Usecase. This reduces duplicated state-management and transition-engine code and narrows the surface that requires review."},
             {"heading": "One state specification", "list": ["Implementation target for AI", "Execution standard for the FSM Runtime", "Expected behavior for tests", "Specification coordinates referenced by ReverseMap"]}
           ]
         },
@@ -401,22 +401,22 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-spark-reverse-map",
           "sections": [
             {"heading": "Constraint-violation test synthesis", "body": "Authorization policies, state models, and interface specifications are used to generate E2E scenarios for requests and transitions that the system must reject."},
-            {"heading": "Linked evidence", "body": "A report brings together the failed scenario and step, rule_id, spec_element_id for the operation, policy, binding, or state event, actual requests and responses, logs, and related file locations."},
+            {"heading": "Linked evidence", "body": "A report brings together the failed scenario and step, `rule_id`, `spec_element_id` for the operation, policy, binding, or state event, actual requests and responses, logs, and related file locations."},
             {"heading": "RunIdentity", "body": "The bundle revision, validation profile, rule-set version, and Validator version identify the exact specification and validation conditions under which a failure occurred."},
-            {"heading": "Inverted Mapping", "body": "Related scenario steps are indexed by each specification element's Key, reducing duplication and identifying which tests must run again after a specification change."},
-            {"heading": "Next review", "body": "Developers and AI begin from the specification element and execution evidence named in the report. Implementation changes rerun E2E tests; Spec Bundle changes create a new revision that must pass validation and approval again."}
+            {"heading": "Inverted Mapping", "body": "Related scenario steps are indexed by each specification element's `key`, reducing duplication and identifying which tests must run again after a specification change."},
+            {"heading": "Next review", "body": "Developers and AI agents begin their review with the specification element and execution evidence identified in the report. After implementation changes, the E2E tests are run again. Spec Bundle changes create a new revision that must pass validation and approval again."}
           ]
         }
       ],
       "ai-harness": [
         {
           "key": "doksuri", "title": "Doksuri", "subtitle": "Markdown-first PMS · Human-AI Collaboration", "status": "operating_dev",
-          "summary": "A Markdown-based PMS where small teams manage Epics, Tasks, Bugs, and Docs while people and AI agents work in the same item, comment, and review context.",
+          "summary": "A Markdown-first project management system where small teams manage Epics, Tasks, Bugs, and Docs while people and AI agents work within the same item, comment, and review context.",
           "data-placeholder-id": "detail-5",
           "sections": [
-            {"heading": "Work input", "body": "Requirements and instructions enter as Markdown items, agent results as comments and work output, and consequential changes as reviewable proposals."},
+            {"heading": "Work input", "body": "Requirements and work instructions are captured as Markdown items, agent results as comments or work outputs, and consequential changes as reviewable proposals."},
             {"heading": "Validation and synchronization", "body": "A local daemon validates workspace changes against schema and version rules before synchronizing them with the central server. Writing and synchronization currently require an active server connection and authentication."},
-            {"heading": "Review before apply", "body": "AI works within read and comment permissions by default. Changes to content, metadata, state, ownership, or item creation are submitted as proposals for human review and acceptance."},
+            {"heading": "Review before changes are applied", "body": "AI works within read and comment permissions by default. Edits to content, metadata, state, or ownership, as well as new item creation, are submitted as proposals for human review and approval."},
             {"heading": "Durable result", "body": "The synchronized Markdown workspace remains connected to server-managed comments, review state, proposal outcomes, and decision records."}
           ]
         },
@@ -427,27 +427,27 @@ window.ROOT_KERNEL_DETAIL = {
             {"heading": "Design role", "body": "The control plane preserves current work state, handoff contracts, policies, and approval boundaries in recoverable form while remaining separate from execution engines."},
             {"heading": "Input and output", "list": ["Input: Mission and Task definitions, Workflows, policies, and execution evidence", "Output: current state, next allowed action, handoff result, approval, and recovery point"]},
             {"heading": "Execution boundary", "body": "Dolgorae manages state and policy. Connected execution tools perform code edits, builds, tests, and Git operations."},
-            {"heading": "Current state", "body": "The canonical implementation is establishing its CLI and daemon contracts. Public product behavior begins with help, version, and configuration checks."}
+            {"heading": "Current state", "body": "The canonical implementation is establishing its CLI and daemon contracts. The public release currently exposes only `help`, `version`, and configuration-check commands."}
           ]
         },
         {
           "key": "podway", "title": "Podway", "subtitle": "Procedure guard for one worktree", "status": "operating",
-          "summary": "A local tool that keeps Goal and FSM together so an AI retains its purpose and current stage through long work and resumes the same process after a session changes.",
+          "summary": "A local tool that keeps the goal and FSM state together so an AI agent retains its purpose and current stage throughout long-running work and can resume the same process after a session ends or changes.",
           "data-placeholder-id": "detail-harness-podway-goal-fsm",
           "sections": [
             {"heading": "Current procedure state", "body": "Provides the current stage, missing requirements, allowed actions, and next command in both human-readable output and versioned JSON."},
-            {"heading": "Recovery and concurrency", "body": "retry, return, block, and reopen record rework. Preconditions and idempotency Keys protect state from retries and overlapping calls."},
-            {"heading": "Agent contract", "body": "An agent recalculates its next action from the worktree's authoritative status and next response, not from conversational memory."},
+            {"heading": "Recovery and concurrency", "body": "retry, return, block, and reopen record rework. Preconditions and idempotency keys protect state from retries and overlapping calls."},
+            {"heading": "Agent contract", "body": "An agent recalculates its next action from the worktree's authoritative status and `next` output rather than relying on conversational memory."},
             {"heading": "Operating boundary", "body": "Podway manages procedural state, while existing execution tools run builds, make Git changes, and call remote services. The current public release targets Apple Silicon macOS."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/podway", "linkLabel": "View on GitHub"}
           ]
         },
         {
           "key": "sanho", "title": "Sanho", "subtitle": "Canonical docs sync", "status": "operating",
-          "summary": "A synchronization technology that keeps documents across multiple repositories aligned with the same project knowledge so teams and agents work from one shared reference.",
+          "summary": "A synchronization tool that aligns documentation across multiple repositories with a shared body of canonical project knowledge, so teams and agents work from the same reference.",
           "data-placeholder-id": "detail-harness-sanho-project-docs",
           "sections": [
-            {"heading": "Two-point contract", "body": "On git commit, Sanho reads local state and reports canonical-document drift in one line without blocking. On git push, it publishes docs changes to the canonical repository."},
+            {"heading": "Two Git integration points", "body": "On `git commit`, Sanho reads only local state and reports drift from the canonical documents in a single line without blocking the commit. On `git push`, it publishes documentation changes to the canonical repository."},
             {"heading": "Conflict and recovery", "body": "sanho sync leaves ordinary Git conflict markers in the workspace. The user edits, adds, and commits before finishing with --continue, or restores the prior state with --abort."},
             {"heading": "Trust boundary", "body": "Sanho does not create commits or move refs in the application repository. Documentation content remains subject to the existing Git review process."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/sanho", "linkLabel": "View on GitHub"}
@@ -455,19 +455,19 @@ window.ROOT_KERNEL_DETAIL = {
         },
         {
           "key": "mulgae", "title": "Mulgae", "subtitle": "Multi-provider AI code review", "status": "operating",
-          "summary": "A tool that assigns Security, Logic, and Maintainability roles to multiple AIs, reviews the same code change from distinct perspectives, and combines their evidence into one review.",
+          "summary": "A tool that assigns Security, Logic, and Maintainability roles to multiple AI reviewers. Each reviewer examines the same code change from a distinct perspective, and Mulgae combines their findings and evidence into one report.",
           "data-placeholder-id": "detail-harness-mulgae-role-review",
           "sections": [
             {"heading": "Fixed review target", "body": "Captures exactly one of workspace, stage, dirty, revision diff, patch, or stdin so every role reviews the same change."},
             {"heading": "Role-based execution", "body": "Each role runs independently with one configured provider. If one role fails, other reviews continue while the failure reason and rerun command are recorded."},
-            {"heading": "Durable evidence", "body": "Free-form role reports, optional structured findings and evidence, and provider identity are preserved under .mulgae/."},
+            {"heading": "Durable evidence", "body": "Free-form role reports, optional structured findings and evidence, and provider identities are preserved under `.mulgae/`."},
             {"heading": "Advisory vs approval", "body": "Mulgae produces advisory evidence. The development team retains authority over merge, release, waiver, and organizational approval."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/mulgae", "linkLabel": "View on GitHub"}
           ]
         },
         {
           "key": "gaori", "title": "Gaori", "subtitle": "Test evidence compression", "status": "operating",
-          "summary": "A local adapter that preserves the raw output of long test commands while compressing failures and essential context into evidence people and agents can review quickly.",
+          "summary": "A local adapter that preserves the raw output of long-running test commands and extracts concise failure evidence and essential context for rapid review by people and agents.",
           "data-placeholder-id": "detail-harness-gaori-evidence",
           "sections": [
             {"heading": "Execution and compression", "body": "Runs configured tests or ad hoc commands, then uses parsers and local extraction rules to create failure-focused Markdown and JSON summaries."},
@@ -483,10 +483,10 @@ window.ROOT_KERNEL_DETAIL = {
           "key": "hermes-agent", "title": "Hermes Agent", "subtitle": "Root Kernel–tuned agent runtime", "status": "operating",
           "summary": "A Root Kernel operating environment based on verified open-source releases of NousResearch Hermes Agent, with selected enhancements for multi-profile and multi-agent operations.",
           "sections": [
-            {"heading": "Upstream foundation", "body": "The agent loop, tools, skills, memory, subagents, scheduler, and messaging gateways originate in the NousResearch open-source project."},
+            {"heading": "Upstream foundation", "body": "The core agent loop, tools, skills, memory, subagents, scheduler, and messaging gateways come from the NousResearch open-source project."},
             {"heading": "Verified operational enhancements", "body": "Root Kernel selectively maintains CJK session recovery, fail-closed approval for skill writes, per-profile Codex credential pinning, and Discord thread ownership."},
-            {"heading": "Multi-agent workflow", "body": "Implementation, review, change requests, and final acceptance continue on the same Kanban card, while mutex Keys and workflow types control concurrent claims and work rules."},
-            {"heading": "Operational change management", "body": "Each enhancement records its rationale, validation evidence, recovery path, and retirement criteria, and is removed when upstream provides an equivalent solution."},
+            {"heading": "Multi-agent workflow", "body": "Implementation, review, change requests, and final acceptance all take place on the same Kanban card, while mutex keys and workflow types control concurrent claims and work rules."},
+            {"heading": "Operational change management", "body": "For each enhancement, Root Kernel records its rationale, validation evidence, recovery path, and retirement criteria. The enhancement is removed when upstream provides an equivalent solution."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/hermes-agent", "linkLabel": "View on GitHub"}
           ]
         },
@@ -496,9 +496,9 @@ window.ROOT_KERNEL_DETAIL = {
           "data-placeholder-id": "detail-6",
           "sections": [
             {"heading": "Plugin boundary", "body": "atn-plugin provides Hermes-facing tools, Moderator and Participant skills, and an explicit daemon client. It validates request payloads and passes structured command envelopes to Control."},
-            {"heading": "Control authority", "body": "The atn-control daemon and CLI own the registry, channel.jsonl event source of truth, SQLite projection, state transitions, replay, acknowledgment, recovery, transcripts, and exports."},
+            {"heading": "Control authority", "body": "The `atn-control` daemon and CLI manage the registry, the canonical `channel.jsonl` event log, the SQLite projection, state transitions, replay, acknowledgments, recovery, transcripts, and exports."},
             {"heading": "Council and delegation", "body": "Council sessions coordinated by a Moderator and delegated work reviewed on completion are both recorded as events and state transitions."},
-            {"heading": "Review and decision", "body": "A transcript and export bundle preserve session history and briefs alongside the event log and registry snapshot. People review this record to determine direction and the next execution."},
+            {"heading": "Review and decision", "body": "A transcript and export bundle preserve session history and briefs alongside the event log and registry snapshot. People review this record to determine the direction and next action."},
             {"heading": "Public repository", "link": "https://github.com/irootkernel/agent-turn-network-plugin", "linkLabel": "View on GitHub"}
           ]
         }
@@ -718,7 +718,7 @@ window.ROOT_KERNEL_DETAIL = {
       }
     },
     'detail-harness-mulgae-role-review': {
-      src: '/assets/images/detail-harness-mulgae-role-review.svg?v=4',
+      src: '/assets/images/detail-harness-mulgae-role-review.svg?v=5',
       width: 1200,
       height: 900,
       caption: {
@@ -775,6 +775,15 @@ window.ROOT_KERNEL_DETAIL = {
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  }
+
+  function renderInlineText(value) {
+    return String(value == null ? '' : value)
+      .split(/(`[^`]+`)/g)
+      .map((part) => part.startsWith('`') && part.endsWith('`')
+        ? '<code>' + escapeHtml(part.slice(1, -1)) + '</code>'
+        : escapeHtml(part))
+      .join('');
   }
 
   function selectorValue(value) {
@@ -845,8 +854,8 @@ window.ROOT_KERNEL_DETAIL = {
 
   function renderSections(item) {
     return (item.sections || []).map((section) => {
-      const list = Array.isArray(section.list) ? '<ul>' + section.list.map((li) => '<li>' + escapeHtml(li) + '</li>').join('') + '</ul>' : '';
-      const body = section.body ? '<p>' + escapeHtml(section.body) + '</p>' : '';
+      const list = Array.isArray(section.list) ? '<ul>' + section.list.map((li) => '<li>' + renderInlineText(li) + '</li>').join('') + '</ul>' : '';
+      const body = section.body ? '<p>' + renderInlineText(section.body) + '</p>' : '';
       const link = section.link ? '<p><a class="text-link" href="' + escapeHtml(section.link) + '" target="_blank" rel="noopener">' + escapeHtml(section.linkLabel || section.link) + '</a></p>' : '';
       return '<section class="doc-block"><h3>' + escapeHtml(section.heading) + '</h3>' + body + list + link + '</section>';
     }).join('');
@@ -867,7 +876,7 @@ window.ROOT_KERNEL_DETAIL = {
       : '<span></span>';
     return '<article class="workspace-document">' +
       '<div class="file-tab"><span>' + escapeHtml(breadcrumb) + '</span>' + statusChip + '</div>' +
-      '<header class="doc-head"><p class="eyebrow">' + escapeHtml(text.currentFile) + '</p><h2>' + escapeHtml(item.title) + '</h2><p class="hero-lead">' + escapeHtml(item.subtitle) + '</p><p>' + escapeHtml(item.summary || '') + '</p></header>' +
+      '<header class="doc-head"><p class="eyebrow">' + escapeHtml(text.currentFile) + '</p><h2>' + escapeHtml(item.title) + '</h2><p class="hero-lead">' + escapeHtml(item.subtitle) + '</p><p>' + renderInlineText(item.summary || '') + '</p></header>' +
       heroImage +
       '<div class="doc-sections">' + renderSections(item) + '</div>' +
       '<nav class="doc-pagination" aria-label="' + escapeHtml(text.technologies) + '">' + pagerButton(previous, text.previous, 'previous') + pagerButton(next, text.next, 'next') + '</nav>' +
