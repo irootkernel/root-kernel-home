@@ -73,8 +73,9 @@ img,.px-img{image-rendering:pixelated}
    breakpoint.  Its shorter line box preserves the cell grid without overpowering the
    enlarged wordmark and navigation labels. */
 .tag{grid-area:tag;padding:0;justify-self:center;
-  font:400 14px/calc(7 * var(--px)) var(--body);color:var(--dim);overflow-wrap:normal;
+  font:400 14px/calc(7 * var(--px)) var(--body);color:var(--dim);overflow-wrap:normal;text-decoration:none;
   transform:translateY(calc(-1 * var(--px)))}
+.tag:hover{color:var(--bone)}
 @media (max-width:1279px){
   .top{grid-template-columns:max-content 1fr auto;
     grid-template-areas:"brand . lang" "tag . ." "nav nav nav"}
