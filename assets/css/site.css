@@ -300,10 +300,9 @@ html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
                         calc(8 * var(--px)) calc(60 * var(--px))}
 .hero{position:relative;z-index:2;display:grid;
   grid-template-columns:minmax(0,3fr) minmax(0,5fr);
-  grid-template-rows:auto 1fr auto;gap:calc(8 * var(--px)) 0;align-items:stretch}
+  grid-template-rows:auto 1fr;gap:calc(8 * var(--px)) 0;align-items:stretch}
 .hero-left{grid-column:1;grid-row:1;padding-right:calc(8 * var(--px));min-width:0}
 .hero-left .lead{max-width:none}
-.hero > .index{grid-column:1 / -1;grid-row:3;margin-top:0}
 .anchor{margin-top:calc(40 * var(--px))}
 .anchor > .head{grid-column:3;grid-row:1}
 .anchor > .body{grid-column:3;grid-row:2}
@@ -445,7 +444,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   .hero{padding:calc(20 * var(--px)) 0 0}
   .anchor{grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px))
                 calc(160 * var(--px))}
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto;
     gap:calc(6 * var(--px)) 0}
   .hero-left{grid-column:1;grid-row:1;max-width:calc(160 * var(--px));
     margin-left:calc(20 * var(--px));padding-right:0}
@@ -466,7 +465,6 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   .hinspect{grid-column:1 / -1;min-height:calc(18 * var(--px));padding:calc(3 * var(--px));
     border-top:var(--px) solid var(--ash2)}
   .hlegend{display:none}
-  .hero > .index{grid-column:1;grid-row:4}
 }
 
 /* ================================================================ detail pages
