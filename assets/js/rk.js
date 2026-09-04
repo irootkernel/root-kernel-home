@@ -11,8 +11,8 @@
  * cell units; every outside influence enters through RK.input, so the same input
  * sequence always produces the same snapshot.  `?rk-tick=0` settles every input
  * synchronously; prefers-reduced-motion goes passive — no pads, no paint,
- * braziers lit — the same end state as a no-JS page, with the pipeline board and
- * the contact form still working.
+ * braziers lit — the same end state as a no-JS page, with the Podway hero and
+ * the contact form still readable.
  *
  * Contains no sentences: every string comes from the #rk-cfg JSON block, which the
  * generator fills from _workspace/r5/copy/ui-strings.json.
@@ -87,7 +87,7 @@
      snapshot.  Nothing below this line runs, so the page draws nothing. */
   if (T.machine === 'static') {
     window.RK = {
-      version: 'r6', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0),
+      version: 'r7', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0),
       stepTo: function () {}, reset: function () {}, input: function () {},
       snapshot: function () { return JSON.stringify({ lit: [], events: [] }); },
       states: function () { return {}; }
@@ -100,18 +100,17 @@
   var footEl = document.querySelector('.foot');
   var form = document.getElementById('rk-form');
   var idxDots = [].slice.call(document.querySelectorAll('.index i'));
-  /* pipeline board (REVISION_1 §1): the hero instrument, its own coordinate space */
-  var pipe = stage.querySelector('.pipe');
-  var pbtn = document.getElementById('rk-p3');
-  var pMark = pipe ? [].slice.call(pipe.querySelectorAll('.pcol > .stn, .pcol > .gate'))
-                   : [];
-  var pLbl = pipe ? [].slice.call(pipe.querySelectorAll('.stlbl')) : [];
-  var pEmb = pipe ? pipe.querySelector('.pembr') : null;
-  var pLitEl = pipe ? pipe.querySelector('.plit') : null;
-  var pNow = pipe ? pipe.querySelector('.pnow') : null;
-  var pStatT = pipe ? pipe.querySelector('.pstat .pslt') : null;
-  var pStatG = pipe ? pipe.querySelector('.pstat .ptg') : null;
-  var pStatX = pipe ? pipe.querySelector('.pstat .pgx') : null;
+  var hero = stage.querySelector('.hero-demo');
+  var heroReplay = document.getElementById('rk-hero-replay');
+  var heroState = hero ? hero.querySelector('.hstate') : null;
+  var heroThread = hero ? hero.querySelector('.hthread') : null;
+  var heroInspect = hero ? hero.querySelector('.hinspect') : null;
+  var heroMessages = hero ? [].slice.call(hero.querySelectorAll('.hmsg')) : [];
+  var heroNodes = hero ? [].slice.call(hero.querySelectorAll('.hnode')) : [];
+  var heroEdges = hero ? [].slice.call(hero.querySelectorAll('.hedge')) : [];
+  var heroRework = hero ? hero.querySelector('.hrework') : null;
+  var heroPreview = hero ? hero.querySelector('.hpreview') : null;
+  var heroAttempt = hero ? hero.querySelector('.hattempt') : null;
 
   /* --- text ---------------------------------------------------------------
      The `__rkt` cache keeps per-tick readout rewrites free of DOM churn. */
@@ -129,12 +128,6 @@
     }
     return out;
   }
-  function tstamp(n) {
-    var s = String(n);
-    while (s.length < 4) { s = '0' + s; }
-    return fmt(T.hud.tick, { tick: s });
-  }
-
   /* --- constants (cells; the sim's fixed point is 1/64 cell) --------------- */
   var FP = 64;            /* fixed-point scale                                   */
   var IMP = 22;           /* launch impulse: v[FP/tick] = pull[cells] * IMP      */
@@ -152,7 +145,7 @@
 
   /* --- state ---------------------------------------------------------------- */
   var RK = window.RK = {
-    version: 'r6', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0)
+    version: 'r7', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0)
   };
   var pads = [];          /* [{el, pld, x, y (cup centre, cells), id, ci, shots}] */
   var embers = [];        /* [{x, y, vx, vy (FP), ci, st, el}]                    */
@@ -160,7 +153,6 @@
   var obs = [];           /* [{x, y, w, h}] cells — plinths, then pads         */
   var obsBase = 0;        /* how many of obs are [data-ob]; the rest are pads  */
   var events = ['ignite'];
-  var disp = { lt: 0, ltx: T.log.ignite, pseg: 's1', pAt: 0 };
   var PX = 3, vh = window.innerHeight, MOB = false;
   var bounds = { l: 0, t: 0, r: 0, b: 0 };               /* stage-cell playfield */
   /* text paint (R13 §4): every paintable text block's rect, and the orb index of
@@ -220,7 +212,7 @@
         var p = node.parentElement;
         if (!p) { return NodeFilter.FILTER_REJECT; }
         /* links keep their teal, hidden or screen-reader-only text stays out */
-        if (p.closest('a,[aria-hidden="true"],.sr')) {
+        if (p.closest('a,[aria-hidden="true"],.sr,.hero-demo')) {
           return NodeFilter.FILTER_REJECT;
         }
         if (!p.closest(PAINT_SEL)) { return NodeFilter.FILTER_REJECT; }
@@ -298,17 +290,8 @@
   }
 
   /* --- events ---------------------------------------------------------------- */
-  function evText(n) {
-    if (n === 'ignite') { return T.log.ignite; }
-    if (n === 'send') { return T.log.send || n; }
-    if (n.indexOf('lit:') === 0) { return fmt(T.log.lit, { id: n.slice(4) }); }
-    if (n.indexOf('launch:') === 0) { return fmt(T.log.launch, { id: n.slice(7) }); }
-    return n;
-  }
   function pushEv(name) {
     events.push(name);
-    disp.lt = RK.tick;
-    disp.ltx = evText(name);
   }
 
   /* --- launcher pads ----------------------------------------------------------
@@ -539,7 +522,7 @@
       }
       paintTouch(e);
     }
-    pipeStep();
+    heroStep();
   }
   function settle() {
     /* embers never park, so a synchronous settle is a fixed advance: the same
@@ -550,106 +533,109 @@
     render();
   }
 
-  /* --- pipeline sub-machine (REVISION_1 §1.3) -----------------------------------
-     Same tick clock, own coordinates, no say over the flight: it never touches
-     pads, embers, paint or braziers.  `st` run -> armed -> lit; `d` is the board
-     distance in cells; `req` records an approval that arrived before the ember
-     reached the gate and is spent the moment the gate is reached — the gate
-     never opens on a tick count alone. */
-  var PSTATES = ['s1', 'pass', 'wait', 'approve', 's4', 's5'];
-  function blankPipe() {
-    return { st: 'run', d: 0, plit: [0, 0, 0, 0, 0], events: [], req: 0 };
+  /* --- Podway hero ----------------------------------------------------------
+     The graph is built during planning and remains fixed after approval. Runtime
+     changes only the active cursor, evidence validity and attempt number. */
+  var HDUR = (T.heroDemo && T.heroDemo.duration) || 360;
+  var H = { st: hero ? (PASSIVE ? 'complete' : 'running') : 'none', at: 0,
+            runs: hero ? 1 : 0, msgCount: -1 };
+  heroMessages.forEach(function (el) {
+    var text = el.querySelector('.hmsg-text');
+    if (text) { text.__full = text.textContent; }
+  });
+  function heroStart() {
+    if (!hero || PASSIVE) { return; }
+    H.st = 'running';
+    H.at = RK.tick;
+    H.runs++;
+    H.msgCount = -1;
+    events.push('hero:' + H.runs);
+    renderHero();
   }
-  var P = blankPipe();
-  var PD = null;
-  var PSPD = (T.pipe && T.pipe.speed) || 6;
-  function buildPipe() {
-    if (!pipe || pMark.length !== 5) { PD = null; return; }
-    var b = pipe.getBoundingClientRect();
-    var cs = getComputedStyle(pipe);
-    var bl = parseFloat(cs.borderLeftWidth) || 0;
-    var br = parseFloat(cs.borderRightWidth) || 0;
-    var x0 = b.left + bl;
-    var at = pMark.map(function (el) {
-      var r = el.getBoundingClientRect();
-      return Math.round((r.left - x0) / PX) + Math.floor(Math.round(r.width / PX) / 2);
+  function heroElapsed() {
+    if (!hero) { return 0; }
+    return H.st === 'complete' ? HDUR : Math.max(0, RK.tick - H.at);
+  }
+  function heroStep() {
+    if (H.st === 'running' && RK.tick - H.at >= HDUR) { H.st = 'complete'; }
+  }
+  function heroStatusAt(e) {
+    if (e < 108) { return 'planning'; }
+    if (e < 126) { return 'approval'; }
+    if (e < 192) { return 'executing'; }
+    if (e < 244) { return 'waiting'; }
+    if (e >= 264 && e < 280) { return 'approval'; }
+    if (e < 346) { return 'rework'; }
+    if (e < HDUR) { return 'closing'; }
+    return 'complete';
+  }
+  function nodeMoment(el, e) {
+    var first = +(el.getAttribute('data-at') || 0);
+    var rerun = +(el.getAttribute('data-rerun') || 0);
+    return rerun && e >= rerun ? rerun : first;
+  }
+  function renderHero() {
+    if (!hero || !T.heroDemo) { return; }
+    var e = heroElapsed(), at, dur, count = 0, maxAt = -1;
+    hero.classList.add('hdemo-ready');
+    heroMessages.forEach(function (el) {
+      at = +(el.getAttribute('data-at') || 0);
+      dur = +(el.getAttribute('data-dur') || 1);
+      var text = el.querySelector('.hmsg-text');
+      var chars = text && Array.from(text.__full || '');
+      var shown = e >= at;
+      el.classList.toggle('shown', shown);
+      el.classList.toggle('typing', shown && e < at + dur);
+      if (!text || !shown) { if (text) { setText(text, ''); } return; }
+      count++;
+      var n = e >= at + dur ? chars.length :
+        Math.max(1, Math.floor(chars.length * (e - at) / dur));
+      setText(text, chars.slice(0, n).join(''));
     });
-    PD = { at: at, stop: at[2] - 6,
-           total: Math.round((b.width - bl - br) / PX) };
-    if (P.d > pipeTarget()) { P.d = pipeTarget(); }   /* a narrower cut, same state */
-  }
-  function pipeTarget() { return (P.st === 'lit') ? PD.total : PD.stop; }
-  function pipeEv(code) {
-    P.events.push(code);
-    disp.lt = RK.tick;
-    disp.ltx = T.pipe.log[code] || code;
-    disp.pseg = code;
-  }
-  /* Semantics: a station is passed the moment the board distance crosses its centre.
-     The gate is the exception — it lights on the press, never on distance. */
-  function pipeSem() {
-    var i;
-    for (i = 0; i < 5; i++) {
-      if (i === 2 || P.plit[i] || P.d < PD.at[i]) { continue; }
-      P.plit[i] = 1;
-      pipeEv(PSTATES[i < 2 ? i : i + 1]);
+    if (count !== H.msgCount && heroThread) {
+      H.msgCount = count;
+      heroThread.scrollTop = heroThread.scrollHeight;
     }
-    if (P.st === 'run' && P.d >= PD.stop) {
-      P.st = 'armed';
-      pipeEv('wait');
-      if (P.req) { P.req = 0; pipeApprove(); }
-    }
+    heroNodes.forEach(function (el) {
+      var moment = nodeMoment(el, e);
+      if (moment <= e && moment > maxAt) { maxAt = moment; }
+    });
+    heroNodes.forEach(function (el) {
+      var first = +(el.getAttribute('data-at') || 0);
+      var moment = nodeMoment(el, e);
+      var invalidAt = +(el.getAttribute('data-invalid') || 0);
+      var rerun = +(el.getAttribute('data-rerun') || 0);
+      var invalid = invalidAt && e >= invalidAt && (!rerun || e < rerun);
+      el.classList.toggle('on', first <= e);
+      el.classList.toggle('invalid', !!invalid);
+      el.classList.toggle('retry', !!rerun && e >= rerun);
+      el.classList.toggle('active', !invalid && moment === maxAt && H.st !== 'complete');
+      el.classList.toggle('done', !invalid && first <= e &&
+        (moment < maxAt || H.st === 'complete'));
+    });
+    heroEdges.forEach(function (el) {
+      var first = +(el.getAttribute('data-at') || 0);
+      var rerun = +(el.getAttribute('data-rerun') || 0);
+      var invalidAt = +(el.getAttribute('data-invalid') || 0);
+      var invalid = invalidAt && e >= invalidAt && (!rerun || e < rerun);
+      el.classList.toggle('on', e >= first);
+      el.classList.toggle('invalid', !!invalid);
+      el.classList.toggle('retry', !!rerun && e >= rerun);
+    });
+    if (heroRework) { heroRework.classList.toggle('on', e >= 244); }
+    if (heroPreview) { heroPreview.classList.toggle('on', e >= 150); }
+    if (heroAttempt) { heroAttempt.classList.toggle('on', e >= 244); }
+    setText(heroState, T.heroDemo.status[heroStatusAt(e)]);
+    if (heroReplay) { heroReplay.disabled = PASSIVE || H.st === 'running'; }
   }
-  function pipeStep() {
-    if (!PD) { return; }
-    var t = pipeTarget();
-    if (P.d < t) { P.d = Math.min(t, P.d + PSPD); }
-    pipeSem();
-  }
-  function pipeApprove() {
-    if (!PD || P.st === 'lit') { return; }
-    if (P.st !== 'armed') { P.req = 1; return; }
-    P.st = 'lit';
-    P.plit[2] = 1;
-    disp.pAt = RK.tick;
-    pipeEv('approve');
-  }
-  function renderPipe(f) {
-    if (!PD) { return; }
-    var i, el, tag = T.pipe.at[disp.pseg], body = T.pipe.seg[disp.pseg];
-    for (i = 0; i < 5; i++) {
-      el = pMark[i];
-      if (i === 2) {
-        el.className = 'gate pgate' +
-          (P.st === 'lit' ? ' lit' : (P.st === 'armed' ? ' armed' : '')) +
-          ((P.st === 'armed' && TICK_MS && (Math.floor(RK.tick / 3) % 2)) ? ' blink' : '');
-      } else {
-        el.className = 'stn' + (P.plit[i] ? ' lit' : '');
-      }
-      if (pLbl[i]) {
-        pLbl[i].className = 'stlbl' + (P.plit[i] ? ' lit' : '') +
-          (i === 2 && P.st === 'armed' ? ' arm' : '');
-      }
-    }
-    pipe.classList.toggle('gopen', P.st === 'lit');
-    if (pLitEl) { pLitEl.style.width = (P.d * PX) + 'px'; }
-    if (pEmb) {
-      pEmb.className = 'pembr f' + f;
-      pEmb.style.transform = 'translateX(' + ((P.d - 2) * PX) + 'px)';
-    }
-    setText(pNow, tag);
-    setText(pStatT, tstamp(disp.lt));
-    setText(pStatG, tag);
-    setText(pStatX, body);
-    if (pbtn) {
-      pbtn.hidden = false;
-      pbtn.disabled = (P.st !== 'armed');
-      pbtn.classList.toggle('armed', P.st === 'armed');
-      if (P.st === 'lit') {
-        setText(pbtn.querySelector('.gt'),
-                fmt(T.gateDone, { tick: tstamp(disp.pAt).replace(/^t/, '') }));
-      }
-    }
+  function wireHero() {
+    if (!hero) { return; }
+    heroNodes.forEach(function (el) {
+      var inspect = function () { setText(heroInspect, el.getAttribute('data-help')); };
+      el.addEventListener('mouseenter', inspect);
+      el.addEventListener('focus', inspect);
+    });
+    if (heroReplay) { heroReplay.addEventListener('click', heroStart); }
   }
 
   /* --- render (expression only) ------------------------------------------------ */
@@ -689,7 +675,7 @@
       var s = TICK_MS ? (Math.floor(RK.tick / 4) + i) % 3 : 0;
       p.el.className = 'pad ' + ORBS[p.ci] + ' s' + s;
     }
-    renderPipe(f);
+    renderHero();
   }
 
   /* --- input ----------------------------------------------------------------- */
@@ -725,14 +711,10 @@
       return;
     }
     if (name === 'key') { key(payload); return; }
+    if (name === 'hero') { heroStart(); return; }
     if (name === 'press') {
-      if (payload === 'rk-p3') {
-        pipeApprove();
-        if (TICK_MS === 0) { settle(); } else { render(); }
-        return;
-      }
       var el = document.getElementById(payload);      /* unknown ids are ignored */
-      if (el && el !== pbtn && !el.disabled) { el.click(); }
+      if (el && !el.disabled) { el.click(); }
       return;
     }
     if (name === 'scroll') { measureBounds(); return; }
@@ -744,7 +726,6 @@
     embers.forEach(function (e) { e.el.parentNode.removeChild(e.el); });
     embers = [];
     events = ['ignite'];
-    disp = { lt: 0, ltx: T.log.ignite, pseg: 's1', pAt: 0 };
     sent = 0;
     var i;
     for (i = 0; i < pads.length; i++) { pads[i].shots = 0; }
@@ -765,9 +746,9 @@
         paints[i] = -1;
       }
     }
-    if (pbtn) { pbtn.classList.remove('armed'); }
     if (form) { form.classList.remove('sent'); }
-    P = blankPipe();
+    H = { st: hero ? (PASSIVE ? 'complete' : 'running') : 'none', at: 0,
+          runs: hero ? 1 : 0, msgCount: -1 };
     measureBounds();
     render();
   };
@@ -782,7 +763,12 @@
               }),
               paint: paints.slice(), events: events.slice() };
     if (form) { o.sent = sent; }
-    if (PD) { o.pipe = { st: P.st, d: P.d, plit: P.plit.slice(), events: P.events.slice() }; }
+    if (hero) {
+      o.hero = { st: H.st, at: H.at, runs: H.runs, elapsed: heroElapsed(),
+                 active: heroNodes.filter(function (el) {
+                   return el.classList.contains('active');
+                 }).map(function (el) { return el.getAttribute('data-node'); }) };
+    }
     return JSON.stringify(o);
   };
   RK.states = function () {
@@ -791,7 +777,7 @@
     pads.forEach(function (p) { o['pad:' + p.id] = ina ? 'inactive' : 'ready'; });
     brzs.forEach(function (b) { o[b.id] = b.lit ? 'lit' : 'wait'; });
     o.embers = embers.length ? ('flying:' + embers.length) : 'none';
-    if (PD) { o.pipe = P.st; }
+    if (hero) { o.hero = H.st; }
     return o;
   };
 
@@ -879,15 +865,12 @@
       }
       return;
     }
-    if (t === pbtn && (e.code === 'Enter' || e.code === 'Space')) { return; }
     if (KEYS.indexOf(e.code) >= 0) {
       e.preventDefault();
       RK.input('key', e.code);
     }
   });
-  if (pbtn) {
-    pbtn.addEventListener('click', function () { RK.input('press', 'rk-p3'); });
-  }
+  wireHero();
   if (form && T.form) { wireForm(); }
   addEventListener('scroll', function () {
     RK.input('scroll', window.scrollY);
@@ -923,7 +906,6 @@
       obs.push({ x: p.x - 9, y: p.y - 9, w: 18, h: 18 });
     });
     measurePaints();
-    buildPipe();
     measureBounds();
   }
   function init() {
