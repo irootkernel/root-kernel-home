@@ -179,10 +179,11 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   repaints. `textContent` never changes, so screen readers and the copy-provenance
   gate see the same sentences. Assignments are per-letter state, so the snapshot
   carries them and a replay repaints identically.
-- **Braziers.** One per engine section, hung in the section's own corner (declaration
-  and history rows carry their own placements). An ember within the ignition radius
-  (24 cells) lights the bowl for good; the containing section (and the home index
-  dot) follows.
+- **Braziers.** One per engine section, hung in the section's own corner. On the
+  stacked mobile cut, section braziers occupy a separate row after the copy; the nine
+  declarations reserve a dedicated right column at every width. Company data tables
+  carry no braziers. An ember within the ignition radius (24 cells) lights the bowl
+  for good; the containing section (and the home index dot) follows.
 
 Still true from the wire engine:
 

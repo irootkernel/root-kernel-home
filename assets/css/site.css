@@ -330,7 +330,7 @@ html:not(.js) .pgate .go{display:block}
 .brz.lit .coal{display:inline}
 .brz.lit.f0 .f0,.brz.lit.f1 .f1,.brz.lit.f2 .f2{display:inline}
 /* R13: a brazier hangs as a direct child of its section, in the corner the CSS
-   gives it; declaration rows and history rows carry their own placements below. */
+   gives it; declaration rows carry their own collision-free placement below. */
 .sec > .brz,.anchor > .brz{position:absolute;right:calc(4 * var(--px));
   bottom:calc(4 * var(--px))}
 /* with JS the bowl is dark until an ember passes; no-JS renders all lit (the
@@ -590,8 +590,9 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .gbtn[hidden]{display:none}
 .aside .gbtn{align-self:flex-start}
 
-/* keep the tool icon clear of the body text */
-.aside .ticon{margin-right:calc(10 * var(--px))}
+/* keep the tool icon clear of both the body text and the brazier at the far edge of
+   the note column; short tool sections otherwise let the two rasters touch */
+.aside .ticon{margin-right:calc(24 * var(--px))}
 
 /* amendment r9 §4.2: the three aquarium editions are one row inside the aquarium
    section instead of three sections of their own.  Body face at the bullet size, the
@@ -604,17 +605,21 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .eds i{font-style:normal;color:var(--iron2)}
 
 /* nine declarations (§6.5) */
-/* R13: the brazier now hangs at the row's own right edge, inside the text column's
-   section — the rail x it used to stand on is gone */
+/* R13: every declaration reserves a real column for its brazier.  The marker is part
+   of the row's grid instead of painting over whichever line happens to reach the
+   right edge, and bottom alignment keeps it at the end of the declaration. */
 .decls9{list-style:none;margin:calc(6 * var(--px)) 0 0;padding:0}
-.decls9 li{position:relative;min-height:calc(28 * var(--px));
+.decls9 li{position:relative;display:grid;
+  grid-template-columns:minmax(0,1fr) calc(16 * var(--px));
+  column-gap:calc(4 * var(--px));min-height:calc(28 * var(--px));
   padding:calc(4 * var(--px)) 0;border-bottom:var(--px) solid var(--ash2)}
-.decls9 li > .brz{position:absolute;right:calc(2 * var(--px));top:var(--px)}
+.decls9 li > .brz{position:relative;right:auto;top:auto;grid-column:2;grid-row:1;
+  align-self:end;justify-self:end}
 /* r8c p4: the number sits in an 11-cell gutter of its own — 8 cells of marker and a
    3-cell gap — so every line of a wrapped declaration hangs under the first word
    instead of running back under the number.  The marker is placed absolutely, the way
    `.leg li::before` is, so the readout face cannot lift the line box off the grid. */
-.decls9 .decl{position:relative;margin:0;color:var(--dim);
+.decls9 .decl{position:relative;grid-column:1;grid-row:1;margin:0;color:var(--dim);
   padding-left:calc(11 * var(--px))}
 .decls9 li.lit .decl{color:var(--bone)}
 .decls9 .decl::before{content:attr(data-n);position:absolute;left:0;top:0;
@@ -786,16 +791,14 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   .px-img.wide{--s:2}
   .ticon{--s:1}
   .aside .ticon{margin-right:0}
+  /* On the stacked cut the full lit raster gets its own row after the copy.  Keeping
+     it in normal grid flow protects paragraphs, repository links, and form status
+     text without narrowing the mobile reading measure. */
+  .sec > .brz,.anchor > .brz{position:relative;right:auto;bottom:auto;
+    grid-column:3;grid-row:3;justify-self:end;margin-top:calc(4 * var(--px))}
   .tbl th:first-child,.tbl td:first-child{width:calc(34 * var(--px))}
   .field textarea{height:calc(80 * var(--px))}
 }
-
-/* history-table braziers hang beside the year cell, at the cell's own right edge
-   (R13 — the rail x is gone); the row keeps its taller box so two neighbouring
-   braziers never touch */
-.hist .tbl td{padding:calc(4 * var(--px)) calc(4 * var(--px)) calc(6 * var(--px)) 0;
-  height:calc(25 * var(--px))}
-.hist .tbl td:first-child > .brz{position:absolute;right:var(--px);top:var(--px)}
 
 /* label row: the required marker and the character counter sit beside the label but
    outside it, so each block element still holds exactly one registered string */
