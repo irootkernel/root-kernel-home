@@ -122,18 +122,10 @@ img,.px-img{image-rendering:pixelated}
 #main .pc.c1{color:var(--orb-g)}
 #main .pc.c2{color:var(--orb-r)}
 #main .pc.c3{color:var(--bone)}
-/* the flying ember (R13 §3): the retired rail's round sparkling sprite, one
-   inline SVG per orb.  The body is the orb hue, the sparkle frames bone —
-   four class frames cycled on ticks, never a transition */
-.femb{position:absolute;left:0;top:0;z-index:4;
-  width:calc(5 * var(--px));height:calc(5 * var(--px))}
-.femb svg{width:100%;height:100%}
-.femb.c0{--oc:var(--orb-b)} .femb.c1{--oc:var(--orb-g)}
-.femb.c2{--oc:var(--orb-r)} .femb.c3{--oc:var(--bone)}
-.femb .fe{display:none}
-.femb.f0 .fe0,.femb.f1 .fe1,.femb.f2 .fe2,.femb.f3 .fe3{display:inline}
-/* a white orb sparkles in the page's darkest tone instead of invisible white */
-.femb.c3 .fe{fill:var(--ash3)}
+/* The flying embers share one viewport-windowed canvas. It preserves the 5-cell
+   pixel sprite while keeping the DOM and style tree constant at either device cap. */
+.flight-canvas{position:absolute;z-index:4;left:0;pointer-events:none;
+  image-rendering:pixelated}
 
 /* launcher pad (R13 §2): one per H2, injected by the engine.  Left-side pads
    inherit the retired rail gutter; right-side pads the note column.  The cradle
@@ -156,7 +148,8 @@ img,.px-img{image-rendering:pixelated}
 .pad .pbd{position:absolute;left:calc(4 * var(--px));top:calc(4 * var(--px));
   width:calc(10 * var(--px));height:var(--px);background:var(--ember3)}
 .pad .pld{position:absolute;left:calc(7 * var(--px));top:calc(2 * var(--px));
-  width:calc(4 * var(--px));height:calc(4 * var(--px));background:var(--oc)}
+  width:calc(4 * var(--px));height:calc(4 * var(--px));background:var(--oc);
+  will-change:transform}
 .pad.c0,.aim.c0{--oc:var(--orb-b)} .pad.c1,.aim.c1{--oc:var(--orb-g)}
 .pad.c2,.aim.c2{--oc:var(--orb-r)} .pad.c3,.aim.c3{--oc:var(--bone)}
 /* sling attract: the band sags and the cup tugs down, three class frames.
@@ -165,14 +158,13 @@ img,.px-img{image-rendering:pixelated}
 .pad.s2 .pld{transform:translateY(calc(2 * var(--px)))}
 .pad.s1 .pbd{top:calc(5 * var(--px))}
 .pad.s2 .pbd{top:calc(6 * var(--px))}
-/* inactive (R13 §2): at the ten-ember cap every pad dims and goes quiet —
-   it re-arms the moment the count drops */
+/* inactive (R13 §2): at the 60 desktop / 30 mobile cap every pad dims */
 .pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0)}
 .pad.inact .pld{background:var(--ash3)}
 .pad.inact .pbd{background:var(--ash3)}
 /* drag aim: a one-cell rule from the cup towards the pull, in the pad's hue */
 .aim{position:absolute;z-index:5;height:var(--px);pointer-events:none;
-  background:var(--oc);transform-origin:left center}
+  background:var(--oc);transform-origin:left center;will-change:transform}
 
 /* ---------------------------------------------------------------- hero */
 /* Amendment r8 §1.9 · §3.1: the hero and the five anchors run on the detail-page grid
@@ -292,6 +284,43 @@ html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
   .hrework.on{animation:none}.hmsg.typing .hmsg-text::after{display:none}
 }
 
+/* ---------------------------------------------------------------- flight status
+   A viewport-fixed instrument for the live flight state. Its top edge is also the
+   simulation's lower wall, so embers reflect from the bar instead of drawing over it. */
+body.has-flight-status{padding-bottom:calc(14 * var(--px))}
+.flight-status{position:fixed;z-index:10;left:0;right:0;bottom:0;
+  height:calc(14 * var(--px));border-top:var(--px) solid var(--ash3);
+  background:var(--ash1);pointer-events:none}
+.fsinner{width:var(--w);height:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;
+  gap:calc(6 * var(--px));white-space:nowrap;overflow:hidden;
+  font:600 12px/calc(8 * var(--px)) var(--mono);color:var(--dim)}
+@supports (margin-left:round(down,1px,1px)){
+  .fsinner{margin-left:round(down,calc((100% - var(--w)) / 2),var(--px))}
+}
+.fsrow{display:flex;align-items:center;justify-content:center;gap:calc(3 * var(--px));min-width:0}
+.fsrow + .fsrow{padding-left:calc(6 * var(--px));border-left:var(--px) solid var(--ash3)}
+.fshead{color:var(--iron2);letter-spacing:.04em}
+.fshead output{color:var(--bone)}
+.fsitem{display:inline-flex;align-items:center;gap:var(--px)}
+.fswatch{width:calc(2 * var(--px));height:calc(2 * var(--px));background:currentColor}
+.fsitem.c0{color:var(--orb-b)}.fsitem.c1{color:var(--orb-g)}
+.fsitem.c2{color:var(--orb-r)}.fsitem.c3{color:var(--bone)}
+.fsitem output{display:inline-block;color:currentColor}
+.fsitem output[data-fs="ember"]{width:3ch}
+.fsitem output[data-fs="text"]{width:7ch}
+@media (max-width:1279px){
+  body.has-flight-status{padding-bottom:calc(28 * var(--px))}
+  .flight-status{height:calc(28 * var(--px))}
+  .fsinner{display:grid;grid-template-rows:1fr 1fr;gap:0;font-size:12px}
+  .fsrow{height:calc(14 * var(--px));gap:calc(3 * var(--px));overflow:hidden}
+  .fsrow + .fsrow{padding-left:0;border-left:0;border-top:var(--px) solid var(--ash3)}
+}
+@media (max-width:767px){
+  .fsinner{font-size:10px}
+  .fsrow{gap:var(--px)}
+  .fswatch{width:var(--px);height:var(--px)}
+}
+
 /* ---------------------------------------------------------------- anchors
    R13: the grid keeps its five tracks — the first is now the empty flight gutter
    the left launcher pads inherit, the text measure is unchanged. */
@@ -348,8 +377,8 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .chain li{height:calc(12 * var(--px));padding:var(--px) calc(2 * var(--px));
   border:var(--px) solid var(--ash3);color:var(--dim)}
 .anchor.lit .chain li,.sec.lit .chain li{border-color:var(--ember2);color:var(--ember1)}
-/* R13 obstacle plinths: the blocks the flying embers bounce off read as objects —
-   one ash1 slab with an ash2 edge.  The Podway hero is deliberately not an obstacle. */
+/* R13 obstacle plinths read as objects. Hero panels already own their surface and
+   border styles, so data-ob gives them collision without adding a second frame. */
 [data-ob]:not(.hero-demo):not(.hchat):not(.hgraph){background:var(--ash1);border:var(--px) solid var(--ash2);
   padding:calc(2 * var(--px))}
 .repos{margin:calc(3 * var(--px)) 0 0;padding:0;list-style:none;display:grid;

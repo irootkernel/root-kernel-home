@@ -30,14 +30,16 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    *semantic* event fires at that moment; the ember arriving later is only the
    expression of it. That split is what makes the reduced-motion run produce the same
    event sequence as the animated run.
-5. **Actors.** The flying embers — one per launched pad, the rail's round sparkling
-   sprite recoloured per orb, patrolling the visible body at constant speed until
-   reload (R13).
+5. **Actors.** The flying embers — one per launch, drawn together on one
+   viewport-windowed canvas as the rail's round sparkling sprite recoloured per orb,
+   each sampling a speed at launch and patrolling at that speed until reload (R13).
 6. **Log.** Every state change appends one event: launch, `<id>` lit, approved,
-   sent. The log is engine-internal — it lives in the snapshot for the determinism
-   gate, with no visible readout (R13: the status bar is retired).
-7. **No status bar.** The bottom HUD is retired by decision (R13): nothing is
-   pinned to the viewport edge, and everything the page says is in the page body.
+   sent. The event log remains engine-internal in the state snapshot; the
+   flight status exposes only aggregate ember and text-colour counts.
+7. **Flight status.** The viewport-fixed bottom instrument reports total and
+   per-colour ember counts plus visible text colour percentages. Its top edge is the
+   playfield's lower wall, so embers reflect from it. Launch totals update immediately;
+   text percentages sample at most four times per second in fixed-width fields.
 8. **Page variation.** One machine everywhere (R13 `flight`): launcher pads on the
    page's H2s, braziers in the sections, obstacle plinths, and text paint — a
    passing ember colours the words in its own orb hue, last one wins. Two extras
@@ -157,20 +159,24 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   without an H2 — the contact form), injected by the engine so a no-JS page shows no
   dead control. A pad is a Y-sling: pull with pointer or touch and release to
   launch, or focus it and press Enter/Space for the canonical shot. Pads reload
-  instantly and fire again — the only cap is the sky: **ten embers on the page**,
-  and at the cap every pad goes inactive (dim, disabled, no sling tug) until the
-  count drops. Colours cycle the four orbs in document order, and an active pad
-  runs a three-frame sling tug (class swaps on ticks, never CSS animation) to
-  invite the pull.
-- **Flight.** Embers integrate in 1/64-cell fixed point on the 12Hz tick and keep
-  their launch speed forever: no friction, perfectly elastic walls and obstacles —
-  a launched ember patrols the page until reload. The playfield is the visible slice
-  of `<main>` — never the header, never the footer — recomputed on scroll and
-  resize. Obstacles are the `[data-ob]` plinths (the pipeline board,
-  repository lists, data tables, the aperture scene) **and every launcher pad**:
-  text and images sit on them, embers bounce off. An ember's own launch pad is
-  transparent to it only until it has fully escaped the cup. Each ember is the
-  rail's round sparkling sprite in its orb hue.
+  instantly and fire again up to **60 embers on desktop input devices, or 30 on
+  coarse-pointer mobile devices**. The cap is independent of the responsive layout,
+  so narrowing a desktop window cannot lock an active flight. At the active cap every
+  pad goes inactive (dim, disabled, no sling tug). Colours cycle the four orbs in
+  document order, and an active pad runs a three-frame sling tug to invite the pull.
+- **Flight.** The sling angle sets direction; pull length only has to clear the
+  three-cell launch threshold. Every accepted launch independently samples a uniform
+  speed in hundredth-cell steps from 4.01 through 10.00 cells per tick, then keeps it
+  forever: no friction, perfectly elastic walls and obstacles. A launched ember
+  patrols the page until reload. The
+  playfield is the visible slice of `<main>` — never the header, never the footer —
+  recomputed on scroll and resize. Obstacles are the `[data-ob]` plinths (the pipeline
+  board, repository lists, data tables, the aperture scene), **every launcher pad**,
+  and the home page's five A1–A5 number boxes. Text and images sit on the plinths;
+  embers bounce off each measured boundary. An ember's own launch pad is transparent
+  to it only until it has fully escaped the cup. One viewport-windowed canvas draws
+  every ember from a cache of four colours by four sparkle frames; physics remains
+  per ember. Only the previous sprite rectangles are cleared per tick.
 - **Text paint.** No fog, no dimming — the page starts bright. At init the engine
   splits the text of `<main>`'s paintable blocks (`p`, `h1`–`h4`, `li`, `td`, `th`;
   links, `[aria-hidden]` and `.sr` excluded) into one span per letter, and an ember
@@ -178,7 +184,10 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   (`#main .pc.c0…c3`) — the trail reads character by character, and a later ember
   repaints. `textContent` never changes, so screen readers and the copy-provenance
   gate see the same sentences. Assignments are per-letter state, so the snapshot
-  carries them and a replay repaints identically.
+  carries them and the same captured flight state repaints identically. A layout-time
+  spatial index limits each flight tick to letters in the ember's neighbouring buckets,
+  and every touched letter receives at most one DOM class write per tick after
+  last-ember-wins resolves.
 - **Braziers.** One per engine section, hung in the section's own corner. On the
   stacked mobile cut, section braziers occupy a separate row after the copy; the nine
   declarations reserve a dedicated right column at every width. Company data tables
@@ -190,9 +199,10 @@ Still true from the wire engine:
 - **Accumulator.** `requestAnimationFrame` accumulates elapsed time and runs whole
   ticks; a stall is caught up at most 12 ticks at a time, so a slow frame cannot
   desynchronise the machine.
-- **Pure state.** `step()` advances `tickCount` and derives state from it. The same
-  input sequence always produces the same snapshot — that is a hard gate, checked by
-  replaying an input list twice and comparing.
+- **State transition.** Launch is the only stochastic boundary. Once its sampled
+  velocity is stored on the ember, `step()` and every collision are deterministic;
+  reflection changes signs, never speed. Tests stub the random source when exact
+  snapshot replay is required.
 - **Reduced motion.** `prefers-reduced-motion: reduce` goes passive: no pads, no
   paint, braziers lit — the no-JS paint, with the pipeline board and the contact
   form still working through the synchronous settle. `?rk-tick=0` instead keeps
@@ -224,10 +234,10 @@ Reduced motion, no-JS and keyboard behaviour per surface:
 
 Two kinds, and nothing else.
 
-1. **Sprites.** Hand-written bitmaps (rows of palette indices) compiled to inline SVG
-   `<symbol>`/`<rect>` at load: brazier and flame frames, ember frames, mirrors, the
-   approval gate glyph, port nodes, HUD dots. They scale by `--px` alone, so they are
-   crisp at every breakpoint, and they are the fallback whenever a raster is missing.
+1. **Sprites.** Hand-written bitmaps (rows of palette indices) compile to inline SVG
+   `<symbol>`/`<rect>` at load for static sprites and to one shared canvas for flying
+   ember frames. They scale by `--px` alone, so they are crisp at every breakpoint,
+   and they are the fallback whenever a raster is missing.
    Three characters (`α`, `β`, `↵`) are drawn as sprites because no single Galmuri
    face carries all three; the literal character stays in the DOM in a visually hidden
    span, so screen readers and the copy checks still read the registered string.
@@ -284,8 +294,9 @@ Serve the repository root (`python3 -m http.server 8080`) and check, at 390 / 76
 1. No horizontal overflow at any of the four widths.
 2. With JavaScript disabled: every block of body copy visible, no button that does
    nothing, the contact page still offering a direct mail link.
-3. `window.RK` present; the same input sequence replayed twice gives an identical
-   snapshot; the `?rk-tick=0` snapshot equals the final animated snapshot.
+3. `window.RK` present; with the random source stubbed to the same sequence, the same
+   input sequence gives an identical snapshot and `?rk-tick=0` equals the final
+   animated snapshot. Without a stub, every accepted launch samples a fresh speed.
 4. Every box in the component list lands on a whole `--px` multiple — width, height
    and document position. A shrunk flex item is the usual way this breaks.
 5. Every raster on the grid and inside the palette, and present in the allowlist.
@@ -311,8 +322,11 @@ Serve the repository root (`python3 -m http.server 8080`) and check, at 390 / 76
 4. R13: an ember launched from a pad below the fold is clamped into the visible
    playfield before it flies; launches through `RK.input` are expected to aim from
    visible pads, as a visitor's pull always is.
-5. Flight sim runs on the main thread; a heavy page can drop frames, and the
-   accumulator catches up in bursts of at most 12 ticks.
+5. Flight physics runs on the main thread. Outside a sling pull the accumulator catches
+   up at most 12 ticks after a stall; during a pull it advances at most one tick per
+   display frame so pointer expression stays responsive. Rendering stays on one canvas
+   and text contact checks use a spatial index, so ember count does not expand the
+   style tree.
 6. One social card, in Korean, is shared by both locales.
 9. English navigation labels are wider than the container at every breakpoint, so the
    header wraps to a second row in `/en/`. It does not shrink: a shrunk item would
