@@ -350,7 +350,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .anchor.lit .chain li,.sec.lit .chain li{border-color:var(--ember2);color:var(--ember1)}
 /* R13 obstacle plinths: the blocks the flying embers bounce off read as objects —
    one ash1 slab with an ash2 edge.  The Podway hero is deliberately not an obstacle. */
-[data-ob]:not(.hero-demo){background:var(--ash1);border:var(--px) solid var(--ash2);
+[data-ob]:not(.hero-demo):not(.hchat):not(.hgraph){background:var(--ash1);border:var(--px) solid var(--ash2);
   padding:calc(2 * var(--px))}
 .repos{margin:calc(3 * var(--px)) 0 0;padding:0;list-style:none;display:grid;
   grid-template-columns:1fr 1fr;gap:0 calc(6 * var(--px))}
