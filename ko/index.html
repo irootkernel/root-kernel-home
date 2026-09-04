@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Root Kernel | Human-Governed AI Autonomy</title>
-  <meta name="description" content="Root Kernel은 사람의 의도와 승인 아래 여러 AI 에이전트가 협업하도록 하고, 그 과정을 검증하고 복구할 수 있는 실행 체계를 만드는 AI 기술 기업입니다.">
-  <meta name="theme-color" content="#fbf6ed">
+  <title>Root Kernel — AI를 제어하는 기술</title>
+  <meta name="description" content="Root Kernel은 spec, state transition, deterministic validation, 사람의 승인으로 AI 실행을 통제하는 AI-SPARK와 Podway를 만듭니다.">
+  <meta name="theme-color" content="#121110">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://home.rootkernel.xyz/ko/">
+  <link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/">
+  <link rel="alternate" hreflang="en" href="https://home.rootkernel.xyz/en/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Root Kernel | Human-Governed AI Autonomy">
-  <meta property="og:description" content="AI의 자율성은 넓게, 사람의 결정권은 분명하게. Root Kernel은 다중 에이전트 협업을 검증하고 복구 가능한 실행 체계로 만듭니다.">
+  <meta property="og:title" content="Root Kernel — AI를 제어하는 기술">
+  <meta property="og:description" content="Root Kernel은 spec, state transition, deterministic validation, 사람의 승인으로 AI 실행을 통제하는 AI-SPARK와 Podway를 만듭니다.">
   <meta property="og:url" content="https://home.rootkernel.xyz/ko/">
   <meta property="og:site_name" content="Root Kernel">
   <meta property="og:locale" content="ko_KR">
@@ -21,100 +24,76 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Root Kernel">
+  <meta property="og:image:alt" content="Root Kernel — build AI agent systems">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Root Kernel | Human-Governed AI Autonomy">
-  <meta name="twitter:description" content="AI의 자율성은 넓게, 사람의 결정권은 분명하게. Root Kernel은 다중 에이전트 협업을 검증하고 복구 가능한 실행 체계로 만듭니다.">
+  <meta name="twitter:title" content="Root Kernel — AI를 제어하는 기술">
+  <meta name="twitter:description" content="Root Kernel은 spec, state transition, deterministic validation, 사람의 승인으로 AI 실행을 통제하는 AI-SPARK와 Podway를 만듭니다.">
   <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
-  <meta name="twitter:image:alt" content="Root Kernel">
-  <link rel="canonical" href="https://home.rootkernel.xyz/ko/">
-  <link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/">
-  <link rel="alternate" hreflang="en" href="https://home.rootkernel.xyz/en/">
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3.5">
-  <link rel="stylesheet" href="../assets/css/brand-v5.css?v=2.1">
+  <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz/","logo":"https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg","email":"cs@rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
 </head>
-<body data-lang="ko" data-page="home" class="brand-v5">
-  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <div class="scroll-progress" aria-hidden="true"><span></span></div>
-  <header class="site-header">
-    <div class="nav-shell">
-      <a class="brand" href="index.html" aria-label="Root Kernel 홈">
-        <img class="brand-logo" src="../assets/images/rootkernel-wide-logo-light.svg" alt="" width="226" height="25">
-      </a>
-      <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false">Menu</button>
-      <nav class="site-nav" id="primary-nav" aria-label="주요 메뉴">
-        <a href="ai-spark/index.html">AI-SPARK</a>
-        <a href="ai-harness/index.html">AI Harness</a>
-        <a href="ai-agent/index.html">AI Agent</a>
-        <a href="contact/index.html">Contact</a>
-      </nav>
-      <div class="lang-switch" aria-label="언어 선택">
-        <a class="active" href="index.html" hreflang="ko">KO</a><span aria-hidden="true">/</span><a href="../en/index.html" hreflang="en">EN</a>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<svg class="sheet" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="s-bowl" viewBox="0 0 12 14"><path fill="var(--ash2)" d="M2 7h1v1h-1zM3 7h1v1h-1zM4 7h1v1h-1zM5 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/><path fill="var(--iron)" d="M1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM1 7h1v1h-1zM10 7h1v1h-1zM2 8h1v1h-1zM9 8h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM6 9h1v1h-1zM7 9h1v1h-1zM8 9h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM5 11h1v1h-1zM6 11h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM6 13h1v1h-1zM7 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1z"/></symbol><symbol id="s-rim" viewBox="0 0 12 10"><path fill="var(--ember1)" d="M1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1z"/><path fill="var(--ember2)" d="M1 7h1v1h-1zM10 7h1v1h-1zM2 8h1v1h-1zM9 8h1v1h-1z"/></symbol><symbol id="s-coal" viewBox="0 0 12 9"><path fill="var(--ember1)" d="M4 8h1v1h-1zM7 8h1v1h-1z"/><path fill="var(--ember3)" d="M2 7h1v1h-1zM3 7h1v1h-1zM4 7h1v1h-1zM5 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM8 8h1v1h-1z"/></symbol><symbol id="s-f0" viewBox="0 0 12 6"><path fill="var(--ember1)" d="M5 0h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM3 3h1v1h-1zM7 3h1v1h-1z"/><path fill="var(--ember2)" d="M5 1h1v1h-1zM5 2h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM3 4h1v1h-1zM7 4h1v1h-1z"/><path fill="var(--ember3)" d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1z"/></symbol><symbol id="s-f1" viewBox="0 0 12 6"><path fill="var(--ember1)" d="M6 0h1v1h-1zM5 1h1v1h-1zM4 2h1v1h-1zM7 2h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1z"/><path fill="var(--ember2)" d="M6 1h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM3 4h1v1h-1zM7 4h1v1h-1z"/><path fill="var(--ember3)" d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1z"/></symbol><symbol id="s-f2" viewBox="0 0 12 6"><path fill="var(--ember1)" d="M5 1h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM3 3h1v1h-1zM7 3h1v1h-1z"/><path fill="var(--ember2)" d="M5 2h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1z"/><path fill="var(--ember3)" d="M5 4h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1z"/></symbol><symbol id="s-e0" viewBox="0 0 5 5"><path fill="var(--ember1)" d="M2 0h1v1h-1zM1 1h1v1h-1zM3 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM1 3h1v1h-1zM3 3h1v1h-1zM2 4h1v1h-1z"/><path fill="var(--ember2)" d="M2 1h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM2 3h1v1h-1z"/></symbol><symbol id="s-e1" viewBox="0 0 5 5"><path fill="var(--ember1)" d="M1 0h1v1h-1zM3 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM2 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM1 4h1v1h-1zM3 4h1v1h-1z"/><path fill="var(--ember2)" d="M1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM1 2h1v1h-1zM3 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1z"/></symbol><symbol id="s-e2" viewBox="0 0 5 5"><path fill="var(--ember1)" d="M2 1h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM2 3h1v1h-1z"/><path fill="var(--ember2)" d="M2 0h1v1h-1zM1 1h1v1h-1zM3 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM1 3h1v1h-1zM3 3h1v1h-1zM2 4h1v1h-1z"/></symbol><symbol id="s-e3" viewBox="0 0 5 5"><path fill="var(--ember1)" d="M0 0h1v1h-1zM4 0h1v1h-1zM2 2h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1z"/><path fill="var(--ember2)" d="M1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM1 2h1v1h-1zM3 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1z"/></symbol><symbol id="s-gc" viewBox="0 0 9 9"><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/><path fill="var(--dim)" d="M4 4h1v1h-1z"/></symbol><symbol id="s-gar" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol><symbol id="s-go" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 3h1v1h-1zM3 4h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z"/><path fill="var(--ember2)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol><symbol id="s-brz" viewBox="0 0 12 14"><use href="#s-bowl" width="12" height="14"/><use class="rim" href="#s-rim" width="12" height="10"/><use class="coal" href="#s-coal" width="12" height="9"/><use class="f f0" href="#s-f0" width="12" height="6"/><use class="f f1" href="#s-f1" width="12" height="6"/><use class="f f2" href="#s-f2" width="12" height="6"/></symbol></svg>
+<header class="top wrap">
+  <a class="brand" href="/ko/" aria-label="Root Kernel 홈"><svg viewBox="-6 -6 194.5 71" aria-hidden="true" focusable="false"><path fill="#10C4BE" d="M39.5,0 L0,24 L0,33 L39.5,57 L39.5,44 L14,28.5 L39.5,13 Z"/><rect x="66" y="50" width="52" height="9" fill="#10C4BE"/><path fill="#EDE9E7" d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg><span>Root Kernel</span></a>
+  <span class="tag" data-copy="ui">&gt; build AI agent systems</span>
+  <nav class="nav" aria-label="주요 메뉴"><a href="/ko/control/">Technology</a><a href="/ko/products/">Products</a><a href="/ko/ai-harness/">AI Harness</a><a href="/ko/ai-agents/">AI Agents</a><a href="/ko/principles/">Principles</a><a href="/ko/company/">Company</a><a href="/ko/contact/">Contact</a></nav>
+  <div class="lang" role="navigation" aria-label="언어 선택"><a class="lflag" href="/en/" hreflang="en" aria-label="영어">🇺🇸</a></div>
+</header>
+<main id="main" class="stage wrap">
+    <section class="hero" id="a0">
+      <div class="body">
+        <h1 class="h1" id="h1"><span class="l">Root Kernel</span> <span class="l">builds technology</span> <span class="l">that controls AI.</span></h1>
+        <p class="lead">AI가 코드를 만드는 속도는 빨라졌습니다. 이제 병목은 생성이 아니라 검토와 승인, 실패 뒤의 복구입니다. 루트커널은 spec과 state transition, 검증 규칙, 사람의 승인 지점을 먼저 정해 AI가 그 경계 안에서 일하도록 만듭니다.</p>
+        <ol class="index" aria-label="페이지 목차"><li><a href="#a1" data-a="A1"><i aria-hidden="true"></i>Technology</a></li><li><a href="#a2" data-a="A2"><i aria-hidden="true"></i>Products</a></li><li><a href="#a3" data-a="A3"><i aria-hidden="true"></i>AI Harness</a></li><li><a href="#a4" data-a="A4"><i aria-hidden="true"></i>AI Agents</a></li><li><a href="#a5" data-a="A5"><i aria-hidden="true"></i>Principles</a></li></ol>
       </div>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="rk-hero rk-editorial-hero">
-      <div class="rk-hero-head reveal">
-        <p class="rk-kicker">Human-Governed AI Autonomy</p>
-        <h1>AI의 자율성은 넓게<br>사람의 결정권은 분명하게</h1>
-      </div>
-      <div class="rk-hero-body">
-        <div class="rk-hero-copy reveal">
-          <p class="rk-hero-lead">사람이 방향을 정하면 AI 에이전트가 역할을 나눠 실행합니다. Root Kernel은 그 과정을 검증 가능한 기록으로 남기고, 중단된 작업을 같은 맥락에서 다시 이어갈 수 있게 합니다.</p>
+      <div class="pipe" role="group" aria-label="AI-SPARK revision 승인 흐름: Spec revision, deterministic validation, 사람 승인, 구현과 테스트, 배포. 구현 이후의 state transition은 FSM runtime이 제어합니다." data-ob>
+        <div class="pcap"><span class="ptt">AI-SPARK · REVISION FLOW</span><i aria-hidden="true">·</i><span class="mono pnow">s1</span></div>
+        <div class="pmach" aria-hidden="true">
+          <span class="pw pw1"></span><span class="pw pgap"></span><span class="pw pw2"></span><span class="pw plit"></span>
+          <div class="pcol"><span class="ptg mono">s1</span><span class="stn"></span></div><div class="pcol"><span class="ptg mono">s2</span><span class="stn"></span></div><div class="pcol"><span class="ptg mono">s3</span><span class="gate pgate" data-pgate><svg class="px gg gc" viewBox="0 0 9 9"><use href="#s-gc" width="9" height="9"/></svg><svg class="px gg ga" viewBox="0 0 9 9"><use href="#s-gar" width="9" height="9"/></svg><svg class="px gg go" viewBox="0 0 9 9"><use href="#s-go" width="9" height="9"/></svg></span></div><div class="pcol"><span class="ptg mono">s4</span><span class="stn"></span></div><div class="pcol"><span class="ptg mono">s5</span><span class="stn"></span></div>
+          <div class="pembr f0" hidden><svg class="px" viewBox="0 0 5 5"><use class="e0" href="#s-e0" width="5" height="5"/><use class="e1" href="#s-e1" width="5" height="5"/><use class="e2" href="#s-e2" width="5" height="5"/><use class="e3" href="#s-e3" width="5" height="5"/></svg></div>
         </div>
-        <figure class="rk-brand-art rk-hero-art reveal" aria-hidden="true">
-          <img src="../assets/images/brand-home-autonomy.webp" alt="" width="1440" height="1080" fetchpriority="high">
-        </figure>
+        <div class="plabs" aria-hidden="true"><span class="stlbl">Spec revision</span><span class="stlbl">Deterministic validation</span><span class="stlbl">사람 승인</span><span class="stlbl">구현·테스트</span><span class="stlbl">배포</span></div>
+        <div class="pstat" aria-hidden="true"><span class="mono pslt">t0000</span><span class="mono ptg">s1</span><span class="pgx">Spec revision</span></div>
+        <button class="gbtn pbtn" id="rk-p3" type="button" disabled hidden aria-label="AI-SPARK revision 승인"><span class="gt">Revision 승인</span></button>
       </div>
+      <p class="fnote">이 흐름은 revision 승인 과정을 보여줍니다. 구현 이후의 state transition은 FSM runtime이 제어합니다.</p>
     </section>
-
-    <section class="rk-section rk-philosophy" id="operating-model">
-      <div class="rk-section-head reveal">
-        <p class="rk-kicker">Operating Philosophy</p>
-        <h2>의도는 사람이,<br>실행과 검토는 AI가</h2>
-        <p>이 세 단계가 Root Kernel이 AI를 운용하는 기본 구조입니다.</p>
-      </div>
-      <ol class="rk-loop rk-loop-compact" aria-label="Root Kernel AI 운용 구조">
-        <li class="rk-loop-human reveal"><span>01</span><strong>Human Intent</strong><p>목표와 정책, 승인 기준을 정합니다.</p></li>
-        <li class="rk-loop-ai reveal"><span>02</span><strong>AI Collaboration</strong><p>역할별로 실행하고 서로 검토합니다.</p></li>
-        <li class="rk-loop-output reveal"><span>03</span><strong>Evidence &amp; Decision</strong><p>기록을 확인하고 다음 단계를 승인합니다.</p></li>
-      </ol>
+    <section class="anchor" id="a1">
+      <div class="head"><h2 data-a="A1">Technology</h2></div>
+      <div class="body"><p>AI-SPARK는 spec bundle에서 revision key를 만들고 검증, 사람의 승인, 구현, 배포가 모두 그 revision key를 가리키게 합니다. 승인 뒤 AI가 작성하는 코드는 이벤트, 전이 조건, 전이 동작에 집중하고, 실제 state transition과 동시성 제어, 전이 기록은 FSM runtime이 맡습니다. Podway는 작업마다 알맞은 절차를 세션 전에 정하고 검사해, 긴 작업이나 인수인계 뒤에도 다음 단계와 다시 해야 할 일을 잃지 않게 합니다.</p><a class="more" href="/ko/control/">AI-SPARK와 Podway 자세히 보기 →</a></div>
+      <div class="brz hasimg lit f0" aria-hidden="true"><img class="px-img bi bu" style="--aw:16;--ah:24" src="/assets/images/px/brazier-unlit.png" width="48" height="72" alt="불꽃이 없는 어두운 철 성화대" decoding="async"><img class="px-img bi bl" style="--aw:16;--ah:24" src="/assets/images/px/brazier-lit.png" width="48" height="72" alt="불꽃이 켜진 성화대, 불꽃 둘레에 한 픽셀의 밝은 링" decoding="async"><svg class="px" viewBox="0 0 12 14"><use href="#s-brz" width="12" height="14"/></svg></div>
     </section>
-
-    <section class="rk-section rk-architecture">
-      <div class="rk-section-head reveal">
-        <p class="rk-kicker">Three Technologies</p>
-        <h2>명세 · 연속성 · 협업<br>세 겹의 기술</h2>
-      </div>
-      <div class="rk-layer-stack">
-        <article class="rk-layer rk-layer-spark reveal">
-          <div><span>01 · Specification</span><h3>AI-SPARK</h3></div>
-          <p>인터페이스·상태 모델·바인딩·권한 정책을 한 리비전으로 묶어 구현 전에 검증합니다.</p>
-          <a class="rk-arrow-link" href="ai-spark/index.html">AI-SPARK 보기 <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="rk-layer rk-layer-harness reveal">
-          <div><span>02 · Continuity</span><h3>AI Harness</h3></div>
-          <p>중단된 작업을 기록된 상태와 복구 지점에서 다시 시작하고, 같은 절차를 이어갑니다.</p>
-          <a class="rk-arrow-link" href="ai-harness/index.html">AI Harness 보기 <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="rk-layer rk-layer-agent reveal">
-          <div><span>03 · Collaboration</span><h3>AI Agent</h3></div>
-          <p>역할별 실행과 턴 기반 토론을 검토 가능한 기록으로 남깁니다.</p>
-          <a class="rk-arrow-link" href="ai-agent/index.html">AI Agent 보기 <span aria-hidden="true">→</span></a>
-        </article>
-      </div>
+    <section class="anchor" id="a2">
+      <div class="head"><h2 data-a="A2">Products</h2></div>
+      <div class="body"><p>Sudal에서는 Space가 실시간 세션의 권한과 state transition을 통제합니다. Doksuri에서 AI는 사람과 분리된 신원과 권한으로 일하며 중요한 변경은 사람이 승인합니다. Ember Quest는 같은 입력에서 같은 결과를 내는 Deterministic Core로 게임 규칙과 replay를 검증합니다. 세 제품은 Root Kernel의 실행 원리가 실제 환경에서도 작동하는지 확인하는 검증장입니다.</p><a class="more" href="/ko/products/">제품 자세히 보기 →</a></div>
+      <div class="brz hasimg lit f0" aria-hidden="true"><img class="px-img bi bu" style="--aw:16;--ah:24" src="/assets/images/px/brazier-unlit.png" width="48" height="72" alt="불꽃이 없는 어두운 철 성화대" decoding="async"><img class="px-img bi bl" style="--aw:16;--ah:24" src="/assets/images/px/brazier-lit.png" width="48" height="72" alt="불꽃이 켜진 성화대, 불꽃 둘레에 한 픽셀의 밝은 링" decoding="async"><svg class="px" viewBox="0 0 12 14"><use href="#s-brz" width="12" height="14"/></svg></div>
     </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-minimal">
-      <div class="footer-brand-stack"><a class="footer-brand" href="index.html" aria-label="Root Kernel 홈"><img class="footer-brand-logo" src="../assets/images/rootkernel-wide-logo-light.svg" alt="" width="181" height="20"></a><button class="footer-founder" data-founder-open type="button">Founder</button></div>
-      <span>© 2026 Root Kernel.</span>
-    </div>
-  </footer>
-  <script defer src="../assets/js/site.js?v=2.7"></script>
+    <section class="anchor" id="a3">
+      <div class="head"><h2 data-a="A3">AI Harness</h2></div>
+      <div class="body"><p>AI Harness는 에이전트에게 개발을 맡기면서도 작업 상태를 추적하고, 완료 주장을 테스트 결과와 실행 기록으로 확인하며, 중요한 변경은 사람이 승인하게 하는 공개 도구군입니다. 루트커널은 이 도구를 자체 개발에 먼저 사용합니다.</p><ul class="repos" data-ob><li><a href="https://github.com/irootkernel/aquarium">Aquarium</a></li><li><a href="https://github.com/irootkernel/podway">Podway</a></li><li><a href="https://github.com/irootkernel/dolgorae">Dolgorae</a></li><li><a href="https://github.com/irootkernel/sanho">Sanho</a></li><li><a href="https://github.com/irootkernel/mulgae">Mulgae</a></li><li><a href="https://github.com/irootkernel/gaori">Gaori</a></li><li><a href="https://github.com/irootkernel/sorage">Sorage</a></li></ul><a class="more" href="/ko/ai-harness/">AI Harness 자세히 보기 →</a></div>
+      <div class="brz hasimg lit f0" aria-hidden="true"><img class="px-img bi bu" style="--aw:16;--ah:24" src="/assets/images/px/brazier-unlit.png" width="48" height="72" alt="불꽃이 없는 어두운 철 성화대" decoding="async"><img class="px-img bi bl" style="--aw:16;--ah:24" src="/assets/images/px/brazier-lit.png" width="48" height="72" alt="불꽃이 켜진 성화대, 불꽃 둘레에 한 픽셀의 밝은 링" decoding="async"><svg class="px" viewBox="0 0 12 14"><use href="#s-brz" width="12" height="14"/></svg></div>
+    </section>
+    <section class="anchor" id="a4">
+      <div class="head"><h2 data-a="A4">AI Agents</h2></div>
+      <div class="body"><p>에이전트 실행 계층은 에이전트를 실행하고, 누가 누구에게 무엇을 맡겼으며 어떤 검토를 거쳤는지 기록하고, 받아들인 결과를 다음 작업으로 전달합니다. Hermes Agent와 Agent Turn Network, Agent Dispatch가 이 책임을 나눠 맡습니다.</p><ul class="repos wide" data-ob><li><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">Hermes Agent</a></li><li><a href="https://github.com/irootkernel/agent-turn-network-control">Agent Turn Network Control</a></li><li><a href="https://github.com/irootkernel/agent-turn-network-plugin">Agent Turn Network Plugin</a></li><li><a href="https://github.com/irootkernel/agent-dispatch">Agent Dispatch</a></li></ul><a class="more" href="/ko/ai-agents/">AI Agents 자세히 보기 →</a></div>
+      <div class="brz hasimg lit f0" aria-hidden="true"><img class="px-img bi bu" style="--aw:16;--ah:24" src="/assets/images/px/brazier-unlit.png" width="48" height="72" alt="불꽃이 없는 어두운 철 성화대" decoding="async"><img class="px-img bi bl" style="--aw:16;--ah:24" src="/assets/images/px/brazier-lit.png" width="48" height="72" alt="불꽃이 켜진 성화대, 불꽃 둘레에 한 픽셀의 밝은 링" decoding="async"><svg class="px" viewBox="0 0 12 14"><use href="#s-brz" width="12" height="14"/></svg></div>
+    </section>
+    <section class="anchor" id="a5">
+      <div class="head"><h2 data-a="A5">Principles</h2></div>
+      <div class="body"><p>Root Kernel의 아홉 가지 원칙은 무엇을 만들고, 무엇을 미루고, 무엇을 거절할지 정하는 기준입니다. spec 우선, 결정적 실행, fail-closed, 사람의 승인은 선언에 머물지 않고 제품과 도구의 동작으로 구현됩니다.</p><a class="more" href="/ko/principles/">아홉 가지 원칙 보기 →</a></div>
+      <div class="brz hasimg lit f0" aria-hidden="true"><img class="px-img bi bu" style="--aw:16;--ah:24" src="/assets/images/px/brazier-unlit.png" width="48" height="72" alt="불꽃이 없는 어두운 철 성화대" decoding="async"><img class="px-img bi bl" style="--aw:16;--ah:24" src="/assets/images/px/brazier-lit.png" width="48" height="72" alt="불꽃이 켜진 성화대, 불꽃 둘레에 한 픽셀의 밝은 링" decoding="async"><svg class="px" viewBox="0 0 12 14"><use href="#s-brz" width="12" height="14"/></svg></div>
+    </section>
+</main>
+<footer class="foot wrap">
+  <span>루트커널 (Root Kernel)</span>
+  <a href="mailto:cs@rootkernel.xyz">cs@rootkernel.xyz</a>
+  <a href="https://github.com/irootkernel">github.com/irootkernel</a>
+</footer>
+<script type="application/json" id="rk-cfg">{"machine": "flight", "anchorTag": "A", "ports": 5, "hud": {"tick": "t{tick}"}, "log": {"ignite": "점화", "lit": "{id} 점등", "launch": "{id} 발사", "send": "메일 초안 요청"}, "orb": {"b": "파랑", "g": "초록", "r": "빨강", "w": "흰색"}, "pad": {"aria": "{color} 성화 발사", "group": "성화 발사대"}, "pipe": {"tags": ["s1", "s2", "s3", "s4", "s5"], "speed": 6, "gate": 3, "log": {"s1": "s1 산출", "pass": "s2 deterministic validation 통과", "wait": "s3 사람 승인 대기", "approve": "승인 s3", "s4": "s4 구현", "s5": "s5 배포"}, "seg": {"s1": "Spec revision", "pass": "Deterministic validation", "wait": "승인 대기", "approve": "Revision 승인", "s4": "구현·테스트", "s5": "배포"}, "at": {"s1": "s1", "pass": "s2", "wait": "s3", "approve": "s3", "s4": "s4", "s5": "s5"}}, "gateDone": "revision 승인 t{tick}"}</script>
+<script src="/assets/js/rk.js" defer></script>
 </body>
 </html>

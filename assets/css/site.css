@@ -1,0 +1,831 @@
+@charset "utf-8";
+/* Root Kernel — 점등 / EMBER CIRCUIT (DESIGN_SPEC_v3.md v3.1)
+   Every length is an integer multiple of --px.  No gradients, blur, glow, scanlines.
+   Contains no sentences: all copy lives in _workspace/r5/copy/*.json. */
+
+/* ---------------------------------------------------------------- tokens
+   Amendment r10 §1: the three pixel faces are gone.  Every face here is a system face,
+   so the document loads no font, CLS is structurally 0, and the game typography that
+   the readouts carried is replaced by size hierarchy alone (body 18 > ui1 16 > ui2 15 >
+   ui3 13 at >=1280).  Font sizes are fixed px; line heights stay `calc(n * var(--px))`,
+   which is the only thing still holding the vertical grid. */
+:root{
+  --px:3px;
+  --ash0:#121110; --ash1:#1C1A18; --ash2:#2E2B28; --ash3:#4A4541;
+  --dim:#8E8880; --bone:#EDE9E7;
+  --teal:#10C4BE; --teal2:#0B7E7A;
+  --ember1:#FFC14A; --ember2:#F27B2A; --ember3:#B23A18;
+  --iron:#5C5852; --iron2:#88827A;
+  /* R13 orb palette: the four one-shot launcher embers.  White is --bone, so only
+     three hues are added. */
+  --orb-b:#7EA6D8; --orb-g:#7FA653; --orb-r:#D96A4A;
+  --w:calc(400 * var(--px));
+  --body:-apple-system,"Apple SD Gothic Neo",Pretendard,"Noto Sans KR","Malgun Gothic","Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,"Noto Sans Mono CJK KR",monospace;
+}
+@media (max-width:1279px){ :root{ --px:2px; --w:calc(360 * var(--px)); } }
+@media (max-width:767px){ :root{ --w:calc(180 * var(--px)); } }
+
+*{box-sizing:border-box}
+html{background:var(--ash0);scroll-behavior:auto}
+body{margin:0;background:var(--ash0);color:var(--bone);font-family:var(--body);
+  font-size:18px;line-height:calc(10 * var(--px));
+  word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+@media (max-width:1279px){ body{font-size:17px;line-height:calc(13 * var(--px))} }
+@media (max-width:767px){ body{font-size:16px;line-height:calc(13 * var(--px))} }
+a{color:var(--teal)}
+a:focus-visible,button:focus-visible,input:focus-visible,
+textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:var(--px) solid var(--teal);outline-offset:var(--px)}
+svg.px{display:block;shape-rendering:crispEdges}
+svg.sheet{position:absolute;width:0;height:0;overflow:hidden}
+img,.px-img{image-rendering:pixelated}
+
+/* r10 §1.5: the pixel-glyph swap is gone with the faces.  `.sr` still carries the two
+   backtick characters of an inline identifier, so the rendered text node sequence stays
+   byte-identical to the manuscript line (see `rich()`). */
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+.skip{position:absolute;left:calc(-400 * var(--px));top:0;
+  font:400 15px/calc(10 * var(--px)) var(--body);color:var(--teal)}
+.skip:focus{left:calc(8 * var(--px));top:calc(8 * var(--px));background:var(--ash1);
+  padding:calc(2 * var(--px)) calc(4 * var(--px));z-index:9}
+
+/* container: left margin snapped down to a whole cell (spec §2.2) */
+.wrap{width:var(--w);margin:0 auto}
+@supports (margin-left: round(down, 1px, 1px)){
+  .wrap{margin:0 0 0 round(down, calc((100% - var(--w)) / 2), var(--px))}
+}
+
+/* ---------------------------------------------------------------- header */
+/* The desktop header uses a two-row grid so the tagline sits below the brand while
+   navigation and language controls stay vertically centred.  Narrow layouts stack
+   brand/language, tagline, and navigation without shrinking any label off the grid. */
+.top{display:grid;grid-template-columns:max-content 1fr max-content;
+  grid-template-areas:"brand nav lang" "tag nav lang";
+  align-items:center;column-gap:calc(8 * var(--px));row-gap:0;
+  padding:calc(6 * var(--px)) 0;border-bottom:var(--px) solid var(--ash2)}
+.brand{grid-area:brand;display:flex;align-items:flex-end;gap:calc(4 * var(--px));text-decoration:none;
+  color:var(--bone);font:600 25px/calc(14 * var(--px)) var(--body)}
+.brand svg{width:calc(20 * var(--px));height:calc(7 * var(--px));display:block;
+  transform:translateY(calc(-4 * var(--px)))}
+/* The tagline forms the second line of the brand lockup and remains visible at every
+   breakpoint.  Its shorter line box preserves the cell grid without overpowering the
+   enlarged wordmark and navigation labels. */
+.tag{grid-area:tag;padding:0;justify-self:center;
+  font:400 14px/calc(7 * var(--px)) var(--body);color:var(--dim);overflow-wrap:normal;
+  transform:translateY(calc(-1 * var(--px)))}
+@media (max-width:1279px){
+  .top{grid-template-columns:max-content 1fr auto;
+    grid-template-areas:"brand . lang" "tag . ." "nav nav nav"}
+  .tag{display:block}
+  .top .nav{margin-left:0;justify-self:start}
+  .top .lang{justify-self:end}
+}
+.nav{grid-area:nav;margin-left:auto;display:flex;flex:0 0 auto;flex-wrap:wrap;
+  gap:calc(6 * var(--px));
+  font:400 16px/calc(10 * var(--px)) var(--body)}
+/* the global `overflow-wrap:anywhere` is for long code identifiers; without this it
+   splits "AI Harn/ess" in the seven-item nav (r10 §4.8) */
+.nav a{flex:0 0 auto;color:var(--dim);text-decoration:none;
+  padding:calc(1 * var(--px)) 0;overflow-wrap:normal}
+.nav a:hover,.nav a[aria-current]{color:var(--bone)}
+/* r10 §1.3 #2b: with one face for everything, the current page needs a second channel
+   besides colour */
+.nav a[aria-current]{font-weight:600}
+/* Navigation and language controls retain the compact UI measure while the brand
+   lockup carries the larger display scale above the tagline. */
+/* Mobile-only toggle injected by rk.js: on phones the seven-item nav collapses
+   behind a button named after the current page, next to the language flag.  Hidden
+   everywhere else, and never rendered at all without JS (the button is not in the
+   static HTML), so the no-JS page keeps the always-visible nav. */
+.navtoggle{display:none}
+.lang{grid-area:lang;flex:0 0 auto;padding:calc(1 * var(--px)) 0;
+  font:400 16px/calc(10 * var(--px)) var(--body);color:var(--dim)}
+.lang a{display:inline-flex;align-items:center;justify-content:center;
+  color:var(--dim);text-decoration:none;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-size:22px;line-height:1}
+.lang a:hover{color:var(--teal)}
+
+/* ---------------------------------------------------------------- stage
+   R13 flight system: no wire, no rail actor, no fog.  The page starts bright;
+   flying embers colour the text blocks they pass, and the launcher pads sit
+   above everything so they stay clickable.  All three kinds of element are
+   injected by the engine — this file only styles them. */
+.stage{position:relative;padding-bottom:calc(48 * var(--px))}
+/* text paint (R13 §4): an ember colours a text block it passes in its own orb
+   hue; a later ember's colour overwrites an earlier one's.  id+class beats the
+   body rules, and links keep their own teal underneath it. */
+#main .pc.c0{color:var(--orb-b)}
+#main .pc.c1{color:var(--orb-g)}
+#main .pc.c2{color:var(--orb-r)}
+#main .pc.c3{color:var(--bone)}
+/* the flying ember (R13 §3): the retired rail's round sparkling sprite, one
+   inline SVG per orb.  The body is the orb hue, the sparkle frames bone —
+   four class frames cycled on ticks, never a transition */
+.femb{position:absolute;left:0;top:0;z-index:4;
+  width:calc(5 * var(--px));height:calc(5 * var(--px))}
+.femb svg{width:100%;height:100%}
+.femb.c0{--oc:var(--orb-b)} .femb.c1{--oc:var(--orb-g)}
+.femb.c2{--oc:var(--orb-r)} .femb.c3{--oc:var(--bone)}
+.femb .fe{display:none}
+.femb.f0 .fe0,.femb.f1 .fe1,.femb.f2 .fe2,.femb.f3 .fe3{display:inline}
+/* a white orb sparkles in the page's darkest tone instead of invisible white */
+.femb.c3 .fe{fill:var(--ash3)}
+
+/* launcher pad (R13 §2): one per H2, injected by the engine.  Left-side pads
+   inherit the retired rail gutter; right-side pads the note column.  The cradle
+   is a Y-sling — two angled arms, a stem, a band — with the loaded orb in the cup. */
+.pad{position:absolute;z-index:5;margin:0;padding:0;cursor:grab;
+  width:calc(18 * var(--px));height:calc(18 * var(--px));
+  background:var(--ash1);border:var(--px) solid var(--ash3);border-radius:0;
+  font:inherit;touch-action:none}
+.pad:active{cursor:grabbing}
+.pad .pcr{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.pad .pcr::before,.pad .pcr::after{content:"";position:absolute;
+  bottom:calc(4 * var(--px));width:calc(2 * var(--px));height:calc(9 * var(--px));
+  background:var(--iron2)}
+.pad .pcr::before{left:calc(6 * var(--px));transform:rotate(-24deg);
+  transform-origin:bottom center}
+.pad .pcr::after{right:calc(6 * var(--px));transform:rotate(24deg);
+  transform-origin:bottom center}
+.pad .pst{position:absolute;left:calc(8 * var(--px));bottom:calc(2 * var(--px));
+  width:calc(2 * var(--px));height:calc(5 * var(--px));background:var(--iron2)}
+.pad .pbd{position:absolute;left:calc(4 * var(--px));top:calc(4 * var(--px));
+  width:calc(10 * var(--px));height:var(--px);background:var(--ember3)}
+.pad .pld{position:absolute;left:calc(7 * var(--px));top:calc(2 * var(--px));
+  width:calc(4 * var(--px));height:calc(4 * var(--px));background:var(--oc)}
+.pad.c0,.aim.c0{--oc:var(--orb-b)} .pad.c1,.aim.c1{--oc:var(--orb-g)}
+.pad.c2,.aim.c2{--oc:var(--orb-r)} .pad.c3,.aim.c3{--oc:var(--bone)}
+/* sling attract: the band sags and the cup tugs down, three class frames.
+   The engine cycles them on ticks; reduced motion holds s0. */
+.pad.s1 .pld{transform:translateY(var(--px))}
+.pad.s2 .pld{transform:translateY(calc(2 * var(--px)))}
+.pad.s1 .pbd{top:calc(5 * var(--px))}
+.pad.s2 .pbd{top:calc(6 * var(--px))}
+/* inactive (R13 §2): at the ten-ember cap every pad dims and goes quiet —
+   it re-arms the moment the count drops */
+.pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0)}
+.pad.inact .pld{background:var(--ash3)}
+.pad.inact .pbd{background:var(--ash3)}
+/* drag aim: a one-cell rule from the cup towards the pull, in the pad's hue */
+.aim{position:absolute;z-index:5;height:var(--px);pointer-events:none;
+  background:var(--oc);transform-origin:left center}
+
+/* ---------------------------------------------------------------- hero */
+/* Amendment r8 §1.9 · §3.1: the hero and the five anchors run on the detail-page grid
+   (rail / gap / text / gap / note), so one rail x carries every port on the site and
+   the wire is a straight line.  The fifth track is left empty on purpose — it holds the
+   measure of the text column steady across page kinds. */
+.hero{padding:calc(12 * var(--px)) 0 0}
+.h1{margin:0;color:var(--bone);letter-spacing:-0.02em;
+  font:800 48px/calc(20 * var(--px)) var(--body);
+  word-break:keep-all;overflow-wrap:normal}
+.h1 .l{display:inline}
+/* r12 §1: the same `ui:tagline` string as the header, as an eyebrow over the H1 of the
+   company page.  Caption tier (`ui2-` 14/13/13) in the dim colour so it reads
+   under the heading, not against it; nine-cell line + three-cell gap = twelve cells of
+   lead-in, and no padding, so `offsetHeight` and the H1's top stay whole cells. */
+.eyebrow{color:var(--dim);font:400 14px/calc(9 * var(--px)) var(--body);
+  overflow-wrap:normal}
+/* `.body p` and `.dt .body p` both set the paragraph rhythm (4 cells above, none
+   below); an eyebrow is not a paragraph of the body, it is the first line of the
+   heading, so it takes the H1's own top and keeps a three-cell gap under itself.  Both
+   selectors are spelled out because `.dt .body p` outweighs a lone `.eyebrow`. */
+.body .eyebrow,.dt .body .eyebrow{margin:0 0 calc(3 * var(--px))}
+.tag,.eyebrow{color:var(--teal)}
+.lead{margin:calc(6 * var(--px)) 0 0;font-size:20px;line-height:calc(11 * var(--px));
+  color:var(--bone);max-width:calc(220 * var(--px))}
+.index{list-style:none;margin:calc(10 * var(--px)) 0 0;
+  padding:calc(4 * var(--px)) 0 0;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:calc(2 * var(--px)) calc(8 * var(--px));border-top:var(--px) solid var(--ash2);
+  font:400 15px/calc(10 * var(--px)) var(--body)}
+/* anchor names break at word boundaries only: the global `anywhere` is for long code
+   identifiers, and it split "Control technolog/y" in the 768 index (validation M2) */
+.index a{display:flex;align-items:center;gap:calc(2 * var(--px));text-decoration:none;
+  color:var(--dim);min-height:calc(10 * var(--px));overflow-wrap:normal}
+/* an EN anchor name is wider than a third of the column, so the label is allowed a
+   second line; the coordinate chip and the dot never shrink into it */
+.index a::before{content:attr(data-a);color:var(--teal);flex:0 0 auto;font-weight:600}
+.index a > i{flex:0 0 auto}
+.index a:hover{color:var(--bone)}
+.index i{display:block;width:calc(3 * var(--px));height:calc(3 * var(--px));
+  border:var(--px) solid var(--iron2);background:var(--ember2)}
+.index i.wait{background:transparent}
+
+/* ---------------------------------------------------------------- pipeline board
+   REVISION_1 §1.  A framed instrument in the hero: 296x64 cells at >=1280, 288x64 at
+   768-1279, 164x62 at <=767.  Bands between the one-cell borders are caption 15 /
+   machine 24 / labels 23, and the wire sits at y28 in every cut.  The station centres
+   (pitch 54 / 54 / 30) come out of five equal grid columns, so the pitch is carried by
+   padding and column width alone — no percentage anywhere.
+   The board is drawn complete in the HTML: without JS every station is lit and the
+   rail is unbroken, so the first paint is a finished machine, not an empty canvas.
+   Amendment r9 §1.3: the board starts at the body column (grid track 3) instead of
+   spanning the whole container, so it never covers the brazier rail — the vertical
+   wire is unobstructed the length of the hero.  <=767 it already sat right of the rail
+   and keeps its own 164-cell coordinate space. */
+.pipe{position:relative;grid-column:3 / -1;grid-row:2;
+  width:100%;height:calc(64 * var(--px));margin:calc(8 * var(--px)) 0 0;
+  border:var(--px) solid var(--ash2);background:var(--ash1);overflow:hidden;
+  --pw1:157; --pgx:159; --pw2:135; --pstn:25; --pgt:24; --ptk:44; --ptkw:36}
+.pcap{display:flex;align-items:center;gap:calc(3 * var(--px));
+  height:calc(15 * var(--px));padding:calc(2 * var(--px)) 0 0 calc(4 * var(--px));
+  font:400 14px/calc(10 * var(--px)) var(--body);color:var(--dim)}
+.pcap .ptt{color:var(--bone);font:700 15px/calc(10 * var(--px)) var(--body)}
+.pcap i{font-style:normal;color:var(--ash3)}
+.pcap .mono{font:500 14px/calc(10 * var(--px)) var(--mono);color:var(--iron2)}
+.pmach{position:relative;display:grid;grid-template-columns:repeat(5,1fr);
+  height:calc(24 * var(--px));padding:0 calc(6 * var(--px)) 0 calc(8 * var(--px))}
+.pw{position:absolute;top:calc(12 * var(--px));height:var(--px)}
+.pw1{left:0;width:calc(var(--pw1) * var(--px));background:var(--ash3)}
+/* fail-closed: two cells of the rail are missing past the gate until it is approved */
+.pgap{left:calc(var(--pw1) * var(--px));width:calc(2 * var(--px))}
+.pw2{left:calc(var(--pgx) * var(--px));width:calc(var(--pw2) * var(--px));
+  background:var(--ash3)}
+.plit{left:0;width:0;background:var(--ember3);z-index:1}
+.pipe.gopen .pgap{background:var(--ash3)}
+.pcol{position:relative;padding-top:calc(9 * var(--px))}
+.pcol .ptg{display:none}
+/* rhythm marks between stations only (nothing within four cells of one) */
+.pcol::after{content:"";position:absolute;left:calc(var(--ptk) * var(--px));
+  top:calc(18 * var(--px));width:calc(var(--ptkw) * var(--px));height:var(--px);
+  background:repeating-linear-gradient(to right,var(--iron) 0 var(--px),
+    transparent var(--px) calc(16 * var(--px)))}
+.pcol:last-child::after{display:none}
+.stn{display:block;position:relative;z-index:2;
+  width:calc(7 * var(--px));height:calc(7 * var(--px));
+  margin-left:calc(var(--pstn) * var(--px));
+  background:var(--ash0);border:var(--px) solid var(--iron2)}
+.stn::before{content:"";position:absolute;left:calc(2 * var(--px));
+  top:calc(2 * var(--px));width:var(--px);height:var(--px);background:var(--iron2)}
+.stn.lit{background:var(--ember2);border-color:var(--ember1)}
+.stn.lit::before{background:var(--ember1)}
+.pgate{display:block;position:relative;z-index:2;
+  width:calc(9 * var(--px));height:calc(9 * var(--px));
+  margin-left:calc(var(--pgt) * var(--px));margin-top:calc(-1 * var(--px))}
+.pgate .gg{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
+.pgate .gc{display:block}
+.pgate.armed .gc,.pgate.lit .gc{display:none}
+.pgate.armed .ga{display:block}
+.pgate.armed.blink .ga{display:none}
+.pgate.armed.blink .gc{display:block}
+.pgate.lit .go{display:block}
+.pembr{position:absolute;left:0;top:calc(10 * var(--px));z-index:3;
+  width:calc(5 * var(--px));height:calc(5 * var(--px))}
+.pembr use{display:none}
+.pembr.f0 .e0,.pembr.f1 .e1,.pembr.f2 .e2,.pembr.f3 .e3{display:inline}
+.pembr[hidden]{display:none}
+/* r9 §1.4b: `minmax(0,1fr)`, not `1fr` — the automatic minimum of a grid track is its
+   content's min-content size, so a long EN label ("Implementation") would widen its own
+   column and take the five stations off their equal pitch.  With the floor at zero the
+   columns stay exactly one fifth each and an over-long word overhangs symmetrically
+   instead (text-align:center), which the board's overflow:hidden clips at the frame. */
+.plabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  height:calc(23 * var(--px));
+  padding:0 calc(6 * var(--px)) 0 calc(8 * var(--px))}
+/* r9 §1.4b: the label is a centring flex line, not a plain block.  A word longer than
+   its station column (EN "Implementation", 62 cells against 56) is the flex item's own
+   automatic minimum, so the item keeps its 62 cells and `justify-content:center` hangs
+   the excess evenly on both sides — a block would have started the word at the content
+   edge and spilled the whole excess right, into the next label (measured collision, EN
+   768/1440/1920).  Every label that fits still wraps at the column width exactly as
+   before, so the ko cut is unchanged.  The box itself stays one column wide, on the
+   grid; the frame's overflow:hidden is the only clip. */
+.stlbl{display:flex;justify-content:center;width:100%;height:calc(20 * var(--px));
+  margin:calc(2 * var(--px)) 0 0;text-align:center;overflow-wrap:normal;
+  font:500 14px/calc(10 * var(--px)) var(--body);color:var(--dim)}
+/* r10 §1.6: the EN-only readout-face rule is gone.  In G9 one hangul glyph was exactly
+   30px, so "구현과 테스트" ran 192px into a 168px column; at 14px proportional the same
+   string is about 88px and both locales fit the same rule. */
+.stlbl.lit{color:var(--ember1)}
+.stlbl.arm{color:var(--bone)}
+.pstat{display:none}
+.pbtn{position:absolute;right:calc(4 * var(--px));top:calc(1 * var(--px));z-index:4}
+/* no JS: five lit stations, an unbroken rail, and no button to press */
+html:not(.js) .stn{background:var(--ember2);border-color:var(--ember1)}
+html:not(.js) .stn::before{background:var(--ember1)}
+html:not(.js) .stlbl{color:var(--ember1)}
+html:not(.js) .pipe .pgap{background:var(--ash3)}
+html:not(.js) .pipe .plit{width:100%}
+html:not(.js) .pgate .gc{display:none}
+html:not(.js) .pgate .go{display:block}
+
+/* ---------------------------------------------------------------- anchors
+   R13: the grid keeps its five tracks — the first is now the empty flight gutter
+   the left launcher pads inherit, the text measure is unchanged. */
+.hero,.anchor{position:relative;z-index:2;display:grid;align-items:start;
+  grid-template-columns:calc(96 * var(--px)) calc(8 * var(--px)) calc(228 * var(--px))
+                        calc(8 * var(--px)) calc(60 * var(--px))}
+.anchor{margin-top:calc(40 * var(--px))}
+.hero > .body{grid-column:3;grid-row:1}
+.hero > .fnote{grid-column:3 / -1;grid-row:3;min-width:0}
+.anchor > .head{grid-column:3;grid-row:1}
+.anchor > .body{grid-column:3;grid-row:2}
+
+.brz{position:relative;width:calc(12 * var(--px));height:calc(14 * var(--px))}
+.brz svg{width:100%;height:100%}
+.brz .coal,.brz .f{display:none}
+.brz.lit .coal{display:inline}
+.brz.lit.f0 .f0,.brz.lit.f1 .f1,.brz.lit.f2 .f2{display:inline}
+/* R13: a brazier hangs as a direct child of its section, in the corner the CSS
+   gives it; declaration rows and history rows carry their own placements below. */
+.sec > .brz,.anchor > .brz{position:absolute;right:calc(4 * var(--px));
+  bottom:calc(4 * var(--px))}
+/* with JS the bowl is dark until an ember passes; no-JS renders all lit (the
+   class in the static HTML is the lit one) */
+html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
+
+/* Amendment r8 §4.1: the sentences of the site — H1~H4 and the declarations — are set
+   in the body face; the readouts, chips, keys and buttons stay in the pixel faces.
+   Every line height is a whole number of cells at both --px steps. */
+.head h2{margin:0;color:var(--dim);letter-spacing:-0.01em;
+  font:800 28px/calc(12 * var(--px)) var(--body);overflow-wrap:normal}
+.anchor.lit .head h2{color:var(--bone)}
+.head h2::before{content:attr(data-a);display:inline-block;
+  margin-right:calc(3 * var(--px));padding:0 calc(2 * var(--px));
+  font-family:var(--body);font-size:14px;font-weight:700;
+  line-height:inherit;letter-spacing:0;
+  color:var(--ash0);background:var(--dim);vertical-align:top}
+.anchor.lit .head h2::before{background:var(--ember1)}
+.body p{margin:calc(4 * var(--px)) 0 0}
+.more{display:block;width:fit-content;height:calc(11 * var(--px));
+  margin-top:calc(5 * var(--px));text-decoration:none;
+  font:400 15px/calc(10 * var(--px)) var(--body);color:var(--teal);
+  border-bottom:var(--px) solid var(--teal2)}
+.more:hover{border-color:var(--teal)}
+.sub{margin:calc(5 * var(--px)) 0 0;border-top:var(--px) solid var(--ash2)}
+.sub dt{padding:calc(3 * var(--px)) 0 0;
+  font:600 15px/calc(12 * var(--px)) var(--body);color:var(--teal)}
+.sub dd{margin:0;padding:0 0 calc(3 * var(--px));border-bottom:var(--px) solid var(--ash2)}
+.chain{margin:calc(5 * var(--px)) 0 0;padding:0;list-style:none;display:flex;
+  flex-wrap:wrap;gap:calc(2 * var(--px));
+  font:400 14px/calc(8 * var(--px)) var(--body)}
+.chain li{height:calc(12 * var(--px));padding:var(--px) calc(2 * var(--px));
+  border:var(--px) solid var(--ash3);color:var(--dim)}
+.anchor.lit .chain li,.sec.lit .chain li{border-color:var(--ember2);color:var(--ember1)}
+/* R13 obstacle plinths: the blocks the flying embers bounce off read as objects —
+   one ash1 slab with an ash2 edge.  The pipeline board already draws its own frame. */
+[data-ob]:not(.pipe){background:var(--ash1);border:var(--px) solid var(--ash2);
+  padding:calc(2 * var(--px))}
+.repos{margin:calc(3 * var(--px)) 0 0;padding:0;list-style:none;display:grid;
+  grid-template-columns:1fr 1fr;gap:0 calc(6 * var(--px))}
+.repos li{padding:calc(2 * var(--px)) 0;border-bottom:var(--px) solid var(--ash2);
+  font:400 15px/calc(10 * var(--px)) var(--body)}
+.repos li a{color:var(--bone);text-decoration:none;font-weight:500}
+.repos li a::after{content:" \2192";color:var(--iron2)}
+.repos li a:hover{color:var(--teal)}
+.repos.wide{grid-template-columns:1fr}
+.decl{margin:calc(4 * var(--px)) 0 0;color:var(--bone);
+  font:700 24px/calc(13 * var(--px)) var(--body);overflow-wrap:normal}
+.mail{display:block;width:fit-content;margin-top:calc(4 * var(--px));
+  text-decoration:none;
+  padding:calc(2 * var(--px)) calc(4 * var(--px));height:calc(16 * var(--px));
+  font:600 16px/calc(12 * var(--px)) var(--body);
+  color:var(--ash0);background:var(--ember1)}
+.mail:hover{background:var(--ember2)}
+
+.foot{padding:calc(6 * var(--px)) 0 calc(8 * var(--px));
+  border-top:var(--px) solid var(--ash2);display:flex;flex-wrap:wrap;
+  gap:calc(2 * var(--px)) calc(6 * var(--px));
+  font:400 14px/calc(10 * var(--px)) var(--body);color:var(--dim)}
+.foot a{color:var(--dim);text-decoration:none}
+.foot a:hover{color:var(--teal)}
+
+/* JS on: an unlit chain stays cold (the bowl rule lives with .brz above) */
+.js .anchor:not(.lit) .chain li,.js .sec:not(.lit) .chain li{
+  border-color:var(--ash3);color:var(--dim)}
+
+/* --------------------------------------------- r10 §1.3: responsive type at <=1279
+   UI labels step down with the body while the brand remains intentionally larger than
+   the navigation so the wordmark balances the symbol at narrow widths. */
+@media (max-width:1279px){
+  .skip{font-size:14px}
+  .brand{font-size:21px}
+  .nav{font-size:14px}
+  .lang{font-size:14px}
+  .eyebrow{font-size:13px}
+  .index{font-size:14px}
+  .head h2::before{font-size:13px}
+  .more{font-size:14px}
+  .sub dt{font-size:14px}
+  .chain{font-size:13px}
+  .repos li{font-size:14px}
+  .mail{font-size:15px}
+  .foot{font-size:13px}
+  .pcap,.pcap .mono{font-size:13px}
+  .stlbl{font-size:13px}
+}
+/* ---------------------------------------------------------------- 768–1279 */
+@media (min-width:768px) and (max-width:1279px){
+  .hero,.anchor{grid-template-columns:calc(64 * var(--px)) calc(8 * var(--px))
+                calc(220 * var(--px)) calc(8 * var(--px)) calc(60 * var(--px))}
+  .h1{font:800 36px/calc(22 * var(--px)) var(--body)}
+  .head h2{font:800 24px/calc(15 * var(--px)) var(--body)}
+  .decl{font:700 20px/calc(15 * var(--px)) var(--body)}
+  .lead{font-size:19px;line-height:calc(14 * var(--px));max-width:none}
+  /* an EN anchor name does not fit a third of the 768 container without breaking a
+     word, so the index runs two columns here (validation M2) */
+  .index{grid-template-columns:1fr 1fr}
+  /* r9 §1.4b variant B: 288 - 2 border - 6 padding = 280 = 5 x 56, the same station
+     pitch the
+     >=1280 cut has, so both cuts share --pstn/--pgt/--ptk/--ptkw */
+  .pipe{--pw1:153; --pgx:155; --pw2:131}
+  .pmach,.plabs{padding:0 calc(2 * var(--px)) 0 calc(4 * var(--px))}
+}
+
+/* ---------------------------------------------------------------- 390 cut */
+@media (max-width:767px){
+  .top{flex-wrap:wrap;column-gap:calc(4 * var(--px));row-gap:0}
+  .brand{order:1}
+  .lang{order:2;margin-left:auto}
+  /* r10 §4.8: seven items, two of them ten characters long — the row needs the two
+     cells the gap gives back */
+  .nav{order:3;margin-left:0;width:100%;gap:calc(4 * var(--px));
+    justify-content:flex-start;font-size:13px}
+  /* with JS on, the row collapses behind a toggle named after the current page
+     (r10 §4.8 still governs the no-JS fallback row) */
+  html.js .navtoggle{display:flex;align-items:center;gap:calc(2 * var(--px));
+    grid-row:1;grid-column:2;justify-self:end;align-self:center;
+    margin-left:auto;padding:calc(1 * var(--px)) calc(2 * var(--px));
+    background:none;border:var(--px) solid var(--ash2);border-radius:0;
+    color:var(--bone);font:400 13px/calc(8 * var(--px)) var(--body);cursor:pointer}
+  html.js .navtoggle .nt-ind{color:var(--teal)}
+  html.js .navtoggle:focus-visible{outline:var(--px) solid var(--teal);
+    outline-offset:calc(1 * var(--px))}
+  html.js .top .nav{display:none}
+  html.js .top.open .nav{display:flex;flex-direction:column;gap:0}
+  html.js .top.open .nav a{padding:calc(3 * var(--px)) 0;
+    border-top:var(--px) solid var(--ash2)}
+  /* same 20-cell entry gap the detail pages get from .sec/.phead margin-top (:830),
+     so the header-to-body rhythm is identical on every page of this cut */
+  .hero{padding:calc(20 * var(--px)) 0 0}
+  .hero,.anchor{grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px))
+                calc(160 * var(--px))}
+  .hero > .fnote{grid-column:3;grid-row:3}
+  .h1{font:800 30px/calc(20 * var(--px)) var(--body)}
+  .h1 .l{display:block}
+  .head h2{font:800 22px/calc(15 * var(--px)) var(--body)}
+  .decl{font:700 19px/calc(15 * var(--px)) var(--body)}
+  .lead{font-size:16px;line-height:calc(13 * var(--px));max-width:none}
+  .index{grid-template-columns:1fr 1fr;margin-top:calc(8 * var(--px))}
+  .anchor{margin-top:calc(28 * var(--px))}
+  .repos{grid-template-columns:1fr}
+  /* board: no label band, a tag over each node, and a live status row with a
+     44px approval target (§1.2c) */
+  /* the board keeps its own 164-cell coordinate space on the stacked cut: five equal
+     station columns only divide evenly at that width (r7), so it is placed inside the
+     grid row rather than stretched across it */
+  .pipe{grid-column:1 / -1;width:calc(164 * var(--px));
+    margin-left:calc(16 * var(--px));height:calc(62 * var(--px));
+    --pw1:90; --pgx:92; --pw2:70; --pstn:12; --pgt:11}
+  .pcap{height:calc(14 * var(--px))}
+  .pmach{height:calc(22 * var(--px));padding:0 calc(6 * var(--px))}
+  .pcol{padding-top:0}
+  .pcol::after{display:none}
+  .pcol .ptg{display:block;height:calc(10 * var(--px));text-align:center;
+    font:500 12px/calc(10 * var(--px)) var(--mono);color:var(--iron2)}
+  .pw{top:calc(13 * var(--px))}
+  .pembr{top:calc(11 * var(--px))}
+  .plabs{display:none}
+  /* the EN readout takes two lines in the 24-cell band; it wraps at word boundaries
+     and stays centred rather than breaking the tick token in half */
+  .pstat{display:flex;flex-wrap:wrap;align-content:center;align-items:center;
+    gap:0 calc(3 * var(--px));overflow-wrap:normal;
+    height:calc(24 * var(--px));padding:0 calc(48 * var(--px)) 0 calc(4 * var(--px));
+    font:400 13px/calc(10 * var(--px)) var(--body);color:var(--bone)}
+  .pstat .mono{font:500 13px/calc(10 * var(--px)) var(--mono);color:var(--iron2)}
+  .pstat .pslt{color:var(--dim)}
+  .pbtn{top:auto;bottom:calc(1 * var(--px));height:calc(22 * var(--px));
+    min-width:calc(40 * var(--px))}
+}
+
+/* ================================================================ detail pages
+   Spec §6.2–§6.7.  Column split re-cut from 96/8/240/8/48 to 96/8/228/8/60 so the
+   note column can hold a Mono9 port coordinate without clipping (see BUILD_NOTES). */
+.dt{display:block}
+.sec,.phead{position:relative;z-index:2;display:grid;align-items:start;
+  margin-top:calc(24 * var(--px));
+  grid-template-columns:calc(96 * var(--px)) calc(8 * var(--px)) calc(228 * var(--px))
+                        calc(8 * var(--px)) calc(60 * var(--px))}
+.phead{margin-top:calc(12 * var(--px))}
+/* R13: the rail track is now the empty flight gutter (the left launcher pads
+   inherit it); the tool icon an `aside` carries moves to the note column. */
+.aside{display:flex;justify-content:flex-end;align-items:flex-start;width:100%;
+  gap:calc(4 * var(--px))}
+.sec > .aside{grid-column:5;grid-row:1}
+.sec > .body,.phead > .body{grid-column:3;grid-row:1;min-width:0}
+.phead > .note{grid-column:5;grid-row:1}
+/* headings: page label (H1) → manuscript L1 (h2) → L2 (h3) → L3 (h4) */
+.dt .h1{margin:0;max-width:calc(228 * var(--px))}
+.dt .lead{margin:calc(6 * var(--px)) 0 0;max-width:none}
+/* second lead paragraph (products, §6): body size, dim, same measure as the lead */
+.dt .lead.sub2{margin-top:calc(5 * var(--px));font-size:18px;
+  line-height:calc(10 * var(--px));color:var(--dim)}
+.dt .body h2{margin:0;color:var(--bone);letter-spacing:-0.01em;
+  font:800 28px/calc(12 * var(--px)) var(--body);overflow-wrap:normal;
+  padding-bottom:calc(3 * var(--px));
+  border-bottom:calc(2 * var(--px)) solid var(--ember3)}
+.dt .body h3{margin:calc(10 * var(--px)) 0 0;color:var(--bone);letter-spacing:-0.01em;
+  padding-top:calc(6 * var(--px));border-top:var(--px) solid var(--ash2);
+  font:700 22px/calc(11 * var(--px)) var(--body);overflow-wrap:normal}
+.dt .body h4{margin:calc(8 * var(--px)) 0 0;color:var(--bone);position:relative;
+  padding-left:calc(7 * var(--px));
+  font:700 19px/calc(10 * var(--px)) var(--body);overflow-wrap:normal}
+.dt .body h4::before{content:"";position:absolute;left:0;top:calc(4 * var(--px));
+  width:calc(3 * var(--px));height:calc(3 * var(--px));background:var(--iron2)}
+.sec.lit .body h4::before{background:var(--ember2)}
+.dt .body > h2:first-child,.dt .body > h3:first-child{margin-top:0}
+.dt .body p{margin:calc(4 * var(--px)) 0 0}
+.bul{margin:calc(4 * var(--px)) 0 0;padding:0;list-style:none}
+.bul li{margin-top:calc(2 * var(--px));padding-left:calc(6 * var(--px));
+  position:relative;font-size:16px;line-height:calc(8 * var(--px))}
+.bul li::before{content:"";position:absolute;left:0;top:calc(3 * var(--px));
+  width:calc(2 * var(--px));height:calc(2 * var(--px));background:var(--iron2)}
+/* r10 §1.3 #21: with the command blocks gone (§4.4) the inline identifier is the only
+   code surface left on the site, so it has to be the one that says "type this".  0.94em
+   offsets the larger x-height of a system mono.
+   `line-height:0` is load-bearing, not cosmetic: an inline box in a second face has its
+   own ascent and descent, and its leaded box then sticks out of the block's strut — a
+   24-cell bullet measured 25px and every section below it left the grid (measured, all
+   four widths).  At zero the box cannot reach past the strut, and the strut is the
+   block's own `calc(n * var(--px))`.  The glyphs still paint: inline overflow is not
+   clipped. */
+.tick{background:var(--ash1);padding:0 var(--px);color:var(--bone);
+  font-family:var(--mono);font-size:0.94em;font-weight:500;line-height:0}
+.code{margin:calc(4 * var(--px)) 0 0;padding:calc(3 * var(--px)) calc(4 * var(--px));
+  background:var(--ash1);border-left:calc(2 * var(--px)) solid var(--ash3);
+  overflow-x:auto;color:var(--bone);
+  font:400 15px/calc(8 * var(--px)) var(--mono)}
+/* an install command is longer than the text column; it wraps rather than clipping */
+.code code{font:inherit;color:inherit;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* tables (company §6.6) */
+.tbl{width:100%;border-collapse:collapse;margin:calc(5 * var(--px)) 0 0;
+  border-top:var(--px) solid var(--ash2);table-layout:fixed}
+.tbl th{text-align:left;color:var(--dim);vertical-align:top;
+  padding:calc(2 * var(--px)) calc(4 * var(--px)) calc(2 * var(--px)) 0;
+  border-bottom:var(--px) solid var(--ash2);
+  font:600 14px/calc(10 * var(--px)) var(--body)}
+.tbl td{padding:calc(3 * var(--px)) calc(4 * var(--px)) calc(3 * var(--px)) 0;
+  font-size:16px;line-height:calc(8 * var(--px));vertical-align:top;
+  border-bottom:var(--px) solid var(--ash2)}
+.tbl th:first-child,.tbl td:first-child{width:calc(44 * var(--px));position:relative}
+.tbl td:first-child{color:var(--dim)}
+/* appendix glossary (vision.077): its term column holds one 18-character identifier,
+   which a 44-cell fixed column can only fit by breaking mid-token — the one wrap this
+   site never makes.  Auto layout plus a normal wrap rule lets the term column claim
+   its own longest token and leaves the rest of the row to the meaning. */
+.gloss .tbl{table-layout:auto}
+.gloss .tbl th:first-child,.gloss .tbl td:first-child{width:auto;overflow-wrap:normal;
+  padding-right:calc(6 * var(--px))}
+
+/* approval button (the pipeline board's own; the in-rail gate retired with R13) */
+.gbtn{height:calc(14 * var(--px));padding:0 calc(4 * var(--px));cursor:pointer;
+  background:var(--ash1);border:var(--px) solid var(--iron2);color:var(--dim);
+  font:600 15px/calc(12 * var(--px)) var(--body)}
+.gbtn[disabled]{cursor:default;color:var(--iron2);border-color:var(--ash3)}
+.gbtn.armed{background:var(--ember1);border-color:var(--ember1);color:var(--ash0)}
+.gbtn[hidden]{display:none}
+.aside .gbtn{align-self:flex-start}
+
+/* keep the tool icon clear of the body text */
+.aside .ticon{margin-right:calc(10 * var(--px))}
+
+/* amendment r9 §4.2: the three aquarium editions are one row inside the aquarium
+   section instead of three sections of their own.  Body face at the bullet size, the
+   label dim, the separators iron — a row of links, not a list. */
+.eds{display:flex;flex-wrap:wrap;margin:calc(4 * var(--px)) 0 0;
+  gap:0 calc(3 * var(--px));font-size:15px;line-height:calc(8 * var(--px))}
+.eds .lb{color:var(--dim)}
+.eds a{color:var(--bone);text-decoration:none}
+.eds a:hover{color:var(--teal)}
+.eds i{font-style:normal;color:var(--iron2)}
+
+/* nine declarations (§6.5) */
+/* R13: the brazier now hangs at the row's own right edge, inside the text column's
+   section — the rail x it used to stand on is gone */
+.decls9{list-style:none;margin:calc(6 * var(--px)) 0 0;padding:0}
+.decls9 li{position:relative;min-height:calc(28 * var(--px));
+  padding:calc(4 * var(--px)) 0;border-bottom:var(--px) solid var(--ash2)}
+.decls9 li > .brz{position:absolute;right:calc(2 * var(--px));top:var(--px)}
+/* r8c p4: the number sits in an 11-cell gutter of its own — 8 cells of marker and a
+   3-cell gap — so every line of a wrapped declaration hangs under the first word
+   instead of running back under the number.  The marker is placed absolutely, the way
+   `.leg li::before` is, so the readout face cannot lift the line box off the grid. */
+.decls9 .decl{position:relative;margin:0;color:var(--dim);
+  padding-left:calc(11 * var(--px))}
+.decls9 li.lit .decl{color:var(--bone)}
+.decls9 .decl::before{content:attr(data-n);position:absolute;left:0;top:0;
+  min-width:calc(8 * var(--px));
+  font-family:var(--mono);font-size:20px;font-weight:700;
+  line-height:inherit;color:var(--iron2)}
+.decls9 li.lit .decl::before{color:var(--ember1)}
+
+/* explanatory diagram (amendment r8 §6): the raster carries shapes and numerals, the
+   words are HTML — a caption and a numbered legend, both from registered ui-strings.
+   The frame is a drawing frame, not a card: one cell of ash2, no shadow, no corners. */
+.fig{margin:calc(6 * var(--px)) 0 0;padding:calc(4 * var(--px));
+  border:var(--px) solid var(--ash2);background:var(--ash1);
+  width:100%}
+.fig img{margin:0}
+.fcap{margin:calc(3 * var(--px)) 0 0;color:var(--bone);
+  font:400 15px/calc(8 * var(--px)) var(--body)}
+.leg{list-style:none;margin:calc(2 * var(--px)) 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--px) calc(6 * var(--px));
+  color:var(--dim);font:400 14px/calc(10 * var(--px)) var(--body)}
+/* the marker repeats the numeral in the image, in the same ember and at the same size
+   the raster draws it (>=9 art px at scale 3).  The row is a 10-cell line box so the
+   readout face lands on one of its integer sizes and the marker sits in its own row;
+   absolute placement keeps a tall glyph from lifting the line box off the grid. */
+.leg li{position:relative;min-height:calc(10 * var(--px));
+  padding-left:calc(12 * var(--px))}
+.leg li::before{content:attr(data-n);position:absolute;left:0;top:0;
+  font:700 20px/calc(10 * var(--px)) var(--mono);color:var(--ember1)}
+/* r8c fig: a diagram no wider than half the body column (D7 288, D8 168 against 684)
+   left most of the frame empty with the legend stacked under it.  From 1280 up such a
+   figure is two columns — raster left, legend beside it — under a full-width caption.
+   Every track is a whole number of cells, and the row is as tall as the raster. */
+@media (min-width:1280px){
+  .fig.side{display:grid;grid-template-columns:max-content minmax(0,1fr);
+    column-gap:calc(8 * var(--px));row-gap:calc(3 * var(--px))}
+  .fig.side > .fcap{grid-column:1 / -1;grid-row:1;margin:0}
+  .fig.side > img{grid-column:1;grid-row:2}
+  .fig.side > .leg{grid-column:2;grid-row:2;margin:0;align-self:start;
+    grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:1279px){ .fcap{line-height:calc(9 * var(--px))} }
+/* r8c m1: on the 390 cut the frame's side padding drops to three cells so the widest
+   diagram (152 art px at scale 2 = 304) fits the 320-cell body column exactly. */
+@media (max-width:767px){
+  .fig{padding:calc(4 * var(--px)) calc(3 * var(--px))}
+  .leg{grid-template-columns:minmax(0,1fr)}
+}
+
+/* raster placements (§13) */
+.px-img{--s:3;display:block;image-rendering:pixelated;
+  width:calc(var(--aw) * var(--s) * 1px);height:calc(var(--ah) * var(--s) * 1px)}
+.px-img.s6{--s:6}
+/* r8c m1: a raster wider than the frame's content box on the 768 cut (420 CSS px)
+   pierced the border at scale 3, so it drops its step of scale from 1279 down. */
+@media (max-width:1279px){ .px-img.xwide{--s:2} }
+.scene{margin:calc(6 * var(--px)) 0 0;padding:0}
+/* aperture scene: rect data at one art px per cell, so it scales with the grid and
+   keeps its contrast in place of the raster that read as a bare rule (§4) */
+.apert{width:calc(152 * var(--px));height:calc(44 * var(--px))}
+.emb{margin-top:calc(2 * var(--px))}
+.ticon{margin-top:calc(2 * var(--px))}
+.brz.hasimg{width:calc(16 * var(--px));height:calc(24 * var(--px))}
+.brz.hasimg .bi{--s:3}
+@media (max-width:1279px){
+  .brz.hasimg .bi{--s:2}
+}
+.brz.hasimg > svg.px{display:none}
+.brz.hasimg .bl{display:none}
+.brz.hasimg.lit .bl{display:block}
+.brz.hasimg.lit .bu{display:none}
+/* ignition burst (amendment r7 §3): the flame arrives over four 2-tick class steps, so
+   a still frame of the pass is a different picture from both the unlit and the resting
+   bowl.  Class swaps only — no transition, no animation; --s is the art scale already
+   declared on .bi, so the clip lands on art rows at both 3x and 2x. */
+.brz.hasimg.ig0 .bl{clip-path:inset(calc(12 * var(--s) * 1px) 0 0 0)}
+.brz.hasimg.ig1 .bl{clip-path:inset(calc(9 * var(--s) * 1px) 0 0 0)}
+.brz.hasimg.ig2 .bl{clip-path:inset(calc(6 * var(--s) * 1px) 0 0 0)}
+.brz.hasimg.ig3 .bl{clip-path:inset(calc(3 * var(--s) * 1px) 0 0 0)}
+.brz.ig0{outline:var(--px) solid var(--ember1);outline-offset:calc(-1 * var(--px))}
+
+/* contact form (§6.7, BRIEF §3.2) */
+.direct{display:flex;flex-wrap:wrap;align-items:center;
+  gap:calc(4 * var(--px)) calc(6 * var(--px));margin-top:calc(6 * var(--px));
+  font:400 15px/calc(10 * var(--px)) var(--body)}
+.direct a{color:var(--dim);text-decoration:none}
+.direct a:hover{color:var(--teal)}
+.direct .mail{margin-top:0}
+.form{margin-top:calc(8 * var(--px))}
+.fs{margin:0;padding:0;border:0}
+.fs legend{padding:0;color:var(--dim);
+  font:500 14px/calc(10 * var(--px)) var(--body)}
+/* r10 §1.3 #29: a choice in a form is content, not chrome — it keeps the body size */
+.rd,.cs{display:flex;align-items:center;gap:calc(3 * var(--px));
+  height:calc(12 * var(--px));cursor:pointer;line-height:calc(10 * var(--px))}
+.cs{height:calc(14 * var(--px));margin-top:calc(4 * var(--px))}
+.rd input,.cs input{appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;
+  width:calc(5 * var(--px));height:calc(5 * var(--px));background:var(--ash0);
+  border:var(--px) solid var(--iron2)}
+.rd input:checked,.cs input:checked{background:var(--ember2);border-color:var(--ember1)}
+.field{margin-top:calc(4 * var(--px))}
+.field label{display:block;height:calc(10 * var(--px));color:var(--dim);
+  font:500 14px/calc(10 * var(--px)) var(--body)}
+.field .req{font-style:normal;color:var(--ember2)}
+.field input,.field textarea{display:block;width:100%;height:calc(14 * var(--px));
+  background:var(--ash1);border:var(--px) solid var(--ash3);color:var(--bone);
+  font-family:var(--body);font-size:16px;line-height:calc(10 * var(--px));
+  padding:0 calc(3 * var(--px));border-radius:0}
+.field textarea{height:calc(90 * var(--px));resize:vertical;
+  padding:calc(2 * var(--px)) calc(3 * var(--px))}
+.field input:focus,.field textarea:focus{border-color:var(--teal2)}
+.lim{margin:calc(3 * var(--px)) 0 0;color:var(--dim);
+  font:400 14px/calc(10 * var(--px)) var(--body)}
+.lim .mono{font-family:var(--mono);font-weight:500;color:var(--iron2)}
+.fnote{margin:calc(3 * var(--px)) 0 0;font-size:15px;
+  line-height:calc(8 * var(--px));color:var(--dim)}
+.btn{display:block;margin-top:calc(6 * var(--px));height:calc(16 * var(--px));
+  padding:0 calc(6 * var(--px));cursor:pointer;border:0;
+  background:var(--ember1);color:var(--ash0);
+  font:600 16px/calc(12 * var(--px)) var(--body)}
+.btn:hover{background:var(--ember2)}
+.status{margin:calc(4 * var(--px)) 0 0;min-height:calc(10 * var(--px));
+  color:var(--dim);font:500 15px/calc(10 * var(--px)) var(--body)}
+.status.on{color:var(--ember1)}
+.fallback{margin-top:calc(4 * var(--px))}
+.fallback[hidden]{display:none}
+.mlink[hidden]{display:none}
+
+/* --------------------------------------------- r10 §1.3: one step down at <=1279 */
+@media (max-width:1279px){
+  /* a multi-line block at 15px with a 36px leading read as double-spaced */
+  .code{font-size:14px;line-height:calc(9 * var(--px))}
+  .tbl th{font-size:13px}
+  .gbtn{font-size:14px}
+  .decls9 .decl::before,.leg li::before{font-size:16px}
+  .direct{font-size:14px}
+  .fs legend,.field label,.lim{font-size:13px}
+  .btn{font-size:15px}
+  .status{font-size:14px}
+}
+
+/* ---------------------------------------------------------------- 768–1279 */
+@media (min-width:768px) and (max-width:1279px){
+  .sec,.phead{grid-template-columns:calc(64 * var(--px)) calc(8 * var(--px))
+              calc(220 * var(--px)) calc(8 * var(--px)) calc(60 * var(--px))}
+  .dt .h1{max-width:calc(220 * var(--px))}
+  .dt .lead.sub2{font-size:17px;line-height:calc(13 * var(--px))}
+  .dt .body h2{font:800 24px/calc(15 * var(--px)) var(--body)}
+  .dt .body h3{font:700 20px/calc(14 * var(--px)) var(--body)}
+  .dt .body h4{font:700 18px/calc(13 * var(--px)) var(--body)}
+}
+
+/* ---------------------------------------------------------------- 390 cut */
+@media (max-width:767px){
+  .sec,.phead{margin-top:calc(20 * var(--px));
+    grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px)) calc(160 * var(--px))}
+  /* R13: on the stacked cut the aside (tool icon) sits above the body again */
+  .sec > .aside{grid-column:3;grid-row:1;justify-content:flex-start;
+    margin-bottom:calc(4 * var(--px))}
+  .sec > .body{grid-column:3;grid-row:2}
+  /* the page head keeps its body beside the note raster, as on desktop —
+     only .sec stacks on this cut */
+  .phead > .body{grid-column:3;grid-row:1}
+  .phead > .note{grid-column:3;grid-row:2;margin-top:calc(4 * var(--px))}
+  .dt .h1{max-width:none}
+  .dt .lead.sub2{font-size:16px;line-height:calc(13 * var(--px))}
+  .dt .body h2{font:800 22px/calc(15 * var(--px)) var(--body)}
+  .dt .body h3{font:700 19px/calc(13 * var(--px)) var(--body)}
+  .dt .body h4{font:700 17px/calc(13 * var(--px)) var(--body)}
+  .px-img.wide{--s:2}
+  .ticon{--s:1}
+  .aside .ticon{margin-right:0}
+  .tbl th:first-child,.tbl td:first-child{width:calc(34 * var(--px))}
+  .field textarea{height:calc(80 * var(--px))}
+}
+
+/* history-table braziers hang beside the year cell, at the cell's own right edge
+   (R13 — the rail x is gone); the row keeps its taller box so two neighbouring
+   braziers never touch */
+.hist .tbl td{padding:calc(4 * var(--px)) calc(4 * var(--px)) calc(6 * var(--px)) 0;
+  height:calc(25 * var(--px))}
+.hist .tbl td:first-child > .brz{position:absolute;right:var(--px);top:var(--px)}
+
+/* label row: the required marker and the character counter sit beside the label but
+   outside it, so each block element still holds exactly one registered string */
+.lrow{display:flex;align-items:baseline;gap:calc(3 * var(--px));
+  height:calc(10 * var(--px))}
+.lrow .cnt{margin-left:auto}
+.lrow .req,.lrow .cnt{font-style:normal;
+  font:600 13px/calc(10 * var(--px)) var(--body);color:var(--ember2)}
+.lrow .cnt{font:500 13px/calc(10 * var(--px)) var(--mono);color:var(--iron2)}
+.lim{margin:0}
+
+/* ---------------------------------------------------------------- 404 board (§8.2)
+   No header, no HUD, no machine: the broken-wire raster, the code, both messages and
+   the two home links.  Every box is a whole number of cells so the board stays on the
+   grid at any width, and the fixed heights keep CLS at 0 while the faces load. */
+.nfp{display:flex;min-height:100vh;align-items:center}
+.nf{padding:calc(24 * var(--px)) 0}
+.nfart{display:flex;align-items:center;gap:calc(8 * var(--px));
+  height:calc(24 * var(--px))}
+.nfimg{--s:3}
+.nfcode{margin:0;height:calc(20 * var(--px));color:var(--ember1);
+  font:700 40px/calc(20 * var(--px)) var(--mono)}
+.nfm{margin:calc(8 * var(--px)) 0 0;max-width:calc(240 * var(--px))}
+.nfm[lang="en"]{color:var(--dim)}
+.nfl{display:flex;gap:calc(12 * var(--px));margin-top:calc(4 * var(--px))}
+@media (max-width:1279px){
+  .lrow .req,.lrow .cnt{font-size:12px}
+  .nfcode{font-size:28px}
+}
+@media (max-width:767px){
+  .nf{padding:calc(16 * var(--px)) 0}
+  .nfm{max-width:none}
+}

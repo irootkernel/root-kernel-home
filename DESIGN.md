@@ -1,157 +1,321 @@
-# Root Kernel Design System
+# Root Kernel Home — Design System
 
-## 1. Atmosphere & Identity
+「점등 / Ember Circuit」. A dark, integer-pixel site whose one visual idea is a circuit:
+an ember leaves the origin, travels a declared route, and lights a brazier at every
+anchor it reaches. Everything else — colour, type, motion, images — serves that one
+mechanic and stays on a whole-cell grid.
 
-Root Kernel should feel like a warm technical command center: research-heavy, precise, and operated by a small team with unusually high execution leverage. The signature is warm-tech evidence: cream paper surfaces, teal operational signals, and diagram-like placeholders that read as future product proof rather than decoration.
+The HTML in this repository is **generated**. Pages are emitted from the approved
+manuscript blocks plus a registered micro-copy table; do not hand-edit
+`ko/**/index.html`, `en/**/index.html`, `404.html`, `index.html` or `sitemap.xml`.
+Edit the generator and re-run it. `assets/css/site.css` and `assets/js/rk.js` are
+hand-written and are the only two files that carry behaviour.
 
-## 2. Color
+---
 
-### Palette
+## 1. Rulebook
 
-| Role | Token | Light | Dark | Usage |
-|---|---|---:|---:|---|
-| Background | `--bg` | `#fbf6ed` | n/a | Page background |
-| Background alternate | `--bg-alt` | `#f3eadb` | n/a | Alternating bands |
-| Surface | `--surface` | `#fffdf8` | n/a | Cards and form panels |
-| Surface strong | `--surface-strong` | `#ffffff` | n/a | Highest contrast panels |
-| Text primary | `--text` | `#15202b` | n/a | Headlines, primary copy |
-| Text muted | `--muted` | `#657080` | n/a | Body copy, captions |
-| Border | `--line` | `#e2d7c7` | n/a | Card borders, dividers |
-| Border strong | `--line-strong` | `#c9bba6` | n/a | Dashed placeholder borders |
-| Accent primary | `--teal` | `#11736b` | n/a | Links, active states, operational proof |
-| Accent hover | `--teal-2` | `#0f8f87` | n/a | Hover and secondary teal |
-| Accent warm | `--orange` | `#c66a35` | n/a | Secondary emphasis |
-| Status warning | `--amber` | `#b36b00` | n/a | Prelaunch or direction status |
-| Status info | `--blue` | `#315ea8` | n/a | Patent/development status |
-| Status operating | `--green` | `#247450` | n/a | Operating status |
-| Status research | `--purple` | `#7057a8` | n/a | Research status |
-| Status danger | `--danger` | `#a6493e` | n/a | Error or destructive states |
+The site has one grammar. Anything outside this list does not happen anywhere.
 
-### Rules
+1. **Input.** Scroll, `↑`/`↓` (previous/next anchor), `↵` (open the detail page, or
+   approve at an approval gate), `Esc` (back to the top), `R` (rotate mirror M3 on the
+   home page). Nothing is dragged, hovered-to-reveal, or timed out.
+2. **Public verb: lighting.** A port lights when the reader *reaches* it. Two places
+   ask for a press instead: the approval gate on the control page, and the submit port
+   on the contact form. Nothing else in the site needs a click to be readable.
+3. **Tick law.** One tick is 1/12 s. State is a pure function of `tickCount`; CSS
+   transitions use `steps()` only; there is no easing, no duration expressed in ms in
+   the markup, and no animation that is not a whole number of ticks long.
+4. **Reach test.** A port is reached when its marker crosses the reading line. The
+   *semantic* event fires at that moment; the ember arriving later is only the
+   expression of it. That split is what makes the reduced-motion run produce the same
+   event sequence as the animated run.
+5. **Actors.** The flying embers — one per launched pad, the rail's round sparkling
+   sprite recoloured per orb, patrolling the visible body at constant speed until
+   reload (R13).
+6. **Log.** Every state change appends one event: launch, `<id>` lit, approved,
+   sent. The log is engine-internal — it lives in the snapshot for the determinism
+   gate, with no visible readout (R13: the status bar is retired).
+7. **No status bar.** The bottom HUD is retired by decision (R13): nothing is
+   pinned to the viewport edge, and everything the page says is in the page body.
+8. **Page variation.** One machine everywhere (R13 `flight`): launcher pads on the
+   page's H2s, braziers in the sections, obstacle plinths, and text paint — a
+   passing ember colours the words in its own orb hue, last one wins. Two extras
+   survive from the wire era: the home hero's AI-SPARK pipeline board with its
+   human-approval gate, and the contact page's mailto form circuit.
+9. **No** audio, scanlines, CRT curvature, glow, gradients, blur, or drop shadows.
 
-- Teal is the main signal color for agent operations and evidence.
-- Orange is secondary warmth, not a competing CTA color.
-- The page should not drift into a purple-blue AI-gradient identity.
+---
 
-## 3. Typography
+## 2. Tokens
 
-### Scale
+### 2.1 Palette (13 colours, all of them named)
 
-| Level | Size | Weight | Line Height | Tracking | Usage |
-|---|---:|---:|---:|---:|---|
-| Display | `clamp(2.6rem, 6vw, 5.4rem)` | 900 | 0.98 | `-0.06em` | Large page hero |
-| Home display | `clamp(2.4rem, 5.5vw, 4.8rem)` | 900 | 1.1 | tight | Homepage hero |
-| H2 | `clamp(2rem, 4.2vw, 3.4rem)` | 900 | 1.05 | `-0.05em` | Section headers |
-| H3 | `1.34rem` | 850 | 1.18 | `-0.03em` | Card titles |
-| Lead | `clamp(1.12rem, 2vw, 1.36rem)` | 400 | 1.55 | 0 | Hero lead copy |
-| Body | inherited `1rem` | 400 | 1.65 | 0 | Default copy |
-| Caption | `.76rem` to `.89rem` | 800-900 | 1.45 | positive for labels | Badges and captions |
-
-### Font Stack
-
-- Primary: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", Inter, system-ui, sans-serif`
-- Mono: `ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace`
-
-### Rules
-
-- Korean copy uses sentence-like headings; avoid slogan-heavy marketing phrasing.
-- Technical labels can stay English when they are product/system names.
-
-## 4. Spacing & Layout
-
-### Base Unit
-
-All spacing derives from a 4px base. Existing CSS uses rem values that map to this rhythm.
-
-| Token | Value | Usage |
-|---|---:|---|
-| Compact | `.5rem` / 8px | Inline groups, badges |
-| Standard | `1rem` / 16px | Card internals |
-| Comfortable | `1.5rem` / 24px | Section head gaps |
-| Section | `clamp(2.2rem, 6vw, 4.5rem)` | Standard sections |
-| Hero | `clamp(4rem, 8vw, 7.5rem)` | Homepage top spacing |
-
-### Grid
-
-- Max content width: `--max: 1120px`
-- Common grids: 3-column cards on desktop, 2-column tablet, 1-column mobile.
-- Breakpoints: 980px, 760px, 460px.
-
-### Rules
-
-- Keep the homepage scannable: lead claim, evidence strip, then deeper routes.
-- Cards should support comparison, not decorative repetition.
-
-## 5. Components
-
-### Sticky Navigation
-
-- **Structure**: `.site-header` containing `.nav-shell`, `.brand`, `.site-nav`, `.lang-switch`.
-- **Brand asset**: use `rootkernel-wide-logo-light.svg` on the site's light surfaces. Keep the linked image decorative and preserve the link's accessible name.
-- **States**: active and hover states use muted teal surface.
-- **Accessibility**: skip link and mobile menu button are present.
-
-### Brand Assets
-
-- Use `rootkernel-wide-logo-light.svg` for the header, footer, and other light-background wordmark placements.
-- Use `rootkernel-wide-logo.svg` only on dark backgrounds.
-- Derive browser and installed-app icons from the dark `rootkernel-logo-square.png` master so the symbol remains visible against browser chrome.
-- Keep explicit image dimensions on rendered logos to prevent layout shift.
-
-### Image Placeholder
-
-- **Structure**: `<figure class="image-placeholder">` with `.placeholder-grid` and descriptive `figcaption`.
-- **Purpose**: documents the image brief until final assets are available.
-- **Rule**: captions must specify an evidence asset, diagram, product screen, or workflow artifact.
-
-### Image Asset Figure
-
-- **Structure**: `<figure class="hero-image-figure">` or `<figure class="card-asset-figure">` containing a real `<img>`.
-- **Purpose**: replaces image placeholders with production visual assets while preserving the same warm technical surface language.
-- **Behavior**: `site.js` automatically turns images in these figures into keyboard-accessible expanded-image triggers.
-- **Rule**: every production image needs meaningful `alt`, `width`, and `height`; use `data-modal-label` only when the default expand label needs to be more specific.
-
-### Pillar Card
-
-- **Structure**: `.pillar-card` with label, title, body, and text link.
-- **Purpose**: top-level route explanation and proof-oriented navigation.
-- **States**: text links shift from teal to orange on hover.
-
-### Founder Dialog
-
-- **Structure**: footer `.footer-founder` button opens a generated `.founder-dialog`.
-- **Purpose**: quiet trust context for visitors who want to know the founder background without turning the site into a personal profile.
-- **States**: footer button has hover/focus underline; dialog uses native focus trapping and a close affordance.
-
-## 6. Motion & Interaction
-
-### Timing
-
-| Type | Duration | Easing | Usage |
-|---|---:|---|---|
-| Micro | `120-160ms` | ease | Hover and active states |
-| Reveal | `480ms` | ease | Scroll reveal |
-| Standard | `200-300ms` | ease-in-out | Navigation and form states |
-
-### Rules
-
-- Animate only `transform`, `opacity`, color, and background shifts.
-- Respect `prefers-reduced-motion`; reveal content must remain visible.
-
-## 7. Depth & Surface
-
-### Strategy
-
-Mixed, but restrained: paper-like surfaces use borders and soft warm shadows; operational/detail workspaces use darker command-center panels.
-
-| Token | Value | Usage |
+| Token | Hex | Role |
 |---|---|---|
-| Soft shadow | `--shadow-soft` | Cards and panels |
-| Strong shadow | `--shadow` | Detail workspace and prominent panels |
-| Radius | `--radius` | Major cards and placeholders |
-| Small radius | `--radius-sm` | Compact cards and nested elements |
+| `--ash0` | `#121110` | page ground |
+| `--ash1` | `#1C1A18` | plates, HUD ground, obstacle plinths |
+| `--ash2` | `#2E2B28` | rules, plate borders |
+| `--ash3` | `#4A4541` | unlit outlines, spent launcher frame |
+| `--dim` | `#8E8880` | secondary text, unlit labels |
+| `--bone` | `#EDE9E7` | body text, white orb |
+| `--teal` | `#10C4BE` | links, focus ring |
+| `--teal2` | `#0B7E7A` | link underline |
+| `--ember1` | `#FFC14A` | flame highlight, lit chip ground |
+| `--ember2` | `#F27B2A` | ember body, lit dot |
+| `--ember3` | `#B23A18` | sling band, lit underline |
+| `--iron` | `#5C5852` | brazier body |
+| `--iron2` | `#7C776F` | launcher cradle, port rings, dot borders |
 
-### Rules
+Text is only ever drawn in one of these pairs: bone on ash0/ash1 (15.6/14.4), dim on
+ash0/ash1 (5.4/4.9), teal on ash0/ash1 (8.7/8.0), ember1/ember2 on ash0 (11.7/6.9),
+and the inverted chips ash0 on ember1/dim/bone. `--dim` on `--ash2` is 4.0 and is
+therefore forbidden. `ember3`, `teal2`, `iron`, `ash3` are decoration only — never
+text. Focus ring is teal on ash0 at 8.7, one cell wide with a one-cell offset.
 
-- Do not add more decorative shadows without a hierarchy reason.
-- Placeholder boxes must feel like planned artifacts, not empty missing images.
+### 2.1b Orb palette (R13)
+
+The four launcher embers. White is `--bone`, so only three hues join. Orb colours
+mark the flying ember, its launcher, its sling-aim rule — and the text blocks the
+ember paints as it passes (they are the one exception to "never text": a painted
+block is an event receipt, not a sentence, and a later ember repaints it). A
+flying ember is the retired rail's round sparkling sprite recoloured: a diamond
+body in the orb hue with four frames of highlight pixels that make it sparkle
+(the white orb sparkles in `--ash3`).
+
+| Token | Hex | Role |
+|---|---|---|
+| `--orb-b` | `#7EA6D8` | blue ember |
+| `--orb-g` | `#7FA653` | green ember |
+| `--orb-r` | `#D96A4A` | red ember |
+
+### 2.2 The cell
+
+```css
+:root                      { --px: 3px; --w: calc(400 * var(--px)); }  /* >=1280 */
+@media (max-width:1279px)  { :root { --px: 2px; --w: calc(360 * var(--px)); } }
+@media (max-width: 767px)  { :root { --w: calc(180 * var(--px)); } }
+```
+
+`--px` is the pixel. **Every** length in `site.css` is `calc(n * var(--px))` — widths,
+heights, padding, borders, gaps, line-heights, SVG stroke widths, animation offsets.
+No percentages in anything that has to land on the grid, no `em`, no `rem`.
+
+The container snaps its left margin down to a whole cell so an arbitrary viewport
+width cannot push the grid off by a fraction:
+
+```css
+.wrap { width: var(--w); margin: 0 auto; }
+@supports (margin-left: round(down, 1px, 1px)) {
+  .wrap { margin: 0 0 0 round(down, calc((100% - var(--w)) / 2), var(--px)); }
+}
+```
+
+Spacing scale, in cells: 1 2 3 4 6 8 10 12 16 20 24 28 32 40 48 56 64. Borders are one
+cell. Section spacing is 40 cells (28 on mobile) between home anchors, 24 between
+detail sections.
+
+### 2.3 Type
+
+Five self-hosted Galmuri faces for display, HUD and labels; the system stack for body
+text. **Korean body copy is never set in a pixel face.**
+
+| Style | Face | Size | Line |
+|---|---|---|---|
+| H1 | Galmuri11 Bold | 24 cells (36px fixed at <=767) | 26 cells (40px at <=767) |
+| H2, page label | Galmuri11 Bold | 12 cells | 16 cells |
+| Declaration, H3 | Galmuri11 | 12 cells | 18 cells |
+| Label, group | Galmuri9 | 10 cells | 12 cells |
+| HUD, chip, nav, repository name | Galmuri7 | 8 cells | 10 cells |
+| Tick, coordinate, log number | GalmuriMono9 | 10 cells | 12 cells |
+| Body | system stack | 18 / 17 / 16px | 10 / 13 / 13 cells |
+
+The faces have units-per-em 1200 / 1200 / 1000 / 800 / 1000, so their pixel grids are
+12 / 12 / 10 / 8 / 10px per em. **Only integer multiples of that em grid are allowed**
+— which is why the sizes above are written in cells that work out to those multiples.
+Latin and space advances are then whole numbers of pixels too, so a run of text cannot
+drift off the grid mid-line.
+
+Korean is cut at word boundaries everywhere: `word-break: keep-all; overflow-wrap:
+anywhere`. The H1 is the one place with a manual line cut, at 390 only.
+
+Body font stack: `-apple-system, "Apple SD Gothic Neo", Pretendard, "Noto Sans KR",
+"Malgun Gothic", "Segoe UI", Roboto, sans-serif`.
+
+---
+
+## 3. Engine (`assets/js/rk.js`)
+
+Vanilla JS, no dependencies, ~37KB. It is a layer on top of a complete document: with
+JavaScript off every block is visible, every link works, there are no launchers,
+no paint, and every brazier renders lit.
+
+**R13 — the flight system.** The scroll-driven wire circuit and its rail are retired.
+Every engine page is now one flight board, selected as `machine:"flight"` in `#rk-cfg`:
+
+- **Launcher pads.** One pad per `<h2>` of `<main>` (plus one on any brazier section
+  without an H2 — the contact form), injected by the engine so a no-JS page shows no
+  dead control. A pad is a Y-sling: pull with pointer or touch and release to
+  launch, or focus it and press Enter/Space for the canonical shot. Pads reload
+  instantly and fire again — the only cap is the sky: **ten embers on the page**,
+  and at the cap every pad goes inactive (dim, disabled, no sling tug) until the
+  count drops. Colours cycle the four orbs in document order, and an active pad
+  runs a three-frame sling tug (class swaps on ticks, never CSS animation) to
+  invite the pull.
+- **Flight.** Embers integrate in 1/64-cell fixed point on the 12Hz tick and keep
+  their launch speed forever: no friction, perfectly elastic walls and obstacles —
+  a launched ember patrols the page until reload. The playfield is the visible slice
+  of `<main>` — never the header, never the footer — recomputed on scroll and
+  resize. Obstacles are the `[data-ob]` plinths (the pipeline board,
+  repository lists, data tables, the aperture scene) **and every launcher pad**:
+  text and images sit on them, embers bounce off. An ember's own launch pad is
+  transparent to it only until it has fully escaped the cup. Each ember is the
+  rail's round sparkling sprite in its orb hue.
+- **Text paint.** No fog, no dimming — the page starts bright. At init the engine
+  splits the text of `<main>`'s paintable blocks (`p`, `h1`–`h4`, `li`, `td`, `th`;
+  links, `[aria-hidden]` and `.sr` excluded) into one span per letter, and an ember
+  colours the letters inside its paint radius (12 cells) in its orb hue
+  (`#main .pc.c0…c3`) — the trail reads character by character, and a later ember
+  repaints. `textContent` never changes, so screen readers and the copy-provenance
+  gate see the same sentences. Assignments are per-letter state, so the snapshot
+  carries them and a replay repaints identically.
+- **Braziers.** One per engine section, hung in the section's own corner (declaration
+  and history rows carry their own placements). An ember within the ignition radius
+  (24 cells) lights the bowl for good; the containing section (and the home index
+  dot) follows.
+
+Still true from the wire engine:
+
+- **Accumulator.** `requestAnimationFrame` accumulates elapsed time and runs whole
+  ticks; a stall is caught up at most 12 ticks at a time, so a slow frame cannot
+  desynchronise the machine.
+- **Pure state.** `step()` advances `tickCount` and derives state from it. The same
+  input sequence always produces the same snapshot — that is a hard gate, checked by
+  replaying an input list twice and comparing.
+- **Reduced motion.** `prefers-reduced-motion: reduce` goes passive: no pads, no
+  paint, braziers lit — the no-JS paint, with the pipeline board and the contact
+  form still working through the synchronous settle. `?rk-tick=0` instead keeps
+  the full game active and settles every input immediately; it is a public feature
+  and the determinism harness, not just a test hook.
+- **Hook contract.** `window.RK` exposes `version`, `tick`, `reduced`, `stepTo(n)`,
+  `reset()`, `input(name, payload)`, `snapshot()` and `states()`. Inputs are `launch`
+  (pad index plus the sling pull in whole cells), `key`, `press` and `scroll`; the
+  snapshot carries pad and brazier states, every ember's position and velocity, the
+  per-element paint assignments and the event log. A page with no machine (the 404
+  board) answers the same contract with the empty state.
+- **No sentences in code.** Neither the JS nor the CSS contains a user-visible string;
+  every word comes from `#rk-cfg`, which the generator fills from the copy table.
+
+Reduced motion, no-JS and keyboard behaviour per surface:
+
+| Surface | No JS | Reduced motion | Keyboard |
+|---|---|---|---|
+| Body, headings | all visible, unpainted | all visible, unpainted | standard |
+| Braziers | rendered lit | rendered lit | — |
+| Launcher pads | absent | absent | Tab then `↵`/Space fires the canonical shot |
+| Flying embers | absent | absent | — |
+| Pipeline approval | button hidden, stations render lit | needs the press, as it is an input | Tab, `↵`/Space |
+| Form | direct mail link, submit hidden | same | standard form order |
+
+---
+
+## 4. Images
+
+Two kinds, and nothing else.
+
+1. **Sprites.** Hand-written bitmaps (rows of palette indices) compiled to inline SVG
+   `<symbol>`/`<rect>` at load: brazier and flame frames, ember frames, mirrors, the
+   approval gate glyph, port nodes, HUD dots. They scale by `--px` alone, so they are
+   crisp at every breakpoint, and they are the fallback whenever a raster is missing.
+   Three characters (`α`, `β`, `↵`) are drawn as sprites because no single Galmuri
+   face carries all three; the literal character stays in the DOM in a visually hidden
+   span, so screen readers and the copy checks still read the registered string.
+2. **Pixel rasters** in `assets/images/px/`. Every one is quantised to the 13-colour
+   palette on an exact integer scale (`@3`, and `@6` for the card background) — each
+   `scale x scale` block is a single colour, alpha is 0 or 255, and the colours are
+   literally in the palette. A raster is only allowed on the site after it passes that
+   check and is registered in the raster allowlist. Display size is
+   `art x scale` CSS pixels as-is; a raster wider than the body column drops exactly
+   one whole scale step at <=767 rather than being resized to a fraction.
+   `image-rendering: pixelated` everywhere.
+
+The social card `assets/images/og-root-kernel.png` (1200x630) is rendered from a
+template at `--px: 6` over the approved background raster: wordmark in Galmuri11 Bold
+at 10 cells, one line of copy at 6 cells. It is one image, shared by both locales.
+`404.html` uses the broken-wire raster with the sprite palette and no engine.
+
+---
+
+## 5. Pages and surfaces
+
+Fourteen pages, seven per locale: `/{ko,en}/`, `/control/`, `/products/`,
+`/open-source/`, `/principles/`, `/company/`, `/contact/`.
+
+- The home page is an index of five anchors and links out; it never carries a whole
+  section of body copy.
+- Detail pages carry the approved manuscript in order, verbatim, headings included.
+- Six retired URLs per locale (`ai-spark`, `aipsr`, `ai-harness`, `ai-agent`,
+  `agent-technologies`, `hermes-supports`) are redirect stubs: a meta refresh, a
+  `location.replace`, `rel=canonical` pointing at the page that replaced them, and one
+  line of copy. GitHub Pages cannot answer 301, so the canonical is what carries the
+  move. Stubs are excluded from `sitemap.xml`.
+- `/index.html` is a language stub: it sends a reader whose first accepted language is
+  English to `/en/`, everyone else to `/ko/`, with a meta-refresh fallback. It is the
+  only page allowed to declare `hreflang="x-default"`.
+- `404.html` is bilingual, has no header and no machine, and every `href`/`src` on it
+  is root-relative because it answers from any path.
+- Per page: one unique `<title>` and description, `rel=canonical`, `hreflang` ko/en,
+  the full Open Graph and Twitter card set with an absolute image URL, and exactly one
+  `Organization` JSON-LD block.
+- Contact never posts anywhere: it assembles a `mailto:` draft (1,500 character limit)
+  and shows the assembled text as a fallback. There is no backend and no analytics.
+
+Budget per page: <=500KB transferred, <=100KB document, <=40KB script, <=300KB font,
+CLS <=0.001. The whole `assets/` tree is well under 4MB.
+
+---
+
+## 6. What every change has to keep true
+
+Serve the repository root (`python3 -m http.server 8080`) and check, at 390 / 768 /
+1440 / 1920, with reduced motion both on and off:
+
+1. No horizontal overflow at any of the four widths.
+2. With JavaScript disabled: every block of body copy visible, no button that does
+   nothing, the contact page still offering a direct mail link.
+3. `window.RK` present; the same input sequence replayed twice gives an identical
+   snapshot; the `?rk-tick=0` snapshot equals the final animated snapshot.
+4. Every box in the component list lands on a whole `--px` multiple — width, height
+   and document position. A shrunk flex item is the usual way this breaks.
+5. Every raster on the grid and inside the palette, and present in the allowlist.
+6. Font subsets cover 100% of the glyphs the site actually renders; no tofu.
+7. Every sentence on the page comes from the approved manuscript or the registered
+   micro-copy table. No sentence is written in HTML, CSS or JS.
+8. ko and en stay structurally identical: same heading counts, same external links in
+   the same order, same code blocks, same numbers, same proper nouns.
+9. Head metadata, `sitemap.xml` (16 URLs) and the stub canonicals stay in sync.
+10. Every internal link resolves; every external link answers 200. A URL the
+    manuscript itself marks as not yet published is printed as text, not linked.
+
+---
+
+## 7. Known limits
+
+1. Fractional device pixel ratios (1.25, 1.5) and browser zoom can fringe cell edges;
+   the grid is defined in CSS pixels and is not corrected for that.
+2. macOS text rendering can leave a faint subpixel fringe on pixel faces even at
+   integer sizes.
+3. Browsers without CSS `round()` (Safari < 15.4) centre the container instead of
+   snapping it, which can be up to 1px off the grid.
+4. R13: an ember launched from a pad below the fold is clamped into the visible
+   playfield before it flies; launches through `RK.input` are expected to aim from
+   visible pads, as a visitor's pull always is.
+5. Flight sim runs on the main thread; a heavy page can drop frames, and the
+   accumulator catches up in bursts of at most 12 ticks.
+6. One social card, in Korean, is shared by both locales.
+9. English navigation labels are wider than the container at every breakpoint, so the
+   header wraps to a second row in `/en/`. It does not shrink: a shrunk item would
+   land on a fractional width and take the whole row off the grid. On phones
+   (max-width:767px) the nav instead collapses behind a toggle button that rk.js
+   injects next to the language flag, named after the current page; without JS the
+   full row stays visible as before.
