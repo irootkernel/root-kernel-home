@@ -37,8 +37,9 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    sent. The event log remains engine-internal in the state snapshot; the
    flight status exposes only aggregate ember and text-colour counts.
 7. **Flight status.** The viewport-fixed bottom instrument reports total and
-   per-colour ember counts plus visible text colour percentages. Its top edge is the
-   playfield's lower wall, so embers reflect from it. Its `clear` button removes only
+   per-colour ember counts plus visible text colour percentages. It is visible only
+   while embers are in flight; hidden, it keeps its box, so its top edge remains the
+   playfield's lower wall and embers reflect from it. Its `clear` button removes only
    flying embers and re-enables launchers, preserving paint, lit receivers, hero state,
    scroll, and shot order. Launch totals update immediately; text percentages sample
    at most four times per second in fixed-width fields.
@@ -50,6 +51,8 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    above the hero keeps its canonical 750×604 graph. Tablet uses a five-column
    serpentine graph; mobile uses one narrow success axis with a left exception lane,
    separate fan-out/fan-in rails, and the declared return from question to policy.
+   Pending procedure nodes stay legible at rest (ash3 outline, iron2 labels); progress
+   reads by colour, never by opacity, and the first HUMAN message is on screen from tick 0.
    Both compact layouts put chat above the graph, keep the current exchange at a
    fixed height, and expose the complete transcript in page flow. Resizing rewrites
    only presentation geometry: the same 22 nodes, transitions, attempt, and 360-tick
@@ -166,7 +169,8 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
 
 - **Launcher pads.** One pad per `<h2>` of `<main>` (plus one on any brazier section
   without an H2 — the contact form), injected by the engine so a no-JS page shows no
-  dead control. Every pad sits in the left flight gutter. Initial hero state is
+  dead control. Every pad sits at the left end of its H2 rule, 22 cells left of the
+  heading box (the page's left edge on the stacked mobile cut). Initial hero state is
   rendered before pad and collision geometry are measured. A pointer/touch tap launches
   at a random resolved angle and speed; slingshot input releases opposite the drag,
   while Enter/Space fires the canonical shot. Pads reload instantly
@@ -205,13 +209,17 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   spatial index limits each flight tick to letters in the ember's neighbouring buckets,
   and every touched letter receives at most one DOM class write per tick after
   last-ember-wins resolves.
-- **Braziers.** One per marked engine section, hung in the section's own corner. On
+- **Braziers.** One per marked engine section, hung at the section's bottom just right
+  of the body column (4 cells past its right edge). On
   the stacked mobile cut, section braziers occupy a separate row after the copy. The
   Principles declarations carry no braziers; its three explanatory sections do.
   Company carries one in each of its six H2-led body sections, including the three
   data table sections; its heading-free introduction carries neither a launcher nor
   a brazier. An ember within the ignition radius (24 cells) lights the bowl for good;
-  the containing section (and the home index dot) follows.
+  the containing section (and the home index dot) follows. Once lit, the receiver's
+  window takes the colour that holds the largest share of its own section's letters
+  (unpainted copy counts as white, the same distribution the flight status reports),
+  re-read at the status cadence; no-JS and reduced motion keep the ember default.
 - **H2 markers.** Every H2 is numbered in document order with a page-local A1–An
   badge and carries the same two-cell `--ember3` underline. The badge starts dim and
   turns `--ember1` when its brazier section is lit; an H2 in a section without a

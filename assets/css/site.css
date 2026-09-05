@@ -207,7 +207,7 @@ img,.px-img{image-rendering:pixelated}
 .hero-demo{display:contents}
 .hchat,.hgraph,.hthread{min-width:0;min-height:0}
 .hchat{grid-column:1;grid-row:2;display:grid;grid-template-rows:calc(14 * var(--px)) minmax(0,1fr);
-  height:calc(75 * var(--px));border:var(--px) solid var(--ash2)}
+  height:calc(60 * var(--px));border:var(--px) solid var(--ash2)}
 .hbar{height:calc(14 * var(--px));padding:0 calc(4 * var(--px));display:flex;
   align-items:center;justify-content:space-between;border-bottom:var(--px) solid var(--ash2);
   color:var(--iron2);font:600 13px/calc(10 * var(--px)) var(--mono);letter-spacing:.04em}
@@ -263,9 +263,13 @@ html:not(.js) .hedge{stroke:var(--teal)}
 html:not(.js) .hedge.preview{stroke:#9A6BC6}
 html:not(.js) .hedge.approval{stroke:#D85555}
 html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
-.hero-demo.hdemo-ready .hnode:not(.on),.hero-demo.hdemo-ready .hedge:not(.on),
-.hero-demo.hdemo-ready .hrework:not(.on),.hero-demo.hdemo-ready .hpreview:not(.on),
-.hero-demo.hdemo-ready .hattempt:not(.on){opacity:.12}
+/* Pending procedure stays legible at rest: structure in ash3/iron2, progress in colour
+   (surface pass 2026-09-05; the old .12 opacity hid the graph until the demo reached it). */
+.hero-demo.hdemo-ready .hnode:not(.on) rect{stroke:var(--ash3);fill:var(--ash0)}
+.hero-demo.hdemo-ready .hnode:not(.on) .hnlabel{fill:var(--iron2)}
+.hero-demo.hdemo-ready .hnode:not(.on) .hnum{fill:var(--ash3)}
+.hero-demo.hdemo-ready .hedge:not(.on),.hero-demo.hdemo-ready .hrework:not(.on){stroke:var(--ash3)}
+.hero-demo.hdemo-ready .hpreview:not(.on),.hero-demo.hdemo-ready .hattempt:not(.on){fill:var(--ash3)}
 .hedge.on{stroke:var(--teal)}.hedge.preview.on{stroke:#9A6BC6}.hedge.approval.on{stroke:#D85555}
 .hedge.issue.on{stroke:var(--ember2)}
 .hedge.invalid{opacity:.16!important;stroke:var(--ember2);stroke-dasharray:5 4}
@@ -288,7 +292,10 @@ html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
 body.has-flight-status{padding-bottom:calc(14 * var(--px))}
 .flight-status{position:fixed;z-index:10;left:0;right:0;bottom:0;
   height:calc(14 * var(--px));border-top:var(--px) solid var(--ash3);
-  background:var(--ash1);pointer-events:none}
+  background:var(--ash1);pointer-events:none;visibility:hidden}
+/* The instrument shows only while embers fly; hidden, it keeps its box so the
+   playfield's lower wall does not move (surface pass 2026-09-05). */
+body.flight-live .flight-status{visibility:visible}
 .fsinner{width:var(--w);height:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;
   gap:calc(6 * var(--px));white-space:nowrap;overflow:hidden;
   font:600 12px/calc(8 * var(--px)) var(--mono);color:var(--dim)}
@@ -359,13 +366,20 @@ body.has-flight-status{padding-bottom:calc(14 * var(--px))}
 .brz-art .charge{display:none;fill:var(--ember2);transform-box:fill-box;
   transform-origin:center bottom}
 .brz.lit .charge{display:inline}
+/* A lit receiver takes its section's dominant text colour (rk.js updateBrzInk); the
+   no-JS and reduced-motion pages keep the ember default. */
+.brz.lit.k0 .charge{fill:var(--orb-b)}
+.brz.lit.k1 .charge{fill:var(--orb-g)}
+.brz.lit.k2 .charge{fill:var(--orb-r)}
+.brz.lit.k3 .charge{fill:var(--bone)}
 .brz.lit.ig0 .charge{transform:scaleY(.14)}
 .brz.lit.ig1 .charge{transform:scaleY(.34)}
 .brz.lit.ig2 .charge{transform:scaleY(.64)}
 .brz.lit.ig3 .charge{transform:scaleY(.88)}
-/* R13: a brazier hangs as a direct child of its section, in the corner the CSS
-   gives it; declaration rows carry their own collision-free placement below. */
-.sec > .brz,.anchor > .brz{position:absolute;right:calc(4 * var(--px));
+/* R13: a brazier hangs as a direct child of its section, at the bottom of the section
+   just right of the body column (surface pass: 4 cells past the column's right edge,
+   no longer the container corner); declaration rows carry their own placement below. */
+.sec > .brz,.anchor > .brz{position:absolute;left:calc(50% + 118 * var(--px));
   bottom:calc(4 * var(--px))}
 /* With JS the receiver window stays dark until an orb passes; no-JS renders it lit (the
    class in the static HTML is the lit one) */
@@ -779,6 +793,7 @@ html.js .brz:not(.lit) .charge{display:none}
 /* ---------------------------------------------------------------- 768–1279 */
 @media (min-width:768px) and (max-width:1279px){
   .sec,.phead{grid-template-columns:minmax(0,1fr) minmax(0,calc(270 * var(--px))) minmax(0,1fr)}
+  .sec > .brz,.anchor > .brz{left:calc(50% + 139 * var(--px))}
   .dt .h1{max-width:calc(270 * var(--px))}
   .dt .lead.sub2{font-size:17px;line-height:calc(13 * var(--px))}
   .dt .body h2{font:800 24px/calc(15 * var(--px)) var(--body)}
@@ -802,7 +817,7 @@ html.js .brz:not(.lit) .charge{display:none}
   /* On the stacked cut the full lit raster gets its own row after the copy.  Keeping
      it in normal grid flow protects paragraphs, repository links, and form status
      text without narrowing the mobile reading measure. */
-  .sec > .brz,.anchor > .brz{position:relative;right:auto;bottom:auto;
+  .sec > .brz,.anchor > .brz{position:relative;left:auto;right:auto;bottom:auto;
     grid-column:1;grid-row:3;justify-self:end;margin-top:calc(4 * var(--px))}
   .tbl th:first-child,.tbl td:first-child{width:calc(34 * var(--px))}
   .field textarea{height:calc(80 * var(--px))}

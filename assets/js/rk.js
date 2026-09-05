@@ -292,7 +292,11 @@
       var r = el.getBoundingClientRect();
       return { el: el, x: (r.left - s.left + r.width / 2) / PX,
                y: (r.top - s.top + r.height / 2) / PX,
-               ink: !!el.textContent.trim() };
+               ink: !!el.textContent.trim(),
+               /* hostOf gives the row for list/table copy; keep the section too so a
+                  section-hosted receiver still counts the letters inside its lists */
+               host: el.__host || (el.__host = hostOf(el)),
+               sec: el.__sec || (el.__sec = el.closest('section') || stage) };
     });
     /* the DOM order is stable, so colour assignments survive a resize by index */
     while (paints.length < paintEls.length) { paints.push(-1); }
@@ -362,9 +366,38 @@
     });
     brzs.forEach(function (b, i) { b.id = brzId(b, i); });
   }
+  /* Receiver ink (founder request 2026-09-05): a lit receiver shows the colour that
+     holds the largest share of its own section's letters, unpainted copy counting as
+     white — the same distribution the flight status reports, read per section.  Pure
+     expression derived from `paints`, so the snapshot and determinism are untouched.
+     Ties fall to the first orb in c0..c3 order. */
+  function updateBrzInk() {
+    var i, b, h, ci, cnt;
+    for (i = 0; i < brzs.length; i++) {
+      b = brzs[i];
+      if (b.lit && b.host) { b.host.__cnt = b.cnt = [0, 0, 0, 0]; }
+    }
+    for (i = 0; i < paintEls.length; i++) {
+      if (!paintEls[i].ink) { continue; }
+      h = paintEls[i].host;
+      if (!h || !h.__cnt) { h = paintEls[i].sec; }
+      if (!h || !h.__cnt) { continue; }
+      ci = paints[i];
+      h.__cnt[ci >= 0 ? ci : 3]++;
+    }
+    for (i = 0; i < brzs.length; i++) {
+      b = brzs[i];
+      if (!b.cnt) { continue; }
+      cnt = b.cnt; b.k = 0;
+      for (ci = 1; ci < 4; ci++) { if (cnt[ci] > cnt[b.k]) { b.k = ci; } }
+      if (b.host) { b.host.__cnt = null; }
+      b.cnt = null;
+    }
+  }
   function lightUp(b, i) {
     b.lit = 1;
     b.litAt = RK.tick;
+    updateBrzInk();
     if (b.host && b.host.classList) { b.host.classList.add('lit'); }
     var m = /^a(\d)$/.exec(b.host && b.host.id || '');
     if (m && idxDots[+m[1] - 1]) {
@@ -414,7 +447,9 @@
   function layoutPads() {
     pads.forEach(function (p) {
       var r = rectCells(p.h2);
-      var x = MOB ? 1 : 24;                           /* left flight gutter */
+      /* left end of the H2 rule: 22 cells left of the heading box (18-cell pad + 4
+         gap); the stacked mobile cut keeps the page's left edge */
+      var x = MOB ? 1 : Math.max(1, r.x - 22);
       var y = Math.max(0, r.y - 3);
       p.x = x + 9;
       p.y = y + 9;                                    /* cup centre, cells */
@@ -1118,12 +1153,15 @@
       tc[ci >= 0 ? ci : 3]++;
     }
     setText(statusTotal, String(embers.length));
+    /* body.flight-live shows the instrument only while embers are in flight */
+    document.body.classList.toggle('flight-live', embers.length > 0);
     for (i = 0; i < 4; i++) {
       setText(statusEmbers[i], String(ec[i]));
       setText(statusText[i], (total ? tc[i] * 100 / total : 0).toFixed(2) + '%');
     }
     statusLastTick = RK.tick;
     statusForce = false;
+    updateBrzInk();
   }
 
   /* --- render (expression only) ------------------------------------------------ */
@@ -1141,7 +1179,7 @@
       g = TICK_MS ? RK.tick - b.litAt : 8;
       setClass(b.el, b.base + (g < 8
         ? ' lit' + (g < 2 ? '' : ' f' + ((g >> 1) - 1)) + ' ig' + (g >> 1)
-        : ' lit f' + bf));
+        : ' lit f' + bf) + (b.k >= 0 ? ' k' + b.k : ''));
     }
     for (i = 0; i < pads.length; i++) {
       var p = pads[i];
