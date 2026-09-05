@@ -33,6 +33,11 @@ body{margin:0;background:var(--ash0);color:var(--bone);font-family:var(--body);
   word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
 @media (max-width:1279px){ body{font-size:17px;line-height:calc(13 * var(--px))} }
 @media (max-width:767px){ body{font-size:16px;line-height:calc(13 * var(--px))} }
+/* Background: two giant meshing gear silhouettes on a viewport-fixed canvas under
+   every plate (engine §3). html keeps the ash0 ground; body goes transparent only
+   once the engine has made the canvas (html.bg), so the no-JS page is unchanged. */
+html.bg body{background:transparent}
+.bgc{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block}
 a{color:var(--teal)}
 a:focus-visible,button:focus-visible,input:focus-visible,
 textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:var(--px) solid var(--teal);outline-offset:var(--px)}

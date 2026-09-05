@@ -239,6 +239,16 @@ Still true from the wire engine:
   form still working through the synchronous settle. `?rk-tick=0` instead keeps
   the full game active and settles every input immediately; it is a public feature
   and the determinism harness, not just a test hook.
+- **Background gears** (visual refresh, 2026-09-06). Two gear silhouettes far larger
+  than the viewport — 64 and 48 teeth, tooth module = viewport width / 26, centres off
+  screen so only a rim arc, a few teeth and the odd spoke cross the page — turn on a
+  viewport-fixed canvas the engine inserts under every plate (`.bgc`, z-index −1;
+  `html.bg body` goes transparent over the ash0 `html` ground). Ash1 on ash0 only, no
+  edge colour, no gradient. The large gear makes one turn per 720 s, its partner meshes
+  tooth to gap and turns the other way at 64:48; both advance on the same 12 Hz
+  accumulator (their own counter, so `RK.reset()` does not spin them back) with a
+  scroll parallax of 0.06. Not an obstacle, not in the snapshot. Reduced motion draws
+  one static frame; without JS there is no canvas and the page is exactly as before.
 - **Hook contract.** `window.RK` exposes `version`, `tick`, `reduced`, `stepTo(n)`,
   `reset()`, `input(name, payload)`, `snapshot()` and `states()`. Inputs are `launch`
   (pad index plus the sling pull in whole cells), `key`, `press` and `scroll`; the
@@ -256,6 +266,7 @@ Reduced motion, no-JS and keyboard behaviour per surface:
 | Braziers | rendered lit | rendered lit | — |
 | Launcher pads | absent | absent | Tab then `↵`/Space fires the canonical shot |
 | Flying embers | absent | absent | — |
+| Background gears | absent | one static frame | — |
 | Pipeline approval | button hidden, stations render lit | needs the press, as it is an input | Tab, `↵`/Space |
 | Form | direct mail link, submit hidden | same | standard form order |
 

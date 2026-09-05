@@ -1420,11 +1420,137 @@
   if (form && T.form) { wireForm(); }
   addEventListener('scroll', function () {
     RK.input('scroll', window.scrollY);
+    bgDirty = true;
   }, { passive: true });
   addEventListener('resize', function () {
     layout();
     render();
+    bgSize();
+    bgDraw();
   });
+
+  /* --- background: two giant meshing gears ----------------------------------
+     Silhouettes only (ash1 on the ash0 ground) on a viewport-fixed canvas under
+     every plate (site.css .bgc). The large gear turns once per BG_TURN seconds on
+     the shared 12 Hz clock and its partner meshes tooth to gap at 64:48, with a
+     little scroll parallax. The canvas is outside layout, obstacles and the
+     snapshot; reduced motion draws one static frame and without JS there is no
+     canvas at all (visual refresh 2026-09-06). */
+  var BG_TURN = 720;
+  var bgCanvas = null, bgCtx = null, bgGears = [], bgW = 0, bgH = 0;
+  var bgTick = 0, bgDirty = false, bgAsh0 = '#121110', bgAsh1 = '#1C1A18';
+  function injectBackground() {
+    bgCanvas = document.createElement('canvas');
+    bgCanvas.className = 'bgc';
+    bgCanvas.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(bgCanvas, document.body.firstChild);
+    bgCtx = bgCanvas.getContext('2d', { alpha: true });
+    var cs = getComputedStyle(root);
+    bgAsh0 = cs.getPropertyValue('--ash0').trim() || bgAsh0;
+    bgAsh1 = cs.getPropertyValue('--ash1').trim() || bgAsh1;
+    root.classList.add('bg');
+    bgSize();
+  }
+  function bgSize() {
+    if (!bgCanvas) { return; }
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    bgW = window.innerWidth;
+    bgH = window.innerHeight;
+    bgCanvas.width = Math.round(bgW * dpr);
+    bgCanvas.height = Math.round(bgH * dpr);
+    bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    /* The composition follows the width (module = tooth size = W/26); a portrait
+       viewport anchors on a 16:10 height so the rim still crosses a phone screen. */
+    var hb = bgW < bgH ? bgW * 0.625 : bgH;
+    var m = Math.round(bgW / 26);
+    var w0 = 2 * Math.PI / (BG_TURN * 12);
+    var defs = [
+      { n: 64, cx: -0.075, cy: 2.02, ratio: 0.06, hole: 0.86, spokes: 12 },
+      { n: 48, mesh: 0, bearing: -40, hole: 0.86, spokes: 10 }
+    ];
+    bgGears = [];
+    defs.forEach(function (d) {
+      var g = { n: d.n, r: d.n * m / 2, m: m, ratio: d.ratio || 0, hole: d.hole,
+                spokes: d.spokes, parent: null, phi: 0, cyv: 0 };
+      if (d.mesh === undefined) {
+        g.cx = d.cx * bgW;
+        g.cy = d.cy * hb;
+        g.w = w0 * defs[0].n / d.n;
+        g.th0 = 0;
+      } else {
+        /* a tooth of the parent sits at the bearing; a gap of this gear faces it,
+           and the two turn against each other at the inverse tooth ratio */
+        var P = bgGears[d.mesh], want = d.bearing * Math.PI / 180, pP = 2 * Math.PI / P.n;
+        var phi = P.th0 + Math.round((want - P.th0) / pP) * pP;
+        g.cx = P.cx + (P.r + g.r) * Math.cos(phi);
+        g.cy = P.cy + (P.r + g.r) * Math.sin(phi);
+        g.th0 = (phi + Math.PI) - Math.PI / g.n;
+        g.w = -P.w * P.n / g.n;
+        g.ratio = P.ratio;
+        g.parent = P;
+        g.phi = phi;
+      }
+      bgGears.push(g);
+    });
+    bgDirty = true;
+  }
+  function bgGearPath(g, th, cy) {
+    var n = g.n, r = g.r, add = g.m, ded = g.m * 1.25, p = 2 * Math.PI / n, i, k;
+    bgCtx.beginPath();
+    for (i = 0; i < n; i++) {
+      var a = th + i * p;
+      var pts = [[a - p * 0.30, r - ded], [a - p * 0.18, r + add], [a + p * 0.18, r + add],
+                 [a + p * 0.30, r - ded], [a + p * 0.50, r - ded]];
+      for (k = 0; k < 5; k++) {
+        var x = g.cx + Math.cos(pts[k][0]) * pts[k][1];
+        var y = cy + Math.sin(pts[k][0]) * pts[k][1];
+        if (i === 0 && k === 0) { bgCtx.moveTo(x, y); } else { bgCtx.lineTo(x, y); }
+      }
+    }
+    bgCtx.closePath();
+  }
+  function bgDraw() {
+    if (!bgCtx) { return; }
+    var ctx = bgCtx, sy = PASSIVE ? 0 : window.scrollY;
+    ctx.clearRect(0, 0, bgW, bgH);
+    bgGears.forEach(function (g) {
+      g.cyv = g.parent ? g.parent.cyv + (g.parent.r + g.r) * Math.sin(g.phi)
+                       : g.cy - sy * g.ratio;
+      var th = g.th0 + g.w * bgTick, k;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = bgAsh1;
+      ctx.fillStyle = bgAsh1;
+      bgGearPath(g, th, g.cyv);
+      ctx.fill();
+      ctx.stroke();
+      /* rim hole, spokes, hub, axle */
+      ctx.fillStyle = bgAsh0;
+      ctx.strokeStyle = bgAsh0;
+      ctx.beginPath();
+      ctx.arc(g.cx, g.cyv, g.r * g.hole, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = bgAsh1;
+      for (k = 0; k < g.spokes; k++) {
+        ctx.save();
+        ctx.translate(g.cx, g.cyv);
+        ctx.rotate(th + k * 2 * Math.PI / g.spokes);
+        ctx.fillRect(0, -g.m * 0.55, g.r * (g.hole + 0.02), g.m * 1.1);
+        ctx.strokeRect(0, -g.m * 0.55, g.r * (g.hole + 0.02), g.m * 1.1);
+        ctx.restore();
+      }
+      ctx.beginPath();
+      ctx.arc(g.cx, g.cyv, g.r * 0.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = bgAsh0;
+      ctx.beginPath();
+      ctx.arc(g.cx, g.cyv, g.r * 0.07, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    });
+    bgDirty = false;
+  }
 
   var last = 0, acc = 0;
   function frame(now) {
@@ -1437,11 +1563,13 @@
     var moved = false, steps = 0, limit = drag ? 1 : 12;
     while (acc >= TICK_MS && steps < limit) {
       step();
+      bgTick++;
       acc -= TICK_MS;
       steps++;
       moved = true;
     }
     if (moved) { render(); }
+    if (moved || bgDirty) { bgDraw(); }
     requestAnimationFrame(frame);
   }
 
@@ -1470,6 +1598,7 @@
     measureBounds();
   }
   function init() {
+    injectBackground();
     injectFlightStatus();
     injectPads();
     splitPaints();
@@ -1488,6 +1617,7 @@
       });
       formResizeObserver.observe(form);
     }
+    bgDraw();
     if (TICK_MS > 0) { requestAnimationFrame(frame); } else { settle(); }
   }
   if (document.fonts && document.fonts.ready) {
