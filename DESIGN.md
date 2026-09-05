@@ -280,8 +280,9 @@ at 10 cells, one line of copy at 6 cells. It is one image, shared by both locale
 Fourteen pages, seven per locale: `/{ko,en}/`, `/control/`, `/products/`,
 `/open-source/`, `/principles/`, `/company/`, `/contact/`.
 
-- The home page is an index of five anchors and links out; it never carries a whole
-  section of body copy.
+- The home hero links directly to Technology and Products. Its five anchors follow
+  Technology, AI Harness, AI Agent, Products, Principles order and link out; the home
+  page never carries a whole section of body copy.
 - Detail pages carry the approved manuscript in order, verbatim, headings included.
 - Six retired URLs per locale (`ai-spark`, `aipsr`, `ai-harness`, `ai-agent`,
   `agent-technologies`, `hermes-supports`) are redirect stubs: a meta refresh, a

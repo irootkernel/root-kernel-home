@@ -30,7 +30,7 @@
   <meta name="twitter:description" content="Root Kernel은 spec, state transition, deterministic validation, 사람의 승인으로 AI 실행을 통제하는 AI-SPARK와 Podway를 만듭니다.">
   <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
   <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
-  <link rel="stylesheet" href="/assets/css/site.css?v=t5-random-reflections-1">
+  <link rel="stylesheet" href="/assets/css/site.css?v=t4a-home-navigation-1">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz/","logo":"https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg","email":"cs@rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
 </head>
 <body>
@@ -48,6 +48,10 @@
         <div class="body">
           <h1 class="h1" id="h1"><span class="l">Root Kernel</span> <span class="l">builds technology</span> <span class="l">that controls AI.</span></h1>
           <p class="lead">AI가 코드를 만드는 속도는 빨라졌습니다. 이제 병목은 생성이 아니라 검토와 승인, 실패 뒤의 복구입니다. 루트커널은 spec과 state transition, 검증 규칙, 사람의 승인 지점을 먼저 정해 AI가 그 경계 안에서 일하도록 만듭니다.</p>
+          <div class="hero-links">
+            <a class="more" href="/ko/control/">AI-SPARK와 Podway 자세히 보기 →</a>
+            <a class="more" href="/ko/products/">제품 자세히 보기 →</a>
+          </div>
         </div>
       </div>
       <div class="hero-demo" role="group" aria-label="대화로 절차를 구성하고 승인 뒤 실행하며, 문제 발생 시 사람에게 질문한 다음 선언된 이전 단계로 돌아가는 Podway 실행 예시">
@@ -74,11 +78,6 @@
       <div class="body"><p>AI-SPARK는 spec bundle에서 revision key를 만들고 검증, 사람의 승인, 구현, 배포가 모두 그 revision key를 가리키게 합니다. 승인 뒤 AI가 작성하는 코드는 이벤트, 전이 조건, 전이 동작에 집중하고, 실제 state transition과 동시성 제어, 전이 기록은 FSM runtime이 맡습니다. Podway는 작업마다 알맞은 절차를 세션 전에 정하고 검사해, 긴 작업이나 인수인계 뒤에도 다음 단계와 다시 해야 할 일을 잃지 않게 합니다.</p><a class="more" href="/ko/control/">AI-SPARK와 Podway 자세히 보기 →</a></div>
       <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
     </section>
-    <section class="anchor" id="a2">
-      <div class="head"><h2>Products</h2></div>
-      <div class="body"><p>Sudal에서는 AI-SPARK 세션 런타임이 실시간 세션의 권한과 state transition을 통제합니다. Doksuri에서 AI는 사람과 분리된 신원과 권한으로 일하며 중요한 변경은 사람이 승인합니다. Ember Quest는 같은 입력에서 같은 결과를 내는 Deterministic Core로 게임 규칙과 replay를 검증합니다. 세 제품은 Root Kernel의 실행 원리가 실제 환경에서도 작동하는지 확인하는 검증장입니다.</p><a class="more" href="/ko/products/">제품 자세히 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
-    </section>
     <section class="anchor" id="a3">
       <div class="head"><h2>AI Harness</h2></div>
       <div class="body"><p>AI Harness는 에이전트에게 개발을 맡기면서도 작업 상태를 추적하고, 완료 주장을 테스트 결과와 실행 기록으로 확인하며, 중요한 변경은 사람이 승인하게 하는 공개 도구군입니다. 루트커널은 이 도구를 자체 개발에 먼저 사용합니다.</p><ul class="repos" data-ob><li><a href="https://github.com/irootkernel/aquarium">Aquarium</a></li><li><a href="https://github.com/irootkernel/podway">Podway</a></li><li><a href="https://github.com/irootkernel/dolgorae">Dolgorae</a></li><li><a href="https://github.com/irootkernel/sanho">Sanho</a></li><li><a href="https://github.com/irootkernel/mulgae">Mulgae</a></li><li><a href="https://github.com/irootkernel/gaori">Gaori</a></li><li><a href="https://github.com/irootkernel/sorage">Sorage</a></li></ul><a class="more" href="/ko/ai-harness/">AI Harness 자세히 보기 →</a></div>
@@ -87,6 +86,11 @@
     <section class="anchor" id="a4">
       <div class="head"><h2>AI Agent</h2></div>
       <div class="body"><p>에이전트 실행 계층은 에이전트를 실행하고, 누가 누구에게 무엇을 맡겼으며 어떤 검토를 거쳤는지 기록하고, 받아들인 결과를 다음 작업으로 전달합니다. Hermes Agent와 Agent Turn Network, Agent Dispatch가 이 책임을 나눠 맡습니다.</p><ul class="repos wide" data-ob><li><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">Hermes Agent</a></li><li><a href="https://github.com/irootkernel/agent-turn-network-control">Agent Turn Network Control</a></li><li><a href="https://github.com/irootkernel/agent-turn-network-plugin">Agent Turn Network Plugin</a></li><li><a href="https://github.com/irootkernel/agent-dispatch">Agent Dispatch</a></li></ul><a class="more" href="/ko/ai-agents/">AI Agent 자세히 보기 →</a></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+    </section>
+    <section class="anchor" id="a2">
+      <div class="head"><h2>Products</h2></div>
+      <div class="body"><p>Sudal에서는 AI-SPARK 세션 런타임이 실시간 세션의 권한과 state transition을 통제합니다. Doksuri에서 AI는 사람과 분리된 신원과 권한으로 일하며 중요한 변경은 사람이 승인합니다. Ember Quest는 같은 입력에서 같은 결과를 내는 Deterministic Core로 게임 규칙과 replay를 검증합니다. 세 제품은 Root Kernel의 실행 원리가 실제 환경에서도 작동하는지 확인하는 검증장입니다.</p><a class="more" href="/ko/products/">제품 자세히 보기 →</a></div>
       <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
     </section>
     <section class="anchor" id="a5">
