@@ -684,6 +684,12 @@ html.js .brz:not(.lit) .charge{display:none}
   border:var(--px) solid var(--ash2);background:var(--ash1);
   width:100%}
 .fig img{margin:0}
+/* visual-refresh: explanatory diagrams are inline SVG (build: svg_fig). The drawing is
+   648 CSS px wide at every cut (216 cells at --px:3, 324 at --px:2) so its labels never
+   scale; narrower frames scroll it horizontally like the hero board. */
+.fig.dgf{overflow-x:auto}
+.dg{display:block;width:648px;height:auto;max-width:none}
+.dg text{font-family:var(--mono)}
 .fcap{margin:calc(3 * var(--px)) 0 0;color:var(--bone);
   font:400 15px/calc(8 * var(--px)) var(--body)}
 .leg{list-style:none;margin:calc(2 * var(--px)) 0 0;padding:0;display:grid;

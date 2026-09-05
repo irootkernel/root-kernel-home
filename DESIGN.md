@@ -263,8 +263,17 @@ Reduced motion, no-JS and keyboard behaviour per surface:
 
 ## 4. Images
 
-Two kinds, and nothing else.
+Three kinds, and nothing else.
 
+0. **Diagrams** (visual-refresh, 2026-09-05) are inline SVG emitted by the generator from
+   a template in `_workspace/r5/diagrams/<key>.svg`. They share the hero board's language
+   (ash0 nodes with ash3 outlines, mono labels, one ember2 accent for the controlled
+   artifact, a red double frame for the human gate) and are 648 CSS px wide at every cut
+   (216 cells at `--px: 3`, 324 at `--px: 2`) so their labels never scale; a narrower
+   frame scrolls them horizontally. A template carries only label tokens (`{{L1}}`,
+   `{{L2a}}`, the conditional first-line offset `{{y:C:L2b}}`) and `{{ALT}}`; every
+   word comes from `ui-strings.json` `fig.<key>` in ko and en. Rules and acceptance live
+   in `_workspace/redesign/diagram-style.md`.
 1. **Sprites.** Hand-written bitmaps (rows of palette indices) compile to inline SVG
    `<symbol>`/`<rect>` at load for static sprites and to one shared canvas for flying
    ember frames. They scale by `--px` alone, so they are crisp at every breakpoint,
