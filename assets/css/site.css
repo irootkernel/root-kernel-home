@@ -455,8 +455,8 @@ html.js .brz:not(.lit) .charge{display:none}
 
 /* ---------------------------------------------------------------- 390 cut */
 @media (max-width:767px){
-  .top{grid-template-columns:minmax(0,1fr) auto;
-    grid-template-areas:"brand lang" "tag tag" "navtoggle navtoggle" "nav nav";
+  .top{grid-template-columns:minmax(0,1fr) auto auto;
+    grid-template-areas:"brand navtoggle lang" "tag tag tag" "nav nav nav";
     column-gap:calc(4 * var(--px));row-gap:calc(2 * var(--px))}
   .brand{grid-area:brand;min-width:0}
   .brand svg{width:calc(16 * var(--px));height:calc(6 * var(--px))}
@@ -480,6 +480,9 @@ html.js .brz:not(.lit) .charge{display:none}
   html.js .top.open .nav{display:flex;flex-direction:column;gap:0}
   html.js .top.open .nav a{padding:calc(3 * var(--px)) 0;
     min-height:40px;display:flex;align-items:center;border-top:var(--px) solid var(--ash2)}
+  @media (max-width:359px){
+    .top{grid-template-areas:"brand brand brand" "tag tag tag" ". navtoggle lang" "nav nav nav"}
+  }
   /* same 20-cell entry gap the detail pages get from .sec/.phead margin-top (:830),
      so the header-to-body rhythm is identical on every page of this cut */
   .hero{padding:calc(20 * var(--px)) 0 0}
