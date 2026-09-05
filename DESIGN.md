@@ -46,9 +46,14 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    page's H2s, braziers in the sections, obstacle plinths, and text paint — a
    passing ember colours the words in its own orb hue, last one wins. Two extras
    survive from the wire era: the home hero's AI-SPARK pipeline board with its
-   human-approval gate, and the contact page's mailto form circuit. On mobile, the
-   hero transcript keeps its 75-cell height and follows new messages by scrolling
-   internally, so its animation never shifts the launcher geometry below it.
+   human-approval gate, and the contact page's mailto form circuit. At 1280px and
+   above the hero keeps its canonical 750×604 graph. Tablet uses a five-column
+   serpentine graph; mobile uses one narrow success axis with a left exception lane,
+   separate fan-out/fan-in rails, and the declared return from question to policy.
+   Both compact layouts put chat above the graph, keep the current exchange at a
+   fixed height, and expose the complete transcript in page flow. Resizing rewrites
+   only presentation geometry: the same 22 nodes, transitions, attempt, and 360-tick
+   runtime state remain authoritative.
 9. **No** audio, scanlines, CRT curvature, glow, gradients, blur, or drop shadows.
 
 ---

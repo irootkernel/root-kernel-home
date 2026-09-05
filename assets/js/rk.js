@@ -113,6 +113,8 @@
   var heroRework = hero ? hero.querySelector('.hrework') : null;
   var heroPreview = hero ? hero.querySelector('.hpreview') : null;
   var heroAttempt = hero ? hero.querySelector('.hattempt') : null;
+  var heroCanvas = hero ? hero.querySelector('.hcanvas') : null;
+  var heroSvg = heroCanvas ? heroCanvas.querySelector('svg') : null;
   var flightStatus = null;
   var statusTotal = null;
   var statusEmbers = [null, null, null, null];
@@ -829,10 +831,157 @@
     var rerun = +(el.getAttribute('data-rerun') || 0);
     return rerun && e >= rerun ? rerun : first;
   }
+  function heroSetLabel(el, x, y, width, compact) {
+    var label = el.querySelector('.hnlabel');
+    if (!label) { return; }
+    var full = el.getAttribute('data-label') || label.textContent;
+    while (label.firstChild) { label.removeChild(label.firstChild); }
+    label.setAttribute('x', x + 10);
+    if (!compact) {
+      label.setAttribute('y', y + 34);
+      label.textContent = full;
+      return;
+    }
+    var limit = Math.max(7, Math.floor((width - 20) / 7.2));
+    var words = full.split(/\s+/), lines = [], line = '', i;
+    for (i = 0; i < words.length; i++) {
+      if (!line) { line = words[i]; }
+      else if ((line + ' ' + words[i]).length <= limit) { line += ' ' + words[i]; }
+      else { lines.push(line); line = words[i]; }
+    }
+    if (line) { lines.push(line); }
+    if (lines.length === 1 && full.length > limit) {
+      lines = [full.slice(0, limit), full.slice(limit)];
+    }
+    if (lines.length > 2) { lines = [lines[0], lines.slice(1).join(' ')]; }
+    label.removeAttribute('y');
+    lines.forEach(function (text, n) {
+      var span = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+      span.setAttribute('x', x + 10);
+      span.setAttribute('y', y + (lines.length > 1 ? 31 + n * 14 : 34));
+      span.textContent = text;
+      label.appendChild(span);
+    });
+  }
+  function heroPlaceNode(el, x, y, width, height, compact) {
+    var rect = el.querySelector('rect'), num = el.querySelector('.hnum');
+    var attempt = el.querySelector('.hattempt-node');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', width); rect.setAttribute('height', height);
+    num.setAttribute('x', x + 10); num.setAttribute('y', y + 15);
+    if (attempt) { attempt.setAttribute('x', x + width - 30); attempt.setAttribute('y', y + 13); }
+    heroSetLabel(el, x, y, width, compact);
+    el.__heroBox = { x: x, y: y, w: width, h: height };
+  }
+  function heroPath(edge, mode, width) {
+    var a = hero.querySelector('[data-node="' + edge.getAttribute('data-from') + '"]');
+    var b = hero.querySelector('[data-node="' + edge.getAttribute('data-to') + '"]');
+    if (!a || !b || !a.__heroBox || !b.__heroBox) { return edge.getAttribute('data-d'); }
+    var A = a.__heroBox, B = b.__heroBox;
+    var acx = A.x + A.w / 2, acy = A.y + A.h / 2;
+    var bcx = B.x + B.w / 2, bcy = B.y + B.h / 2;
+    var parallel = edge.classList.contains('preview');
+    if (mode === 'mobile') {
+      var fanoutRail = Math.max(7, A.x - 16);
+      var faninRail = Math.min(width - 7, A.x + A.w + 10);
+      if (edge.getAttribute('data-from') === 'execute' && parallel) {
+        return 'M' + A.x + ' ' + acy + 'H' + fanoutRail + 'V' + bcy + 'H' + B.x;
+      }
+      if (edge.getAttribute('data-to') === 'integrate' && parallel) {
+        return 'M' + (A.x + A.w) + ' ' + acy + 'H' + faninRail + 'V' + bcy +
+          'H' + (B.x + B.w);
+      }
+      if (edge.classList.contains('hrework')) {
+        return 'M' + A.x + ' ' + acy + 'H5V' + bcy + 'H' + B.x;
+      }
+      if (Math.abs(acy - bcy) < 2) {
+        return bcx > acx ? 'M' + (A.x + A.w) + ' ' + acy + 'H' + B.x :
+          'M' + A.x + ' ' + acy + 'H' + (B.x + B.w);
+      }
+      if (Math.abs(acx - bcx) < 2) {
+        return bcy > acy ? 'M' + acx + ' ' + (A.y + A.h) + 'V' + B.y :
+          'M' + acx + ' ' + A.y + 'V' + (B.y + B.h);
+      }
+    }
+    if (edge.classList.contains('hrework')) {
+      return 'M' + (A.x + A.w) + ' ' + acy + 'H' + (width - 4) + 'V' + bcy +
+        'H' + (B.x + B.w);
+    }
+    if (Math.abs(acy - bcy) < 2) {
+      return bcx > acx ? 'M' + (A.x + A.w) + ' ' + acy + 'H' + B.x :
+        'M' + A.x + ' ' + acy + 'H' + (B.x + B.w);
+    }
+    var down = bcy > acy;
+    var y1 = down ? A.y + A.h : A.y, y2 = down ? B.y : B.y + B.h;
+    var mid = (y1 + y2) / 2;
+    return 'M' + acx + ' ' + y1 + 'V' + mid + 'H' + bcx + 'V' + y2;
+  }
+  function layoutHeroGraph() {
+    if (!heroSvg || !heroCanvas) { return; }
+    var vw = window.innerWidth;
+    if (vw >= 1280) {
+      heroSvg.setAttribute('viewBox', '0 0 750 604');
+      heroSvg.style.height = '';
+      heroNodes.forEach(function (el) {
+        heroPlaceNode(el, +el.getAttribute('data-x'), +el.getAttribute('data-y'), 138, 46, false);
+      });
+      heroEdges.concat(heroRework ? [heroRework] : []).forEach(function (edge) {
+        edge.style.display = edge.getAttribute('data-desktop-hidden') === 'true' ? 'none' : '';
+        edge.setAttribute('d', edge.getAttribute('data-desktop-d') || edge.getAttribute('data-d'));
+      });
+      heroPreview.setAttribute('x', 10); heroPreview.setAttribute('y', 292);
+      heroPreview.textContent = heroPreview.getAttribute('data-label');
+      heroAttempt.setAttribute('x', 610); heroAttempt.setAttribute('y', 84);
+      return;
+    }
+    var width = Math.max(280, heroCanvas.clientWidth), boxes = {}, height;
+    if (vw < 768) {
+      var gap = 12, nodeW = Math.min(147, (width - 36) / 2), nodeH = 56;
+      var total = nodeW * 2 + gap, left = (width - total) / 2, right = left + nodeW + gap;
+      var y0 = 18, step = 70, branchY = y0 + 11 * step + 28;
+      ['request','inspect','requirements','risk','policy','build','validate','approval','snapshot','prepare','execute'].forEach(function (key, i) { boxes[key] = [right, y0 + i * step]; });
+      ['server','client','storage','tests','docs'].forEach(function (key, i) { boxes[key] = [right, branchY + i * step]; });
+      boxes.integrate = [right, branchY + 5 * step + 6];
+      boxes.verify = [right, branchY + 6 * step + 6]; boxes.issue = [left, branchY + 6 * step + 6];
+      boxes.review = [right, branchY + 7 * step + 6]; boxes.ask = [left, branchY + 7 * step + 6];
+      boxes.closeout = [right, branchY + 8 * step + 6];
+      height = boxes.closeout[1] + nodeH + 18;
+      heroPreview.setAttribute('x', right); heroPreview.setAttribute('y', branchY - 12);
+      heroPreview.textContent = heroPreview.getAttribute('data-compact');
+      heroAttempt.setAttribute('x', right + nodeW - 58); heroAttempt.setAttribute('y', boxes.policy[1] + 14);
+      heroNodes.forEach(function (el) { var p = boxes[el.getAttribute('data-node')]; heroPlaceNode(el, p[0], p[1], nodeW, nodeH, true); });
+    } else {
+      var margin = 14, colGap = 10, tabletW = (width - margin * 2 - colGap * 4) / 5;
+      var tabletH = 62, rowStep = 82, top = 18;
+      ['request','inspect','requirements','risk','policy'].forEach(function (key, i) { boxes[key] = [margin + i * (tabletW + colGap), top]; });
+      ['prepare','snapshot','approval','validate','build'].forEach(function (key, i) { boxes[key] = [margin + i * (tabletW + colGap), top + rowStep]; });
+      boxes.execute = [margin, top + rowStep * 2];
+      var tabletBranch = top + rowStep * 3 + 36;
+      ['server','client','storage','tests','docs'].forEach(function (key, i) { boxes[key] = [margin + i * (tabletW + colGap), tabletBranch]; });
+      boxes.integrate = [margin + 2 * (tabletW + colGap), tabletBranch + rowStep];
+      boxes.verify = [margin + 2 * (tabletW + colGap), tabletBranch + rowStep * 2];
+      boxes.issue = [margin + 3 * (tabletW + colGap), tabletBranch + rowStep * 2];
+      boxes.ask = [margin + 4 * (tabletW + colGap), tabletBranch + rowStep * 2];
+      boxes.review = [margin + 2 * (tabletW + colGap), tabletBranch + rowStep * 3];
+      boxes.closeout = [margin + 4 * (tabletW + colGap), tabletBranch + rowStep * 3];
+      height = boxes.closeout[1] + tabletH + 18;
+      heroPreview.setAttribute('x', margin); heroPreview.setAttribute('y', tabletBranch - 14);
+      heroPreview.textContent = heroPreview.getAttribute('data-label');
+      heroAttempt.setAttribute('x', boxes.policy[0] + tabletW - 58); heroAttempt.setAttribute('y', top + 14);
+      heroNodes.forEach(function (el) { var p = boxes[el.getAttribute('data-node')]; heroPlaceNode(el, p[0], p[1], tabletW, tabletH, true); });
+    }
+    heroSvg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    heroSvg.style.height = height + 'px';
+    heroEdges.concat(heroRework ? [heroRework] : []).forEach(function (edge) {
+      edge.style.display = '';
+      edge.setAttribute('d', heroPath(edge, vw < 768 ? 'mobile' : 'tablet', width));
+    });
+  }
   function renderHero() {
     if (!hero || !T.heroDemo) { return; }
     var e = heroElapsed(), at, dur, count = 0, maxAt = -1;
     hero.classList.add('hdemo-ready');
+    var currentMessage = null;
     heroMessages.forEach(function (el) {
       at = +(el.getAttribute('data-at') || 0);
       dur = +(el.getAttribute('data-dur') || 1);
@@ -840,6 +989,7 @@
       var chars = text && Array.from(text.__full || '');
       var shown = e >= at;
       el.classList.toggle('shown', shown);
+      if (shown) { currentMessage = el; }
       el.classList.toggle('typing', shown && e < at + dur);
       if (!text || !shown) { if (text) { setText(text, ''); } return; }
       count++;
@@ -847,7 +997,8 @@
         Math.max(1, Math.floor(chars.length * (e - at) / dur));
       setText(text, chars.slice(0, n).join(''));
     });
-    if (count !== H.msgCount && heroThread) {
+    heroMessages.forEach(function (el) { el.classList.toggle('current', el === currentMessage); });
+    if (count !== H.msgCount && heroThread && window.innerWidth >= 1280) {
       H.msgCount = count;
       heroThread.scrollTop = heroThread.scrollHeight;
     }
@@ -889,7 +1040,12 @@
       var inspect = function () { setText(heroInspect, el.getAttribute('data-help')); };
       el.addEventListener('mouseenter', inspect);
       el.addEventListener('focus', inspect);
+      el.addEventListener('pointerdown', inspect);
     });
+    var history = hero.querySelector('.hhistory');
+    if (history) {
+      history.addEventListener('toggle', function () { layout(); render(); });
+    }
     if (heroReplay) { heroReplay.addEventListener('click', heroStart); }
   }
 
@@ -1255,6 +1411,7 @@
     PX = pxOf();
     vh = window.innerHeight;
     MOB = window.innerWidth <= 767;
+    layoutHeroGraph();
     measureBrzs();
     layoutPads();
     /* Obstacles: explicit plinths, figures, form controls, each H2's thin underline,
