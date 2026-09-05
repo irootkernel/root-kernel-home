@@ -50,8 +50,140 @@
     </div>
   </section>
   <section class="sec pt" id="s1"><div class="body"><h2 id="control.s1.h">Reviewing AI-generated code and recovering from problems</h2><p>As AI produces more code, people have more to check. Reviewing whether code works as intended and approving its use still takes time and judgment.</p><p>When API contracts, permission policies, state models, and tests refer to different versions, aligning them requires rework. Recovery is also harder without a defined stage to return to and a clear scope for rechecking.</p><p>Root Kernel defines the scope of AI work and the validation and approval conditions for each stage first. Procedures also include paths for returning after a problem, making it clear where work should resume.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
-  <section class="sec pt" id="s2"><div class="body"><h2 id="control.s2.h">Specifications define the implementation boundary</h2><p>AI-SPARK groups interfaces, state models, bindings, and permission policies into a spec bundle and versions them together. AI writes code against a version that has passed validation and received human approval.</p><figure class="fig"><img class="px-img wide" style="--aw:120;--ah:72" src="/assets/images/px/diagram-control-bundle.png" width="360" height="216" alt="Four document tiles wrapped together by one band, a single tag on the band. Numerals 1-5." decoding="async"><figcaption class="fcap">One spec bundle contains the interface, state model, bindings, and authorization policy.</figcaption><ol class="leg" aria-label="Legend"><li data-n="1"><span>Interface</span></li><li data-n="2"><span>State model</span></li><li data-n="3"><span>Bindings</span></li><li data-n="4"><span>Authorization policy</span></li><li data-n="5"><span>Revision key</span></li></ol></figure><p>The revision key derived from the spec bundle links validation results and approval records to that specification version. Implementation and deployment use the same version, so the approved content can be checked against the actual work.</p><p>Work can advance to the next stage only when revisions match and all required outputs are present. The fail-closed principle prevents progress while conditions remain unverified.</p><figure class="fig"><img class="px-img wide xwide" style="--aw:152;--ah:40" src="/assets/images/px/diagram-control-chain.png" width="456" height="120" alt="Five blocks on one rail, the rail broken after the third; one line below connects to all five. Numerals 1-6." decoding="async"><figcaption class="fcap">Each stage is a precondition for the next.</figcaption><ol class="leg" aria-label="Legend"><li data-n="1"><span>Spec revision</span></li><li data-n="2"><span>Deterministic validation</span></li><li data-n="3"><span>Human approval</span></li><li data-n="4"><span>Implementation &amp; test</span></li><li data-n="5"><span>Deployment</span></li><li data-n="6"><span>Revision key</span></li></ol></figure><ol class="chain" aria-label="Five stages in the AI-SPARK revision flow"><li>Spec revision</li><li>Deterministic validation</li><li>Human approval</li><li>Implementation &amp; test</li><li>Deployment</li></ol></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
-  <section class="sec pt" id="s3"><div class="body"><h2 id="control.s3.h">Deterministic validation and human approval</h2><p>Under the same validation conditions, the AI-SPARK validator returns the same list of violations for the same spec bundle. It does not depend on model judgment, so the results can be checked by repeating validation under identical conditions.</p><figure class="fig"><img class="px-img wide" style="--aw:136;--ah:56" src="/assets/images/px/diagram-control-gate.png" width="408" height="168" alt="Two identical inputs pass two identical inspection boxes into two identical lists; the merged wire stops at a double-framed gate, and the rail past the gate is broken. Numerals 1-5." decoding="async"><figcaption class="fcap">The validator returns the same result for the same input; a person approves the revision.</figcaption><ol class="leg" aria-label="Legend"><li data-n="1"><span>Spec bundle</span></li><li data-n="2"><span>Validator</span></li><li data-n="3"><span>Same violation list</span></li><li data-n="4"><span>Human approval</span></li><li data-n="5"><span>fail-closed</span></li></ol></figure><p>Validation rules are kept separate so the party being checked cannot modify them. Human approval is tied to the specification version that passed validation. If the specification changes, it must be validated and approved again.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
+  <section class="sec pt" id="s2"><div class="body"><h2 id="control.s2.h">Specifications define the implementation boundary</h2><p>AI-SPARK groups interfaces, state models, bindings, and permission policies into a spec bundle and versions them together. AI writes code against a version that has passed validation and received human approval.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 318" width="648" height="318" role="img" aria-label="When one authorization policy changes, the whole spec bundle of interface, state model, bindings and authorization policy becomes a new revision with a new key; implementation follows only the new key and execution still pointing at the old key stops fail-closed" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dg-controlBundle-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
+    <marker id="dg-controlBundle-rework-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
+  </defs>
+  <g class="dg-plates" fill="#1C1A18" stroke="#2E2B28" stroke-width="1.5">
+    <rect class="dg-plate" x="32" y="16" width="264" height="200" rx="6"/>
+    <rect class="dg-plate" x="352" y="16" width="264" height="200" rx="6"/>
+  </g>
+  <g class="dg-edges" fill="none" stroke-width="2">
+    <path class="dg-edge" d="M296 116H351" stroke="#7C776F" marker-end="url(#dg-controlBundle-arrow)"/>
+    <path class="dg-edge" d="M586 208V246H358V269" stroke="#7C776F" marker-end="url(#dg-controlBundle-arrow)"/>
+    <path class="dg-rework" d="M266 208V246H290V269" stroke="#F27B2A" stroke-dasharray="8 6" marker-end="url(#dg-controlBundle-rework-arrow)"/>
+  </g>
+  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
+    <rect class="dg-node" x="48" y="48" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="170" y="48" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="48" y="112" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="170" y="112" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="368" y="48" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="490" y="48" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="368" y="112" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="490" y="112" width="110" height="52" rx="4" stroke="#F27B2A" stroke-width="2"/>
+    <rect class="dg-node" x="265" y="270" width="117" height="36" rx="4"/>
+    <rect class="dg-key" x="244" y="190" width="44" height="18" rx="3" fill="#F27B2A" stroke="none"/>
+    <rect class="dg-key" x="564" y="190" width="44" height="18" rx="3" fill="#F27B2A" stroke="none"/>
+  </g>
+  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" fill="#8E8880" text-anchor="middle" dominant-baseline="middle">
+    <text class="dg-title" x="48" y="32" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Revision n</text>
+    <text class="dg-title" x="368" y="32" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Revision n+1</text>
+    <text class="dg-label" x="103" y="74">Interface</text>
+    <text class="dg-label" x="225" y="74">State model</text>
+    <text class="dg-label" x="103" y="138">Bindings</text>
+    <text class="dg-label" x="225" y="130">Authorization</text>
+    <text class="dg-label" x="225" y="146">policy</text>
+    <text class="dg-label" x="423" y="74">Interface</text>
+    <text class="dg-label" x="545" y="74">State model</text>
+    <text class="dg-label" x="423" y="138">Bindings</text>
+    <text class="dg-label" x="545" y="130">Authorization</text>
+    <text class="dg-label" x="545" y="146">policy</text>
+    <text class="dg-title" x="545" y="177" font-size="10" letter-spacing=".08em" fill="#F27B2A">changed</text>
+    <text class="dg-label" x="266" y="199" font-size="10" fill="#121110">key A</text>
+    <text class="dg-label" x="586" y="199" font-size="10" fill="#121110">key B</text>
+    <text class="dg-label" x="324" y="288" fill="#EDE9E7">Implementation</text>
+    <text class="dg-label" x="256" y="246" text-anchor="end" font-size="10" fill="#F27B2A">fail-closed</text>
+  </g>
+</svg><figcaption class="fcap">One spec bundle contains the interface, state model, bindings, and authorization policy.</figcaption></figure><p>The revision key derived from the spec bundle links validation results and approval records to that specification version. Implementation and deployment use the same version, so the approved content can be checked against the actual work.</p><p>Work can advance to the next stage only when revisions match and all required outputs are present. The fail-closed principle prevents progress while conditions remain unverified.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 408" width="648" height="408" role="img" aria-label="Five stages around one revision key, clockwise from spec revision through deterministic validation, human approval, implementation and test to deployment; a rejected approval and a fail-closed stop both return to spec revision" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dg-controlChain-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
+    <marker id="dg-controlChain-arrow-rework" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
+  </defs>
+  <g class="dg-plates"/>
+  <g class="dg-edges" fill="none" stroke-width="2">
+    <path class="dg-rework" d="M178 331H100V60H269" stroke="#F27B2A" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#dg-controlChain-arrow-rework)"/>
+    <path class="dg-rework" d="M453 331H548V60H379" stroke="#F27B2A" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#dg-controlChain-arrow-rework)"/>
+    <path class="dg-key" d="M324 192L324 86" stroke="#F27B2A"/>
+    <path class="dg-key" d="M378 193L412 182" stroke="#F27B2A"/>
+    <path class="dg-key" d="M337 228L390 301" stroke="#F27B2A"/>
+    <path class="dg-key" d="M311 228L255 305" stroke="#F27B2A"/>
+    <path class="dg-key" d="M270 193L225 178" stroke="#F27B2A"/>
+    <path class="dg-edge" d="M365 90L426 134" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
+    <path class="dg-edge" d="M457 196L424 295" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
+    <path class="dg-edge" d="M365 331L301 331" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
+    <path class="dg-edge" d="M226 299L191 196" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
+  </g>
+  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
+    <rect class="dg-node" x="269" y="34" width="110" height="52" rx="4"/>
+    <rect class="dg-node" x="412" y="138" width="110" height="52" rx="4"/>
+    <g class="dg-gate" stroke="#D85555">
+      <rect x="371" y="301" width="82" height="60" rx="6"/>
+      <rect class="dg-node" x="375" y="305" width="74" height="52" rx="4"/>
+    </g>
+    <rect class="dg-node" x="178" y="305" width="117" height="52" rx="4"/>
+    <rect class="dg-node" x="137" y="138" width="88" height="52" rx="4"/>
+    <rect class="dg-node dg-key" x="269" y="192" width="110" height="36" rx="4" stroke="#F27B2A" stroke-width="2"/>
+  </g>
+  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
+    <text class="dg-label" x="324" y="60">Spec revision</text>
+    <text class="dg-label" x="467" y="156">Deterministic</text>
+    <text class="dg-label" x="467" y="172">validation</text>
+    <text class="dg-label" x="412" y="323" fill="#D85555">Human</text>
+    <text class="dg-label" x="412" y="339" fill="#D85555">approval</text>
+    <text class="dg-label" x="236" y="323">Implementation</text>
+    <text class="dg-label" x="236" y="339">&amp; test</text>
+    <text class="dg-label" x="181" y="164">Deployment</text>
+    <text class="dg-label" x="324" y="210" fill="#F27B2A">Revision key</text>
+    <text class="dg-label" x="140" y="349" font-size="10" fill="#F27B2A">fail-closed</text>
+    <text class="dg-label" x="500" y="349" font-size="10" fill="#F27B2A">Not approved</text>
+  </g>
+</svg><figcaption class="fcap">Each stage is a precondition for the next.</figcaption></figure><ol class="chain" aria-label="Five stages in the AI-SPARK revision flow"><li>Spec revision</li><li>Deterministic validation</li><li>Human approval</li><li>Implementation &amp; test</li><li>Deployment</li></ol></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
+  <section class="sec pt" id="s3"><div class="body"><h2 id="control.s3.h">Deterministic validation and human approval</h2><p>Under the same validation conditions, the AI-SPARK validator returns the same list of violations for the same spec bundle. It does not depend on model judgment, so the results can be checked by repeating validation under identical conditions.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 240" width="648" height="240" role="img" aria-label="The validated side's spec bundle enters only the check of a separately managed validator and yields the same violation list; nothing reaches the validation rules; human approval is bound to the revision key, and a changed spec returns to validation" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dg-controlGate-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
+    <marker id="dg-controlGate-rework-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
+  </defs>
+  <g class="dg-plates">
+    <rect class="dg-plate" x="17" y="17" width="122" height="161" rx="6" fill="#1C1A18" stroke="#2E2B28" stroke-width="1.5"/>
+    <rect class="dg-plate" x="155" y="17" width="224" height="161" rx="6" fill="#1C1A18" stroke="#4A4541" stroke-width="2"/>
+  </g>
+  <g class="dg-edges" fill="none" stroke="#7C776F" stroke-width="2">
+    <path class="dg-edge" d="M137 132H213" marker-end="url(#dg-controlGate-arrow)"/>
+    <path class="dg-edge" d="M267 98V108" marker-end="url(#dg-controlGate-arrow)"/>
+    <path class="dg-edge" d="M321 132H366" marker-end="url(#dg-controlGate-arrow)"/>
+    <path class="dg-edge" d="M495 132H533" marker-end="url(#dg-controlGate-arrow)"/>
+    <path class="dg-key" d="M585 162V174" stroke="#F27B2A"/>
+    <path class="dg-rework" d="M552 162V168H534V204H79V156" stroke="#F27B2A" stroke-dasharray="8 6" marker-end="url(#dg-controlGate-rework-arrow)"/>
+  </g>
+  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
+    <rect class="dg-node" x="28" y="114" width="103" height="36" rx="4"/>
+    <rect class="dg-node" x="219" y="40" width="96" height="52" rx="4"/>
+    <rect class="dg-node" x="219" y="114" width="96" height="36" rx="4"/>
+    <rect class="dg-node" x="372" y="106" width="117" height="52" rx="4"/>
+    <g class="dg-gate" stroke="#D85555">
+      <rect x="539" y="102" width="92" height="60" rx="6"/>
+      <rect x="543" y="106" width="84" height="52" rx="4"/>
+    </g>
+    <rect class="dg-key" x="573" y="174" width="24" height="16" rx="3" fill="#F27B2A" stroke="none"/>
+  </g>
+  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
+    <text class="dg-title" x="27" y="29" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Validated side</text>
+    <text class="dg-label" x="79" y="132">Spec bundle</text>
+    <text class="dg-title" x="167" y="29" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Validator · managed separately</text>
+    <text class="dg-label" x="267" y="58">Validation</text>
+    <text class="dg-label" x="267" y="74">rules</text>
+    <text class="dg-label" x="267" y="132">Check</text>
+    <text class="dg-label" x="430" y="124">Same violation</text>
+    <text class="dg-label" x="430" y="140">list</text>
+    <text class="dg-label" x="585" y="124" fill="#D85555">Human</text>
+    <text class="dg-label" x="585" y="140" fill="#D85555">approval</text>
+    <text class="dg-label" x="585" y="200" font-size="10" fill="#F27B2A">Revision key</text>
+    <text class="dg-label" x="306" y="216" font-size="10" fill="#F27B2A">Spec changed</text>
+    <text class="dg-title" x="267" y="165" font-size="10" letter-spacing=".08em" fill="#7C776F">same conditions · same list</text>
+  </g>
+</svg><figcaption class="fcap">The validator returns the same result for the same input; a person approves the revision.</figcaption></figure><p>Validation rules are kept separate so the party being checked cannot modify them. Human approval is tied to the specification version that passed validation. If the specification changes, it must be validated and approved again.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
   <section class="sec pt" id="s4"><div class="body"><h2 id="control.s4.h">The FSM runtime controls state transitions</h2><p>After approval, AI writes code for events, transition conditions, and transition actions. The FSM runtime handles actual state transitions and concurrency, changing state according to declared rules and recording those changes.</p><p>Unauthorized events are rejected. When a problem occurs, Reverse Map traces failed requests and server logs back to the relevant operations, permission policies, and state transitions. Execution records include the specification version and identifying information for the run, preserving the context in which the problem occurred.</p><p>A core AI-SPARK invention has been filed as a Korean patent application.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
   <section class="sec pt" id="s5"><div class="body"><h2 id="control.s5.h">Podway controls AI execution with task-specific procedures</h2><p>Podway manages work procedures alongside an agent’s to-do list. It organizes work into a procedure graph, defining each stage’s conditions for progress and paths for rework in advance. When a problem requires returning to an earlier stage, the procedure governs which existing records remain valid and identifies the work and validation that need to be repeated.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div></section>
 </main>
