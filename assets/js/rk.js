@@ -1,15 +1,17 @@
 /* Root Kernel — 비행 성화 engine (R13)
  *
- * One engine, one machine.  Launcher pads ride the page's H2s — one shot each,
- * one ember in the cup, a sling-loop inviting the pull.  A launched ember flies
- * the visible body, bouncing off the viewport edges and the obstacle plinths
+ * One engine, one machine. Launcher pads ride the page's H2s and reload until the
+ * device cap, accepting random taps and aimed slingshot pulls. A launched ember flies
+ * the visible body, bouncing with bounded variation off the viewport edges,
+ * heading dividers, and the obstacle plinths
  * ([data-ob]), lighting every brazier it passes and painting every text block it
  * touches in its own orb colour — a later ember's colour overwrites an earlier
- * one's.  The page starts bright; reload is the only reset.
+ * one's. The page starts bright; clear removes only flights, while reload resets all.
  *
  * The sim runs on the 12Hz monotonic accumulator in fixed-point cell units. A
- * launch samples a new speed; after that stochastic boundary, fixed velocities
- * make every tick and reflection deterministic. `?rk-tick=0` settles every input
+ * launch samples a new speed; after that stochastic boundary, each ember owns a
+ * seeded PRNG, so every tick and varied reflection is replayable. `?rk-tick=0`
+ * settles every input
  * synchronously; prefers-reduced-motion goes passive — no pads, no paint,
  * braziers lit — the same end state as a no-JS page, with the Podway hero and
  * the contact form still readable.
@@ -153,14 +155,17 @@
   var SPEED_MAX_100 = 1000;
   var MAXPULL = 24;       /* longest sling pull, cells                           */
   var MINPULL = 3;        /* shortest pull that still launches                   */
-  /* constant speed: no friction, perfectly elastic walls and obstacles — a
-     launched ember patrols at its launch speed until reload (R13 §3) */
+  /* Reflections vary without runaway energy: each contact perturbs specular by
+     at most 20 degrees, stays 15 degrees clear of grazing, and changes speed by
+     0.85..1.15 inside the same bounds as launch. */
+  var BOUNCE_TURN = Math.PI / 9;
+  var BOUNCE_GRAZE = Math.PI / 12;
   var EH = 2;             /* ember half-size, cells                              */
   var IGNR = 24;          /* ignition radius around a brazier centre (doubled)   */
   var PANTR = 12;         /* paint radius around a flying ember (doubled)        */
   var PAINT_BUCKET = 24;  /* spatial index cell: twice the paint radius          */
-  var MAXEMB_DESKTOP = 60; /* device-specific caps keep pointer input responsive */
-  var MAXEMB_MOBILE = 30;
+  var MAXEMB_DESKTOP = 64; /* device-specific caps keep pointer input responsive */
+  var MAXEMB_MOBILE = 32;
   var SETTLE = 600;       /* ticks a synchronous settle advances (deterministic) */
   var ORBS = ['c0', 'c1', 'c2', 'c3'];       /* blue, green, red, white          */
   var ORBK = ['b', 'g', 'r', 'w'];
@@ -170,7 +175,7 @@
     version: 'r7', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0)
   };
   var pads = [];          /* [{el, x, y (launch centre, cells), id, ci, shots}]   */
-  var embers = [];        /* [{x, y, vx, vy (FP), ci, st, noob}]                 */
+  var embers = [];        /* [{x, y, vx, vy (FP), ci, st, noob, rng, bounces}]   */
   var brzs = [];          /* [{el, x, y (centre), id, lit, litAt, host}]          */
   var obs = [];           /* [{x, y, w, h}] cells — static objects, then pads   */
   var obsBase = 0;        /* how many of obs are static; the rest are pads      */
@@ -203,6 +208,12 @@
     var r = el.getBoundingClientRect(), s = stage.getBoundingClientRect();
     return { x: (r.left - s.left) / PX, y: (r.top - s.top) / PX,
              w: r.width / PX, h: r.height / PX };
+  }
+  function dividerCells(el) {
+    var r = rectCells(el);
+    var bw = parseFloat(getComputedStyle(el).borderBottomWidth) / PX;
+    if (!(bw > 0)) { return null; }
+    return { x: r.x, y: r.y + r.h - bw, w: r.w, h: bw };
   }
   /* the playfield is the visible slice of <main>: never the header, never the
      footer.  Recomputed on scroll and resize, and read by the sim — the ember
@@ -433,18 +444,15 @@
     };
     var onUp = function (ev) {
       if (!drag || ev.pointerId !== drag.pointerId) { return; }
-      el.removeEventListener('pointermove', onMove);
-      el.removeEventListener('pointerup', onUp);
-      el.removeEventListener('pointercancel', onCancel);
       dragEnd(ev, true);
     };
     var onCancel = function (ev) {
       if (!drag || ev.pointerId !== drag.pointerId) { return; }
-      el.removeEventListener('pointermove', onMove);
-      el.removeEventListener('pointerup', onUp);
-      el.removeEventListener('pointercancel', onCancel);
       dragEnd(ev, false);
     };
+    drag.onMove = onMove;
+    drag.onUp = onUp;
+    drag.onCancel = onCancel;
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerup', onUp);
     el.addEventListener('pointercancel', onCancel);
@@ -487,9 +495,7 @@
   function dragEnd(e, fire) {
     if (!drag) { return; }
     var v = dragVector(e), pad = drag.pad;
-    if (drag.aim) { drag.aim.parentNode.removeChild(drag.aim); }
-    pad.el.classList.remove('aiming');
-    drag = null;
+    cancelDrag();
     if (fire) {
       var resolved = v.len >= MINPULL ? v : tapVector();
       var payload = { pad: pads.indexOf(pad),
@@ -497,6 +503,17 @@
       if (resolved.speed100 !== undefined) { payload.speed100 = resolved.speed100; }
       RK.input('launch', payload);
     }
+  }
+  function cancelDrag() {
+    if (!drag) { return; }
+    var d = drag, el = d.pad.el;
+    el.removeEventListener('pointermove', d.onMove);
+    el.removeEventListener('pointerup', d.onUp);
+    el.removeEventListener('pointercancel', d.onCancel);
+    try { el.releasePointerCapture(d.pointerId); } catch (err) { /* synthetic */ }
+    if (d.aim && d.aim.parentNode) { d.aim.parentNode.removeChild(d.aim); }
+    el.classList.remove('aiming');
+    drag = null;
   }
   function tapVector() {
     /* Resolve tap direction and speed at the real pointer boundary. The resulting
@@ -610,24 +627,119 @@
     /* noob: the ember spawns inside its own pad, so that one pad is transparent
        to it until it has fully escaped — after which the pad is a wall like any
        other (R13 §3: pads are obstacles too) */
-    embers.push({ x: pad.x * FP, y: pad.y * FP,
+    /* Collision randomness is derived only from resolved launch data and shot
+       order. It never consults Math.random during simulation, so captured tap
+       payloads and ordinary resolved launches follow the same replay. */
+    var seed = 2166136261;
+    [i, dx, dy, speed100, pad.shots].forEach(function (v) {
+      seed ^= v | 0;
+      seed = Math.imul(seed, 16777619);
+    });
+    seed >>>= 0;
+    var ember = { x: pad.x * FP, y: pad.y * FP,
                   vx: Math.round(-dx * scale), vy: Math.round(-dy * scale),
-                  ci: pad.ci, st: 'fly', noob: obsBase + i });
+                  ci: pad.ci, st: 'fly', noob: obsBase + i,
+                  rng: seed || 0x6d2b79f5, bounces: 0 };
+    clampVelocity(ember);
+    embers.push(ember);
     pushEv('launch:' + pad.id);
     statusForce = true;
     return true;
   }
-  function bounce(e, lo, hi, axis) {
-    /* reflect only when moving INTO the wall: a launch clamped back inside the
-       playfield (a pad below the fold) keeps its velocity, not a phantom bounce.
-       Perfectly elastic — the patrol never slows. */
-    var p = axis === 'vx' ? 'x' : 'y';
-    if (e[p] < lo) {
-      e[p] = lo;
-      if (e[axis] < 0) { e[axis] = -e[axis]; }
-    } else if (e[p] > hi) {
-      e[p] = hi;
-      if (e[axis] > 0) { e[axis] = -e[axis]; }
+  function emberRandom(e) {
+    var x = e.rng >>> 0;
+    x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+    e.rng = x >>> 0;
+    return e.rng / 4294967296;
+  }
+  function normAngle(a) {
+    while (a <= -Math.PI) { a += Math.PI * 2; }
+    while (a > Math.PI) { a -= Math.PI * 2; }
+    return a;
+  }
+  function clampVelocity(e) {
+    var min = SPEED_MIN_100 * FP / 100, max = SPEED_MAX_100 * FP / 100;
+    for (var i = 0; i < 3; i++) {
+      var actual = Math.sqrt(e.vx * e.vx + e.vy * e.vy);
+      if (actual >= min && actual <= max) { return; }
+      var target = actual < min ? min + 1 : max - 1;
+      e.vx = Math.round(e.vx * target / actual);
+      e.vy = Math.round(e.vy * target / actual);
+    }
+  }
+  function reflect(e, nx, ny) {
+    var dot = e.vx * nx + e.vy * ny;
+    if (dot >= 0) { return false; }
+    var rx = e.vx - 2 * dot * nx, ry = e.vy - 2 * dot * ny;
+    var normalAngle = Math.atan2(ny, nx);
+    var angle = Math.atan2(ry, rx) + (emberRandom(e) * 2 - 1) * BOUNCE_TURN;
+    var fromNormal = normAngle(angle - normalAngle);
+    /* A corner must depart inward from both faces. Its diagonal cone is therefore
+       limited to ±30°, leaving the same 15° minimum angle from either surface. */
+    var maxFromNormal = nx && ny ? Math.PI / 6 : Math.PI / 2 - BOUNCE_GRAZE;
+    if (fromNormal > maxFromNormal) { fromNormal = maxFromNormal; }
+    if (fromNormal < -maxFromNormal) { fromNormal = -maxFromNormal; }
+    angle = normalAngle + fromNormal;
+    var oldSpeed = Math.sqrt(e.vx * e.vx + e.vy * e.vy);
+    var speed = oldSpeed * (0.85 + emberRandom(e) * 0.30);
+    speed = Math.max(SPEED_MIN_100 * FP / 100,
+                     Math.min(SPEED_MAX_100 * FP / 100, speed));
+    e.vx = Math.round(Math.cos(angle) * speed);
+    e.vy = Math.round(Math.sin(angle) * speed);
+    clampVelocity(e);
+    /* Quantization must never turn a valid departure back into the surface. */
+    if (e.vx * nx + e.vy * ny <= 0) {
+      if (nx) { e.vx = nx > 0 ? Math.max(1, e.vx) : Math.min(-1, e.vx); }
+      if (ny) { e.vy = ny > 0 ? Math.max(1, e.vy) : Math.min(-1, e.vy); }
+    }
+    e.bounces++;
+    return true;
+  }
+  function collideWalls(e) {
+    var loX = (bounds.l + EH) * FP, hiX = (bounds.r - EH) * FP;
+    var loY = (bounds.t + EH) * FP, hiY = (bounds.b - EH) * FP;
+    var nx = 0, ny = 0;
+    if (e.x < loX) { e.x = loX; nx = 1; }
+    else if (e.x > hiX) { e.x = hiX; nx = -1; }
+    if (e.y < loY) { e.y = loY; ny = 1; }
+    else if (e.y > hiY) { e.y = hiY; ny = -1; }
+    if (nx && ny) {
+      var diagonal = Math.SQRT1_2;
+      reflect(e, nx * diagonal, ny * diagonal);
+    } else if (nx || ny) {
+      reflect(e, nx, ny);
+    }
+  }
+  function collideObstacles(e) {
+    for (var j = 0; j < obs.length; j++) {
+      var o = obs[j];
+      var ex = e.x / FP, ey = e.y / FP;
+      var inX = ex + EH > o.x && ex - EH < o.x + o.w;
+      var inY = ey + EH > o.y && ey - EH < o.y + o.h;
+      if (j === e.noob) {
+        if (inX && inY) { continue; }
+        e.noob = -1;
+      }
+      if (!inX || !inY) { continue; }
+      var pl = (ex + EH) - o.x, pr = (o.x + o.w) - (ex - EH);
+      var pt = (ey + EH) - o.y, pb = (o.y + o.h) - (ey - EH);
+      var mx = Math.min(pl, pr), my = Math.min(pt, pb);
+      /* A near-equal entry at two faces is a corner contact. Resolve both axes
+         together; reflect() constrains diagonal departures away from both surfaces,
+         avoiding the reflect-X-then-reflect-Y feedback loop. */
+      if (Math.abs(mx - my) <= 0.25) {
+        var nx = pl < pr ? -1 : 1, ny = pt < pb ? -1 : 1;
+        e.x = (nx < 0 ? o.x - EH : o.x + o.w + EH) * FP;
+        e.y = (ny < 0 ? o.y - EH : o.y + o.h + EH) * FP;
+        reflect(e, nx * Math.SQRT1_2, ny * Math.SQRT1_2);
+      } else if (mx < my) {
+        if (pl < pr) { e.x = (o.x - EH) * FP; reflect(e, -1, 0); }
+        else { e.x = (o.x + o.w + EH) * FP; reflect(e, 1, 0); }
+      } else if (pt < pb) {
+        e.y = (o.y - EH) * FP; reflect(e, 0, -1);
+      } else {
+        e.y = (o.y + o.h + EH) * FP; reflect(e, 0, 1);
+      }
     }
   }
   function step() {
@@ -635,31 +747,24 @@
     var i, j, e;
     for (i = 0; i < embers.length; i++) {
       e = embers[i];
-      e.x += e.vx;
-      e.y += e.vy;
-      /* playfield walls */
-      bounce(e, (bounds.l + EH) * FP, (bounds.r - EH) * FP, 'vx');
-      bounce(e, (bounds.t + EH) * FP, (bounds.b - EH) * FP, 'vy');
-      /* obstacle plinths (and launcher pads): push out along the least-penetrated
-         axis and reflect.  The ember's own launch pad stays transparent until the
-         ember has fully escaped it. */
-      for (j = 0; j < obs.length; j++) {
-        var o = obs[j];
-        var ex = e.x / FP, ey = e.y / FP;
-        var inX = ex + EH > o.x && ex - EH < o.x + o.w;
-        var inY = ey + EH > o.y && ey - EH < o.y + o.h;
-        if (j === e.noob) {
-          if (inX && inY) { continue; }
-          e.noob = -1;                     /* escaped its pad for good */
+      /* Ten fixed slices keep every move at or below one cell even when a contact
+         raises speed to the 10-cell cap. That cannot tunnel across a one-pixel H2
+         divider once expanded by the ember radius. The remainder distributor
+         preserves exact fixed-point displacement when no contact occurs. */
+      var parts = Math.ceil(SPEED_MAX_100 / 100);
+      var remX = e.vx, remY = e.vy;
+      for (var part = parts; part > 0; part--) {
+        var mx = Math.round(remX / part), my = Math.round(remY / part);
+        remX -= mx; remY -= my;
+        e.x += mx; e.y += my;
+        var before = e.bounces;
+        collideWalls(e);
+        collideObstacles(e);
+        collideWalls(e); /* an obstacle push-out beside an edge stays in bounds */
+        if (e.bounces !== before) {
+          remX = Math.round(e.vx * (part - 1) / parts);
+          remY = Math.round(e.vy * (part - 1) / parts);
         }
-        if (!inX || !inY) { continue; }
-        var pl = (ex + EH) - o.x, pr = (o.x + o.w) - (ex - EH);
-        var pt = (ey + EH) - o.y, pb = (o.y + o.h) - (ey - EH);
-        var m = Math.min(pl, pr, pt, pb);
-        if (m === pl) { e.x = (o.x - EH) * FP; e.vx = -e.vx; }
-        else if (m === pr) { e.x = (o.x + o.w + EH) * FP; e.vx = -e.vx; }
-        else if (m === pt) { e.y = (o.y - EH) * FP; e.vy = -e.vy; }
-        else { e.y = (o.y + o.h + EH) * FP; e.vy = -e.vy; }
       }
       /* braziers in reach light up and stay lit */
       var ex2 = e.x / FP, ey2 = e.y / FP;
@@ -834,6 +939,13 @@
     inner.className = 'fsinner';
     inner.appendChild(statusRow(T.hud.embers, true, false));
     inner.appendChild(statusRow(T.hud.visibleText, false, true));
+    var flightClearButton = document.createElement('button');
+    flightClearButton.type = 'button';
+    flightClearButton.className = 'fsclear';
+    flightClearButton.textContent = T.hud.clear;
+    flightClearButton.setAttribute('aria-label', T.hud.clearAria);
+    flightClearButton.addEventListener('click', function () { RK.input('clear'); });
+    inner.appendChild(flightClearButton);
     flightStatus.appendChild(inner);
     document.body.appendChild(flightStatus);
     document.body.classList.add('has-flight-status');
@@ -878,7 +990,7 @@
     for (i = 0; i < pads.length; i++) {
       var p = pads[i];
       if (padsInactive()) {
-        /* at the cap every pad goes inactive: dim, disabled, no sling tug */
+        /* At the cap input stops and only the inset blacks out; the shell stays. */
         if (!p.el.disabled) { p.el.disabled = true; }
         setClass(p.el, 'pad inact ' + ORBS[p.ci]);
         continue;
@@ -921,6 +1033,14 @@
   }
 
   /* --- hook contract ---------------------------------------------------------- */
+  function clearEmbers() {
+    cancelDrag();
+    embers = [];
+    flightPrev.length = 0;
+    flightClearAll = true;
+    statusForce = true;
+    render();
+  }
   RK.input = function (name, payload) {
     if (name === 'launch' && payload && !PASSIVE) {
       if (launch(payload.pad | 0, payload.dx | 0, payload.dy | 0,
@@ -929,6 +1049,7 @@
       }
       return;
     }
+    if (name === 'clear' && !PASSIVE) { clearEmbers(); return; }
     if (name === 'key') { key(payload); return; }
     if (name === 'hero') { heroStart(); return; }
     if (name === 'press') {
@@ -947,6 +1068,7 @@
   RK.reset = function () {
     RK.tick = 0;
     window.scrollTo(0, 0);
+    cancelDrag();
     embers = [];
     flightPrev.length = 0;
     flightClearAll = true;
@@ -988,7 +1110,8 @@
               padState: padsInactive() ? 'inactive' : 'active',
               embers: embers.map(function (e) {
                 return { x: e.x, y: e.y, vx: e.vx, vy: e.vy,
-                         ci: e.ci, st: e.st, noob: e.noob };
+                         ci: e.ci, st: e.st, noob: e.noob,
+                         rng: e.rng, bounces: e.bounces };
               }),
               paint: paints.slice(), events: events.slice() };
     if (form) { o.sent = sent; }
@@ -1134,13 +1257,16 @@
     MOB = window.innerWidth <= 767;
     measureBrzs();
     layoutPads();
-    /* obstacles: explicit [data-ob] plinths, explanatory figures and the Contact
-       form's five visible text-entry boxes and submit button, then every launcher
-       pad. Selecting the existing elements here gives them collision without
-       changing their styling. */
+    /* Obstacles: explicit plinths, figures, form controls, each H2's thin underline,
+       then every launcher pad. Divider geometry is measured from its real border,
+       so its visible line and physical wall cannot drift apart. */
     obs = [].slice.call(stage.querySelectorAll(
       '[data-ob],.fig,.field input,.field textarea,.form .btn'
     )).map(rectCells);
+    [].slice.call(stage.querySelectorAll('.head h2,.dt .body h2')).forEach(function (h2) {
+      var divider = dividerCells(h2);
+      if (divider) { obs.push(divider); }
+    });
     obsBase = obs.length;
     pads.forEach(function (p) {
       obs.push({ x: p.x - 9, y: p.y - 9, w: 18, h: 18 });

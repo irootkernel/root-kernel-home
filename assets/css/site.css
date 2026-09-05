@@ -145,9 +145,11 @@ img,.px-img{image-rendering:pixelated}
 .pad:hover .pface,.pad:focus-visible .pface{transform:translateY(-1px);
   background:color-mix(in srgb,var(--pad-orb) 30%,#292725);border-color:var(--iron2)}
 .pad:focus-visible{outline-color:var(--bone)}
-/* inactive (R13 §2): at the 60 desktop / 30 mobile cap every pad dims */
-.pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0);opacity:.5}
-.pad.inact .pface{background:var(--ash0);border-color:var(--ash2);transform:none}
+/* At the cap the launcher stays in place at full visibility; only its inset goes
+   black. Specificity keeps hover/focus/active feedback from reviving a disabled pad. */
+.pad.inact{cursor:default;opacity:1}
+.pad.inact .pface,.pad.inact:hover .pface,.pad.inact:focus-visible .pface,
+.pad.inact:active .pface{background:var(--ash0);border-color:var(--ash2);transform:none}
 .pad.aiming{border-color:var(--iron2)}
 .pad.aiming .pface,.pad:active .pface{transform:translateY(1px) scale(.96);
   background:color-mix(in srgb,var(--pad-orb) 32%,var(--ash2));border-color:var(--iron2)}
@@ -303,12 +305,20 @@ body.has-flight-status{padding-bottom:calc(14 * var(--px))}
 .fsitem output{display:inline-block;color:currentColor}
 .fsitem output[data-fs="ember"]{width:3ch}
 .fsitem output[data-fs="text"]{width:7ch}
+.fsclear{flex:none;padding:var(--px) calc(2 * var(--px));border:var(--px) solid var(--iron2);
+  background:var(--ash0);color:var(--bone);font:600 11px/calc(6 * var(--px)) var(--mono);
+  pointer-events:auto;cursor:pointer}
+.fsclear:hover{border-color:var(--bone)}
+.fsclear:focus-visible{outline:var(--px) solid var(--bone);outline-offset:var(--px)}
 @media (max-width:1279px){
   body.has-flight-status{padding-bottom:calc(28 * var(--px))}
   .flight-status{height:calc(28 * var(--px))}
-  .fsinner{display:grid;grid-template-rows:1fr 1fr;gap:0;font-size:12px}
-  .fsrow{height:calc(14 * var(--px));gap:calc(3 * var(--px));overflow:hidden}
-  .fsrow + .fsrow{padding-left:0;border-left:0;border-top:var(--px) solid var(--ash3)}
+  .fsinner{display:grid;grid-template-columns:minmax(0,1fr) auto;
+    grid-template-rows:1fr 1fr;gap:0;font-size:12px}
+  .fsrow{grid-column:1;height:calc(14 * var(--px));gap:calc(3 * var(--px));overflow:hidden}
+  .fsrow + .fsrow{grid-column:1 / -1;padding-left:0;border-left:0;
+    border-top:var(--px) solid var(--ash3)}
+  .fsclear{grid-column:2;grid-row:1;margin:0 var(--px)}
 }
 @media (max-width:767px){
   .fsinner{font-size:10px}

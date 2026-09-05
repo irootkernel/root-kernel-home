@@ -38,8 +38,10 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    flight status exposes only aggregate ember and text-colour counts.
 7. **Flight status.** The viewport-fixed bottom instrument reports total and
    per-colour ember counts plus visible text colour percentages. Its top edge is the
-   playfield's lower wall, so embers reflect from it. Launch totals update immediately;
-   text percentages sample at most four times per second in fixed-width fields.
+   playfield's lower wall, so embers reflect from it. Its `clear` button removes only
+   flying embers and re-enables launchers, preserving paint, lit receivers, hero state,
+   scroll, and shot order. Launch totals update immediately; text percentages sample
+   at most four times per second in fixed-width fields.
 8. **Page variation.** One machine everywhere (R13 `flight`): launcher pads on the
    page's H2s, braziers in the sections, obstacle plinths, and text paint — a
    passing ember colours the words in its own orb hue, last one wins. Two extras
@@ -160,27 +162,30 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
 - **Launcher pads.** One pad per `<h2>` of `<main>` (plus one on any brazier section
   without an H2 — the contact form), injected by the engine so a no-JS page shows no
   dead control. Every pad sits in the left flight gutter. Initial hero state is
-  rendered before pad and collision geometry are measured. A pad is a Y-sling: pull
-  with pointer or touch and release to launch, or focus it and press Enter/Space for
-  the canonical shot. Pads reload
-  instantly and fire again up to **60 embers on desktop input devices, or 30 on
-  coarse-pointer mobile devices**. The cap is independent of the responsive layout,
+  rendered before pad and collision geometry are measured. A pointer/touch tap launches
+  at a random resolved angle and speed; slingshot input releases opposite the drag,
+  while Enter/Space fires the canonical shot. Pads reload instantly
+  and fire again up to **64 embers on desktop input devices, or 32 on coarse-pointer,
+  no-hover mobile and tablet devices**. The cap is independent of responsive layout,
   so narrowing a desktop window cannot lock an active flight. At the active cap every
-  pad goes inactive (dim, disabled, no sling tug). Colours cycle the four orbs in
+  pad stays visible with its neutral shell unchanged while only the inset turns black;
+  the control is disabled and has no sling tug. Colours cycle the four orbs in
   document order, and an active pad runs a three-frame sling tug to invite the pull.
 - **Flight.** The sling angle sets direction; pull length only has to clear the
   three-cell launch threshold. Every accepted launch independently samples a uniform
-  speed in hundredth-cell steps from 4.01 through 10.00 cells per tick, then keeps it
-  forever: no friction, perfectly elastic walls and obstacles. A launched ember
-  patrols the page until reload. The
+  speed in hundredth-cell steps from 4.01 through 10.00 cells per tick. Each collision
+  perturbs the specular angle by at most 20°, keeps the
+  departing path at least 15° clear of surface grazing, and multiplies speed by a
+  uniform 0.85–1.15 before clamping it to the launch range. A launched ember
+  patrols the page until `clear` removes the flight or the page reloads. The
   playfield is the visible slice of `<main>` — never the header, never the footer —
   recomputed on scroll and resize. Obstacles are the `[data-ob]` plinths (the pipeline
   board, repository lists, data tables, the aperture scene), every explanatory `.fig`
   frame, the Contact form's four single-line fields, message textarea, and mail-draft
-  submit button, **every launcher pad**, and every H2's page-local A1–An number box.
+  submit button, **every launcher pad**, and every H2's visible underline divider.
   Text and images sit on the plinths; embers bounce off each measured boundary. An
   ember's own launch pad is transparent to it only until it has fully escaped the
-  cup. One viewport-windowed canvas draws
+  launch pad. One viewport-windowed canvas draws
   every ember from a cache of four colours by four sparkle frames; physics remains
   per ember. Only the previous sprite rectangles are cleared per tick. Resizing the
   Contact message box remeasures the form and its collision geometry.
@@ -213,8 +218,8 @@ Still true from the wire engine:
   ticks; a stall is caught up at most 12 ticks at a time, so a slow frame cannot
   desynchronise the machine.
 - **State transition.** Launch is the only stochastic boundary. Once its sampled
-  velocity is stored on the ember, `step()` and every collision are deterministic;
-  reflection changes signs, never speed. Tests stub the random source when exact
+  velocity and collision PRNG state are stored on the ember, `step()` and every
+  collision are deterministic. Tests stub only launch randomness when exact
   snapshot replay is required.
 - **Reduced motion.** `prefers-reduced-motion: reduce` goes passive: no pads, no
   paint, braziers lit — the no-JS paint, with the pipeline board and the contact
