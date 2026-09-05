@@ -641,6 +641,8 @@ html.js .brz:not(.lit) .charge{display:none}
   border-bottom:var(--px) solid var(--ash2)}
 .tbl th:first-child,.tbl td:first-child{width:calc(44 * var(--px));position:relative}
 .tbl td:first-child{color:var(--dim)}
+/* client-project period: start and end on their own lines (founder 2026-09-06) */
+.tbl td.period{white-space:nowrap}
 /* appendix glossary (vision.077): its term column holds one 18-character identifier,
    which a 44-cell fixed column can only fit by breaking mid-token — the one wrap this
    site never makes.  Auto layout plus a normal wrap rule lets the term column claim
@@ -836,6 +838,8 @@ html.js .brz:not(.lit) .charge{display:none}
   .sec > .brz,.anchor > .brz{position:relative;left:auto;right:auto;bottom:auto;
     grid-column:1;grid-row:3;justify-self:end;margin-top:calc(4 * var(--px))}
   .tbl th:first-child,.tbl td:first-child{width:calc(34 * var(--px))}
+  /* the client-project period keeps "2026.08–" whole: 40 cells (founder 2026-09-06) */
+  .tbl.client th:first-child,.tbl.client td:first-child{width:calc(40 * var(--px))}
   .field textarea{height:calc(80 * var(--px))}
 }
 @media (max-width:359px){
