@@ -24,7 +24,7 @@
   --mono:ui-monospace,SFMono-Regular,Menlo,"Noto Sans Mono CJK KR",monospace;
 }
 @media (max-width:1279px){ :root{ --px:2px; --w:calc(360 * var(--px)); } }
-@media (max-width:767px){ :root{ --w:calc(180 * var(--px)); } }
+@media (max-width:767px){ :root{ --w:calc(100% - 32px); } }
 
 *{box-sizing:border-box}
 html{background:var(--ash0);scroll-behavior:auto}
@@ -103,7 +103,7 @@ img,.px-img{image-rendering:pixelated}
 .navtoggle{display:none}
 .lang{grid-area:lang;flex:0 0 auto;padding:calc(1 * var(--px)) 0;
   font:400 16px/calc(10 * var(--px)) var(--body);color:var(--dim)}
-.lang a{display:inline-flex;align-items:center;justify-content:center;
+.lang a{display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:40px;
   color:var(--dim);text-decoration:none;
   font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
   font-size:22px;line-height:1}
@@ -325,16 +325,15 @@ body.has-flight-status{padding-bottom:calc(14 * var(--px))}
    R13: the grid keeps its five tracks — the first is now the empty flight gutter
    the left launcher pads inherit, the text measure is unchanged. */
 .anchor{position:relative;z-index:2;display:grid;align-items:start;
-  grid-template-columns:calc(96 * var(--px)) calc(8 * var(--px)) calc(228 * var(--px))
-                        calc(8 * var(--px)) calc(60 * var(--px))}
+  grid-template-columns:minmax(0,1fr) calc(228 * var(--px)) minmax(0,1fr)}
 .hero{position:relative;z-index:2;display:grid;
   grid-template-columns:minmax(0,3fr) minmax(0,5fr);
   grid-template-rows:auto 1fr;gap:calc(8 * var(--px)) 0;align-items:stretch}
 .hero-left{grid-column:1;grid-row:1;padding-right:calc(8 * var(--px));min-width:0}
 .hero-left .lead{max-width:none}
 .anchor{margin-top:calc(40 * var(--px))}
-.anchor > .head{grid-column:3;grid-row:1}
-.anchor > .body{grid-column:3;grid-row:2}
+.anchor > .head{grid-column:2;grid-row:1}
+.anchor > .body{grid-column:2;grid-row:2}
 
 .brz{position:relative;width:calc(12 * var(--px));height:calc(14 * var(--px))}
 .brz svg{width:100%;height:100%}
@@ -432,8 +431,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 }
 /* ---------------------------------------------------------------- 768–1279 */
 @media (min-width:768px) and (max-width:1279px){
-  .anchor{grid-template-columns:calc(64 * var(--px)) calc(8 * var(--px))
-                calc(220 * var(--px)) calc(8 * var(--px)) calc(60 * var(--px))}
+  .anchor{grid-template-columns:minmax(0,1fr) minmax(0,calc(270 * var(--px))) minmax(0,1fr)}
   .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
   .hero-left{padding-right:calc(6 * var(--px))}
   .h1{font:800 36px/calc(22 * var(--px)) var(--body)}
@@ -449,9 +447,13 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 
 /* ---------------------------------------------------------------- 390 cut */
 @media (max-width:767px){
-  .top{flex-wrap:wrap;column-gap:calc(4 * var(--px));row-gap:0}
-  .brand{order:1}
-  .lang{order:2;margin-left:auto}
+  .top{grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"brand lang" "tag tag" "navtoggle navtoggle" "nav nav";
+    column-gap:calc(4 * var(--px));row-gap:calc(2 * var(--px))}
+  .brand{grid-area:brand;min-width:0}
+  .brand svg{width:calc(16 * var(--px));height:calc(6 * var(--px))}
+  .tag{grid-area:tag;justify-self:start;transform:none}
+  .lang{grid-area:lang;justify-self:end}
   /* r10 §4.8: seven items, two of them ten characters long — the row needs the two
      cells the gap gives back */
   .nav{order:3;margin-left:0;width:100%;gap:calc(4 * var(--px));
@@ -459,8 +461,8 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   /* with JS on, the row collapses behind a toggle named after the current page
      (r10 §4.8 still governs the no-JS fallback row) */
   html.js .navtoggle{display:flex;align-items:center;gap:calc(2 * var(--px));
-    grid-row:1;grid-column:2;justify-self:end;align-self:center;
-    margin-left:auto;padding:calc(1 * var(--px)) calc(2 * var(--px));
+    grid-area:navtoggle;justify-self:end;align-self:center;
+    min-height:40px;margin-left:auto;padding:calc(1 * var(--px)) calc(3 * var(--px));
     background:none;border:var(--px) solid var(--ash2);border-radius:0;
     color:var(--bone);font:400 13px/calc(8 * var(--px)) var(--body);cursor:pointer}
   html.js .navtoggle .nt-ind{color:var(--teal)}
@@ -469,16 +471,17 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   html.js .top .nav{display:none}
   html.js .top.open .nav{display:flex;flex-direction:column;gap:0}
   html.js .top.open .nav a{padding:calc(3 * var(--px)) 0;
-    border-top:var(--px) solid var(--ash2)}
+    min-height:40px;display:flex;align-items:center;border-top:var(--px) solid var(--ash2)}
   /* same 20-cell entry gap the detail pages get from .sec/.phead margin-top (:830),
      so the header-to-body rhythm is identical on every page of this cut */
   .hero{padding:calc(20 * var(--px)) 0 0}
-  .anchor{grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px))
-                calc(160 * var(--px))}
+  .anchor{grid-template-columns:minmax(0,1fr)}
+  .anchor > .head,.anchor > .body{grid-column:1}
+  .anchor > .head,.anchor > .body,.sec > .body{
+    padding-left:calc(22 * var(--px))}
   .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto;
     gap:calc(6 * var(--px)) 0}
-  .hero-left{grid-column:1;grid-row:1;max-width:calc(160 * var(--px));
-    margin-left:calc(20 * var(--px));padding-right:0}
+  .hero-left{grid-column:1;grid-row:1;max-width:none;margin-left:0;padding-right:0}
   .h1{font:800 30px/calc(20 * var(--px)) var(--body)}
   .h1 .l{display:block}
   .head h2{font:800 22px/calc(15 * var(--px)) var(--body)}
@@ -506,12 +509,11 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .dt{display:block}
 .sec,.phead{position:relative;z-index:2;display:grid;align-items:start;
   margin-top:calc(24 * var(--px));
-  grid-template-columns:calc(96 * var(--px)) calc(8 * var(--px)) calc(228 * var(--px))
-                        calc(8 * var(--px)) calc(60 * var(--px))}
+  grid-template-columns:minmax(0,1fr) calc(228 * var(--px)) minmax(0,1fr)}
 .phead{margin-top:calc(12 * var(--px))}
 /* R13: the rail track is now the empty flight gutter inherited by the left
    launcher pads. */
-.sec > .body,.phead > .body{grid-column:3;grid-row:1;min-width:0}
+.sec > .body,.phead > .body{grid-column:2;grid-row:1;min-width:0}
 /* headings: page label (H1) → manuscript L1 (h2) → L2 (h3) → L3 (h4) */
 .dt .h1{margin:0;max-width:calc(228 * var(--px))}
 .dt .lead{margin:calc(6 * var(--px)) 0 0;max-width:none}
@@ -647,6 +649,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 @media (max-width:767px){
   .fig{padding:calc(4 * var(--px)) calc(3 * var(--px))}
   .leg{grid-template-columns:minmax(0,1fr)}
+  .px-img.wide{--s:1}
 }
 
 /* raster placements (§13) */
@@ -656,6 +659,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 /* r8c m1: a raster wider than the frame's content box on the 768 cut (420 CSS px)
    pierced the border at scale 3, so it drops its step of scale from 1279 down. */
 @media (max-width:1279px){ .px-img.xwide{--s:2} }
+@media (max-width:359px){ .px-img.xwide{--s:1} }
 .scene{margin:calc(6 * var(--px)) 0 0;padding:0}
 /* aperture scene: rect data at one art px per cell, so it scales with the grid and
    keeps its contrast in place of the raster that read as a bare rule (§4) */
@@ -741,9 +745,8 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 
 /* ---------------------------------------------------------------- 768–1279 */
 @media (min-width:768px) and (max-width:1279px){
-  .sec,.phead{grid-template-columns:calc(64 * var(--px)) calc(8 * var(--px))
-              calc(220 * var(--px)) calc(8 * var(--px)) calc(60 * var(--px))}
-  .dt .h1{max-width:calc(220 * var(--px))}
+  .sec,.phead{grid-template-columns:minmax(0,1fr) minmax(0,calc(270 * var(--px))) minmax(0,1fr)}
+  .dt .h1{max-width:calc(270 * var(--px))}
   .dt .lead.sub2{font-size:17px;line-height:calc(13 * var(--px))}
   .dt .body h2{font:800 24px/calc(15 * var(--px)) var(--body)}
   .dt .body h3{font:700 20px/calc(14 * var(--px)) var(--body)}
@@ -753,10 +756,10 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 /* ---------------------------------------------------------------- 390 cut */
 @media (max-width:767px){
   .sec,.phead{margin-top:calc(20 * var(--px));
-    grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px)) calc(160 * var(--px))}
-  .sec > .body{grid-column:3;grid-row:2}
+    grid-template-columns:minmax(0,1fr)}
+  .sec > .body{grid-column:1;grid-row:2}
   /* The page head remains in the body column while detail sections stack. */
-  .phead > .body{grid-column:3;grid-row:1}
+  .phead > .body{grid-column:1;grid-row:1}
   .dt .h1{max-width:none}
   .dt .lead.sub2{font-size:16px;line-height:calc(13 * var(--px))}
   .dt .body h2{font:800 22px/calc(15 * var(--px)) var(--body)}
@@ -767,9 +770,13 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
      it in normal grid flow protects paragraphs, repository links, and form status
      text without narrowing the mobile reading measure. */
   .sec > .brz,.anchor > .brz{position:relative;right:auto;bottom:auto;
-    grid-column:3;grid-row:3;justify-self:end;margin-top:calc(4 * var(--px))}
+    grid-column:1;grid-row:3;justify-self:end;margin-top:calc(4 * var(--px))}
   .tbl th:first-child,.tbl td:first-child{width:calc(34 * var(--px))}
   .field textarea{height:calc(80 * var(--px))}
+}
+@media (max-width:359px){
+  .fig > .px-img.wide{--s:1}
+  .fig > .px-img:not(.wide){--s:2}
 }
 
 /* label row: the required marker and the character counter sit beside the label but
