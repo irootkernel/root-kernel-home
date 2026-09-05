@@ -122,49 +122,38 @@ img,.px-img{image-rendering:pixelated}
 #main .pc.c1{color:var(--orb-g)}
 #main .pc.c2{color:var(--orb-r)}
 #main .pc.c3{color:var(--bone)}
-/* The flying embers share one viewport-windowed canvas. It preserves the 5-cell
-   pixel sprite while keeping the DOM and style tree constant at either device cap. */
-.flight-canvas{position:absolute;z-index:4;left:0;pointer-events:none;
-  image-rendering:pixelated}
+/* The flying orbs share one DPI-aware viewport-windowed canvas. Circles are drawn
+   directly by the renderer, so this surface deliberately keeps normal antialiasing. */
+.flight-canvas{position:absolute;z-index:4;left:0;pointer-events:none}
 
-/* launcher pad (R13 §2): one per H2, injected by the engine.  Every pad inherits
-   the left flight gutter.  The cradle is a Y-sling — two angled arms, a stem, a
-   band — with the loaded orb in the cup. */
+/* Neutral launcher: one rounded control surface per H2. Functional orb colour remains
+   in its accessible name and launched payload, never in the launcher chrome itself. */
 .pad{position:absolute;z-index:5;margin:0;padding:0;cursor:grab;
   width:calc(18 * var(--px));height:calc(18 * var(--px));
-  background:var(--ash1);border:var(--px) solid var(--ash3);border-radius:0;
+  background:#171615;border:1px solid var(--iron);border-radius:calc(3 * var(--px));
   font:inherit;touch-action:none}
 .pad:active{cursor:grabbing}
-.pad .pcr{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-.pad .pcr::before,.pad .pcr::after{content:"";position:absolute;
-  bottom:calc(4 * var(--px));width:calc(2 * var(--px));height:calc(9 * var(--px));
-  background:var(--iron2)}
-.pad .pcr::before{left:calc(6 * var(--px));transform:rotate(-24deg);
-  transform-origin:bottom center}
-.pad .pcr::after{right:calc(6 * var(--px));transform:rotate(24deg);
-  transform-origin:bottom center}
-.pad .pst{position:absolute;left:calc(8 * var(--px));bottom:calc(2 * var(--px));
-  width:calc(2 * var(--px));height:calc(5 * var(--px));background:var(--iron2)}
-.pad .pbd{position:absolute;left:calc(4 * var(--px));top:calc(4 * var(--px));
-  width:calc(10 * var(--px));height:var(--px);background:var(--ember3)}
-.pad .pld{position:absolute;left:calc(7 * var(--px));top:calc(2 * var(--px));
-  width:calc(4 * var(--px));height:calc(4 * var(--px));background:var(--oc);
-  will-change:transform}
-.pad.c0,.aim.c0{--oc:var(--orb-b)} .pad.c1,.aim.c1{--oc:var(--orb-g)}
-.pad.c2,.aim.c2{--oc:var(--orb-r)} .pad.c3,.aim.c3{--oc:var(--bone)}
-/* sling attract: the band sags and the cup tugs down, three class frames.
-   The engine cycles them on ticks; reduced motion holds s0. */
-.pad.s1 .pld{transform:translateY(var(--px))}
-.pad.s2 .pld{transform:translateY(calc(2 * var(--px)))}
-.pad.s1 .pbd{top:calc(5 * var(--px))}
-.pad.s2 .pbd{top:calc(6 * var(--px))}
+.pad .pface{position:absolute;inset:calc(2 * var(--px));pointer-events:none;
+  background:#242220;border:1px solid var(--ash3);
+  border-radius:calc(2 * var(--px));transition:transform 80ms ease,border-color 80ms ease}
+.pad.s1 .pface{border-color:var(--iron)}
+.pad.s2 .pface{transform:scale(.96);border-color:var(--iron2)}
+.pad:hover .pface,.pad:focus-visible .pface{transform:translateY(-1px);
+  background:#292725;border-color:var(--iron2)}
+.pad:focus-visible{outline-color:var(--bone)}
 /* inactive (R13 §2): at the 60 desktop / 30 mobile cap every pad dims */
-.pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0)}
-.pad.inact .pld{background:var(--ash3)}
-.pad.inact .pbd{background:var(--ash3)}
-/* drag aim: a one-cell rule from the cup towards the pull, in the pad's hue */
-.aim{position:absolute;z-index:5;height:var(--px);pointer-events:none;
-  background:var(--oc);transform-origin:left center;will-change:transform}
+.pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0);opacity:.5}
+.pad.inact .pface{background:var(--ash0);border-color:var(--ash2);transform:none}
+.pad.aiming{border-color:var(--iron2)}
+.pad.aiming .pface,.pad:active .pface{transform:translateY(1px) scale(.96);
+  background:var(--ash2);border-color:var(--iron2)}
+.pad.fire .pface{transform:translateY(1px) scale(.94);background:var(--ash2);
+  border-color:var(--iron2)}
+/* Thin neutral guide begins at the exact launch centre and ends at the pointer. */
+.aim{position:absolute;z-index:5;height:1px;pointer-events:none;background:var(--iron2);
+  transform-origin:left center;will-change:transform}
+.aim::after{content:"";position:absolute;right:-2px;top:-2px;width:5px;height:5px;
+  border-radius:50%;background:var(--iron2)}
 
 /* ---------------------------------------------------------------- hero */
 /* Amendment r8 §1.9 · §3.1: the hero and the five anchors run on the detail-page grid
@@ -302,7 +291,8 @@ body.has-flight-status{padding-bottom:calc(14 * var(--px))}
 .fshead{color:var(--iron2);letter-spacing:.04em}
 .fshead output{color:var(--bone)}
 .fsitem{display:inline-flex;align-items:center;gap:var(--px)}
-.fswatch{width:calc(2 * var(--px));height:calc(2 * var(--px));background:currentColor}
+.fswatch{width:calc(2 * var(--px));height:calc(2 * var(--px));background:currentColor;
+  border-radius:50%}
 .fsitem.c0{color:var(--orb-b)}.fsitem.c1{color:var(--orb-g)}
 .fsitem.c2{color:var(--orb-r)}.fsitem.c3{color:var(--bone)}
 .fsitem output{display:inline-block;color:currentColor}
@@ -335,18 +325,26 @@ body.has-flight-status{padding-bottom:calc(14 * var(--px))}
 .anchor > .head{grid-column:2;grid-row:1}
 .anchor > .body{grid-column:2;grid-row:2}
 
-.brz{position:relative;width:calc(12 * var(--px));height:calc(14 * var(--px))}
+.brz{position:relative;width:calc(16 * var(--px));height:calc(24 * var(--px))}
 .brz svg{width:100%;height:100%}
-.brz .coal,.brz .f{display:none}
-.brz.lit .coal{display:inline}
-.brz.lit.f0 .f0,.brz.lit.f1 .f1,.brz.lit.f2 .f2{display:inline}
+.brz-art{display:block;shape-rendering:geometricPrecision;overflow:visible}
+.brz-art .module{fill:var(--iron2)}
+.brz-art .face{fill:var(--iron)}
+.brz-art .well{fill:var(--ash0)}
+.brz-art .charge{display:none;fill:var(--ember2);transform-box:fill-box;
+  transform-origin:center bottom}
+.brz.lit .charge{display:inline}
+.brz.lit.ig0 .charge{transform:scaleY(.14)}
+.brz.lit.ig1 .charge{transform:scaleY(.34)}
+.brz.lit.ig2 .charge{transform:scaleY(.64)}
+.brz.lit.ig3 .charge{transform:scaleY(.88)}
 /* R13: a brazier hangs as a direct child of its section, in the corner the CSS
    gives it; declaration rows carry their own collision-free placement below. */
 .sec > .brz,.anchor > .brz{position:absolute;right:calc(4 * var(--px));
   bottom:calc(4 * var(--px))}
-/* with JS the bowl is dark until an ember passes; no-JS renders all lit (the
+/* With JS the receiver window stays dark until an orb passes; no-JS renders it lit (the
    class in the static HTML is the lit one) */
-html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
+html.js .brz:not(.lit) .charge{display:none}
 
 /* Amendment r8 §4.1: the sentences of the site — H1~H4 and the declarations — are set
    in the body face; the readouts, chips, keys and buttons stay in the pixel faces.
@@ -406,7 +404,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .foot a{color:var(--dim);text-decoration:none}
 .foot a:hover{color:var(--teal)}
 
-/* JS on: an unlit chain stays cold (the bowl rule lives with .brz above) */
+/* JS on: an unlit chain stays cold (the receiver rule lives with .brz above) */
 .js .anchor:not(.lit) .chain li,.js .sec:not(.lit) .chain li{
   border-color:var(--ash3);color:var(--dim)}
 
@@ -664,25 +662,6 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 /* aperture scene: rect data at one art px per cell, so it scales with the grid and
    keeps its contrast in place of the raster that read as a bare rule (§4) */
 .apert{width:calc(152 * var(--px));height:calc(44 * var(--px))}
-.brz.hasimg{width:calc(16 * var(--px));height:calc(24 * var(--px))}
-.brz.hasimg .bi{--s:3}
-@media (max-width:1279px){
-  .brz.hasimg .bi{--s:2}
-}
-.brz.hasimg > svg.px{display:none}
-.brz.hasimg .bl{display:none}
-.brz.hasimg.lit .bl{display:block}
-.brz.hasimg.lit .bu{display:none}
-/* ignition burst (amendment r7 §3): the flame arrives over four 2-tick class steps, so
-   a still frame of the pass is a different picture from both the unlit and the resting
-   bowl.  Class swaps only — no transition, no animation; --s is the art scale already
-   declared on .bi, so the clip lands on art rows at both 3x and 2x. */
-.brz.hasimg.ig0 .bl{clip-path:inset(calc(12 * var(--s) * 1px) 0 0 0)}
-.brz.hasimg.ig1 .bl{clip-path:inset(calc(9 * var(--s) * 1px) 0 0 0)}
-.brz.hasimg.ig2 .bl{clip-path:inset(calc(6 * var(--s) * 1px) 0 0 0)}
-.brz.hasimg.ig3 .bl{clip-path:inset(calc(3 * var(--s) * 1px) 0 0 0)}
-.brz.ig0{outline:var(--px) solid var(--ember1);outline-offset:calc(-1 * var(--px))}
-
 /* contact form (§6.7, BRIEF §3.2) */
 .direct{display:flex;flex-wrap:wrap;align-items:center;
   gap:calc(4 * var(--px)) calc(6 * var(--px));margin-top:calc(6 * var(--px));

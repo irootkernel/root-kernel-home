@@ -120,9 +120,7 @@
   var flightCssW = 0;
   var flightCssH = 0;
   var flightColors = null;
-  var flightSprites = [];
   var flightPrev = [];
-  var flightDpr = 0;
   var flightViewTop = -1;
   var flightClearAll = true;
   var statusLastTick = -3;
@@ -171,7 +169,7 @@
   var RK = window.RK = {
     version: 'r7', TICK_MS: TICK_MS, tick: 0, reduced: (TICK_MS === 0)
   };
-  var pads = [];          /* [{el, pld, x, y (cup centre, cells), id, ci, shots}] */
+  var pads = [];          /* [{el, x, y (launch centre, cells), id, ci, shots}]   */
   var embers = [];        /* [{x, y, vx, vy (FP), ci, st, noob}]                 */
   var brzs = [];          /* [{el, x, y (centre), id, lit, litAt, host}]          */
   var obs = [];           /* [{x, y, w, h}] cells — static objects, then pads   */
@@ -365,7 +363,7 @@
       var r = rectCells(el);
       return { el: el, x: r.x + r.w / 2, y: r.y + r.h / 2,
                id: '', lit: el.classList.contains('lit') ? 1 : 0, litAt: 0,
-               host: hostOf(el), base: 'brz' + (el.querySelector('.bi') ? ' hasimg' : '') };
+               host: hostOf(el), base: 'brz' };
     });
     brzs.forEach(function (b, i) { b.id = brzId(b, i); });
   }
@@ -403,14 +401,11 @@
       el.type = 'button';
       el.className = 'pad ' + ORBS[ci];
       el.setAttribute('aria-label', fmt(T.pad.aria, { color: T.orb[ORBK[ci]] }));
-      el.innerHTML = '<span class="pcr" aria-hidden="true">' +
-        '<span class="pst"></span><span class="pbd"></span>' +
-        '<span class="pld"></span></span>';
+      el.innerHTML = '<span class="pface" aria-hidden="true"></span>';
       var host = h2.closest('section') || stage;
-      var pad = { el: el, pld: null, h2: h2, host: host, x: 0, y: 0,
+      var pad = { el: el, h2: h2, host: host, x: 0, y: 0,
                   id: h2.id || host.id || (T.anchorTag + (i + 1)),
-                  ci: ci, shots: 0 };
-      pad.pld = el.querySelector('.pld');
+                  ci: ci, shots: 0, firedAt: -99 };
       el.addEventListener('pointerdown', onPadDown);
       el.addEventListener('click', function (e) { e.preventDefault(); });
       stage.appendChild(el);
@@ -435,6 +430,9 @@
 
   /* --- sling drag ------------------------------------------------------------ */
   function onPadDown(e) {
+    if (e.isPrimary === false || (typeof e.button === 'number' && e.button !== 0)) {
+      return;
+    }
     var el = e.currentTarget;
     var pad = null, i;
     for (i = 0; i < pads.length; i++) {
@@ -444,15 +442,22 @@
     e.preventDefault();
     try { el.setPointerCapture(e.pointerId); } catch (err) { /* synthetic */ }
     drag = { pad: pad, x0: e.clientX, y0: e.clientY,
-             x: e.clientX, y: e.clientY, aim: null, dirty: false };
-    var onMove = function (ev) { dragMove(ev); };
+             x: e.clientX, y: e.clientY, pointerId: e.pointerId,
+             aim: null, dirty: false };
+    pad.el.classList.add('aiming');
+    var onMove = function (ev) {
+      if (!drag || ev.pointerId !== drag.pointerId) { return; }
+      dragMove(ev);
+    };
     var onUp = function (ev) {
+      if (!drag || ev.pointerId !== drag.pointerId) { return; }
       el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerup', onUp);
-      el.removeEventListener('pointercancel', onUp);
+      el.removeEventListener('pointercancel', onCancel);
       dragEnd(ev, true);
     };
     var onCancel = function (ev) {
+      if (!drag || ev.pointerId !== drag.pointerId) { return; }
       el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerup', onUp);
       el.removeEventListener('pointercancel', onCancel);
@@ -487,25 +492,39 @@
     }
     drag.aim.style.transform = 'rotate(' + Math.atan2(v.dy, v.dx) +
       'rad) scaleX(' + (v.len / MAXPULL) + ')';
-    pad.pld.style.transform =
-      'translate(' + Math.round(v.dx * PX) + 'px,' + Math.round(v.dy * PX) + 'px)';
   }
   function dragMove(e) {
     if (!drag) { return; }
     drag.x = e.clientX;
     drag.y = e.clientY;
     drag.dirty = true;
+    /* Pointer feedback is input-driven as well as frame-driven so the guide remains
+       visible in deterministic `rk-tick=0` sessions where no animation loop runs. */
+    renderDrag();
   }
   function dragEnd(e, fire) {
     if (!drag) { return; }
     var v = dragVector(e), pad = drag.pad;
     if (drag.aim) { drag.aim.parentNode.removeChild(drag.aim); }
-    pad.pld.style.transform = '';
+    pad.el.classList.remove('aiming');
     drag = null;
-    if (fire && v.len >= MINPULL) {
-      RK.input('launch', { pad: pads.indexOf(pad),
-                           dx: Math.round(v.dx), dy: Math.round(v.dy) });
+    if (fire) {
+      var resolved = v.len >= MINPULL ? v : tapVector();
+      var payload = { pad: pads.indexOf(pad),
+                      dx: Math.round(resolved.dx), dy: Math.round(resolved.dy) };
+      if (resolved.speed100 !== undefined) { payload.speed100 = resolved.speed100; }
+      RK.input('launch', payload);
     }
+  }
+  function tapVector() {
+    /* Resolve tap direction and speed at the real pointer boundary. The resulting
+       ordinary launch payload can then be recorded/replayed without resampling. */
+    var angle = Math.random() * Math.PI * 2;
+    var radius = MAXPULL - 1; /* integer rounding remains inside the valid cap */
+    return { dx: Math.round(Math.cos(angle) * radius),
+             dy: Math.round(Math.sin(angle) * radius),
+             speed100: SPEED_MIN_100 +
+               Math.floor(Math.random() * (SPEED_MAX_100 - SPEED_MIN_100 + 1)) };
   }
   /* keyboard launch (button + Enter/Space): the canonical pull — down and away
      from the page centre, so the ember always arcs in and up. */
@@ -515,17 +534,8 @@
   }
 
   /* --- flight sim -------------------------------------------------------------- */
-  /* All embers share one viewport-sized canvas. The same integer-cell bitmap that
-     previously produced an inline SVG per ember is drawn directly, avoiding 39 DOM
-     nodes and an ancestor class invalidation for every launched ember. */
-  var FEMB_BODY = [[2, 0, 1, 1], [1, 1, 3, 1], [0, 2, 5, 1], [1, 3, 3, 1],
-                   [2, 4, 1, 1]];
-  var FEMB_HI = [
-    [2, 0, 1, 1, 3, 1, 0, 2, 4, 2, 1, 3, 3, 3, 2, 4],   /* tips of the diamond */
-    [1, 0, 3, 0, 2, 2, 1, 4, 3, 4],                     /* inner corners       */
-    [2, 1, 1, 2, 2, 2, 3, 2, 2, 3],                     /* centre cross        */
-    [0, 0, 4, 0, 2, 2, 0, 4, 4, 4]                      /* outer corners       */
-  ];
+  /* All embers share one viewport-sized canvas. Each 5-cell footprint is a smooth
+     concentric orb; velocity affects position only, never its silhouette. */
   function injectFlightCanvas() {
     if (PASSIVE) { return; }
     flightCanvas = document.createElement('canvas');
@@ -538,34 +548,7 @@
                     cs.getPropertyValue('--orb-g').trim(),
                     cs.getPropertyValue('--orb-r').trim(),
                     cs.getPropertyValue('--bone').trim(),
-                    cs.getPropertyValue('--ash3').trim()];
-  }
-  function buildFlightSprites(dpr) {
-    flightSprites = [];
-    flightDpr = dpr;
-    var size = 5 * PX;
-    for (var ci = 0; ci < 4; ci++) {
-      flightSprites[ci] = [];
-      for (var f = 0; f < 4; f++) {
-        var sprite = document.createElement('canvas');
-        sprite.width = Math.ceil(size * dpr);
-        sprite.height = Math.ceil(size * dpr);
-        var ctx = sprite.getContext('2d', { alpha: true });
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.imageSmoothingEnabled = false;
-        ctx.fillStyle = flightColors[ci];
-        for (var j = 0; j < FEMB_BODY.length; j++) {
-          var r = FEMB_BODY[j];
-          ctx.fillRect(r[0] * PX, r[1] * PX, r[2] * PX, r[3] * PX);
-        }
-        ctx.fillStyle = ci === 3 ? flightColors[4] : flightColors[3];
-        r = FEMB_HI[f];
-        for (j = 0; j < r.length; j += 2) {
-          ctx.fillRect(r[j] * PX, r[j + 1] * PX, PX, PX);
-        }
-        flightSprites[ci][f] = sprite;
-      }
-    }
+                    cs.getPropertyValue('--ember1').trim()];
   }
   function syncFlightCanvas() {
     if (!flightCanvas || !flightCtx) { return; }
@@ -587,12 +570,8 @@
       flightCanvas.width = Math.ceil(w * dpr);
       flightCanvas.height = Math.ceil(h * dpr);
       flightCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      flightCtx.imageSmoothingEnabled = false;
+      flightCtx.imageSmoothingEnabled = true;
       flightClearAll = true;
-    }
-    if (flightDpr !== dpr || !flightSprites.length ||
-        flightSprites[0][0].width !== Math.ceil(5 * PX * dpr)) {
-      buildFlightSprites(dpr);
     }
   }
   function renderFlight(f) {
@@ -612,22 +591,40 @@
       var e = embers[i];
       var x = Math.round((e.x / FP - EH) * PX);
       var y = Math.round((e.y / FP - EH - bounds.t) * PX);
-      flightCtx.drawImage(flightSprites[e.ci][f], x, y, size, size);
+      var cx = x + size / 2, cy = y + size / 2;
+      flightCtx.beginPath();
+      flightCtx.arc(cx, cy, 2.25 * PX, 0, Math.PI * 2);
+      flightCtx.fillStyle = flightColors[e.ci];
+      flightCtx.fill();
+      flightCtx.beginPath();
+      flightCtx.arc(cx, cy, .72 * PX, 0, Math.PI * 2);
+      flightCtx.fillStyle = e.ci === 3 ? flightColors[4] : flightColors[3];
+      flightCtx.fill();
       flightPrev[i * 2] = x;
       flightPrev[i * 2 + 1] = y;
     }
   }
-  function launch(i, dx, dy) {
+  function launch(i, dx, dy, resolvedSpeed100) {
     var pad = pads[i], pull = Math.sqrt(dx * dx + dy * dy);
     /* Pads reload instantly until the current desktop/mobile cap is reached. */
     if (!pad || padsInactive() || pull < MINPULL) { return false; }
-    /* Pull length only arms the sling. Its angle chooses the direction, while
-       every accepted launch samples an independent speed in the safe range. */
-    var speed100 = SPEED_MIN_100 +
-      Math.floor(Math.random() * (SPEED_MAX_100 - SPEED_MIN_100 + 1));
+    /* Drag/API launches keep the original speed sample here. A tap may provide its
+       already-resolved speed so replaying the captured payload never resamples it. */
+    var speed100;
+    if (resolvedSpeed100 === undefined) {
+      speed100 = SPEED_MIN_100 +
+        Math.floor(Math.random() * (SPEED_MAX_100 - SPEED_MIN_100 + 1));
+    } else if (typeof resolvedSpeed100 === 'number' && isFinite(resolvedSpeed100) &&
+               Math.floor(resolvedSpeed100) === resolvedSpeed100 &&
+               resolvedSpeed100 >= SPEED_MIN_100 && resolvedSpeed100 <= SPEED_MAX_100) {
+      speed100 = resolvedSpeed100;
+    } else {
+      return false;
+    }
     var speed = speed100 / 100;
     var scale = speed * FP / pull;
     pad.shots++;
+    pad.firedAt = RK.tick;
     /* noob: the ember spawns inside its own pad, so that one pad is transparent
        to it until it has fully escaped — after which the pad is a wall like any
        other (R13 §3: pads are obstacles too) */
@@ -905,10 +902,13 @@
         continue;
       }
       if (p.el.disabled) { p.el.disabled = false; }
-      /* sling attract: the cup tugs in a three-frame loop, offset per pad so a
-         row of pads never tugs in step.  Reduced motion never reaches here. */
+      /* Restrained neutral face feedback cycles out of phase across launchers;
+         reduced motion never reaches this active renderer. */
       var s = TICK_MS ? (Math.floor(RK.tick / 4) + i) % 3 : 0;
-      setClass(p.el, 'pad ' + ORBS[p.ci] + ' s' + s);
+      var ps = 'pad ' + ORBS[p.ci] + ' s' + s;
+      if (drag && drag.pad === p) { ps += ' aiming'; }
+      else if (RK.tick - p.firedAt < 3) { ps += ' fire'; }
+      setClass(p.el, ps);
     }
     renderHero();
     renderFlightStatus();
@@ -941,7 +941,8 @@
   /* --- hook contract ---------------------------------------------------------- */
   RK.input = function (name, payload) {
     if (name === 'launch' && payload && !PASSIVE) {
-      if (launch(payload.pad | 0, payload.dx | 0, payload.dy | 0)) {
+      if (launch(payload.pad | 0, payload.dx | 0, payload.dy | 0,
+                 payload.speed100)) {
         if (TICK_MS === 0) { settle(); } else { render(); }
       }
       return;
@@ -970,7 +971,7 @@
     events = ['ignite'];
     sent = 0;
     var i;
-    for (i = 0; i < pads.length; i++) { pads[i].shots = 0; }
+    for (i = 0; i < pads.length; i++) { pads[i].shots = 0; pads[i].firedAt = -99; }
     for (i = 0; i < brzs.length; i++) {
       if (!PASSIVE) {
         brzs[i].lit = 0;
