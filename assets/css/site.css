@@ -690,6 +690,11 @@ html.js .brz:not(.lit) .charge{display:none}
 .fig.dgf{overflow-x:auto}
 .dg{display:block;width:648px;height:auto;max-width:none}
 .dg text{font-family:var(--mono)}
+/* The company page shows the wide logo as a bare centred figure: no plate, no caption.
+   The image keeps a cell-multiple height so the frame stays on the grid. */
+.fig.logo{display:flex;justify-content:center;align-items:center;
+  margin:calc(12 * var(--px)) 0 calc(12 * var(--px));padding:0;background:none;border:0}
+.fig.logo img{display:block;height:calc(16 * var(--px));width:auto;margin:0;image-rendering:auto}
 .fcap{margin:calc(3 * var(--px)) 0 0;color:var(--bone);
   font:400 15px/calc(8 * var(--px)) var(--body)}
 .leg{list-style:none;margin:calc(2 * var(--px)) 0 0;padding:0;display:grid;

@@ -273,7 +273,8 @@ Three kinds, and nothing else.
    frame scrolls them horizontally. A template carries only label tokens (`{{L1}}`,
    `{{L2a}}`, the conditional first-line offset `{{y:C:L2b}}`) and `{{ALT}}`; every
    word comes from `ui-strings.json` `fig.<key>` in ko and en. Rules and acceptance live
-   in `_workspace/redesign/diagram-style.md`.
+   in `_workspace/redesign/diagram-style.md`. The company page's name section shows the
+   wide logo SVG (`assets/images/rootkernel-wide-logo.svg`) as a bare centred figure.
 1. **Sprites.** Hand-written bitmaps (rows of palette indices) compile to inline SVG
    `<symbol>`/`<rect>` at load for static sprites and to one shared canvas for flying
    ember frames. They scale by `--px` alone, so they are crisp at every breakpoint,
