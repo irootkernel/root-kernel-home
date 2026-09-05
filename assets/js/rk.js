@@ -174,8 +174,8 @@
   var pads = [];          /* [{el, pld, x, y (cup centre, cells), id, ci, shots}] */
   var embers = [];        /* [{x, y, vx, vy (FP), ci, st, noob}]                 */
   var brzs = [];          /* [{el, x, y (centre), id, lit, litAt, host}]          */
-  var obs = [];           /* [{x, y, w, h}] cells — plinths, then pads         */
-  var obsBase = 0;        /* how many of obs are [data-ob]; the rest are pads  */
+  var obs = [];           /* [{x, y, w, h}] cells — static objects, then pads   */
+  var obsBase = 0;        /* how many of obs are static; the rest are pads      */
   var events = ['ignite'];
   var PX = 3, vh = window.innerHeight, MOB = false;
   /* Cap by the primary input device, not the responsive layout. A narrow desktop
@@ -194,6 +194,7 @@
   var paintStamp = [];    /* RK.tick when paintPending[index] was written       */
   var paintDirty = [];    /* indices touched during the current physics tick    */
   var drag = null;        /* active sling drag {pad, origin, latest, aim, dirty} */
+  var formResizeObserver = null;
   var sent = 0;
 
   /* --- geometry ------------------------------------------------------------- */
@@ -1150,9 +1151,13 @@
     MOB = window.innerWidth <= 767;
     measureBrzs();
     layoutPads();
-    /* obstacles: the [data-ob] plinths, then every launcher pad — a pad is an
-       object on the page like any other, so embers bounce off it (R13 §3) */
-    obs = [].slice.call(stage.querySelectorAll('[data-ob]')).map(rectCells);
+    /* obstacles: explicit [data-ob] plinths, explanatory figures and the Contact
+       form's five visible text-entry boxes and submit button, then every launcher
+       pad. Selecting the existing elements here gives them collision without
+       changing their styling. */
+    obs = [].slice.call(stage.querySelectorAll(
+      '[data-ob],.fig,.field input,.field textarea,.form .btn'
+    )).map(rectCells);
     obsBase = obs.length;
     pads.forEach(function (p) {
       obs.push({ x: p.x - 9, y: p.y - 9, w: 18, h: 18 });
@@ -1173,6 +1178,15 @@
        and initial animated state share the same launcher geometry. */
     layout();
     RK.reset();
+    /* The message box is user-resizable. Keep its collision wall, the controls
+       below it and the containing section geometry aligned with the live form. */
+    if (form && window.ResizeObserver) {
+      formResizeObserver = new ResizeObserver(function () {
+        layout();
+        render();
+      });
+      formResizeObserver.observe(form);
+    }
     if (TICK_MS > 0) { requestAnimationFrame(frame); } else { settle(); }
   }
   if (document.fonts && document.fonts.ready) {

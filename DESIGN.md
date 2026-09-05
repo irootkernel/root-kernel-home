@@ -175,12 +175,15 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   patrols the page until reload. The
   playfield is the visible slice of `<main>` — never the header, never the footer —
   recomputed on scroll and resize. Obstacles are the `[data-ob]` plinths (the pipeline
-  board, repository lists, data tables, the aperture scene), **every launcher pad**,
-  and every H2's page-local A1–An number box. Text and images sit on the plinths;
-  embers bounce off each measured boundary. An ember's own launch pad is transparent
-  to it only until it has fully escaped the cup. One viewport-windowed canvas draws
+  board, repository lists, data tables, the aperture scene), every explanatory `.fig`
+  frame, the Contact form's four single-line fields, message textarea, and mail-draft
+  submit button, **every launcher pad**, and every H2's page-local A1–An number box.
+  Text and images sit on the plinths; embers bounce off each measured boundary. An
+  ember's own launch pad is transparent to it only until it has fully escaped the
+  cup. One viewport-windowed canvas draws
   every ember from a cache of four colours by four sparkle frames; physics remains
-  per ember. Only the previous sprite rectangles are cleared per tick.
+  per ember. Only the previous sprite rectangles are cleared per tick. Resizing the
+  Contact message box remeasures the form and its collision geometry.
 - **Text paint.** No fog, no dimming — the page starts bright. At init the engine
   splits the text of `<main>`'s paintable blocks (`p`, `h1`–`h4`, `li`, `td`, `th`;
   links, `[aria-hidden]` and `.sr` excluded) into one span per letter, and an ember
