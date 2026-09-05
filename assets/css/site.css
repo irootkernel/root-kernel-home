@@ -126,28 +126,33 @@ img,.px-img{image-rendering:pixelated}
    directly by the renderer, so this surface deliberately keeps normal antialiasing. */
 .flight-canvas{position:absolute;z-index:4;left:0;pointer-events:none}
 
-/* Neutral launcher: one rounded control surface per H2. Functional orb colour remains
-   in its accessible name and launched payload, never in the launcher chrome itself. */
+/* Neutral launcher: the outer control stays neutral while the inset carries a subdued
+   trace of the orb this pad launches.  It remains a flat surface: no glow or icon. */
 .pad{position:absolute;z-index:5;margin:0;padding:0;cursor:grab;
   width:calc(18 * var(--px));height:calc(18 * var(--px));
   background:#171615;border:1px solid var(--iron);border-radius:calc(3 * var(--px));
   font:inherit;touch-action:none}
+.pad.c0{--pad-orb:var(--orb-b)}
+.pad.c1{--pad-orb:var(--orb-g)}
+.pad.c2{--pad-orb:var(--orb-r)}
+.pad.c3{--pad-orb:var(--bone)}
 .pad:active{cursor:grabbing}
 .pad .pface{position:absolute;inset:calc(2 * var(--px));pointer-events:none;
-  background:#242220;border:1px solid var(--ash3);
+  background:color-mix(in srgb,var(--pad-orb) 25%,#242220);border:1px solid var(--ash3);
   border-radius:calc(2 * var(--px));transition:transform 80ms ease,border-color 80ms ease}
 .pad.s1 .pface{border-color:var(--iron)}
 .pad.s2 .pface{transform:scale(.96);border-color:var(--iron2)}
 .pad:hover .pface,.pad:focus-visible .pface{transform:translateY(-1px);
-  background:#292725;border-color:var(--iron2)}
+  background:color-mix(in srgb,var(--pad-orb) 30%,#292725);border-color:var(--iron2)}
 .pad:focus-visible{outline-color:var(--bone)}
 /* inactive (R13 §2): at the 60 desktop / 30 mobile cap every pad dims */
 .pad.inact{cursor:default;border-color:var(--ash2);background:var(--ash0);opacity:.5}
 .pad.inact .pface{background:var(--ash0);border-color:var(--ash2);transform:none}
 .pad.aiming{border-color:var(--iron2)}
 .pad.aiming .pface,.pad:active .pface{transform:translateY(1px) scale(.96);
-  background:var(--ash2);border-color:var(--iron2)}
-.pad.fire .pface{transform:translateY(1px) scale(.94);background:var(--ash2);
+  background:color-mix(in srgb,var(--pad-orb) 32%,var(--ash2));border-color:var(--iron2)}
+.pad.fire .pface{transform:translateY(1px) scale(.94);
+  background:color-mix(in srgb,var(--pad-orb) 34%,var(--ash2));
   border-color:var(--iron2)}
 /* Thin neutral guide begins at the exact launch centre and ends at the pointer. */
 .aim{position:absolute;z-index:5;height:1px;pointer-events:none;background:var(--iron2);
@@ -354,12 +359,6 @@ html.js .brz:not(.lit) .charge{display:none}
   padding-bottom:calc(3 * var(--px));
   border-bottom:calc(2 * var(--px)) solid var(--ember3)}
 .anchor.lit .head h2{color:var(--bone)}
-.head h2::before,.dt .body h2::before{content:attr(data-a);display:inline-block;
-  margin-right:calc(3 * var(--px));padding:0 calc(2 * var(--px));
-  font-family:var(--body);font-size:14px;font-weight:700;
-  line-height:inherit;letter-spacing:0;
-  color:var(--ash0);background:var(--dim);vertical-align:top}
-.anchor.lit .head h2::before,.sec.lit .body h2::before{background:var(--ember1)}
 .body p{margin:calc(4 * var(--px)) 0 0}
 .more{display:block;width:fit-content;height:calc(11 * var(--px));
   margin-top:calc(5 * var(--px));text-decoration:none;
@@ -418,7 +417,6 @@ html.js .brz:not(.lit) .charge{display:none}
   .lang{font-size:14px}
   .eyebrow{font-size:13px}
   .index{font-size:14px}
-  .head h2::before,.dt .body h2::before{font-size:13px}
   .more{font-size:14px}
   .sub dt{font-size:14px}
   .chain{font-size:13px}
