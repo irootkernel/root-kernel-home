@@ -127,9 +127,9 @@ img,.px-img{image-rendering:pixelated}
 .flight-canvas{position:absolute;z-index:4;left:0;pointer-events:none;
   image-rendering:pixelated}
 
-/* launcher pad (R13 §2): one per H2, injected by the engine.  Left-side pads
-   inherit the retired rail gutter; right-side pads the note column.  The cradle
-   is a Y-sling — two angled arms, a stem, a band — with the loaded orb in the cup. */
+/* launcher pad (R13 §2): one per H2, injected by the engine.  Every pad inherits
+   the left flight gutter.  The cradle is a Y-sling — two angled arms, a stem, a
+   band — with the loaded orb in the cup. */
 .pad{position:absolute;z-index:5;margin:0;padding:0;cursor:grab;
   width:calc(18 * var(--px));height:calc(18 * var(--px));
   background:var(--ash1);border:var(--px) solid var(--ash3);border-radius:0;
@@ -353,14 +353,16 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
    in the body face; the readouts, chips, keys and buttons stay in the pixel faces.
    Every line height is a whole number of cells at both --px steps. */
 .head h2{margin:0;color:var(--dim);letter-spacing:-0.01em;
-  font:800 28px/calc(12 * var(--px)) var(--body);overflow-wrap:normal}
+  font:800 28px/calc(12 * var(--px)) var(--body);overflow-wrap:normal;
+  padding-bottom:calc(3 * var(--px));
+  border-bottom:calc(2 * var(--px)) solid var(--ember3)}
 .anchor.lit .head h2{color:var(--bone)}
-.head h2::before{content:attr(data-a);display:inline-block;
+.head h2::before,.dt .body h2::before{content:attr(data-a);display:inline-block;
   margin-right:calc(3 * var(--px));padding:0 calc(2 * var(--px));
   font-family:var(--body);font-size:14px;font-weight:700;
   line-height:inherit;letter-spacing:0;
   color:var(--ash0);background:var(--dim);vertical-align:top}
-.anchor.lit .head h2::before{background:var(--ember1)}
+.anchor.lit .head h2::before,.sec.lit .body h2::before{background:var(--ember1)}
 .body p{margin:calc(4 * var(--px)) 0 0}
 .more{display:block;width:fit-content;height:calc(11 * var(--px));
   margin-top:calc(5 * var(--px));text-decoration:none;
@@ -419,7 +421,7 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   .lang{font-size:14px}
   .eyebrow{font-size:13px}
   .index{font-size:14px}
-  .head h2::before{font-size:13px}
+  .head h2::before,.dt .body h2::before{font-size:13px}
   .more{font-size:14px}
   .sub dt{font-size:14px}
   .chain{font-size:13px}
@@ -485,8 +487,10 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
   .index{grid-template-columns:1fr 1fr;margin-top:calc(8 * var(--px))}
   .anchor{margin-top:calc(28 * var(--px))}
   .repos{grid-template-columns:1fr}
-  .hchat{grid-column:1;grid-row:2;height:auto;border-left:0;border-right:0}
-  .hthread{height:auto;overflow:visible}
+  /* Keep the transcript viewport at its 75-cell base height. Messages scroll
+     inside it, so the animated conversation cannot move the anchors below. */
+  .hchat{grid-column:1;grid-row:2;border-left:0;border-right:0}
+  .hthread{min-height:0;overflow:auto}
   .hgraph{grid-column:1;grid-row:3;height:calc(330 * var(--px));
     border-left:0;border-right:0}
   .hcanvas svg{min-width:750px}
@@ -498,20 +502,16 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 
 /* ================================================================ detail pages
    Spec §6.2–§6.7.  Column split re-cut from 96/8/240/8/48 to 96/8/228/8/60 so the
-   note column can hold a Mono9 port coordinate without clipping (see BUILD_NOTES). */
+   right flight gutter has enough room without clipping (see BUILD_NOTES). */
 .dt{display:block}
 .sec,.phead{position:relative;z-index:2;display:grid;align-items:start;
   margin-top:calc(24 * var(--px));
   grid-template-columns:calc(96 * var(--px)) calc(8 * var(--px)) calc(228 * var(--px))
                         calc(8 * var(--px)) calc(60 * var(--px))}
 .phead{margin-top:calc(12 * var(--px))}
-/* R13: the rail track is now the empty flight gutter (the left launcher pads
-   inherit it); the tool icon an `aside` carries moves to the note column. */
-.aside{display:flex;justify-content:flex-end;align-items:flex-start;width:100%;
-  gap:calc(4 * var(--px))}
-.sec > .aside{grid-column:5;grid-row:1}
+/* R13: the rail track is now the empty flight gutter inherited by the left
+   launcher pads. */
 .sec > .body,.phead > .body{grid-column:3;grid-row:1;min-width:0}
-.phead > .note{grid-column:5;grid-row:1}
 /* headings: page label (H1) → manuscript L1 (h2) → L2 (h3) → L3 (h4) */
 .dt .h1{margin:0;max-width:calc(228 * var(--px))}
 .dt .lead{margin:calc(6 * var(--px)) 0 0;max-width:none}
@@ -583,12 +583,6 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .gbtn[disabled]{cursor:default;color:var(--iron2);border-color:var(--ash3)}
 .gbtn.armed{background:var(--ember1);border-color:var(--ember1);color:var(--ash0)}
 .gbtn[hidden]{display:none}
-.aside .gbtn{align-self:flex-start}
-
-/* keep the tool icon clear of both the body text and the brazier at the far edge of
-   the note column; short tool sections otherwise let the two rasters touch */
-.aside .ticon{margin-right:calc(24 * var(--px))}
-
 /* amendment r9 §4.2: the three aquarium editions are one row inside the aquarium
    section instead of three sections of their own.  Body face at the bullet size, the
    label dim, the separators iron — a row of links, not a list. */
@@ -599,29 +593,21 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 .eds a:hover{color:var(--teal)}
 .eds i{font-style:normal;color:var(--iron2)}
 
-/* nine declarations (§6.5) */
-/* R13: every declaration reserves a real column for its brazier.  The marker is part
-   of the row's grid instead of painting over whichever line happens to reach the
-   right edge, and bottom alignment keeps it at the end of the declaration. */
+/* nine declarations (§6.5): the principles are plain full-width rows; their
+   explanatory sections carry the page's braziers. */
 .decls9{list-style:none;margin:calc(6 * var(--px)) 0 0;padding:0}
-.decls9 li{position:relative;display:grid;
-  grid-template-columns:minmax(0,1fr) calc(16 * var(--px));
-  column-gap:calc(4 * var(--px));min-height:calc(28 * var(--px));
-  padding:calc(4 * var(--px)) 0;border-bottom:var(--px) solid var(--ash2)}
-.decls9 li > .brz{position:relative;right:auto;top:auto;grid-column:2;grid-row:1;
-  align-self:end;justify-self:end}
+.decls9 li{position:relative;padding:calc(4 * var(--px)) 0;
+  border-bottom:var(--px) solid var(--ash2)}
 /* r8c p4: the number sits in an 11-cell gutter of its own — 8 cells of marker and a
    3-cell gap — so every line of a wrapped declaration hangs under the first word
    instead of running back under the number.  The marker is placed absolutely, the way
    `.leg li::before` is, so the readout face cannot lift the line box off the grid. */
-.decls9 .decl{position:relative;grid-column:1;grid-row:1;margin:0;color:var(--dim);
+.decls9 .decl{position:relative;margin:0;color:var(--dim);
   padding-left:calc(11 * var(--px))}
-.decls9 li.lit .decl{color:var(--bone)}
 .decls9 .decl::before{content:attr(data-n);position:absolute;left:0;top:0;
   min-width:calc(8 * var(--px));
   font-family:var(--mono);font-size:20px;font-weight:700;
   line-height:inherit;color:var(--iron2)}
-.decls9 li.lit .decl::before{color:var(--ember1)}
 
 /* explanatory diagram (amendment r8 §6): the raster carries shapes and numerals, the
    words are HTML — a caption and a numbered legend, both from registered ui-strings.
@@ -674,8 +660,6 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 /* aperture scene: rect data at one art px per cell, so it scales with the grid and
    keeps its contrast in place of the raster that read as a bare rule (§4) */
 .apert{width:calc(152 * var(--px));height:calc(44 * var(--px))}
-.emb{margin-top:calc(2 * var(--px))}
-.ticon{margin-top:calc(2 * var(--px))}
 .brz.hasimg{width:calc(16 * var(--px));height:calc(24 * var(--px))}
 .brz.hasimg .bi{--s:3}
 @media (max-width:1279px){
@@ -770,22 +754,15 @@ html.js .brz:not(.lit) .coal,html.js .brz:not(.lit) .f{display:none}
 @media (max-width:767px){
   .sec,.phead{margin-top:calc(20 * var(--px));
     grid-template-columns:calc(16 * var(--px)) calc(4 * var(--px)) calc(160 * var(--px))}
-  /* R13: on the stacked cut the aside (tool icon) sits above the body again */
-  .sec > .aside{grid-column:3;grid-row:1;justify-content:flex-start;
-    margin-bottom:calc(4 * var(--px))}
   .sec > .body{grid-column:3;grid-row:2}
-  /* the page head keeps its body beside the note raster, as on desktop —
-     only .sec stacks on this cut */
+  /* The page head remains in the body column while detail sections stack. */
   .phead > .body{grid-column:3;grid-row:1}
-  .phead > .note{grid-column:3;grid-row:2;margin-top:calc(4 * var(--px))}
   .dt .h1{max-width:none}
   .dt .lead.sub2{font-size:16px;line-height:calc(13 * var(--px))}
   .dt .body h2{font:800 22px/calc(15 * var(--px)) var(--body)}
   .dt .body h3{font:700 19px/calc(13 * var(--px)) var(--body)}
   .dt .body h4{font:700 17px/calc(13 * var(--px)) var(--body)}
   .px-img.wide{--s:2}
-  .ticon{--s:1}
-  .aside .ticon{margin-right:0}
   /* On the stacked cut the full lit raster gets its own row after the copy.  Keeping
      it in normal grid flow protects paragraphs, repository links, and form status
      text without narrowing the mobile reading measure. */

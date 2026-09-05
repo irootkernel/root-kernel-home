@@ -44,7 +44,9 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    page's H2s, braziers in the sections, obstacle plinths, and text paint — a
    passing ember colours the words in its own orb hue, last one wins. Two extras
    survive from the wire era: the home hero's AI-SPARK pipeline board with its
-   human-approval gate, and the contact page's mailto form circuit.
+   human-approval gate, and the contact page's mailto form circuit. On mobile, the
+   hero transcript keeps its 75-cell height and follows new messages by scrolling
+   internally, so its animation never shifts the launcher geometry below it.
 9. **No** audio, scanlines, CRT curvature, glow, gradients, blur, or drop shadows.
 
 ---
@@ -157,8 +159,10 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
 
 - **Launcher pads.** One pad per `<h2>` of `<main>` (plus one on any brazier section
   without an H2 — the contact form), injected by the engine so a no-JS page shows no
-  dead control. A pad is a Y-sling: pull with pointer or touch and release to
-  launch, or focus it and press Enter/Space for the canonical shot. Pads reload
+  dead control. Every pad sits in the left flight gutter. Initial hero state is
+  rendered before pad and collision geometry are measured. A pad is a Y-sling: pull
+  with pointer or touch and release to launch, or focus it and press Enter/Space for
+  the canonical shot. Pads reload
   instantly and fire again up to **60 embers on desktop input devices, or 30 on
   coarse-pointer mobile devices**. The cap is independent of the responsive layout,
   so narrowing a desktop window cannot lock an active flight. At the active cap every
@@ -172,7 +176,7 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   playfield is the visible slice of `<main>` — never the header, never the footer —
   recomputed on scroll and resize. Obstacles are the `[data-ob]` plinths (the pipeline
   board, repository lists, data tables, the aperture scene), **every launcher pad**,
-  and the home page's five A1–A5 number boxes. Text and images sit on the plinths;
+  and every H2's page-local A1–An number box. Text and images sit on the plinths;
   embers bounce off each measured boundary. An ember's own launch pad is transparent
   to it only until it has fully escaped the cup. One viewport-windowed canvas draws
   every ember from a cache of four colours by four sparkle frames; physics remains
@@ -188,11 +192,17 @@ Every engine page is now one flight board, selected as `machine:"flight"` in `#r
   spatial index limits each flight tick to letters in the ember's neighbouring buckets,
   and every touched letter receives at most one DOM class write per tick after
   last-ember-wins resolves.
-- **Braziers.** One per engine section, hung in the section's own corner. On the
-  stacked mobile cut, section braziers occupy a separate row after the copy; the nine
-  declarations reserve a dedicated right column at every width. Company data tables
-  carry no braziers. An ember within the ignition radius (24 cells) lights the bowl
-  for good; the containing section (and the home index dot) follows.
+- **Braziers.** One per marked engine section, hung in the section's own corner. On
+  the stacked mobile cut, section braziers occupy a separate row after the copy. The
+  Principles declarations carry no braziers; its three explanatory sections do.
+  Company carries one in each of its six H2-led body sections, including the three
+  data table sections; its heading-free introduction carries neither a launcher nor
+  a brazier. An ember within the ignition radius (24 cells) lights the bowl for good;
+  the containing section (and the home index dot) follows.
+- **H2 markers.** Every H2 is numbered in document order with a page-local A1–An
+  badge and carries the same two-cell `--ember3` underline. The badge starts dim and
+  turns `--ember1` when its brazier section is lit; an H2 in a section without a
+  brazier keeps the dim badge. H1 and lower-level headings are not numbered.
 
 Still true from the wire engine:
 
