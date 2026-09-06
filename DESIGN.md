@@ -48,13 +48,17 @@ The site has one grammar. Anything outside this list does not happen anywhere.
    passing ember colours the words in its own orb hue, last one wins. Two extras
    survive from the wire era: the home hero's AI-SPARK pipeline board with its
    human-approval gate, and the contact page's mailto form circuit. At 1280px and
-   above the hero keeps its canonical 750×604 graph. Tablet uses a five-column
-   serpentine graph; mobile uses one narrow success axis with a left exception lane,
-   separate fan-out/fan-in rails, and the declared return from question to policy.
+   above the hero keeps its canonical 820×604 graph, with a right gutter so the
+   rework path can enter recovery policy from the right. Tablet uses a five-column
+   serpentine graph; mobile uses equal-width nodes in two columns — the success
+   path down the left, with issue and ask only in the right column beside verify
+   and review, then the declared return from question to policy on the outer right rail.
+   The graph starts collapsed to its header bar (JS, ≤767px); opening it measures
+   the full board as an obstacle again. Fan-out and fan-in still use side rails.
    Pending procedure nodes stay legible at rest (ash3 outline, iron2 labels); progress
    reads by colour, never by opacity, and the first HUMAN message is on screen from tick 0.
-   Both compact layouts put chat above the graph, keep the current exchange at a
-   fixed height, and expose the complete transcript in page flow. Resizing rewrites
+   Both compact layouts put chat above the graph. The thread is a fixed-height
+   pane that scrolls as messages appear, the same as desktop. Resizing rewrites
    only presentation geometry: the same 22 nodes, transitions, attempt, and 360-tick
    runtime state remain authoritative.
 9. **No** audio, scanlines, CRT curvature, glow, gradients, blur, or drop shadows.

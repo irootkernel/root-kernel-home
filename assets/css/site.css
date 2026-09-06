@@ -239,10 +239,12 @@ html:not(.js) .hreplay{display:none}
   grid-template-columns:minmax(0,1fr) auto;
   grid-template-rows:calc(14 * var(--px)) minmax(0,1fr) calc(10 * var(--px));
   height:calc(202 * var(--px));border:var(--px) solid var(--ash2)}
-.hgraph > .hbar{grid-column:1 / -1}
+.hgraph > .hbar{grid-column:1 / -1;list-style:none;cursor:default;pointer-events:none}
+.hgraph > .hbar::-webkit-details-marker{display:none}
+.hgraph > .hbar::marker{content:""}
 .hstate{color:var(--teal);text-align:right}
-.hcanvas{grid-column:1 / -1;height:auto;overflow:auto;background:var(--ash0)}
-.hcanvas svg{display:block;width:100%;min-width:660px;height:100%}
+.hcanvas{grid-column:1 / -1;height:auto;overflow:visible;background:var(--ash0)}
+.hcanvas svg{display:block;width:100%;min-width:660px;height:100%;overflow:visible}
 .hedge,.hrework{fill:none;stroke:var(--ash3);stroke-width:1.5;vector-effect:non-scaling-stroke;
   marker-end:url(#h-arrow)}
 .hedge.preview{stroke:#9A6BC6}.hedge.approval{stroke:#D85555}.hedge.issue{stroke:var(--ember2)}
@@ -254,10 +256,21 @@ html:not(.js) .hreplay{display:none}
 .hnode.preview rect{stroke:#725091}.hnode.approval rect{stroke:#833737}.hnode.issue rect{stroke:#8B451E}
 .hnode.on rect{stroke:var(--teal)}.hnode.on .hnlabel{fill:var(--bone)}
 .hnode.active rect{fill:#132322;stroke:var(--teal);stroke-width:2}.hnode.active .hnlabel{fill:var(--teal)}
+.hnode.preview.on rect{stroke:#9A6BC6}.hnode.preview.on .hnlabel{fill:#C693EB}
+.hnode.preview.active rect{fill:#1a1222;stroke:#9A6BC6;stroke-width:2}
+.hnode.preview.active .hnlabel{fill:#C693EB}
+.hnode.issue.on rect{stroke:var(--ember2)}.hnode.issue.on .hnlabel{fill:var(--ember2)}
+.hnode.issue.active rect{fill:#24160e;stroke:var(--ember2);stroke-width:2}
+.hnode.issue.active .hnlabel{fill:var(--ember1)}
+.hnode.approval.on rect{stroke:#D85555}.hnode.approval.on .hnlabel{fill:#F17373}
+.hnode.approval.active rect{fill:#1f1212;stroke:#D85555;stroke-width:2}
+.hnode.approval.active .hnlabel{fill:#F17373}
 .hnode.approval.done rect{stroke:#D85555}.hnode.approval.done .hnlabel{fill:#F17373}
 .hnode.preview.done rect{stroke:#9A6BC6}.hnode.preview.done .hnlabel{fill:#C693EB}
 .hnode.issue.done rect{stroke:var(--ember2)}.hnode.issue.done .hnlabel{fill:var(--ember2)}
-.hnode.invalid rect{fill:var(--ash1);stroke:var(--ember2);stroke-dasharray:5 4}
+/* Invalidated work (rework from policy) keeps ember, even on approval/preview nodes. */
+.hnode.invalid.on rect{fill:var(--ash1);stroke:var(--ember2);stroke-dasharray:5 4}
+.hnode.invalid.on .hnlabel,.hnode.invalid.on .hnum{fill:var(--ember2)}
 .hnode:focus{outline:none}.hnode:focus rect{stroke:var(--bone);stroke-width:2}
 html:not(.js) .hnode rect{stroke:var(--teal)}
 html:not(.js) .hnode .hnlabel{fill:var(--bone)}
@@ -274,15 +287,16 @@ html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
 .hero-demo.hdemo-ready .hnode:not(.on) .hnlabel{fill:var(--iron2)}
 .hero-demo.hdemo-ready .hnode:not(.on) .hnum{fill:var(--ash3)}
 .hero-demo.hdemo-ready .hedge:not(.on),.hero-demo.hdemo-ready .hrework:not(.on){stroke:var(--ash3)}
-.hero-demo.hdemo-ready .hpreview:not(.on),.hero-demo.hdemo-ready .hattempt:not(.on){fill:var(--ash3)}
+.hero-demo.hdemo-ready .hpreview:not(.on){fill:var(--ash3)}
 .hedge.on{stroke:var(--teal)}.hedge.preview.on{stroke:#9A6BC6}.hedge.approval.on{stroke:#D85555}
 .hedge.issue.on{stroke:var(--ember2)}
-.hedge.invalid{opacity:.16!important;stroke:var(--ember2);stroke-dasharray:5 4}
+.hedge.on.invalid{opacity:.16!important;stroke:var(--ember2);stroke-dasharray:5 4}
+.hpreview.invalid{fill:var(--ember2)}
 .hrework.on{animation:hrework 12s linear infinite}
 @keyframes hrework{to{stroke-dashoffset:-140}}
-.hpreview,.hattempt{font:600 11px var(--mono);letter-spacing:.04em}
+.hpreview{font:600 11px var(--mono);letter-spacing:.04em}
 .hattempt-node{display:none;fill:var(--ember2);font:500 10px var(--mono)}
-.hpreview{fill:#C693EB}.hattempt{fill:var(--ember2)}
+.hpreview{fill:#C693EB}
 .hinspect,.hlegend{align-self:center;margin:0;color:var(--dim);
   font:400 12px/calc(7 * var(--px)) var(--body)}
 .hinspect{grid-column:1;padding-left:calc(4 * var(--px))}
@@ -329,7 +343,6 @@ body.flight-live .flight-status{visibility:visible}
   .hrework{marker-end:url(#h-arrow-rework-responsive)}
   #h-arrow-responsive path{fill:context-stroke}
   #h-arrow-rework-responsive path{fill:context-stroke}
-  .hattempt{display:none}
   .hattempt-node{display:block}
   body.has-flight-status{padding-bottom:calc(28 * var(--px))}
   .flight-status{height:calc(28 * var(--px))}
@@ -476,17 +489,10 @@ html.js .brz:not(.lit) .charge{display:none}
   /* an EN anchor name does not fit a third of the 768 container without breaking a
      word, so the index runs two columns here (validation M2) */
   .index{grid-template-columns:1fr 1fr}
-  .hchat{grid-column:1;grid-row:2;height:auto;grid-template-rows:calc(14 * var(--px)) minmax(92px,auto) auto}
-  html.js .hthread{height:140px;min-height:140px;overflow:hidden}
-  .hero-demo.hdemo-ready .hmsg{display:none}
-  .hero-demo.hdemo-ready .hmsg.current{display:grid}
-  html.js .hhistory{display:block;border-top:var(--px) solid var(--ash2);color:var(--dim);font-size:12px}
-  .hhistory summary{min-height:calc(12 * var(--px));padding:calc(2 * var(--px)) calc(4 * var(--px));cursor:pointer;font:500 12px/calc(8 * var(--px)) var(--mono)}
-  .hhistory-body{margin:0;padding:calc(2 * var(--px)) calc(6 * var(--px)) calc(4 * var(--px));list-style:none}
-  .hhistory-body li{display:grid;grid-template-columns:calc(22 * var(--px)) 1fr;gap:calc(3 * var(--px));padding:var(--px) 0}
-  .hhistory-body b{color:var(--teal);font:600 12px/calc(8 * var(--px)) var(--mono)}
-  .hhistory-body p{margin:0;font-size:12px;line-height:calc(9 * var(--px))}
+  .hchat{grid-column:1;grid-row:2;height:auto;grid-template-rows:calc(14 * var(--px)) minmax(0,1fr)}
+  html.js .hthread{height:140px;min-height:140px;overflow:auto}
   .hgraph{grid-column:1;grid-row:3;height:auto;grid-template-rows:calc(14 * var(--px)) auto auto}
+  .hgraph > .hbar{pointer-events:none}
   .hcanvas{overflow:visible}
   .hcanvas svg{min-width:0;height:auto}
   .hlegend{display:none}
@@ -540,21 +546,16 @@ html.js .brz:not(.lit) .charge{display:none}
   .index{grid-template-columns:1fr 1fr;margin-top:calc(8 * var(--px))}
   .anchor{margin-top:calc(28 * var(--px))}
   .repos{grid-template-columns:1fr}
-  /* The current exchange stays stable while the complete transcript remains
-     available as ordinary page-flow disclosure below it. */
   .hchat{grid-column:1;grid-row:2;height:auto;border-left:0;border-right:0;
-    grid-template-rows:calc(14 * var(--px)) minmax(92px,auto) auto}
-  html.js .hthread{height:140px;min-height:140px;overflow:hidden}
-  .hero-demo.hdemo-ready .hmsg{display:none}
-  .hero-demo.hdemo-ready .hmsg.current{display:grid}
-  html.js .hhistory{display:block;border-top:var(--px) solid var(--ash2);color:var(--dim);font-size:12px}
-  .hhistory summary{min-height:calc(12 * var(--px));padding:calc(2 * var(--px)) calc(4 * var(--px));cursor:pointer;font:500 12px/calc(8 * var(--px)) var(--mono)}
-  .hhistory-body{margin:0;padding:calc(2 * var(--px)) calc(4 * var(--px)) calc(4 * var(--px));list-style:none}
-  .hhistory-body li{display:grid;grid-template-columns:calc(22 * var(--px)) 1fr;gap:calc(3 * var(--px));padding:var(--px) 0}
-  .hhistory-body b{color:var(--teal);font:600 12px/calc(8 * var(--px)) var(--mono)}
-  .hhistory-body p{margin:0;font-size:12px;line-height:calc(9 * var(--px))}
+    grid-template-rows:calc(14 * var(--px)) minmax(0,1fr)}
+  html.js .hthread{height:140px;min-height:140px;overflow:auto}
   .hgraph{grid-column:1;grid-row:3;height:auto;border-left:0;border-right:0;
     grid-template-rows:calc(14 * var(--px)) auto auto}
+  html.js .hgraph > .hbar{cursor:pointer;pointer-events:auto}
+  html.js .hgraph > .hbar::before{content:"+";color:var(--teal);
+    margin-right:calc(2 * var(--px))}
+  html.js .hgraph[open] > .hbar::before{content:"-"}
+  html.js .hgraph:not([open]) > :not(summary){display:none}
   .hcanvas{overflow:visible}
   .hcanvas svg{min-width:0;height:auto}
   .hinspect{grid-column:1 / -1;min-height:calc(18 * var(--px));padding:calc(3 * var(--px));
@@ -567,10 +568,13 @@ html.js .brz:not(.lit) .charge{display:none}
   html:not(.js) .hgraph-fallback{display:block;margin:0;padding:calc(4 * var(--px))}
   html:not(.js) .hgraph-fallback p{margin:0 0 calc(3 * var(--px));padding-bottom:calc(3 * var(--px));
     border-bottom:var(--px) solid var(--ash2);color:var(--teal);font:600 12px/calc(8 * var(--px)) var(--mono)}
-  html:not(.js) .hgraph-fallback-nodes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  html:not(.js) .hgraph-fallback-nodes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
     gap:calc(2 * var(--px));margin:0;padding:0;list-style:none}
-  html:not(.js) .hgraph-fallback [data-node]{min-height:calc(18 * var(--px));padding:calc(3 * var(--px));
-    border:var(--px) solid var(--teal);color:var(--bone);font:600 12px/calc(8 * var(--px)) var(--mono)}
+  html:not(.js) .hgraph-fallback [data-node]{grid-column:1;min-height:calc(18 * var(--px));
+    padding:calc(3 * var(--px));border:var(--px) solid var(--teal);color:var(--bone);
+    font:600 12px/calc(8 * var(--px)) var(--mono)}
+  html:not(.js) .hgraph-fallback [data-node="issue"]{grid-column:2;grid-row:18}
+  html:not(.js) .hgraph-fallback [data-node="ask"]{grid-column:2;grid-row:19}
   html:not(.js) .hgraph-fallback span{display:block;color:var(--iron2);font-size:10px}
 }
 

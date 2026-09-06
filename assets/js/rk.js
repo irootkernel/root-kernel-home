@@ -112,9 +112,14 @@
   var heroEdges = hero ? [].slice.call(hero.querySelectorAll('.hedge')) : [];
   var heroRework = hero ? hero.querySelector('.hrework') : null;
   var heroPreview = hero ? hero.querySelector('.hpreview') : null;
-  var heroAttempt = hero ? hero.querySelector('.hattempt') : null;
   var heroCanvas = hero ? hero.querySelector('.hcanvas') : null;
   var heroSvg = heroCanvas ? heroCanvas.querySelector('svg') : null;
+  var heroGraph = hero ? hero.querySelector('.hgraph') : null;
+  /* Collapse the procedure board on the stacked cut before first paint. Desktop
+     and tablet keep it open; no-JS keeps the `open` attribute from the markup. */
+  if (heroGraph && heroGraph.tagName === 'DETAILS' && window.innerWidth <= 767) {
+    heroGraph.open = false;
+  }
   var flightStatus = null;
   var statusTotal = null;
   var statusEmbers = [null, null, null, null];
@@ -927,7 +932,8 @@
           'H' + (B.x + B.w);
       }
       if (edge.classList.contains('hrework')) {
-        return 'M' + A.x + ' ' + acy + 'H5V' + bcy + 'H' + B.x;
+        return 'M' + (A.x + A.w) + ' ' + acy + 'H' + (width - 4) + 'V' + bcy +
+          'H' + (B.x + B.w);
       }
       if (Math.abs(acy - bcy) < 2) {
         return bcx > acx ? 'M' + (A.x + A.w) + ' ' + acy + 'H' + B.x :
@@ -939,7 +945,8 @@
       }
     }
     if (edge.classList.contains('hrework')) {
-      return 'M' + (A.x + A.w) + ' ' + acy + 'H' + (width - 4) + 'V' + bcy +
+      var rail = mode === 'desktop' ? width - 24 : width - 4;
+      return 'M' + (A.x + A.w) + ' ' + acy + 'H' + rail + 'V' + bcy +
         'H' + (B.x + B.w);
     }
     if (Math.abs(acy - bcy) < 2) {
@@ -955,36 +962,55 @@
     if (!heroSvg || !heroCanvas) { return; }
     var vw = window.innerWidth;
     if (vw >= 1280) {
-      heroSvg.setAttribute('viewBox', '0 0 750 604');
+      /* Extra width is the right gutter for ask → policy. The rework path is
+         computed from the placed boxes so it cannot keep a baked bottom entry. */
+      var deskW = 820;
+      heroSvg.setAttribute('viewBox', '0 0 ' + deskW + ' 604');
       heroSvg.style.height = '';
       heroNodes.forEach(function (el) {
         heroPlaceNode(el, +el.getAttribute('data-x'), +el.getAttribute('data-y'), 138, 46, false);
       });
-      heroEdges.concat(heroRework ? [heroRework] : []).forEach(function (edge) {
+      heroEdges.forEach(function (edge) {
         edge.style.display = edge.getAttribute('data-desktop-hidden') === 'true' ? 'none' : '';
         edge.setAttribute('d', edge.getAttribute('data-desktop-d') || edge.getAttribute('data-d'));
       });
+      if (heroRework) {
+        heroRework.style.display = '';
+        heroRework.setAttribute('d', heroPath(heroRework, 'desktop', deskW));
+      }
       heroPreview.setAttribute('x', 10); heroPreview.setAttribute('y', 292);
       heroPreview.textContent = heroPreview.getAttribute('data-label');
-      heroAttempt.setAttribute('x', 610); heroAttempt.setAttribute('y', 84);
       return;
     }
-    var width = Math.max(280, heroCanvas.clientWidth), boxes = {}, height;
+    var width = Math.max(280, heroCanvas.clientWidth || (heroGraph && heroGraph.clientWidth) || 0);
+    var boxes = {}, height;
     if (vw < 768) {
-      var gap = 12, nodeW = Math.min(147, (width - 36) / 2), nodeH = 56;
-      var total = nodeW * 2 + gap, left = (width - total) / 2, right = left + nodeW + gap;
-      var y0 = 18, step = 70, branchY = y0 + 11 * step + 28;
-      ['request','inspect','requirements','risk','policy','build','validate','approval','snapshot','prepare','execute'].forEach(function (key, i) { boxes[key] = [right, y0 + i * step]; });
-      ['server','client','storage','tests','docs'].forEach(function (key, i) { boxes[key] = [right, branchY + i * step]; });
-      boxes.integrate = [right, branchY + 5 * step + 6];
-      boxes.verify = [right, branchY + 6 * step + 6]; boxes.issue = [left, branchY + 6 * step + 6];
-      boxes.review = [right, branchY + 7 * step + 6]; boxes.ask = [left, branchY + 7 * step + 6];
-      boxes.closeout = [right, branchY + 8 * step + 6];
+      /* Equal-width nodes: success path in the left column, issue and ask only
+         in the right column beside verify and review. */
+      var margin = 16, gap = 12, nodeH = 56, step = 70, y0 = 18;
+      var colW = Math.max(96, (width - margin * 2 - gap) / 2);
+      var rightX = margin + colW + gap;
+      var spine = ['request','inspect','requirements','risk','policy','build',
+                   'validate','approval','snapshot','prepare','execute'];
+      spine.forEach(function (key, i) { boxes[key] = [margin, y0 + i * step]; });
+      var branchY = y0 + spine.length * step + 28;
+      ['server','client','storage','tests','docs'].forEach(function (key, i) {
+        boxes[key] = [margin, branchY + i * step];
+      });
+      boxes.integrate = [margin, branchY + 5 * step + 6];
+      var splitY = branchY + 6 * step + 6;
+      boxes.verify = [margin, splitY];
+      boxes.issue = [rightX, splitY];
+      boxes.review = [margin, splitY + step];
+      boxes.ask = [rightX, splitY + step];
+      boxes.closeout = [margin, splitY + 2 * step];
       height = boxes.closeout[1] + nodeH + 18;
-      heroPreview.setAttribute('x', right); heroPreview.setAttribute('y', branchY - 12);
+      heroPreview.setAttribute('x', margin); heroPreview.setAttribute('y', branchY - 12);
       heroPreview.textContent = heroPreview.getAttribute('data-compact');
-      heroAttempt.setAttribute('x', right + nodeW - 58); heroAttempt.setAttribute('y', boxes.policy[1] + 14);
-      heroNodes.forEach(function (el) { var p = boxes[el.getAttribute('data-node')]; heroPlaceNode(el, p[0], p[1], nodeW, nodeH, true); });
+      heroNodes.forEach(function (el) {
+        var p = boxes[el.getAttribute('data-node')];
+        heroPlaceNode(el, p[0], p[1], colW, nodeH, true);
+      });
     } else {
       var margin = 14, colGap = 10, tabletW = (width - margin * 2 - colGap * 4) / 5;
       var tabletH = 62, rowStep = 82, top = 18;
@@ -1002,7 +1028,6 @@
       height = boxes.closeout[1] + tabletH + 18;
       heroPreview.setAttribute('x', margin); heroPreview.setAttribute('y', tabletBranch - 14);
       heroPreview.textContent = heroPreview.getAttribute('data-label');
-      heroAttempt.setAttribute('x', boxes.policy[0] + tabletW - 58); heroAttempt.setAttribute('y', top + 14);
       heroNodes.forEach(function (el) { var p = boxes[el.getAttribute('data-node')]; heroPlaceNode(el, p[0], p[1], tabletW, tabletH, true); });
     }
     heroSvg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
@@ -1033,7 +1058,7 @@
       setText(text, chars.slice(0, n).join(''));
     });
     heroMessages.forEach(function (el) { el.classList.toggle('current', el === currentMessage); });
-    if (count !== H.msgCount && heroThread && window.innerWidth >= 1280) {
+    if (count !== H.msgCount && heroThread) {
       H.msgCount = count;
       heroThread.scrollTop = heroThread.scrollHeight;
     }
@@ -1064,8 +1089,10 @@
       el.classList.toggle('retry', !!rerun && e >= rerun);
     });
     if (heroRework) { heroRework.classList.toggle('on', e >= 244); }
-    if (heroPreview) { heroPreview.classList.toggle('on', e >= 150); }
-    if (heroAttempt) { heroAttempt.classList.toggle('on', e >= 244); }
+    if (heroPreview) {
+      heroPreview.classList.toggle('on', e >= 150);
+      heroPreview.classList.toggle('invalid', e >= 244 && e < 300);
+    }
     setText(heroState, T.heroDemo.status[heroStatusAt(e)]);
     if (heroReplay) { heroReplay.disabled = PASSIVE || H.st === 'running'; }
   }
@@ -1080,6 +1107,24 @@
     var history = hero.querySelector('.hhistory');
     if (history) {
       history.addEventListener('toggle', function () { layout(); render(); });
+    }
+    if (heroGraph && heroGraph.tagName === 'DETAILS') {
+      heroGraph.addEventListener('toggle', function () {
+        if (window.innerWidth >= 768) {
+          if (!heroGraph.open) { heroGraph.open = true; }
+          return;
+        }
+        layout();
+        render();
+      });
+      var graphCut = window.matchMedia('(min-width:768px)');
+      var onGraphCut = function () {
+        heroGraph.open = graphCut.matches;
+        layout();
+        render();
+      };
+      if (graphCut.addEventListener) { graphCut.addEventListener('change', onGraphCut); }
+      else if (graphCut.addListener) { graphCut.addListener(onGraphCut); }
     }
     if (heroReplay) { heroReplay.addEventListener('click', heroStart); }
   }
