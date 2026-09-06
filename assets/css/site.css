@@ -737,7 +737,15 @@ html.js .brz:not(.lit) .charge{display:none}
    pierced the border at scale 3, so it drops its step of scale from 1279 down. */
 @media (max-width:1279px){ .px-img.xwide{--s:2} }
 @media (max-width:359px){ .px-img.xwide{--s:1} }
-.scene{margin:calc(6 * var(--px)) 0 0;padding:0}
+.scene{margin:calc(6 * var(--px)) 0 0;padding:calc(4 * var(--px));
+  border:var(--px) solid var(--ash2);background:var(--ash1);width:100%;
+  display:flex;justify-content:center}
+.scene .px-img{margin:0}
+.scene.photo{padding:0;overflow:hidden}
+.scene.photo img{display:block;width:100%;height:auto;image-rendering:auto}
+@media (max-width:767px){
+  .scene .px-img.wide,.scene .px-img.xwide{--s:1}
+}
 /* aperture scene: rect data at one art px per cell, so it scales with the grid and
    keeps its contrast in place of the raster that read as a bare rule (§4) */
 .apert{width:calc(152 * var(--px));height:calc(44 * var(--px))}
