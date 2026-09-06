@@ -1439,12 +1439,12 @@
   });
 
   /* --- background: two giant meshing gears ----------------------------------
-     Silhouettes only (ash1 on the ash0 ground) on a viewport-fixed canvas under
-     every plate (site.css .bgc). The large gear turns once per BG_TURN seconds on
-     the shared 12 Hz clock and its partner meshes tooth to gap at 64:48, with a
-     little scroll parallax. The canvas is outside layout, obstacles and the
-     snapshot; reduced motion draws one static frame and without JS there is no
-     canvas at all (visual refresh 2026-09-06). */
+     Silhouettes only (ash1 on the ash0 ground) on a viewport-fixed canvas
+     (site.css .bgc). The large gear turns once per BG_TURN seconds on the shared
+     12 Hz clock and its partner meshes tooth to gap at 64:48, with a little
+     scroll parallax. The canvas is outside layout, obstacles and the snapshot;
+     reduced motion draws one static frame and without JS there is no canvas at
+     all (visual refresh 2026-09-06). */
   var BG_TURN = 720;
   var bgCanvas = null, bgCtx = null, bgGears = [], bgW = 0, bgH = 0;
   var bgTick = 0, bgDirty = false, bgAsh0 = '#121110', bgAsh1 = '#1C1A18';

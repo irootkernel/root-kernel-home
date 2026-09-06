@@ -30,7 +30,7 @@
   <meta name="twitter:description" content="루트커널은 AI의 작업 범위와 절차를 정하고 검증과 사람의 승인에 따라 실행을 제어하는 기술과 제품을 만듭니다.">
   <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
   <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
-  <link rel="stylesheet" href="/assets/css/site.css?v=vr7-hero-m14">
+  <link rel="stylesheet" href="/assets/css/site.css?v=vr7-hero-m19">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz/","logo":"https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg","email":"cs@rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
 </head>
 <body>
@@ -48,9 +48,6 @@
         <div class="body">
           <h1 class="h1" id="h1"><span class="l">루트커널은</span> <span class="l">AI를 제어하는</span> <span class="l">기술을 만듭니다.</span></h1>
           <p class="lead">AI가 코드를 빠르게 만들어도, 의도대로 동작하는지 검토하고 문제가 생겼을 때 복구하는 일은 여전히 어렵고 시간이 많이 듭니다. 루트커널은 AI의 작업 범위와 실행 절차를 정하고, 사람이 정한 규칙과 승인에 따라 AI가 일하도록 제어하는 기술을 만듭니다. 각 단계의 검증 조건을 충족해야 다음 단계로 넘어가고, 사람의 판단이 필요한 지점에서는 승인을 받아 실행을 이어갑니다.</p>
-          <div class="hero-links">
-            <a class="more" href="/ko/control/">AI-SPARK와 Podway 자세히 보기 →</a>
-          </div>
         </div>
       </div>
       <div class="hero-demo" role="group" aria-label="대화로 절차를 구성하고 승인 뒤 실행하며, 문제 발생 시 사람에게 질문한 다음 선언된 이전 단계로 돌아가는 Podway 실행 예시">
@@ -105,27 +102,27 @@
     <section class="anchor" id="a1">
       <div class="head"><h2>Technology</h2></div>
       <div class="body"><p>AI-SPARK는 spec bundle에서 revision key를 만들어 명세 버전을 식별합니다. 검증과 사람의 승인, 구현과 배포는 모두 이 버전을 기준으로 진행합니다. 승인 후 AI는 이벤트 발생과 전이 조건, 전이 동작에 필요한 코드를 작성합니다. FSM runtime은 실제 상태 전이를 실행하고 동시성을 제어하며, 전이 기록을 남깁니다. Podway에서는 작업에 맞는 절차를 미리 정하고 실행 전에 검증합니다. 작업이 길어지거나 다른 사람이나 에이전트에게 넘겨도, 다음에 진행할 단계와 다시 수행할 작업을 확인할 수 있습니다.</p><a class="more" href="/ko/control/">AI-SPARK와 Podway 자세히 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div>
     </section>
     <section class="anchor" id="a3">
       <div class="head"><h2>AI Harness</h2></div>
       <div class="body"><p>AI Harness는 AI 에이전트와 함께 소프트웨어를 개발할 때 사용하는 도구군입니다. 작업 진행 상황을 추적하고, 에이전트가 마쳤다고 보고한 작업을 테스트 결과와 실행 기록으로 확인합니다. 중요한 변경은 사람이 승인합니다. 루트커널이 직접 만들어 자사 제품과 도구 개발에 활용하고 있으며, 오픈소스로 공개했습니다.</p><ul class="repos" data-ob><li><a href="https://github.com/irootkernel/aquarium">Aquarium</a></li><li><a href="https://github.com/irootkernel/podway">Podway</a></li><li><a href="https://github.com/irootkernel/dolgorae">Dolgorae</a></li><li><a href="https://github.com/irootkernel/sanho">Sanho</a></li><li><a href="https://github.com/irootkernel/mulgae">Mulgae</a></li><li><a href="https://github.com/irootkernel/gaori">Gaori</a></li><li><a href="https://github.com/irootkernel/sorage">Sorage</a></li></ul><a class="more" href="/ko/ai-harness/">AI Harness 자세히 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div>
     </section>
     <section class="anchor" id="a4">
       <div class="head"><h2>AI Agent</h2></div>
       <div class="body"><p>루트커널은 Hermes Agent를 업무에 적극적으로 활용하며, 필요한 기능을 직접 수정하고 확장합니다. 에이전트 간 토론을 위해 Agent Turn Network를 만들고, Hermes Agent에서 LLM Wiki를 활용하기 위한 Agent Dispatch를 개발했습니다. Hermes Agent 수정본과 두 도구는 모두 오픈소스로 공개했습니다.</p><ul class="repos wide" data-ob><li><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">Hermes Agent</a></li><li><a href="https://github.com/irootkernel/agent-turn-network-control">Agent Turn Network</a></li><li><a href="https://github.com/irootkernel/agent-dispatch">Agent Dispatch</a></li></ul><a class="more" href="/ko/ai-agents/">AI Agent 자세히 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div>
     </section>
     <section class="anchor" id="a2">
       <div class="head"><h2>Products</h2></div>
       <div class="body"><p>루트커널은 AI Harness와 AI Agent를 활용해 제품을 기획하고 개발합니다. 직접 만든 도구와 에이전트를 제품 개발에 적용하면서, 실제 작업에 필요한 기능과 해결해야 할 문제를 구체화합니다. 그 경험을 다시 기술에 반영해 제품과 개발 도구를 함께 개선합니다.</p><a class="more" href="/ko/products/">제품 자세히 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div>
     </section>
     <section class="anchor" id="a5">
       <div class="head"><h2>Principles</h2></div>
       <div class="body"><p>루트커널은 AI의 자율성을 넓히면서도 사람이 작업의 방향과 중요한 결정을 통제할 수 있어야 한다고 봅니다. 작업 범위와 검증 기준을 먼저 정하고, 결과를 확인하고 판단을 되짚을 수 있도록 작업 과정을 기록합니다. 문제가 생겼을 때도 작업 내용을 보존하고 이어갈 수 있도록 제품과 도구를 설계합니다.</p><a class="more" href="/ko/principles/">다섯 가지 원칙 보기 →</a></div>
-      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><rect class="module" x="2" y="1" width="12" height="22" rx="3"/><rect class="face" x="2.9" y="1.9" width="10.2" height="20.2" rx="2.2"/><rect class="well" x="5" y="4" width="6" height="16" rx="1.4"/><rect class="charge" x="5.6" y="4.6" width="4.8" height="14.8" rx="1"/></svg></div>
+      <div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div>
     </section>
 </main>
 <footer class="foot wrap">

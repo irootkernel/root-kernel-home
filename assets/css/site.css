@@ -33,11 +33,12 @@ body{margin:0;background:var(--ash0);color:var(--bone);font-family:var(--body);
   word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
 @media (max-width:1279px){ body{font-size:17px;line-height:calc(13 * var(--px))} }
 @media (max-width:767px){ body{font-size:16px;line-height:calc(13 * var(--px))} }
-/* Background: two giant meshing gear silhouettes on a viewport-fixed canvas under
-   every plate (engine §3). html keeps the ash0 ground; body goes transparent only
-   once the engine has made the canvas (html.bg), so the no-JS page is unchanged. */
+/* Background: two giant meshing gear silhouettes on a viewport-fixed canvas.
+   html keeps the ash0 ground; body goes transparent only once the engine has
+   made the canvas (html.bg), so the no-JS page is unchanged. The column is not
+   plated — gears show through type on every cut. */
 html.bg body{background:transparent}
-.bgc{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block}
+.bgc{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block;opacity:.55}
 a{color:var(--teal)}
 a:focus-visible,button:focus-visible,input:focus-visible,
 textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:var(--px) solid var(--teal);outline-offset:var(--px)}
@@ -367,8 +368,6 @@ body.flight-live .flight-status{visibility:visible}
   grid-template-rows:auto;gap:0;align-items:start}
 .hero-left{grid-column:1;grid-row:1;padding-right:calc(8 * var(--px));min-width:0}
 .hero-left .lead{max-width:none}
-.hero-links{display:flex;flex-wrap:wrap;gap:0 calc(6 * var(--px))}
-.hero-links .more{margin-top:calc(4 * var(--px))}
 .anchor{margin-top:calc(40 * var(--px))}
 .anchor > .head{grid-column:2;grid-row:1}
 .anchor > .body{grid-column:2;grid-row:2}
@@ -379,6 +378,7 @@ body.flight-live .flight-status{visibility:visible}
 .brz-art .module{fill:var(--iron2)}
 .brz-art .face{fill:var(--iron)}
 .brz-art .well{fill:var(--ash0)}
+/* Ember grows from the well floor up through the open mouth. */
 .brz-art .charge{display:none;fill:var(--ember2);transform-box:fill-box;
   transform-origin:center bottom}
 .brz.lit .charge{display:inline}
