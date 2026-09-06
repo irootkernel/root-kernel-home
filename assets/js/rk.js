@@ -427,7 +427,7 @@
       el.type = 'button';
       el.className = 'pad ' + ORBS[ci];
       el.setAttribute('aria-label', fmt(T.pad.aria, { color: T.orb[ORBK[ci]] }));
-      el.innerHTML = '<span class="pface" aria-hidden="true"></span>';
+      el.innerHTML = '<span class="pface" aria-hidden="true"><span class="porb"></span></span>';
       var host = h2.closest('section') || stage;
       var pad = { el: el, h2: h2, host: host, x: 0, y: 0,
                   id: h2.id || host.id || (T.anchorTag + (i + 1)),
