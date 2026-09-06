@@ -9,10 +9,7 @@ by hand.
 
 ```bash
 cd ../root-kernel-home-generator
-python3 r5/build/build.py
-python3 -m http.server 8080 --bind 127.0.0.1 --directory "$(pwd)/../root-kernel-home-2"
-bash r5/tools/run-all.sh
+make build
+make test
+make publish    # commits this tree and pushes GitHub Pages
 ```
-
-Then commit the Pages-tree diff in this repository and push to
-`irootkernel/root-kernel-home`.
