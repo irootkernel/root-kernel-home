@@ -105,9 +105,7 @@
   var hero = stage.querySelector('.hero-demo');
   var heroReplay = document.getElementById('rk-hero-replay');
   var heroState = hero ? hero.querySelector('.hstate') : null;
-  var heroThread = hero ? hero.querySelector('.hthread') : null;
   var heroInspect = hero ? hero.querySelector('.hinspect') : null;
-  var heroMessages = hero ? [].slice.call(hero.querySelectorAll('.hmsg')) : [];
   var heroNodes = hero ? [].slice.call(hero.querySelectorAll('.hnode')) : [];
   var heroEdges = hero ? [].slice.call(hero.querySelectorAll('.hedge')) : [];
   var heroRework = hero ? hero.querySelector('.hrework') : null;
@@ -115,11 +113,6 @@
   var heroCanvas = hero ? hero.querySelector('.hcanvas') : null;
   var heroSvg = heroCanvas ? heroCanvas.querySelector('svg') : null;
   var heroGraph = hero ? hero.querySelector('.hgraph') : null;
-  /* Collapse the procedure board on the stacked cut before first paint. Desktop
-     and tablet keep it open; no-JS keeps the `open` attribute from the markup. */
-  if (heroGraph && heroGraph.tagName === 'DETAILS' && window.innerWidth <= 767) {
-    heroGraph.open = false;
-  }
   var flightStatus = null;
   var statusTotal = null;
   var statusEmbers = [null, null, null, null];
@@ -835,17 +828,12 @@
      changes only the active cursor, evidence validity and attempt number. */
   var HDUR = (T.heroDemo && T.heroDemo.duration) || 360;
   var H = { st: hero ? (PASSIVE ? 'complete' : 'running') : 'none', at: 0,
-            runs: hero ? 1 : 0, msgCount: -1 };
-  heroMessages.forEach(function (el) {
-    var text = el.querySelector('.hmsg-text');
-    if (text) { text.__full = text.textContent; }
-  });
+            runs: hero ? 1 : 0 };
   function heroStart() {
     if (!hero || PASSIVE) { return; }
     H.st = 'running';
     H.at = RK.tick;
     H.runs++;
-    H.msgCount = -1;
     events.push('hero:' + H.runs);
     renderHero();
   }
@@ -961,6 +949,7 @@
   function layoutHeroGraph() {
     if (!heroSvg || !heroCanvas) { return; }
     var vw = window.innerWidth;
+    if (vw < 768) { return; }
     if (vw >= 1280) {
       /* Extra width is the right gutter for ask → policy. The rework path is
          computed from the placed boxes so it cannot keep a baked bottom entry. */
@@ -1039,29 +1028,8 @@
   }
   function renderHero() {
     if (!hero || !T.heroDemo) { return; }
-    var e = heroElapsed(), at, dur, count = 0, maxAt = -1;
+    var e = heroElapsed(), maxAt = -1;
     hero.classList.add('hdemo-ready');
-    var currentMessage = null;
-    heroMessages.forEach(function (el) {
-      at = +(el.getAttribute('data-at') || 0);
-      dur = +(el.getAttribute('data-dur') || 1);
-      var text = el.querySelector('.hmsg-text');
-      var chars = text && Array.from(text.__full || '');
-      var shown = e >= at;
-      el.classList.toggle('shown', shown);
-      if (shown) { currentMessage = el; }
-      el.classList.toggle('typing', shown && e < at + dur);
-      if (!text || !shown) { if (text) { setText(text, ''); } return; }
-      count++;
-      var n = e >= at + dur ? chars.length :
-        Math.max(1, Math.floor(chars.length * (e - at) / dur));
-      setText(text, chars.slice(0, n).join(''));
-    });
-    heroMessages.forEach(function (el) { el.classList.toggle('current', el === currentMessage); });
-    if (count !== H.msgCount && heroThread) {
-      H.msgCount = count;
-      heroThread.scrollTop = heroThread.scrollHeight;
-    }
     heroNodes.forEach(function (el) {
       var moment = nodeMoment(el, e);
       if (moment <= e && moment > maxAt) { maxAt = moment; }
@@ -1104,10 +1072,6 @@
       el.addEventListener('focus', inspect);
       el.addEventListener('pointerdown', inspect);
     });
-    var history = hero.querySelector('.hhistory');
-    if (history) {
-      history.addEventListener('toggle', function () { layout(); render(); });
-    }
     if (heroGraph && heroGraph.tagName === 'DETAILS') {
       heroGraph.addEventListener('toggle', function () {
         if (window.innerWidth >= 768) {
@@ -1338,7 +1302,7 @@
     statusForce = true;
     if (form) { form.classList.remove('sent'); }
     H = { st: hero ? (PASSIVE ? 'complete' : 'running') : 'none', at: 0,
-          runs: hero ? 1 : 0, msgCount: -1 };
+          runs: hero ? 1 : 0 };
     measureBounds();
     render();
   };

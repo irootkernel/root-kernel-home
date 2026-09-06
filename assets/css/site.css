@@ -177,6 +177,11 @@ img,.px-img{image-rendering:pixelated}
   font:800 48px/calc(20 * var(--px)) var(--body);
   word-break:keep-all;overflow-wrap:normal}
 .h1 .l{display:inline}
+/* Wide home: the left column is too narrow for a full sentence, so each cut
+   is a line.  768–1279 has the heading full-width and wraps as one line. */
+@media (min-width:1280px){
+  .hero .h1 .l{display:block}
+}
 /* r12 §1: the same `ui:tagline` string as the header, as an eyebrow over the H1 of the
    company page.  Caption tier (`ui2-` 14/13/13) in the dim colour so it reads
    under the heading, not against it; nine-cell line + three-cell gap = twelve cells of
@@ -210,9 +215,8 @@ img,.px-img{image-rendering:pixelated}
 
 /* ---------------------------------------------------------------- Podway hero demo */
 .hero-demo{display:contents}
-.hchat,.hgraph,.hthread{min-width:0;min-height:0}
-.hchat{grid-column:1;grid-row:2;display:grid;grid-template-rows:calc(14 * var(--px)) minmax(0,1fr);
-  height:calc(60 * var(--px));border:var(--px) solid var(--ash2)}
+.hcompact{display:none}
+.hgraph{min-width:0}
 .hbar{height:calc(14 * var(--px));padding:0 calc(4 * var(--px));display:flex;
   align-items:center;justify-content:space-between;border-bottom:var(--px) solid var(--ash2);
   color:var(--iron2);font:600 13px/calc(10 * var(--px)) var(--mono);letter-spacing:.04em}
@@ -221,35 +225,26 @@ img,.px-img{image-rendering:pixelated}
 .hreplay:hover{color:var(--teal)}
 .hreplay:disabled{color:var(--ash3);cursor:default}
 html:not(.js) .hreplay{display:none}
-.hthread{height:auto;padding:calc(4 * var(--px));overflow:auto;
-  scrollbar-color:var(--ash3) transparent;scrollbar-width:thin}
-.hmsg{display:grid;grid-template-columns:calc(22 * var(--px)) 1fr;
-  gap:calc(3 * var(--px));padding:calc(3 * var(--px)) 0;
-  border-bottom:var(--px) solid var(--ash2)}
-.hmsg:last-child{border-bottom:0}
-.hactor{color:var(--teal);font:600 12px/calc(8 * var(--px)) var(--mono)}
-.hmsg p,.body .hmsg p{margin:0;color:var(--bone);font:400 14px/calc(8 * var(--px)) var(--body)}
-.hmsg.human .hactor{color:var(--bone)}
-.hmsg.issue .hactor,.hmsg.issue p{color:var(--ember2)}
-.hhistory,.hgraph-fallback{display:none}
-.hero-demo.hdemo-ready .hmsg:not(.shown){display:none}
-.hmsg.typing .hmsg-text::after{content:"";display:inline-block;width:var(--px);
-  height:calc(5 * var(--px));margin-left:var(--px);background:currentColor;vertical-align:-1px}
-.hgraph{position:relative;grid-column:2;grid-row:1 / span 2;display:grid;
+.hgraph-fallback{display:none}
+.hgraph{position:relative;grid-column:2;grid-row:1;display:grid;
   grid-template-columns:minmax(0,1fr) auto;
-  grid-template-rows:calc(14 * var(--px)) minmax(0,1fr) calc(10 * var(--px));
-  height:calc(202 * var(--px));border:var(--px) solid var(--ash2)}
-.hgraph > .hbar{grid-column:1 / -1;list-style:none;cursor:default;pointer-events:none}
+  grid-template-rows:calc(14 * var(--px)) auto calc(10 * var(--px));
+  height:auto;align-self:start;border:var(--px) solid var(--ash2)}
+.hgraph > .hbar{grid-column:1 / -1;grid-row:1;padding-right:calc(8em + 8 * var(--px));
+  list-style:none;cursor:default;pointer-events:none}
+.hgraph > .hreplay{position:absolute;top:0;right:calc(4 * var(--px));z-index:2;
+  height:calc(14 * var(--px));min-width:7em;display:flex;align-items:center;
+  justify-content:flex-end;padding:0}
 .hgraph > .hbar::-webkit-details-marker{display:none}
 .hgraph > .hbar::marker{content:""}
 .hstate{color:var(--teal);text-align:right}
-.hcanvas{grid-column:1 / -1;height:auto;overflow:visible;background:var(--ash0)}
-.hcanvas svg{display:block;width:100%;min-width:660px;height:100%;overflow:visible}
+.hcanvas{grid-column:1 / -1;grid-row:2;height:auto;overflow:visible;background:var(--ash0)}
+.hcanvas svg{display:block;width:100%;min-width:0;height:auto;overflow:visible}
 .hedge,.hrework{fill:none;stroke:var(--ash3);stroke-width:1.5;vector-effect:non-scaling-stroke;
   marker-end:url(#h-arrow)}
 .hedge.preview{stroke:#9A6BC6}.hedge.approval{stroke:#D85555}.hedge.issue{stroke:var(--ember2)}
-.hrework{stroke:var(--ember2);stroke-width:2;stroke-dasharray:8 6;marker-end:url(#h-arrow-rework)}
-#h-arrow path{fill:var(--ash3)} #h-arrow-rework path{fill:var(--ember2)}
+.hrework{stroke-width:2;stroke-dasharray:8 6;marker-end:url(#h-arrow-rework)}
+#h-arrow path{fill:var(--ash3)} #h-arrow-rework path{fill:context-stroke}
 .hnode rect{fill:var(--ash0);stroke:var(--ash3);stroke-width:1.5;vector-effect:non-scaling-stroke}
 .hnode text{font-family:var(--mono);pointer-events:none}
 .hnum{fill:var(--iron2);font-size:10px}.hnlabel{fill:var(--dim);font-size:12px;font-weight:600}
@@ -292,17 +287,17 @@ html:not(.js) .hedge.issue,html:not(.js) .hrework{stroke:var(--ember2)}
 .hedge.issue.on{stroke:var(--ember2)}
 .hedge.on.invalid{opacity:.16!important;stroke:var(--ember2);stroke-dasharray:5 4}
 .hpreview.invalid{fill:var(--ember2)}
-.hrework.on{animation:hrework 12s linear infinite}
+.hrework.on{stroke:var(--ember2);animation:hrework 12s linear infinite}
 @keyframes hrework{to{stroke-dashoffset:-140}}
 .hpreview{font:600 11px var(--mono);letter-spacing:.04em}
 .hattempt-node{display:none;fill:var(--ember2);font:500 10px var(--mono)}
 .hpreview{fill:#C693EB}
 .hinspect,.hlegend{align-self:center;margin:0;color:var(--dim);
   font:400 12px/calc(7 * var(--px)) var(--body)}
-.hinspect{grid-column:1;padding-left:calc(4 * var(--px))}
-.hlegend{grid-column:2;padding-right:calc(4 * var(--px));font-family:var(--mono);text-align:right}
+.hinspect{grid-column:1;grid-row:3;padding-left:calc(4 * var(--px))}
+.hlegend{grid-column:2;grid-row:3;padding-right:calc(4 * var(--px));font-family:var(--mono);text-align:right}
 @media (prefers-reduced-motion:reduce){
-  .hrework.on{animation:none}.hmsg.typing .hmsg-text::after{display:none}
+  .hrework.on{animation:none}
 }
 
 /* ---------------------------------------------------------------- flight status
@@ -366,7 +361,7 @@ body.flight-live .flight-status{visibility:visible}
   grid-template-columns:minmax(0,1fr) calc(228 * var(--px)) minmax(0,1fr)}
 .hero{position:relative;z-index:2;display:grid;
   grid-template-columns:minmax(0,3fr) minmax(0,5fr);
-  grid-template-rows:auto 1fr;gap:calc(8 * var(--px)) 0;align-items:stretch}
+  grid-template-rows:auto;gap:0;align-items:start}
 .hero-left{grid-column:1;grid-row:1;padding-right:calc(8 * var(--px));min-width:0}
 .hero-left .lead{max-width:none}
 .hero-links{display:flex;flex-wrap:wrap;gap:0 calc(6 * var(--px))}
@@ -429,7 +424,7 @@ html.js .brz:not(.lit) .charge{display:none}
 .anchor.lit .chain li,.sec.lit .chain li{border-color:var(--ember2);color:var(--ember1)}
 /* R13 obstacle plinths read as objects. Hero panels already own their surface and
    border styles, so data-ob gives them collision without adding a second frame. */
-[data-ob]:not(.hero-demo):not(.hchat):not(.hgraph){background:var(--ash1);border:var(--px) solid var(--ash2);
+[data-ob]:not(.hero-demo):not(.hgraph):not(.hcompact){background:var(--ash1);border:var(--px) solid var(--ash2);
   padding:calc(2 * var(--px))}
 .repos{margin:calc(3 * var(--px)) 0 0;padding:0;list-style:none;display:grid;
   grid-template-columns:1fr 1fr;gap:0 calc(6 * var(--px))}
@@ -480,7 +475,8 @@ html.js .brz:not(.lit) .charge{display:none}
 /* ---------------------------------------------------------------- 768–1279 */
 @media (min-width:768px) and (max-width:1279px){
   .anchor{grid-template-columns:minmax(0,1fr) minmax(0,calc(270 * var(--px))) minmax(0,1fr)}
-  .hero{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto}
+  .hero{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;
+    row-gap:calc(8 * var(--px))}
   .hero-left{grid-column:1;grid-row:1;max-width:none;padding-right:0}
   .h1{font:800 36px/calc(22 * var(--px)) var(--body)}
   .head h2{font:800 24px/calc(15 * var(--px)) var(--body)}
@@ -489,9 +485,8 @@ html.js .brz:not(.lit) .charge{display:none}
   /* an EN anchor name does not fit a third of the 768 container without breaking a
      word, so the index runs two columns here (validation M2) */
   .index{grid-template-columns:1fr 1fr}
-  .hchat{grid-column:1;grid-row:2;height:auto;grid-template-rows:calc(14 * var(--px)) minmax(0,1fr)}
-  html.js .hthread{height:140px;min-height:140px;overflow:auto}
-  .hgraph{grid-column:1;grid-row:3;height:auto;grid-template-rows:calc(14 * var(--px)) auto auto}
+  .hgraph{grid-column:1;grid-row:2;height:auto;
+    grid-template-rows:calc(14 * var(--px)) auto auto}
   .hgraph > .hbar{pointer-events:none}
   .hcanvas{overflow:visible}
   .hcanvas svg{min-width:0;height:auto}
@@ -535,7 +530,7 @@ html.js .brz:not(.lit) .charge{display:none}
   .anchor > .head,.anchor > .body{grid-column:1}
   .anchor > .head,.anchor > .body,.sec > .body{
     padding-left:calc(22 * var(--px))}
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto;
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto;
     gap:calc(6 * var(--px)) 0}
   .hero-left{grid-column:1;grid-row:1;max-width:none;margin-left:0;padding-right:0}
   .h1{font:800 30px/calc(20 * var(--px)) var(--body)}
@@ -546,21 +541,12 @@ html.js .brz:not(.lit) .charge{display:none}
   .index{grid-template-columns:1fr 1fr;margin-top:calc(8 * var(--px))}
   .anchor{margin-top:calc(28 * var(--px))}
   .repos{grid-template-columns:1fr}
-  .hchat{grid-column:1;grid-row:2;height:auto;border-left:0;border-right:0;
-    grid-template-rows:calc(14 * var(--px)) minmax(0,1fr)}
-  html.js .hthread{height:140px;min-height:140px;overflow:auto}
-  .hgraph{grid-column:1;grid-row:3;height:auto;border-left:0;border-right:0;
-    grid-template-rows:calc(14 * var(--px)) auto auto}
-  html.js .hgraph > .hbar{cursor:pointer;pointer-events:auto}
-  html.js .hgraph > .hbar::before{content:"+";color:var(--teal);
-    margin-right:calc(2 * var(--px))}
-  html.js .hgraph[open] > .hbar::before{content:"-"}
-  html.js .hgraph:not([open]) > :not(summary){display:none}
-  .hcanvas{overflow:visible}
-  .hcanvas svg{min-width:0;height:auto}
-  .hinspect{grid-column:1 / -1;min-height:calc(18 * var(--px));padding:calc(3 * var(--px));
-    border-top:var(--px) solid var(--ash2)}
-  .hlegend{display:none}
+  .hgraph{display:none}
+  .hcompact{display:block;grid-column:1;grid-row:2;margin:0;
+    padding:calc(4 * var(--px));border:var(--px) solid var(--ash2);background:var(--ash0)}
+  .hcompact svg{display:block;width:100%;height:auto}
+  .hcompact .fcap{margin:calc(3 * var(--px)) 0 0;color:var(--dim);
+    font:400 14px/calc(9 * var(--px)) var(--body)}
 }
 
 @media (max-width:1279px){
