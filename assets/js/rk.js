@@ -17,7 +17,7 @@
  * the contact form still readable.
  *
  * Contains no sentences: every string comes from the #rk-cfg JSON block, which the
- * generator fills from _workspace/r5/copy/ui-strings.json.
+ * generator fills from r5/copy/ui-strings.json.
  */
 (function () {
   'use strict';
