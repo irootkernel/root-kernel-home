@@ -452,6 +452,7 @@ html.js .brz:not(.lit) .charge{display:none}
   font:400 14px/calc(10 * var(--px)) var(--body);color:var(--dim)}
 .foot a{color:var(--dim);text-decoration:none}
 .foot a:hover{color:var(--teal)}
+.foot .ai-art{flex:1 0 100%;margin-top:calc(2 * var(--px))}
 
 /* JS on: an unlit chain stays cold (the receiver rule lives with .brz above) */
 .js .anchor:not(.lit) .chain li,.js .sec:not(.lit) .chain li{
@@ -862,7 +863,8 @@ html.js .brz:not(.lit) .charge{display:none}
    No header, no HUD, no machine: the broken-wire raster, the code, both messages and
    the two home links.  Every box is a whole number of cells so the board stays on the
    grid at any width, and the fixed heights keep CLS at 0 while the faces load. */
-.nfp{display:flex;min-height:100vh;align-items:center}
+.nfp{display:flex;flex-direction:column;min-height:100vh}
+.nfp .nf{flex:1;display:flex;flex-direction:column;justify-content:center}
 .nf{padding:calc(24 * var(--px)) 0}
 .nfart{display:flex;align-items:center;gap:calc(8 * var(--px));
   height:calc(24 * var(--px))}
