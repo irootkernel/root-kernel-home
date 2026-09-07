@@ -46,11 +46,58 @@
   <section class="phead">
     <div class="body">
       <h1 class="h1">AI Harness</h1>
-      <p class="lead">Developing software with AI means picking up ongoing work in a new conversation, comparing code reviews from multiple AI models, and finding failures in long test logs. Documents spread across repositories also need to stay consistent.</p>
+      <p class="lead">Developing software with AI means picking up ongoing work in a new conversation, comparing code reviews from multiple AI models, and finding failures in long test logs. Documents spread across repositories also need to stay consistent.</p><p>Root Kernel built the AI Harness toolset to help with this work. It preserves task state so the next steps remain clear and checks review findings against the actual code. Test logs are summarized with supporting evidence retained, and documents are synchronized with a reference repository. We use these tools in our own development and have released them as open source.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 288" width="648" height="288" role="img" aria-label="An agent enters Aquarium's contract and a person approves; six tools sit under the umbrella as separate jobs, not a pipeline" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dg-harnessRoles-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
+  </defs>
+  <g class="dg-plates">
+    <rect class="dg-plate" x="24" y="116" width="600" height="156" rx="6" fill="#1C1A18" stroke="#2E2B28" stroke-width="1.5"/>
+  </g>
+  <g class="dg-edges" fill="none" stroke="#7C776F" stroke-width="2">
+    <path class="dg-edge" d="M202 58H233" marker-end="url(#dg-harnessRoles-arrow)"/>
+    <path class="dg-edge" d="M410 58H441" marker-end="url(#dg-harnessRoles-arrow)"/>
+    <path class="dg-edge" d="M322 84V100"/>
+    <path class="dg-edge" d="M48 100H600"/>
+    <path class="dg-edge" d="M48 100V116"/>
+    <path class="dg-edge" d="M600 100V116"/>
+  </g>
+  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
+    <rect class="dg-node" x="106" y="40" width="96" height="36" rx="4"/>
+    <rect class="dg-node" x="234" y="32" width="176" height="52" rx="4"/>
+    <g class="dg-gate" stroke="#D85555">
+      <rect x="442" y="28" width="100" height="60" rx="6"/>
+      <rect x="446" y="32" width="92" height="52" rx="4"/>
+    </g>
+    <rect class="dg-node" x="48" y="136" width="128" height="52" rx="4"/>
+    <rect class="dg-node" x="260" y="136" width="128" height="52" rx="4"/>
+    <rect class="dg-node" x="472" y="136" width="128" height="52" rx="4"/>
+    <rect class="dg-node" x="48" y="204" width="128" height="52" rx="4"/>
+    <rect class="dg-node" x="260" y="204" width="128" height="52" rx="4"/>
+    <rect class="dg-node" x="472" y="204" width="128" height="52" rx="4"/>
+  </g>
+  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
+    <text class="dg-label" x="154" y="58">Agent</text>
+    <text class="dg-label" x="322" y="50" fill="#EDE9E7">Aquarium</text>
+    <text class="dg-label" x="322" y="66" fill="#EDE9E7">contract</text>
+    <text class="dg-label" x="492" y="50" fill="#D85555">Human</text>
+    <text class="dg-label" x="492" y="66" fill="#D85555">approval</text>
+    <text class="dg-label" x="112" y="154" fill="#EDE9E7">Podway</text>
+    <text class="dg-label" x="112" y="170">procedure</text>
+    <text class="dg-label" x="324" y="154" fill="#EDE9E7">Dolgorae</text>
+    <text class="dg-label" x="324" y="170">identity</text>
+    <text class="dg-label" x="536" y="154" fill="#EDE9E7">Sanho</text>
+    <text class="dg-label" x="536" y="170">docs</text>
+    <text class="dg-label" x="112" y="222" fill="#EDE9E7">Mulgae</text>
+    <text class="dg-label" x="112" y="238">review</text>
+    <text class="dg-label" x="324" y="222" fill="#EDE9E7">Gaori</text>
+    <text class="dg-label" x="324" y="238">evidence</text>
+    <text class="dg-label" x="536" y="222" fill="#EDE9E7">Sorage</text>
+    <text class="dg-label" x="536" y="238">handoff</text>
+  </g>
+</svg><figcaption class="fcap">Aquarium is the umbrella. Each tool owns one existing job, and a person approves consequential changes.</figcaption></figure>
     </div>
   </section>
-  <section class="sec"><div class="body"><p>Root Kernel built the AI Harness toolset to help with this work. It preserves task state so the next steps remain clear and checks review findings against the actual code. Test logs are summarized with supporting evidence retained, and documents are synchronized with a reference repository. We use these tools in our own development and have released them as open source.</p></div></section>
-  <section class="sec pt tool" id="r1"><div class="body"><h2 id="harness.r1">Aquarium</h2><p>Aquarium is a plugin that helps AI agents set up development tools and use them together. It checks the development environment, helps install tools and configure projects, and connects tools for procedures, testing, code review, and document synchronization during development. Built on Codex, it also offers editions for Claude Code, Kimi Code, and GLM.</p><figure class="scene photo" data-ob><img src="/assets/images/scene/aquarium-exhibit.jpg" width="1280" height="720" alt="A dark exhibit tank holding a seal, a dolphin, a stingray, coral, a hermit crab, and an oyster" decoding="async"></figure><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/aquarium">GitHub</a></div><div class="eds"><span class="lb">Editions</span><a href="https://github.com/irootkernel/aquarium-for-claude">Claude Code</a><i aria-hidden="true">·</i><a href="https://github.com/irootkernel/aquarium-for-kimi">Kimi Code</a><i aria-hidden="true">·</i><a href="https://github.com/irootkernel/aquarium-for-glm">GLM</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
+  <section class="sec pt tool" id="r1"><div class="body"><h2 id="harness.r1">Aquarium</h2><p>Aquarium is a plugin that helps AI agents set up development tools and use them together. It checks the development environment, helps install tools and configure projects, and connects tools for procedures, testing, code review, and document synchronization during development. Built on Codex, it also offers editions for Claude Code, Kimi Code, and GLM.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/aquarium">GitHub</a></div><div class="eds"><span class="lb">Editions</span><a href="https://github.com/irootkernel/aquarium-for-claude">Claude Code</a><i aria-hidden="true">·</i><a href="https://github.com/irootkernel/aquarium-for-kimi">Kimi Code</a><i aria-hidden="true">·</i><a href="https://github.com/irootkernel/aquarium-for-glm">GLM</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
   <section class="sec pt tool" id="r2"><div class="body"><h2 id="harness.r2">Podway</h2><p>Podway is a local tool that records procedures and progress so people and AI agents can continue their work. When a new conversation begins or another agent takes over, the current stage, required records, and available next actions remain visible. If rework is needed, a path defined in the procedure leads back to the work and validation that must be repeated.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/podway">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
   <section class="sec pt tool" id="r3"><div class="body"><h2 id="harness.r3">Dolgorae (dolphin)</h2><p>Dolgorae is a control plane that gives Codex roles, permissions, behavioral rules, and personas. It runs multiple Codex agents with different roles in a single directory and connects them so they can communicate and collaborate.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/dolgorae">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
   <section class="sec pt tool" id="r4"><div class="body"><h2 id="harness.r4">Sanho (coral)</h2><p>Sanho synchronizes documents across multiple code repositories in one project with a single reference documentation repository. Even when server and client code live in separate repositories, documents can be edited alongside each codebase while their changes are managed together. It detects differences between repositories and reconciles changes using Git merges, with conflicts resolved through the usual Git workflow.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/sanho">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>

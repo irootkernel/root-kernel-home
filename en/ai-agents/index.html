@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI Agent — Root Kernel</title>
-  <meta name="description" content="Root Kernel modifies and uses Hermes Agent, with Agent Turn Network for discussions between agents and Agent Dispatch to connect file changes to agent work.">
+  <meta name="description" content="Root Kernel built Agent Dispatch to turn file changes into agent work, and Agent Turn Network for discussion between agents. The tools use Hermes Agent.">
   <meta name="theme-color" content="#121110">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -15,7 +15,7 @@
   <link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/ai-agents/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="AI Agent — Root Kernel">
-  <meta property="og:description" content="Root Kernel modifies and uses Hermes Agent, with Agent Turn Network for discussions between agents and Agent Dispatch to connect file changes to agent work.">
+  <meta property="og:description" content="Root Kernel built Agent Dispatch to turn file changes into agent work, and Agent Turn Network for discussion between agents. The tools use Hermes Agent.">
   <meta property="og:url" content="https://home.rootkernel.xyz/en/ai-agents/">
   <meta property="og:site_name" content="Root Kernel">
   <meta property="og:locale" content="en_US">
@@ -27,7 +27,7 @@
   <meta property="og:image:alt" content="Root Kernel — build AI agent systems">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Agent — Root Kernel">
-  <meta name="twitter:description" content="Root Kernel modifies and uses Hermes Agent, with Agent Turn Network for discussions between agents and Agent Dispatch to connect file changes to agent work.">
+  <meta name="twitter:description" content="Root Kernel built Agent Dispatch to turn file changes into agent work, and Agent Turn Network for discussion between agents. The tools use Hermes Agent.">
   <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
   <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
   <link rel="stylesheet" href="/assets/css/site.css?v=vr7-ai-art">
@@ -46,12 +46,35 @@
   <section class="phead">
     <div class="body">
       <h1 class="h1">AI Agent</h1>
-      <p class="lead">Root Kernel uses Hermes Agent in its work, modifying and extending it as needed. We built Agent Turn Network so multiple agents can exchange views and discuss a topic, and developed Agent Dispatch to use LLM Wiki with Hermes Agent. Our modified Hermes Agent and these tools are available as open source.</p>
+      <p class="lead">Root Kernel built Agent Dispatch to turn file changes into agent work, and Agent Turn Network so several agents can discuss a topic. The tools use Hermes Agent and are available as open source.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 216" width="648" height="216" role="img" aria-label="Agent Dispatch and Agent Turn Network handle change detection and discussion; both connect down to Hermes Agent" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dg-agentsRoles-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
+  </defs>
+  <g class="dg-plates"/>
+  <g class="dg-edges" fill="none" stroke="#7C776F" stroke-width="2">
+    <path class="dg-edge" d="M174 80V112H324"/>
+    <path class="dg-edge" d="M474 80V112H324"/>
+    <path class="dg-edge" d="M324 112V143" marker-end="url(#dg-agentsRoles-arrow)"/>
+  </g>
+  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
+    <rect class="dg-node" x="64" y="28" width="220" height="52" rx="4"/>
+    <rect class="dg-node" x="364" y="28" width="220" height="52" rx="4"/>
+    <rect class="dg-node" x="214" y="144" width="220" height="52" rx="4"/>
+  </g>
+  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
+    <text class="dg-label" x="174" y="46" fill="#EDE9E7">Agent Dispatch</text>
+    <text class="dg-label" x="174" y="62">change detection</text>
+    <text class="dg-label" x="474" y="46" fill="#EDE9E7">Agent Turn Network</text>
+    <text class="dg-label" x="474" y="62">discussion</text>
+    <text class="dg-label" x="324" y="162" fill="#EDE9E7">Hermes Agent</text>
+    <text class="dg-label" x="324" y="178">runtime</text>
+  </g>
+</svg><figcaption class="fcap">Agent Dispatch turns changes into work, and Agent Turn Network connects agent discussion. Hermes Agent is the runtime.</figcaption></figure>
     </div>
   </section>
-  <section class="sec pt tool" id="n1"><div class="body"><h2 id="agents.r1">Hermes Agent</h2><p>Hermes Agent is an open-source AI agent from Nous Research. Root Kernel maintains and uses a fork with improvements needed for its work. These include recovering and searching Korean conversation history, selecting accounts for agents, and controlling participation in Discord conversations. The modified version is available as open source.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
+  <section class="sec pt tool" id="n1"><div class="body"><h2 id="agents.r1">Agent Dispatch</h2><p>Agent Dispatch detects file changes in a specified directory and sends work to Hermes Agent according to configured rules. It connects changes to the agent’s next action, such as updating an LLM Wiki. Repeated change notifications are grouped, and edits made by the agent are managed to avoid unnecessary reruns. A plugin for Hermes is also in development.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/agent-dispatch">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
   <section class="sec pt tool" id="n2"><div class="body"><h2 id="agents.r2">Agent Turn Network (ATN)</h2><p>Agent Turn Network (ATN) connects multiple Hermes agents to discuss a shared topic. A moderator and participating agents exchange views, with the discussion and conclusions recorded for later reference.</p><p>ATN Control manages discussion progress and records, while ATN Plugin connects Hermes agents to the discussion.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/agent-turn-network-control">GitHub</a></div><div class="eds repo"><span class="lb">Plugin repository</span><a href="https://github.com/irootkernel/agent-turn-network-plugin">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt tool" id="n3"><div class="body"><h2 id="agents.r4">Agent Dispatch</h2><p>Agent Dispatch detects file changes in a specified directory and sends work to Hermes Agent according to configured rules. It connects changes to the agent’s next action, such as updating an LLM Wiki. Repeated change notifications are grouped, and edits made by the agent are managed to avoid unnecessary reruns. A plugin for Hermes is also in development.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/agent-dispatch">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
+  <section class="sec pt tool" id="n3"><div class="body"><h2 id="agents.r3">Hermes Agent · Deprecated</h2><p>Hermes Agent is an open-source AI agent from Nous Research. Root Kernel's own fork is deprecated. The important changes from that work are now going upstream as pull requests.</p><div class="eds repo"><span class="lb">Repository</span><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
 </main>
 <footer class="foot wrap">
   <span>Root Kernel (루트커널)</span>
