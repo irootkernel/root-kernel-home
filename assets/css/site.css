@@ -270,7 +270,7 @@ html:not(.js) .hreplay{display:none}
 /* Invalidated work (rework from policy) keeps ember, even on approval/preview nodes. */
 .hnode.invalid.on rect{fill:var(--ash1);stroke:var(--ember2);stroke-dasharray:5 4}
 .hnode.invalid.on .hnlabel,.hnode.invalid.on .hnum{fill:var(--ember2)}
-.hnode:focus{outline:none}.hnode:focus rect{stroke:var(--bone);stroke-width:2}
+.hnode:focus rect{stroke:var(--bone);stroke-width:2}
 html:not(.js) .hnode rect{stroke:var(--teal)}
 html:not(.js) .hnode .hnlabel{fill:var(--bone)}
 html:not(.js) .hnode.preview rect{stroke:#9A6BC6}
