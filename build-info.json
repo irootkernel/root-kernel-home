@@ -1,0 +1,101 @@
+{
+  "candidate": "monitor-v4",
+  "assetVersion": "30652883d5c2fd2f",
+  "locales": [
+    "ko",
+    "en"
+  ],
+  "scenarios": {
+    "ko": {
+      "home": {
+        "turns": 12,
+        "events": 22,
+        "visits": 16,
+        "revision": 2,
+        "desktopUnits": 12,
+        "mobileUnits": 16.500000000000004
+      },
+      "technology": {
+        "turns": 8,
+        "events": 8,
+        "visits": 8,
+        "revision": 1,
+        "desktopUnits": 8,
+        "mobileUnits": 10.900000000000002
+      },
+      "products": {
+        "turns": 3,
+        "events": 3,
+        "visits": 3,
+        "revision": 1,
+        "desktopUnits": 3,
+        "mobileUnits": 3.9000000000000004
+      },
+      "company": {
+        "turns": 5,
+        "events": 5,
+        "visits": 5,
+        "revision": 1,
+        "desktopUnits": 5,
+        "mobileUnits": 6.700000000000001
+      }
+    },
+    "en": {
+      "home": {
+        "turns": 12,
+        "events": 22,
+        "visits": 16,
+        "revision": 2,
+        "desktopUnits": 12,
+        "mobileUnits": 16.500000000000004
+      },
+      "technology": {
+        "turns": 8,
+        "events": 8,
+        "visits": 8,
+        "revision": 1,
+        "desktopUnits": 8,
+        "mobileUnits": 10.900000000000002
+      },
+      "products": {
+        "turns": 3,
+        "events": 3,
+        "visits": 3,
+        "revision": 1,
+        "desktopUnits": 3,
+        "mobileUnits": 3.9000000000000004
+      },
+      "company": {
+        "turns": 5,
+        "events": 5,
+        "visits": 5,
+        "revision": 1,
+        "desktopUnits": 5,
+        "mobileUnits": 6.700000000000001
+      }
+    }
+  },
+  "sourceSha256": {
+    "app.mjs": "eeea2547d7ce8e18d2a6fa1dee795adcee310f7ad7c4b1015afba5d4da5103d6",
+    "company-content.en.mjs": "8f7c4404676ac5823bc0cd1a087a79b42f2a9ce71c1ed023cfa8b1eff07b4c07",
+    "company-content.ko.mjs": "7d09092812e813c71ab5385fe1190bcfa576c3ea7177e4adc6837a3cc28e20aa",
+    "company-content.mjs": "83104bfe56636ab3b65d963a0b22a164363bfd9ee01414792aeaaed48e617f0b",
+    "engine.mjs": "c7e55f8b3919e66727e5164c48be1ed5320805291cf453409f5957ebd143cded",
+    "home-copy.mjs": "e4cfc34d8b0cbce94fd167f8f3264e9402b99685cf4b3263d6a10ce835964026",
+    "home-panels.en.mjs": "a7955d0aa05c4cbea4973bc7167c3a2458f3ec9f4016ae2e7485103cdeeb4a0c",
+    "home-panels.ko.mjs": "d1abbdfc12843ece147a7b57cb7c2a9ff1acc7fd931dada606e2cea572af4ee1",
+    "home-panels.mjs": "c7e66edb869d8ae32a58ba05e5d73c94bf4ad4d6db484da94d5d7bf258209b28",
+    "home-story.mjs": "b70c953b028ec32985a7248399f4476666fc60fce032844c482c20a78c3cb098",
+    "locale.mjs": "28ce2ce75893437a188b3f496c3224b5654853b4532745fc377cba4818213793",
+    "panels.mjs": "cea24d5bd4e84f51973dbb0165b4a3617cba902ae62983784bf1f67d3ad6037e",
+    "playback.mjs": "d5c1bb0dd22ae3ae289c34b7fa02d5efcccb9f3c545cca227ed2c80f5db66aa8",
+    "session.mjs": "7f5956499d5313793ee6a3c5587c1626e09401c126c83c89513d71a17b237103",
+    "story.mjs": "568844dbf67af012a9a345042a45cd7813d1457d6d2fbec9b785c3801622c109",
+    "topic-content.en.mjs": "b9044166efc6fea6f75e4eb431ae5b3f33911489bfc4dbb73cdc2dbefdf8bda9",
+    "topic-content.ko.mjs": "b01f534d6709ec7429de3cb3a43873e90d5e72072d09d9e9a4a054570f253866",
+    "topic-content.mjs": "9aeb5a2e33e50588e537249ce2690bb79f7bcf35ee63a68a8ad3af7ed6427943",
+    "site.css": "0cfca64ccece9b600dd2fcb743e2990d19954dea9b35a2c8d720f23799a75f2f",
+    "build.mjs": "5464960659a8291921e35e0073a9001965773f74e3bde6e745ee30e3a12d14f9",
+    "validate-locales.mjs": "ff70b637c70a3dead4ea2c0a4f73291ca60f6ea38cc9441a0a1cf15b29635c59"
+  }
+}
