@@ -2,89 +2,88 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Agent 기술 — Root Kernel</title>
-  <meta name="description" content="루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 에이전트 간 토론을 위한 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다.">
-  <meta name="theme-color" content="#121110">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0c0a">
+  <title>AI Agent · Root Kernel</title>
+  <meta name="description" content="루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 여러 에이전트가 한 주제를 토론하도록 연결하는 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다. 이 도구들은 오픈소스로 공개했습니다.">
+  <meta property="og:type" content="website"><meta property="og:title" content="AI Agent · Root Kernel">
+  <meta property="og:description" content="루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 여러 에이전트가 한 주제를 토론하도록 연결하는 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다. 이 도구들은 오픈소스로 공개했습니다."><meta property="og:url" content="https://home.rootkernel.xyz/ko/ai-agents/">
+  <meta property="og:site_name" content="Root Kernel"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg"><meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://home.rootkernel.xyz/ko/ai-agents/">
   <link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/ai-agents/">
   <link rel="alternate" hreflang="en" href="https://home.rootkernel.xyz/en/ai-agents/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="AI Agent 기술 — Root Kernel">
-  <meta property="og:description" content="루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 에이전트 간 토론을 위한 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다.">
-  <meta property="og:url" content="https://home.rootkernel.xyz/ko/ai-agents/">
-  <meta property="og:site_name" content="Root Kernel">
-  <meta property="og:locale" content="ko_KR">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Root Kernel — build AI agent systems">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Agent 기술 — Root Kernel">
-  <meta name="twitter:description" content="루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 에이전트 간 토론을 위한 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다.">
-  <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
-  <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
-  <link rel="stylesheet" href="/assets/css/site.css?v=vr7-hnode">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz/","logo":"https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg","email":"cs@rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
-  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6ab759b2bbfd43c6ae4b3c3e634363c8"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="alternate" hreflang="x-default" href="https://home.rootkernel.xyz/en/ai-agents/">
+  <link rel="icon" href="/assets/images/rootkernel-symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/site.css?v=v2">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
 </head>
-<body>
-<a class="skip" href="#main">본문 바로가기</a>
-<svg class="sheet" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="s-gc" viewBox="0 0 9 9"><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/><path fill="var(--dim)" d="M4 4h1v1h-1z"/></symbol><symbol id="s-gar" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol><symbol id="s-go" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 3h1v1h-1zM3 4h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z"/><path fill="var(--ember2)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol></svg>
-<header class="top wrap">
-  <a class="brand" href="/ko/" aria-label="Root Kernel 홈"><svg viewBox="-6 -6 194.5 71" aria-hidden="true" focusable="false"><path fill="#10C4BE" d="M39.5,0 L0,24 L0,33 L39.5,57 L39.5,44 L14,28.5 L39.5,13 Z"/><rect x="66" y="50" width="52" height="9" fill="#10C4BE"/><path fill="#EDE9E7" d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg><span>Root Kernel</span></a>
-  <a class="tag" data-copy="ui" href="/ko/">&gt; build AI agent systems</a>
-  <nav class="nav" aria-label="주요 메뉴"><a href="/ko/control/">Technology</a><a href="/ko/ai-harness/">AI Harness</a><a href="/ko/ai-agents/" aria-current="page">AI Agent</a><a href="/ko/products/">Products</a><a href="/ko/principles/">Principles</a><a href="/ko/company/">Company</a><a href="/ko/contact/">Contact</a></nav>
-  <div class="lang" role="navigation" aria-label="언어 선택"><a class="lflag" href="/en/ai-agents/" hreflang="en" aria-label="영어">🇺🇸</a></div>
+<body class="detail-page">
+  <a class="skip-link" href="#detail-title">본문으로 건너뛰기</a>
+  <div class="site-shell"><header class="site-header">
+  <a class="brand" href="/ko/" aria-label="Root Kernel home">
+  <img src="/assets/images/rootkernel-symbol.svg" width="32" height="38" alt="">
+  <span>ROOT KERNEL</span>
+</a>
+  <nav class="quick-nav" aria-label="주요 탐색"><a id="nav-products" data-quick href="/ko/products/">Products</a><a id="nav-control" data-quick href="/ko/control/">Technology</a><a id="nav-contact" data-quick href="/ko/contact/">Contact</a></nav>
+  <nav class="locale-nav" aria-label="언어 선택"><a class="locale" href="/en/ai-agents/" hreflang="en" lang="en" aria-label="영어"><span aria-hidden="true">🇺🇸</span></a></nav>
 </header>
-<main id="main" class="stage wrap dt">
-  <section class="phead">
-    <div class="body">
-      <h1 class="h1">AI Agent</h1>
-      <p class="lead">루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 여러 에이전트가 한 주제를 토론하도록 연결하는 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다. 이 도구들은 오픈소스로 공개했습니다.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 216" width="648" height="216" role="img" aria-label="Agent Dispatch와 Agent Turn Network가 각각 파일 변경 감지와 토론을 맡고, 둘 다 Hermes Agent로 이어지는 도해" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="dg-agentsRoles-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
-  </defs>
-  <g class="dg-plates"/>
-  <g class="dg-edges" fill="none" stroke="#7C776F" stroke-width="2">
-    <path class="dg-edge" d="M174 80V112H324"/>
-    <path class="dg-edge" d="M474 80V112H324"/>
-    <path class="dg-edge" d="M324 112V143" marker-end="url(#dg-agentsRoles-arrow)"/>
-  </g>
-  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
-    <rect class="dg-node" x="64" y="28" width="220" height="52" rx="4"/>
-    <rect class="dg-node" x="364" y="28" width="220" height="52" rx="4"/>
-    <rect class="dg-node" x="214" y="144" width="220" height="52" rx="4"/>
-  </g>
-  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
-    <text class="dg-label" x="174" y="46" fill="#EDE9E7">Agent Dispatch</text>
-    <text class="dg-label" x="174" y="62">파일 변경 감지</text>
-    <text class="dg-label" x="474" y="46" fill="#EDE9E7">Agent Turn Network</text>
-    <text class="dg-label" x="474" y="62">토론</text>
-    <text class="dg-label" x="324" y="162" fill="#EDE9E7">Hermes Agent</text>
-    <text class="dg-label" x="324" y="178">실행</text>
-  </g>
-</svg><figcaption class="fcap">Agent Dispatch는 변경을 작업으로 넘기고, Agent Turn Network는 에이전트 토론을 연결합니다. Hermes Agent는 실행 환경입니다.</figcaption></figure>
-    </div>
-  </section>
-  <section class="sec pt tool" id="n1"><div class="body"><h2 id="agents.r1">Agent Dispatch</h2><p>Agent Dispatch는 지정한 디렉터리의 파일 변경을 감지해, 설정한 규칙에 따라 Hermes Agent에 작업을 전달하는 도구입니다. LLM Wiki 갱신처럼 변경된 내용에 맞춰 에이전트가 필요한 처리를 수행하도록 연결합니다. 반복되는 변경 알림은 모아 처리하고, 에이전트의 수정이 불필요한 재실행으로 이어지지 않도록 관리합니다.</p><p>Agent Dispatch는 파일 변경을 작업으로 넘기고, Agent Dispatch Plugin은 Hermes 대화에서 경로와 작업 기록, receipt를 조회할 수 있게 연결합니다.</p><div class="eds repo"><span class="lb">저장소</span><a href="https://github.com/irootkernel/agent-dispatch">GitHub</a></div><div class="eds repo"><span class="lb">플러그인 저장소</span><a href="https://github.com/irootkernel/agent-dispatch-plugin">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt tool" id="n2"><div class="body"><h2 id="agents.r2">Agent Turn Network(ATN)</h2><p>Agent Turn Network(ATN)는 여러 Hermes 에이전트가 하나의 주제를 함께 토론하도록 연결하는 도구입니다. 진행자와 참여 에이전트를 정해 의견을 주고받고, 논의 과정과 결론을 기록해 다시 확인할 수 있습니다.</p><p>ATN Control은 토론의 진행 상태와 기록을 관리하고, ATN Plugin은 Hermes 에이전트가 토론에 참여할 수 있도록 연결합니다.</p><div class="eds repo"><span class="lb">저장소</span><a href="https://github.com/irootkernel/agent-turn-network-control">GitHub</a></div><div class="eds repo"><span class="lb">플러그인 저장소</span><a href="https://github.com/irootkernel/agent-turn-network-plugin">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt tool" id="n3"><div class="body"><h2 id="agents.r3">Hermes Agent · Deprecated</h2><p>Hermes Agent는 Nous Research의 오픈소스 AI 에이전트입니다. 루트커널의 자체 포크는 Deprecated입니다. 업무에 필요했던 중요 변경은 지금 업스트림으로 PR을 보내고 있습니다.</p><div class="eds repo"><span class="lb">저장소</span><a href="https://github.com/irootkernel/hermes-agent/releases/tag/rk%2Ftag%2Fv0.20.5">GitHub</a></div></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-</main>
-<footer class="foot wrap">
-  <span>루트커널 (Root Kernel)</span>
-  <a href="mailto:cs@rootkernel.xyz">cs@rootkernel.xyz</a>
-  <a href="https://github.com/irootkernel">github.com/irootkernel</a>
-  <span>© 2026 Root Kernel. All rights reserved.</span>
-  <span class="ai-art" data-copy="ui">모든 이미지는 AI로 생성했습니다.</span>
-</footer>
-<script type="application/json" id="rk-cfg">{"machine": "flight", "anchorTag": "n", "ports": 3, "hud": {"tick": "t{tick}", "embers": "성화", "visibleText": "텍스트", "statusAria": "현재 성화 수와 텍스트 색상 비중", "clear": "clear", "clearAria": "날아다니는 성화 지우기"}, "log": {"ignite": "점화", "lit": "{id} 점등", "launch": "{id} 발사", "send": "메일 초안 요청"}, "orb": {"b": "파랑", "g": "초록", "r": "빨강", "w": "흰색"}, "pad": {"aria": "{color} 성화 발사", "group": "성화 발사대"}}</script>
-<script src="/assets/js/rk.js?v=vr7-hero-m14" defer></script>
-</body>
-</html>
+    <main class="detail-shell" id="main">
+      <div class="paused-graph"><span>절차 시연 · 일시 정지</span><svg class="work-graph" viewBox="0 0 1090 276" role="img" aria-label="10단계 작업 절차">
+  <defs><marker id="arrow-inline" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z"/></marker></defs>
+  <g class="graph-edges"><path class="graph-edge " data-edge="W01-W02" d="M 146 53 H 168" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W02-W03" d="M 310 53 H 332" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W03-W04" d="M 474 53 H 496" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W05" d="M 574 78 V 120 H 334 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W06" d="M 574 78 V 120 H 498 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W07" d="M 574 78 V 120 H 662 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W05-W08" d="M 398 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W06-W08" d="M 562 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W07-W08" d="M 726 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W08-W09" d="M 844 148 V 82" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W09-W10" d="M 908 53 H 930" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge rework" data-edge="W08-W02" d="M 844 202 V 258 H 246 V 82" pathLength="1" marker-end="url(#arrow-inline)" /></g><g class="graph-nodes"><g class="graph-node" data-node="W01" data-status="active" transform="translate(18 24)" tabindex="0" role="button" aria-label="W01 범위 정의: active">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W01</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">▶</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">범위 정의</text>
+</g><g class="graph-node" data-node="W02" data-status="future" transform="translate(182 24)" tabindex="0" role="button" aria-label="W02 명세 작성: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W02</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">명세 작성</text>
+</g><g class="graph-node" data-node="W03" data-status="future" transform="translate(346 24)" tabindex="0" role="button" aria-label="W03 명세 검증: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W03</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">명세 검증</text>
+</g><g class="graph-node" data-node="W04" data-status="future" transform="translate(510 24)" tabindex="0" role="button" aria-label="W04 구현: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W04</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">구현</text>
+</g><g class="graph-node" data-node="W05" data-status="future" transform="translate(270 148)" tabindex="0" role="button" aria-label="W05 테스트: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W05</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">테스트</text>
+</g><g class="graph-node" data-node="W06" data-status="future" transform="translate(434 148)" tabindex="0" role="button" aria-label="W06 리뷰: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W06</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">리뷰</text>
+</g><g class="graph-node" data-node="W07" data-status="future" transform="translate(598 148)" tabindex="0" role="button" aria-label="W07 기록 정리: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W07</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">기록 정리</text>
+</g><g class="graph-node" data-node="W08" data-status="future" transform="translate(780 148)" tabindex="0" role="button" aria-label="W08 결과 검증: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W08</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">결과 검증</text>
+</g><g class="graph-node" data-node="W09" data-status="future" transform="translate(780 24)" tabindex="0" role="button" aria-label="W09 사람의 결정: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W09</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">사람의 결정</text>
+</g><g class="graph-node" data-node="W10" data-status="future" transform="translate(944 24)" tabindex="0" role="button" aria-label="W10 완료: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W10</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">완료</text>
+</g></g>
+</svg></div>
+      <article class="detail-article">
+        <a class="return-link" href="/ko/">← 체험 시작</a>
+        <p class="detail-index">ROOT KERNEL / AI AGENT</p>
+        <h1 id="detail-title">AI Agent</h1><p class="detail-lead">루트커널은 파일 변경을 에이전트 작업으로 넘기는 Agent Dispatch와, 여러 에이전트가 한 주제를 토론하도록 연결하는 Agent Turn Network를 만들었습니다. 실행에는 Hermes Agent를 활용합니다. 이 도구들은 오픈소스로 공개했습니다.</p>
+        <section class="detail-summary"><p>Hermes Agent는 Nous Research의 오픈소스 AI 에이전트입니다. 루트커널의 자체 포크는 Deprecated입니다. 업무에 필요했던 중요 변경은 지금 업스트림으로 PR을 보내고 있습니다.</p><p>Agent Turn Network(ATN)는 여러 Hermes 에이전트가 하나의 주제를 함께 토론하도록 연결하는 도구입니다. 진행자와 참여 에이전트를 정해 의견을 주고받고, 논의 과정과 결론을 기록해 다시 확인할 수 있습니다.</p><p>ATN Control은 토론의 진행 상태와 기록을 관리하고, ATN Plugin은 Hermes 에이전트가 토론에 참여할 수 있도록 연결합니다.</p><p>Agent Dispatch는 지정한 디렉터리의 파일 변경을 감지해, 설정한 규칙에 따라 Hermes Agent에 작업을 전달하는 도구입니다. LLM Wiki 갱신처럼 변경된 내용에 맞춰 에이전트가 필요한 처리를 수행하도록 연결합니다. 반복되는 변경 알림은 모아 처리하고, 에이전트의 수정이 불필요한 재실행으로 이어지지 않도록 관리합니다.</p><p>Agent Dispatch는 파일 변경을 작업으로 넘기고, Agent Dispatch Plugin은 Hermes 대화에서 경로와 작업 기록, receipt를 조회할 수 있게 연결합니다.</p></section><section class="retained-copy"><h2>기존 공개 내용</h2><p>Hermes Agent는 Nous Research의 오픈소스 AI 에이전트입니다. 루트커널의 자체 포크는 Deprecated입니다. 업무에 필요했던 중요 변경은 지금 업스트림으로 PR을 보내고 있습니다.</p><p>Agent Turn Network(ATN)는 여러 Hermes 에이전트가 하나의 주제를 함께 토론하도록 연결하는 도구입니다. 진행자와 참여 에이전트를 정해 의견을 주고받고, 논의 과정과 결론을 기록해 다시 확인할 수 있습니다.</p><p>ATN Control은 토론의 진행 상태와 기록을 관리하고, ATN Plugin은 Hermes 에이전트가 토론에 참여할 수 있도록 연결합니다.</p><p>Agent Dispatch는 지정한 디렉터리의 파일 변경을 감지해, 설정한 규칙에 따라 Hermes Agent에 작업을 전달하는 도구입니다. LLM Wiki 갱신처럼 변경된 내용에 맞춰 에이전트가 필요한 처리를 수행하도록 연결합니다. 반복되는 변경 알림은 모아 처리하고, 에이전트의 수정이 불필요한 재실행으로 이어지지 않도록 관리합니다.</p><p>Agent Dispatch는 파일 변경을 작업으로 넘기고, Agent Dispatch Plugin은 Hermes 대화에서 경로와 작업 기록, receipt를 조회할 수 있게 연결합니다.</p></section>
+      </article>
+      <footer class="story-composer detail-composer" id="story-composer" data-phase="paused" data-paused="true">
+        <div class="composer-line"><span aria-hidden="true">&gt;</span><p>AI Agent</p><b class="composer-cursor" aria-hidden="true">█</b></div>
+        <div class="current-state"><span>현재</span><strong>일시 정지</strong></div>
+      </footer>
+    </main>
+  </div>
+  <script type="module" src="/assets/js/rk.js?v=v2"></script>
+</body></html>

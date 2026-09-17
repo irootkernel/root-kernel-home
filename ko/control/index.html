@@ -2,200 +2,88 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI-SPARK와 Podway — Root Kernel</title>
-  <meta name="description" content="AI-SPARK는 승인된 명세와 FSM runtime으로 서버 개발을 제어합니다. Podway는 작업별 절차 그래프로 진행 조건과 재작업 경로를 관리합니다.">
-  <meta name="theme-color" content="#121110">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0c0a">
+  <title>Technology · Root Kernel</title>
+  <meta name="description" content="AI-SPARK는 서버 개발에 필요한 spec을 검증하고, 사람이 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. 실제 상태 전이는 FSM runtime이 제어합니다. Podway는 이 제어 원리를 일반 작업으로 확장해, 작업에 맞는 절차와 각 단계의 진행 조건을 미리 정합니다. AI는 허용된 범위에서 작업하고, 중요한 결정과 최종 승인은 사람이 맡습니다.">
+  <meta property="og:type" content="website"><meta property="og:title" content="Technology · Root Kernel">
+  <meta property="og:description" content="AI-SPARK는 서버 개발에 필요한 spec을 검증하고, 사람이 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. 실제 상태 전이는 FSM runtime이 제어합니다. Podway는 이 제어 원리를 일반 작업으로 확장해, 작업에 맞는 절차와 각 단계의 진행 조건을 미리 정합니다. AI는 허용된 범위에서 작업하고, 중요한 결정과 최종 승인은 사람이 맡습니다."><meta property="og:url" content="https://home.rootkernel.xyz/ko/control/">
+  <meta property="og:site_name" content="Root Kernel"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg"><meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://home.rootkernel.xyz/ko/control/">
   <link rel="alternate" hreflang="ko" href="https://home.rootkernel.xyz/ko/control/">
   <link rel="alternate" hreflang="en" href="https://home.rootkernel.xyz/en/control/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="AI-SPARK와 Podway — Root Kernel">
-  <meta property="og:description" content="AI-SPARK는 승인된 명세와 FSM runtime으로 서버 개발을 제어합니다. Podway는 작업별 절차 그래프로 진행 조건과 재작업 경로를 관리합니다.">
-  <meta property="og:url" content="https://home.rootkernel.xyz/ko/control/">
-  <meta property="og:site_name" content="Root Kernel">
-  <meta property="og:locale" content="ko_KR">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Root Kernel — build AI agent systems">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI-SPARK와 Podway — Root Kernel">
-  <meta name="twitter:description" content="AI-SPARK는 승인된 명세와 FSM runtime으로 서버 개발을 제어합니다. Podway는 작업별 절차 그래프로 진행 조건과 재작업 경로를 관리합니다.">
-  <meta name="twitter:image" content="https://home.rootkernel.xyz/assets/images/og-root-kernel.png">
-  <meta name="twitter:image:alt" content="Root Kernel — build AI agent systems">
-  <link rel="stylesheet" href="/assets/css/site.css?v=vr7-hnode">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz/","logo":"https://home.rootkernel.xyz/assets/images/rootkernel-symbol.svg","email":"cs@rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
-  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6ab759b2bbfd43c6ae4b3c3e634363c8"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="alternate" hreflang="x-default" href="https://home.rootkernel.xyz/en/control/">
+  <link rel="icon" href="/assets/images/rootkernel-symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/site.css?v=v2">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Root Kernel","url":"https://home.rootkernel.xyz","sameAs":["https://github.com/irootkernel"]}</script>
 </head>
-<body>
-<a class="skip" href="#main">본문 바로가기</a>
-<svg class="sheet" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="s-gc" viewBox="0 0 9 9"><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/><path fill="var(--dim)" d="M4 4h1v1h-1z"/></symbol><symbol id="s-gar" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol><symbol id="s-go" viewBox="0 0 9 9"><path fill="var(--ember1)" d="M4 3h1v1h-1zM3 4h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z"/><path fill="var(--ember2)" d="M4 4h1v1h-1z"/><path fill="var(--iron2)" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1z"/></symbol></svg>
-<header class="top wrap">
-  <a class="brand" href="/ko/" aria-label="Root Kernel 홈"><svg viewBox="-6 -6 194.5 71" aria-hidden="true" focusable="false"><path fill="#10C4BE" d="M39.5,0 L0,24 L0,33 L39.5,57 L39.5,44 L14,28.5 L39.5,13 Z"/><rect x="66" y="50" width="52" height="9" fill="#10C4BE"/><path fill="#EDE9E7" d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg><span>Root Kernel</span></a>
-  <a class="tag" data-copy="ui" href="/ko/">&gt; build AI agent systems</a>
-  <nav class="nav" aria-label="주요 메뉴"><a href="/ko/control/" aria-current="page">Technology</a><a href="/ko/ai-harness/">AI Harness</a><a href="/ko/ai-agents/">AI Agent</a><a href="/ko/products/">Products</a><a href="/ko/principles/">Principles</a><a href="/ko/company/">Company</a><a href="/ko/contact/">Contact</a></nav>
-  <div class="lang" role="navigation" aria-label="언어 선택"><a class="lflag" href="/en/control/" hreflang="en" aria-label="영어">🇺🇸</a></div>
+<body class="detail-page">
+  <a class="skip-link" href="#detail-title">본문으로 건너뛰기</a>
+  <div class="site-shell"><header class="site-header">
+  <a class="brand" href="/ko/" aria-label="Root Kernel home">
+  <img src="/assets/images/rootkernel-symbol.svg" width="32" height="38" alt="">
+  <span>ROOT KERNEL</span>
+</a>
+  <nav class="quick-nav" aria-label="주요 탐색"><a id="nav-products" data-quick href="/ko/products/">Products</a><a id="nav-control" data-quick href="/ko/control/" aria-current="page">Technology</a><a id="nav-contact" data-quick href="/ko/contact/">Contact</a></nav>
+  <nav class="locale-nav" aria-label="언어 선택"><a class="locale" href="/en/control/" hreflang="en" lang="en" aria-label="영어"><span aria-hidden="true">🇺🇸</span></a></nav>
 </header>
-<main id="main" class="stage wrap dt">
-  <section class="phead">
-    <div class="body">
-      <h1 class="h1">AI-SPARK and Podway</h1>
-      <p class="lead">AI-SPARK는 서버 개발에 필요한 spec을 검증하고, 사람이 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. 실제 상태 전이는 FSM runtime이 제어합니다. Podway는 이 제어 원리를 일반 작업으로 확장해, 작업에 맞는 절차와 각 단계의 진행 조건을 미리 정합니다. AI는 허용된 범위에서 작업하고, 중요한 결정과 최종 승인은 사람이 맡습니다.</p>
-    </div>
-  </section>
-  <section class="sec pt" id="s1"><div class="body"><h2 id="control.s1.h">AI가 만든 코드를 검토하고 복구하는 일</h2><p>AI가 만든 코드가 늘어날수록 사람이 확인해야 할 양도 늘어납니다. 코드가 의도대로 동작하는지 검토하고 적용을 승인하는 데는 여전히 시간과 판단이 필요합니다.</p><p>API 계약과 권한 정책, 상태 모델, 테스트가 서로 다른 버전을 기준으로 하면 이를 맞추기 위한 재작업이 필요합니다. 문제가 생겼을 때 돌아갈 단계와 다시 확인할 범위를 정해 두지 않으면 복구도 어려워집니다.</p><p>루트커널은 AI가 작업할 범위와 단계별 검증·승인 조건을 먼저 정합니다. 문제가 생겼을 때 돌아갈 경로도 절차에 포함해, 어떤 작업부터 다시 진행해야 하는지 확인할 수 있도록 합니다.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt" id="s2"><div class="body"><h2 id="control.s2.h">Spec이 구현의 경계를 정합니다</h2><p>AI-SPARK는 인터페이스, 상태 모델, 연결 규칙, 권한 정책을 spec bundle로 묶어 함께 버전 관리합니다. AI는 검증을 통과하고 사람이 승인한 버전을 기준으로 코드를 작성합니다.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 318" width="648" height="318" role="img" aria-label="권한 정책 하나가 바뀌면 인터페이스, 상태 모델, 연결 규칙, 권한 정책이 든 spec bundle 전체가 새 revision과 새 key가 되고, 구현은 새 key만 따르며 이전 key를 가리키는 실행은 fail-closed로 멈추는 도해" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="dg-controlBundle-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
-    <marker id="dg-controlBundle-rework-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
-  </defs>
-  <g class="dg-plates" fill="#1C1A18" stroke="#2E2B28" stroke-width="1.5">
-    <rect class="dg-plate" x="32" y="16" width="264" height="200" rx="6"/>
-    <rect class="dg-plate" x="352" y="16" width="264" height="200" rx="6"/>
-  </g>
-  <g class="dg-edges" fill="none" stroke-width="2">
-    <path class="dg-edge" d="M296 116H351" stroke="#7C776F" marker-end="url(#dg-controlBundle-arrow)"/>
-    <path class="dg-edge" d="M586 208V246H358V269" stroke="#7C776F" marker-end="url(#dg-controlBundle-arrow)"/>
-    <path class="dg-rework" d="M266 208V246H290V269" stroke="#F27B2A" stroke-dasharray="8 6" marker-end="url(#dg-controlBundle-rework-arrow)"/>
-  </g>
-  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
-    <rect class="dg-node" x="48" y="48" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="170" y="48" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="48" y="112" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="170" y="112" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="368" y="48" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="490" y="48" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="368" y="112" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="490" y="112" width="110" height="52" rx="4" stroke="#F27B2A" stroke-width="2"/>
-    <rect class="dg-node" x="265" y="270" width="117" height="36" rx="4"/>
-    <rect class="dg-key" x="244" y="190" width="44" height="18" rx="3" fill="#F27B2A" stroke="none"/>
-    <rect class="dg-key" x="564" y="190" width="44" height="18" rx="3" fill="#F27B2A" stroke="none"/>
-  </g>
-  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" fill="#8E8880" text-anchor="middle" dominant-baseline="middle">
-    <text class="dg-title" x="48" y="32" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Revision n</text>
-    <text class="dg-title" x="368" y="32" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">Revision n+1</text>
-    <text class="dg-label" x="103" y="74">인터페이스</text>
-    <text class="dg-label" x="225" y="74">상태 모델</text>
-    <text class="dg-label" x="103" y="138">연결 규칙</text>
-    <text class="dg-label" x="225" y="138">권한 정책</text>
-    <text class="dg-label" x="225" y="146"></text>
-    <text class="dg-label" x="423" y="74">인터페이스</text>
-    <text class="dg-label" x="545" y="74">상태 모델</text>
-    <text class="dg-label" x="423" y="138">연결 규칙</text>
-    <text class="dg-label" x="545" y="138">권한 정책</text>
-    <text class="dg-label" x="545" y="146"></text>
-    <text class="dg-title" x="545" y="177" font-size="10" letter-spacing=".08em" fill="#F27B2A">변경됨</text>
-    <text class="dg-label" x="266" y="199" font-size="10" fill="#121110">key A</text>
-    <text class="dg-label" x="586" y="199" font-size="10" fill="#121110">key B</text>
-    <text class="dg-label" x="324" y="288" fill="#EDE9E7">구현</text>
-    <text class="dg-label" x="256" y="246" text-anchor="end" font-size="10" fill="#F27B2A">fail-closed</text>
-  </g>
-</svg><figcaption class="fcap">인터페이스, 상태 모델, 연결 규칙, 권한 정책을 하나의 spec bundle로 묶습니다.</figcaption></figure><p>spec bundle에서 만든 revision key는 검증 결과와 승인 기록을 해당 명세 버전에 연결합니다. 구현과 배포도 같은 버전을 기준으로 진행하므로, 승인한 내용과 실제 작업 대상이 일치하는지 확인할 수 있습니다.</p><p>revision이 일치하고 필요한 산출물이 모두 갖춰졌을 때만 다음 단계로 진행할 수 있습니다. 확인되지 않은 상태에서는 진행을 허용하지 않는 fail-closed 원칙을 적용합니다.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 408" width="648" height="408" role="img" aria-label="Spec revision, deterministic validation, 사람 승인, 구현·테스트, 배포 다섯 단계가 가운데의 revision key와 연결되어 시계 방향으로 이어지고, 미승인과 fail-closed는 Spec revision으로 되돌아가는 도해" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="dg-controlChain-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
-    <marker id="dg-controlChain-arrow-rework" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
-  </defs>
-  <g class="dg-plates"/>
-  <g class="dg-edges" fill="none" stroke-width="2">
-    <path class="dg-rework" d="M178 331H100V60H269" stroke="#F27B2A" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#dg-controlChain-arrow-rework)"/>
-    <path class="dg-rework" d="M453 331H548V60H379" stroke="#F27B2A" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#dg-controlChain-arrow-rework)"/>
-    <path class="dg-key" d="M324 192L324 86" stroke="#F27B2A"/>
-    <path class="dg-key" d="M378 193L412 182" stroke="#F27B2A"/>
-    <path class="dg-key" d="M337 228L390 301" stroke="#F27B2A"/>
-    <path class="dg-key" d="M311 228L255 305" stroke="#F27B2A"/>
-    <path class="dg-key" d="M270 193L225 178" stroke="#F27B2A"/>
-    <path class="dg-edge" d="M365 90L426 134" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
-    <path class="dg-edge" d="M457 196L424 295" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
-    <path class="dg-edge" d="M365 331L301 331" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
-    <path class="dg-edge" d="M226 299L191 196" stroke="#7C776F" marker-end="url(#dg-controlChain-arrow)"/>
-  </g>
-  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
-    <rect class="dg-node" x="269" y="34" width="110" height="52" rx="4"/>
-    <rect class="dg-node" x="412" y="138" width="110" height="52" rx="4"/>
-    <g class="dg-gate" stroke="#D85555">
-      <rect x="371" y="301" width="82" height="60" rx="6"/>
-      <rect class="dg-node" x="375" y="305" width="74" height="52" rx="4"/>
-    </g>
-    <rect class="dg-node" x="178" y="305" width="117" height="52" rx="4"/>
-    <rect class="dg-node" x="137" y="138" width="88" height="52" rx="4"/>
-    <rect class="dg-node dg-key" x="269" y="192" width="110" height="36" rx="4" stroke="#F27B2A" stroke-width="2"/>
-  </g>
-  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
-    <text class="dg-label" x="324" y="60">Spec revision</text>
-    <text class="dg-label" x="467" y="156">Deterministic</text>
-    <text class="dg-label" x="467" y="172">validation</text>
-    <text class="dg-label" x="412" y="331" fill="#D85555">사람 승인</text>
-    <text class="dg-label" x="412" y="339" fill="#D85555"></text>
-    <text class="dg-label" x="236" y="331">구현·테스트</text>
-    <text class="dg-label" x="236" y="339"></text>
-    <text class="dg-label" x="181" y="164">배포</text>
-    <text class="dg-label" x="324" y="210" fill="#F27B2A">Revision key</text>
-    <text class="dg-label" x="140" y="349" font-size="10" fill="#F27B2A">fail-closed</text>
-    <text class="dg-label" x="500" y="349" font-size="10" fill="#F27B2A">미승인</text>
-  </g>
-</svg><figcaption class="fcap">앞 단계가 다음 단계의 선행 조건입니다.</figcaption></figure><ol class="chain" aria-label="AI-SPARK revision 흐름의 다섯 단계"><li>Spec revision</li><li>Deterministic validation</li><li>사람 승인</li><li>구현·테스트</li><li>배포</li></ol></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt" id="s3"><div class="body"><h2 id="control.s3.h">Deterministic validation과 사람의 승인</h2><p>AI-SPARK의 검증기는 같은 검증 조건에서 같은 spec bundle을 검사하면 같은 위반 목록을 반환합니다. 모델의 판단에 의존하지 않으므로, 동일한 조건으로 다시 검사해 결과를 확인할 수 있습니다.</p><figure class="fig dgf"><svg class="dg" viewBox="0 0 648 240" width="648" height="240" role="img" aria-label="검증받는 쪽의 spec bundle이 별도로 관리되는 검증기의 검사로만 들어가 동일한 위반 목록이 되고, 검증 규칙에는 닿을 수 없으며, 사람 승인이 revision key에 묶이고 명세가 바뀌면 다시 검증으로 되돌아가는 도해" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="dg-controlGate-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7C776F"/></marker>
-    <marker id="dg-controlGate-rework-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#F27B2A"/></marker>
-  </defs>
-  <g class="dg-plates">
-    <rect class="dg-plate" x="17" y="17" width="122" height="161" rx="6" fill="#1C1A18" stroke="#2E2B28" stroke-width="1.5"/>
-    <rect class="dg-plate" x="155" y="17" width="224" height="161" rx="6" fill="#1C1A18" stroke="#4A4541" stroke-width="2"/>
-  </g>
-  <g class="dg-edges" fill="none" stroke="#7C776F" stroke-width="2">
-    <path class="dg-edge" d="M137 132H213" marker-end="url(#dg-controlGate-arrow)"/>
-    <path class="dg-edge" d="M267 98V108" marker-end="url(#dg-controlGate-arrow)"/>
-    <path class="dg-edge" d="M321 132H366" marker-end="url(#dg-controlGate-arrow)"/>
-    <path class="dg-edge" d="M495 132H533" marker-end="url(#dg-controlGate-arrow)"/>
-    <path class="dg-key" d="M585 162V174" stroke="#F27B2A"/>
-    <path class="dg-rework" d="M552 162V168H534V204H79V156" stroke="#F27B2A" stroke-dasharray="8 6" marker-end="url(#dg-controlGate-rework-arrow)"/>
-  </g>
-  <g class="dg-nodes" fill="#121110" stroke="#4A4541" stroke-width="1.5">
-    <rect class="dg-node" x="28" y="114" width="103" height="36" rx="4"/>
-    <rect class="dg-node" x="219" y="40" width="96" height="52" rx="4"/>
-    <rect class="dg-node" x="219" y="114" width="96" height="36" rx="4"/>
-    <rect class="dg-node" x="372" y="106" width="117" height="52" rx="4"/>
-    <g class="dg-gate" stroke="#D85555">
-      <rect x="539" y="102" width="92" height="60" rx="6"/>
-      <rect x="543" y="106" width="84" height="52" rx="4"/>
-    </g>
-    <rect class="dg-key" x="573" y="174" width="24" height="16" rx="3" fill="#F27B2A" stroke="none"/>
-  </g>
-  <g class="dg-labels" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#8E8880">
-    <text class="dg-title" x="27" y="29" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">검증받는 쪽</text>
-    <text class="dg-label" x="79" y="132">Spec bundle</text>
-    <text class="dg-title" x="167" y="29" text-anchor="start" font-size="10" letter-spacing=".08em" fill="#7C776F">검증기 · 별도 관리</text>
-    <text class="dg-label" x="267" y="66">검증 규칙</text>
-    <text class="dg-label" x="267" y="74"></text>
-    <text class="dg-label" x="267" y="132">검사</text>
-    <text class="dg-label" x="430" y="132">동일한 위반 목록</text>
-    <text class="dg-label" x="430" y="140"></text>
-    <text class="dg-label" x="585" y="132" fill="#D85555">사람 승인</text>
-    <text class="dg-label" x="585" y="140" fill="#D85555"></text>
-    <text class="dg-label" x="585" y="200" font-size="10" fill="#F27B2A">Revision key</text>
-    <text class="dg-label" x="306" y="216" font-size="10" fill="#F27B2A">명세 변경</text>
-    <text class="dg-title" x="267" y="165" font-size="10" letter-spacing=".08em" fill="#7C776F">같은 조건 · 같은 목록</text>
-  </g>
-</svg><figcaption class="fcap">검증기는 같은 입력에 같은 결과를 내고, 사람은 그 revision을 승인합니다.</figcaption></figure><p>검증 규칙은 검증받는 쪽에서 수정할 수 없도록 분리합니다. 사람의 승인은 검증을 통과한 명세 버전에 연결되며, 명세가 바뀌면 다시 검증하고 승인받아야 합니다.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt" id="s4"><div class="body"><h2 id="control.s4.h">FSM runtime이 상태 전이를 제어합니다</h2><p>승인 후 AI는 이벤트 발생과 전이 조건, 전이 동작에 필요한 코드를 작성합니다. 실제 상태 전이와 동시성 제어는 FSM runtime이 맡아, 선언된 규칙에 따라 상태를 바꾸고 그 내역을 기록합니다.</p><p>허용되지 않은 이벤트는 거부합니다. 문제가 생기면 Reverse Map을 활용해 실패한 요청과 서버 로그를 관련 연산, 권한 정책, 상태 전이까지 되짚습니다. 실행 기록에는 명세 버전과 실행을 식별할 정보를 함께 남겨, 문제가 발생한 맥락을 확인할 수 있도록 합니다.</p><p>AI-SPARK의 핵심 발명은 국내 특허로 출원했습니다.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-  <section class="sec pt" id="s5"><div class="body"><h2 id="control.s5.h">Podway는 작업에 맞는 절차로 AI의 실행을 제어합니다</h2><p>Podway는 에이전트의 할 일 목록과 함께 작업 절차를 관리합니다. 작업을 절차 그래프로 구성해 각 단계의 진행 조건과 재작업 경로를 미리 정합니다. 문제가 생겨 이전 단계로 돌아가면, 절차에 따라 기존 기록의 유효성을 관리하고 다시 수행해야 할 작업과 검증을 확인할 수 있습니다.</p></div><div class="brz lit f0" aria-hidden="true"><svg class="brz-art" viewBox="0 0 16 24"><path class="module" d="M1 5h14l-3 8H4z"/><rect class="module" x="6" y="13" width="4" height="5"/><path class="module" d="M5 18h6l2 4H3z"/><path class="face" d="M2 6h12l-2 6H4z"/><path class="well" d="M4 6h8l-1 5H5z"/><ellipse class="charge" cx="8" cy="8" rx="3" ry="4"/></svg></div></section>
-</main>
-<footer class="foot wrap">
-  <span>루트커널 (Root Kernel)</span>
-  <a href="mailto:cs@rootkernel.xyz">cs@rootkernel.xyz</a>
-  <a href="https://github.com/irootkernel">github.com/irootkernel</a>
-  <span>© 2026 Root Kernel. All rights reserved.</span>
-  <span class="ai-art" data-copy="ui">모든 이미지는 AI로 생성했습니다.</span>
-</footer>
-<script type="application/json" id="rk-cfg">{"machine": "flight", "anchorTag": "s", "ports": 5, "hud": {"tick": "t{tick}", "embers": "성화", "visibleText": "텍스트", "statusAria": "현재 성화 수와 텍스트 색상 비중", "clear": "clear", "clearAria": "날아다니는 성화 지우기"}, "log": {"ignite": "점화", "lit": "{id} 점등", "launch": "{id} 발사", "send": "메일 초안 요청"}, "orb": {"b": "파랑", "g": "초록", "r": "빨강", "w": "흰색"}, "pad": {"aria": "{color} 성화 발사", "group": "성화 발사대"}}</script>
-<script src="/assets/js/rk.js?v=vr7-hero-m14" defer></script>
-</body>
-</html>
+    <main class="detail-shell" id="main">
+      <div class="paused-graph"><span>절차 시연 · 일시 정지</span><svg class="work-graph" viewBox="0 0 1090 276" role="img" aria-label="10단계 작업 절차">
+  <defs><marker id="arrow-inline" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z"/></marker></defs>
+  <g class="graph-edges"><path class="graph-edge " data-edge="W01-W02" d="M 146 53 H 168" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W02-W03" d="M 310 53 H 332" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W03-W04" d="M 474 53 H 496" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W05" d="M 574 78 V 120 H 334 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W06" d="M 574 78 V 120 H 498 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W04-W07" d="M 574 78 V 120 H 662 V 148" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W05-W08" d="M 398 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W06-W08" d="M 562 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W07-W08" d="M 726 177 H 766" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W08-W09" d="M 844 148 V 82" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge " data-edge="W09-W10" d="M 908 53 H 930" pathLength="1" marker-end="url(#arrow-inline)" /><path class="graph-edge rework" data-edge="W08-W02" d="M 844 202 V 258 H 246 V 82" pathLength="1" marker-end="url(#arrow-inline)" /></g><g class="graph-nodes"><g class="graph-node" data-node="W01" data-status="active" transform="translate(18 24)" tabindex="0" role="button" aria-label="W01 범위 정의: active">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W01</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">▶</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">범위 정의</text>
+</g><g class="graph-node" data-node="W02" data-status="future" transform="translate(182 24)" tabindex="0" role="button" aria-label="W02 명세 작성: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W02</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">명세 작성</text>
+</g><g class="graph-node" data-node="W03" data-status="future" transform="translate(346 24)" tabindex="0" role="button" aria-label="W03 명세 검증: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W03</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">명세 검증</text>
+</g><g class="graph-node" data-node="W04" data-status="future" transform="translate(510 24)" tabindex="0" role="button" aria-label="W04 구현: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W04</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">구현</text>
+</g><g class="graph-node" data-node="W05" data-status="future" transform="translate(270 148)" tabindex="0" role="button" aria-label="W05 테스트: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W05</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">테스트</text>
+</g><g class="graph-node" data-node="W06" data-status="future" transform="translate(434 148)" tabindex="0" role="button" aria-label="W06 리뷰: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W06</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">리뷰</text>
+</g><g class="graph-node" data-node="W07" data-status="future" transform="translate(598 148)" tabindex="0" role="button" aria-label="W07 기록 정리: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W07</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">기록 정리</text>
+</g><g class="graph-node" data-node="W08" data-status="future" transform="translate(780 148)" tabindex="0" role="button" aria-label="W08 결과 검증: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W08</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">결과 검증</text>
+</g><g class="graph-node" data-node="W09" data-status="future" transform="translate(780 24)" tabindex="0" role="button" aria-label="W09 사람의 결정: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W09</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">사람의 결정</text>
+</g><g class="graph-node" data-node="W10" data-status="future" transform="translate(944 24)" tabindex="0" role="button" aria-label="W10 완료: future">
+  <rect width="128" height="58" rx="3"/><text class="node-id" x="12" y="19">W10</text>
+  <text class="node-state" x="116" y="19" text-anchor="end">○</text>
+  <text class="node-label" x="64" y="42" text-anchor="middle">완료</text>
+</g></g>
+</svg></div>
+      <article class="detail-article">
+        <a class="return-link" href="/ko/">← 체험 시작</a>
+        <p class="detail-index">ROOT KERNEL / TECHNOLOGY</p>
+        <h1 id="detail-title">Technology</h1><p class="detail-lead">AI-SPARK는 서버 개발에 필요한 spec을 검증하고, 사람이 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. 실제 상태 전이는 FSM runtime이 제어합니다. Podway는 이 제어 원리를 일반 작업으로 확장해, 작업에 맞는 절차와 각 단계의 진행 조건을 미리 정합니다. AI는 허용된 범위에서 작업하고, 중요한 결정과 최종 승인은 사람이 맡습니다.</p>
+        <section class="detail-summary"><p>AI가 만든 코드가 늘어날수록 사람이 확인해야 할 양도 늘어납니다. 코드가 의도대로 동작하는지 검토하고 적용을 승인하는 데는 여전히 시간과 판단이 필요합니다.</p><p>API 계약과 권한 정책, 상태 모델, 테스트가 서로 다른 버전을 기준으로 하면 이를 맞추기 위한 재작업이 필요합니다. 문제가 생겼을 때 돌아갈 단계와 다시 확인할 범위를 정해 두지 않으면 복구도 어려워집니다.</p><p>루트커널은 AI가 작업할 범위와 단계별 검증·승인 조건을 먼저 정합니다. 문제가 생겼을 때 돌아갈 경로도 절차에 포함해, 어떤 작업부터 다시 진행해야 하는지 확인할 수 있도록 합니다.</p><p>AI-SPARK는 인터페이스, 상태 모델, 연결 규칙, 권한 정책을 spec bundle로 묶어 함께 버전 관리합니다. AI는 검증을 통과하고 사람이 승인한 버전을 기준으로 코드를 작성합니다.</p><p>spec bundle에서 만든 revision key는 검증 결과와 승인 기록을 해당 명세 버전에 연결합니다. 구현과 배포도 같은 버전을 기준으로 진행하므로, 승인한 내용과 실제 작업 대상이 일치하는지 확인할 수 있습니다.</p><p>revision이 일치하고 필요한 산출물이 모두 갖춰졌을 때만 다음 단계로 진행할 수 있습니다. 확인되지 않은 상태에서는 진행을 허용하지 않는 fail-closed 원칙을 적용합니다.</p><p>AI-SPARK의 검증기는 같은 검증 조건에서 같은 spec bundle을 검사하면 같은 위반 목록을 반환합니다. 모델의 판단에 의존하지 않으므로, 동일한 조건으로 다시 검사해 결과를 확인할 수 있습니다.</p><p>검증 규칙은 검증받는 쪽에서 수정할 수 없도록 분리합니다. 사람의 승인은 검증을 통과한 명세 버전에 연결되며, 명세가 바뀌면 다시 검증하고 승인받아야 합니다.</p><p>승인 후 AI는 이벤트 발생과 전이 조건, 전이 동작에 필요한 코드를 작성합니다. 실제 상태 전이와 동시성 제어는 FSM runtime이 맡아, 선언된 규칙에 따라 상태를 바꾸고 그 내역을 기록합니다.</p><p>허용되지 않은 이벤트는 거부합니다. 문제가 생기면 Reverse Map을 활용해 실패한 요청과 서버 로그를 관련 연산, 권한 정책, 상태 전이까지 되짚습니다. 실행 기록에는 명세 버전과 실행을 식별할 정보를 함께 남겨, 문제가 발생한 맥락을 확인할 수 있도록 합니다.</p><p>Podway는 에이전트의 할 일 목록과 함께 작업 절차를 관리합니다. 작업을 절차 그래프로 구성해 각 단계의 진행 조건과 재작업 경로를 미리 정합니다. 문제가 생겨 이전 단계로 돌아가면, 절차에 따라 기존 기록의 유효성을 관리하고 다시 수행해야 할 작업과 검증을 확인할 수 있습니다.</p><p><a class="inline-action" href="/ko/control/procedure/">Podway는 작업에 맞는 절차로 AI의 실행을 제어합니다 →</a></p></section><section class="retained-copy"><h2>기존 공개 내용</h2><h2>AI가 만든 코드를 검토하고 복구하는 일</h2><p>AI가 만든 코드가 늘어날수록 사람이 확인해야 할 양도 늘어납니다. 코드가 의도대로 동작하는지 검토하고 적용을 승인하는 데는 여전히 시간과 판단이 필요합니다.</p><p>API 계약과 권한 정책, 상태 모델, 테스트가 서로 다른 버전을 기준으로 하면 이를 맞추기 위한 재작업이 필요합니다. 문제가 생겼을 때 돌아갈 단계와 다시 확인할 범위를 정해 두지 않으면 복구도 어려워집니다.</p><p>루트커널은 AI가 작업할 범위와 단계별 검증·승인 조건을 먼저 정합니다. 문제가 생겼을 때 돌아갈 경로도 절차에 포함해, 어떤 작업부터 다시 진행해야 하는지 확인할 수 있도록 합니다.</p><h2>Spec이 구현의 경계를 정합니다</h2><p>AI-SPARK는 인터페이스, 상태 모델, 연결 규칙, 권한 정책을 spec bundle로 묶어 함께 버전 관리합니다. AI는 검증을 통과하고 사람이 승인한 버전을 기준으로 코드를 작성합니다.</p><p>spec bundle에서 만든 revision key는 검증 결과와 승인 기록을 해당 명세 버전에 연결합니다. 구현과 배포도 같은 버전을 기준으로 진행하므로, 승인한 내용과 실제 작업 대상이 일치하는지 확인할 수 있습니다.</p><p>revision이 일치하고 필요한 산출물이 모두 갖춰졌을 때만 다음 단계로 진행할 수 있습니다. 확인되지 않은 상태에서는 진행을 허용하지 않는 fail-closed 원칙을 적용합니다.</p><h2>Deterministic validation과 사람의 승인</h2><p>AI-SPARK의 검증기는 같은 검증 조건에서 같은 spec bundle을 검사하면 같은 위반 목록을 반환합니다. 모델의 판단에 의존하지 않으므로, 동일한 조건으로 다시 검사해 결과를 확인할 수 있습니다.</p><p>검증 규칙은 검증받는 쪽에서 수정할 수 없도록 분리합니다. 사람의 승인은 검증을 통과한 명세 버전에 연결되며, 명세가 바뀌면 다시 검증하고 승인받아야 합니다.</p><h2>FSM runtime이 상태 전이를 제어합니다</h2><p>승인 후 AI는 이벤트 발생과 전이 조건, 전이 동작에 필요한 코드를 작성합니다. 실제 상태 전이와 동시성 제어는 FSM runtime이 맡아, 선언된 규칙에 따라 상태를 바꾸고 그 내역을 기록합니다.</p><p>허용되지 않은 이벤트는 거부합니다. 문제가 생기면 Reverse Map을 활용해 실패한 요청과 서버 로그를 관련 연산, 권한 정책, 상태 전이까지 되짚습니다. 실행 기록에는 명세 버전과 실행을 식별할 정보를 함께 남겨, 문제가 발생한 맥락을 확인할 수 있도록 합니다.</p><h2>Podway는 작업에 맞는 절차로 AI의 실행을 제어합니다</h2><p>Podway는 에이전트의 할 일 목록과 함께 작업 절차를 관리합니다. 작업을 절차 그래프로 구성해 각 단계의 진행 조건과 재작업 경로를 미리 정합니다. 문제가 생겨 이전 단계로 돌아가면, 절차에 따라 기존 기록의 유효성을 관리하고 다시 수행해야 할 작업과 검증을 확인할 수 있습니다.</p><p>AI-SPARK의 핵심 발명은 국내 특허로 출원했습니다.</p></section>
+      </article>
+      <footer class="story-composer detail-composer" id="story-composer" data-phase="paused" data-paused="true">
+        <div class="composer-line"><span aria-hidden="true">&gt;</span><p>Technology</p><b class="composer-cursor" aria-hidden="true">█</b></div>
+        <div class="current-state"><span>현재</span><strong>일시 정지</strong></div>
+      </footer>
+    </main>
+  </div>
+  <script type="module" src="/assets/js/rk.js?v=v2"></script>
+</body></html>
