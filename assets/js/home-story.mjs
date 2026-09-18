@@ -1,4 +1,4 @@
-import {getHomeCopy} from './home-copy.mjs?v=30652883d5c2fd2f';
+import {getHomeCopy} from './home-copy.mjs?v=7377d0539e3c69ae';
 
 const node = (id, label, x, y = 51) => ({id, label, x, y});
 const edge = (from, to, kind) => ({from, to, ...(kind ? {kind} : {})});

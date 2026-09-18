@@ -1,6 +1,6 @@
 {
   "site": "root-kernel",
-  "assetVersion": "30652883d5c2fd2f",
+  "assetVersion": "7377d0539e3c69ae",
   "locales": [
     "ko",
     "en"
@@ -76,7 +76,7 @@
     }
   },
   "sourceSha256": {
-    "src/app.mjs": "eeea2547d7ce8e18d2a6fa1dee795adcee310f7ad7c4b1015afba5d4da5103d6",
+    "src/app.mjs": "7c58a6a179070c1a4bf134e99c971fe71b53aecb4142889b6dcb624fbc7398ac",
     "src/company-content.en.mjs": "8f7c4404676ac5823bc0cd1a087a79b42f2a9ce71c1ed023cfa8b1eff07b4c07",
     "src/company-content.ko.mjs": "7d09092812e813c71ab5385fe1190bcfa576c3ea7177e4adc6837a3cc28e20aa",
     "src/company-content.mjs": "83104bfe56636ab3b65d963a0b22a164363bfd9ee01414792aeaaed48e617f0b",
@@ -94,8 +94,8 @@
     "src/topic-content.en.mjs": "b9044166efc6fea6f75e4eb431ae5b3f33911489bfc4dbb73cdc2dbefdf8bda9",
     "src/topic-content.ko.mjs": "b01f534d6709ec7429de3cb3a43873e90d5e72072d09d9e9a4a054570f253866",
     "src/topic-content.mjs": "9aeb5a2e33e50588e537249ce2690bb79f7bcf35ee63a68a8ad3af7ed6427943",
-    "src/site.css": "0cfca64ccece9b600dd2fcb743e2990d19954dea9b35a2c8d720f23799a75f2f",
-    "scripts/build.mjs": "8f8ff471bd0ab6551df52c8c981d8b76a53a092aa0e907f00e1229e43769b83d",
+    "src/site.css": "ff4f48fe88429bd67c453afe7bf2e0e9e8cf5974ad37ac5d3dadac295b3d46b3",
+    "scripts/build.mjs": "6aa3e2e7cd85e47e2a173bd2314bcc0c44aae2f64fe6b265dd38a2fb728b9e4b",
     "scripts/validate-locales.mjs": "bcb1b1851ab18f16c70beccda50f152980bc041d62b295dcd217f947c940af05"
   }
 }

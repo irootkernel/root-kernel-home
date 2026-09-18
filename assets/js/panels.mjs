@@ -1,6 +1,6 @@
-import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=30652883d5c2fd2f';
-import {getTechnologyContent, getProductData} from './topic-content.mjs?v=30652883d5c2fd2f';
-import {getCompanyContent} from './company-content.mjs?v=30652883d5c2fd2f';
+import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=7377d0539e3c69ae';
+import {getTechnologyContent, getProductData} from './topic-content.mjs?v=7377d0539e3c69ae';
+import {getCompanyContent} from './company-content.mjs?v=7377d0539e3c69ae';
 
 export const escapeHtml = text => String(text).replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
 

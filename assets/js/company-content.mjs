@@ -1,6 +1,6 @@
-import ko from './company-content.ko.mjs?v=30652883d5c2fd2f';
-import en from './company-content.en.mjs?v=30652883d5c2fd2f';
-import {pageHref} from './locale.mjs?v=30652883d5c2fd2f';
+import ko from './company-content.ko.mjs?v=7377d0539e3c69ae';
+import en from './company-content.en.mjs?v=7377d0539e3c69ae';
+import {pageHref} from './locale.mjs?v=7377d0539e3c69ae';
 
 const resources = {ko, en};
 const order = ['founding', 'founder', 'name', 'naming', 'history'];

@@ -1,9 +1,9 @@
-import {compileScenario} from './engine.mjs?v=30652883d5c2fd2f';
-import {getScenarios} from './story.mjs?v=30652883d5c2fd2f';
-import {ui, languageHref, readNavigation, readStepHash} from './locale.mjs?v=30652883d5c2fd2f';
-import {playbackSession} from './session.mjs?v=30652883d5c2fd2f';
-import {renderPanel, panelTitle, escapeHtml as e} from './panels.mjs?v=30652883d5c2fd2f';
-import {makeTimeline, locate, messageProgress, sampleScroll, remapPosition, navigatePosition, mobileChatOffset, glyphs, AI_START, AI_END} from './playback.mjs?v=30652883d5c2fd2f';
+import {compileScenario} from './engine.mjs?v=7377d0539e3c69ae';
+import {getScenarios} from './story.mjs?v=7377d0539e3c69ae';
+import {ui, languageHref, readNavigation, readStepHash} from './locale.mjs?v=7377d0539e3c69ae';
+import {playbackSession} from './session.mjs?v=7377d0539e3c69ae';
+import {renderPanel, panelTitle, escapeHtml as e} from './panels.mjs?v=7377d0539e3c69ae';
+import {makeTimeline, locate, messageProgress, sampleScroll, remapPosition, navigatePosition, mobileChatOffset, glyphs, AI_START, AI_END} from './playback.mjs?v=7377d0539e3c69ae';
 
 const page = document.body.dataset.page;
 const locale = document.documentElement.lang;
@@ -89,6 +89,12 @@ function start() {
   resizeRunway();
   window.scrollTo(0, position * unit);
   update(true);
+  clearTimeout(window.__rkEnhancementTimer);
+  removeEventListener('error', window.__rkEnhancementRestore);
+  removeEventListener('unhandledrejection', window.__rkEnhancementRestore);
+  delete window.__rkEnhancementTimer;
+  delete window.__rkEnhancementRestore;
+  document.documentElement.classList.remove('enhancing');
 
   function resizeRunway() { $('#runway').style.height = `${timeline.length * unit + innerHeight}px`; }
 

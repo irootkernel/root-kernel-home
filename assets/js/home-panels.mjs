@@ -1,6 +1,6 @@
-import {pageHref} from './locale.mjs?v=30652883d5c2fd2f';
-import {homeText as koHomeText} from './home-panels.ko.mjs?v=30652883d5c2fd2f';
-import {homeText as enHomeText} from './home-panels.en.mjs?v=30652883d5c2fd2f';
+import {pageHref} from './locale.mjs?v=7377d0539e3c69ae';
+import {homeText as koHomeText} from './home-panels.ko.mjs?v=7377d0539e3c69ae';
+import {homeText as enHomeText} from './home-panels.en.mjs?v=7377d0539e3c69ae';
 
 const resources = {ko: koHomeText, en: enHomeText};
 
