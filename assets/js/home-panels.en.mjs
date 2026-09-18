@@ -1,3 +1,5 @@
+import {founderProfile} from './company-content.en.mjs?v=fe5964d6adc705a5';
+
 export const homeText = {
   titles: {
     identity: 'Root Kernel',
@@ -11,6 +13,8 @@ export const homeText = {
     'todo-retest': 'ToDo / Retest',
     'todo-rereview-start': 'Revised code review',
     'todo-rereview-result': 'Second review results',
+    'founder-responsibility': 'System design and verification',
+    services: 'Development services',
     'products-overview': 'Products',
   },
   identity: {
@@ -81,6 +85,28 @@ export const homeText = {
       doksuri: 'Project management for people and AI',
       ember: 'A physics puzzle RPG where embers open the way',
     },
+    contactLink: 'Get in touch →',
+  },
+  founder: {
+    label: 'SYSTEM DESIGN & VERIFICATION',
+    title: founderProfile.identity,
+    credential: founderProfile.credential,
+    description: founderProfile.responsibility,
+    experience: [founderProfile.lg, founderProfile.sap],
+    companyLink: 'Read the full background on Company →',
+    technologyLink: 'Explore our open-source tools →',
+  },
+  services: {
+    label: 'SERVICES',
+    title: 'Software built<br>for your organization.',
+    lead: 'These are examples of work we can design and build together, not a fixed package catalog.',
+    scopes: [
+      ['01', 'Websites and web services'],
+      ['02', 'Internal business tools and workflow automation'],
+      ['03', 'Custom software and AI Agent integration'],
+    ],
+    technologyLink: 'Use the technology directly →',
+    contactLink: 'Discuss a development project →',
   },
   review: {
     startRepeatTitle: 'Review the revised code<br>again.',

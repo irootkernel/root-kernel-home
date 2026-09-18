@@ -1,3 +1,15 @@
+export const founderProfile = {
+  name: '정영훈',
+  role: 'Founder / Software Engineer',
+  degree: '컴퓨터공학 석사',
+  experience: '소프트웨어 개발 경력 13년',
+  identity: '정영훈 · Founder / Software Engineer',
+  credential: '컴퓨터공학 석사 · 소프트웨어 개발 경력 13년',
+  responsibility: '13년의 개발 경험을 바탕으로 AI의 작업 절차와 검증 기준을 설계하고 구현했습니다. 직접 만든 도구를 자체 제품 개발에 활용하며 개선하고 있습니다.',
+  lg: 'LG전자 · Linux Kernel',
+  sap: 'SAP Labs Korea · SAP HANA',
+};
+
 export default {
   founding: {
     label: '설립',
@@ -8,13 +20,14 @@ export default {
     facts: [['설립', '2026.06'], ['대표', '정영훈'], ['연구·개발', '사람과 AI 에이전트가 함께']],
   },
   founder: {
+    profile: founderProfile,
     label: '창업자',
     human: '창업자는 어떤 일을 해왔어?',
-    ai: '정영훈 대표는 모바일 운영체제와 데이터베이스 코어, 클라우드 인프라를 개발해 온 13년 경력의 엔지니어입니다. 석사 과정에서는 반복문 커널을 연구했고, LG전자에서는 Linux Kernel을, SAP에서는 데이터베이스의 Kernel을 개발했습니다. 장애 복구와 변경 사항 검증도 주요 업무였습니다.',
+    ai: '컴퓨터공학 석사를 마친 정영훈 대표는 모바일 운영체제와 데이터베이스 코어, 클라우드 인프라를 개발해 온 13년 경력의 엔지니어입니다. 석사 과정에서는 반복문 커널을 연구했고, LG전자에서는 Linux Kernel을, SAP Labs Korea에서는 SAP HANA 데이터베이스 코어를 개발했습니다. 장애 복구와 변경 사항 검증도 주요 업무였습니다.',
     title: '창업자 정영훈',
-    lead: '모바일 운영체제와 데이터베이스 코어, 클라우드 인프라를 개발해 온 13년 경력의 엔지니어입니다.',
+    lead: '컴퓨터공학 석사로, 모바일 운영체제와 데이터베이스 코어, 클라우드 인프라를 개발해 온 13년 경력의 엔지니어입니다.',
     steps: [
-      ['석사 과정', '컴파일러 연구', '반복문 커널의 성능을 높이는 컴파일러 기술을 연구했습니다.'],
+      ['컴퓨터공학 석사', '컴파일러 연구', '반복문 커널의 성능을 높이는 컴파일러 기술을 연구했습니다.'],
       ['LG전자', 'Linux Kernel', '모바일 운영체제의 스케줄러와 전력 관리 시스템을 개발했습니다.'],
       ['SAP Labs Korea', 'SAP HANA', '데이터베이스 코어와 클라우드 인프라를 개발했습니다.'],
     ],

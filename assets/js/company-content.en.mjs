@@ -1,3 +1,15 @@
+export const founderProfile = {
+  name: 'Yeonghun Jeong',
+  role: 'Founder / Software Engineer',
+  degree: "Master's degree in Computer Engineering",
+  experience: '13 years of software engineering experience',
+  identity: 'Yeonghun Jeong · Founder / Software Engineer',
+  credential: "Master's degree in Computer Engineering · 13 years of software engineering experience",
+  responsibility: 'Drawing on 13 years of engineering experience, he designed and implemented the procedures and verification criteria for controlling AI work. We use our own tools in product development and improve them through that work.',
+  lg: 'LG Electronics · Linux Kernel',
+  sap: 'SAP Labs Korea · SAP HANA',
+};
+
 export default {
   founding: {
     label: 'Founding',
@@ -8,13 +20,14 @@ export default {
     facts: [['Founded', '2026.06'], ['Founder', 'Yeonghun Jeong'], ['Research & development', 'A person and AI agents working together']],
   },
   founder: {
+    profile: founderProfile,
     label: 'Founder',
     human: 'What did the founder work on before this?',
-    ai: 'Yeonghun Jeong is an engineer with 13 years of experience in mobile operating systems, database cores, and cloud infrastructure. He researched loop kernels during his master’s studies, worked on the Linux Kernel at LG Electronics, and developed database kernel technology at SAP. His work also covered failure recovery and validating changes.',
+    ai: "Yeonghun Jeong holds a master's degree in Computer Engineering and has 13 years of experience in mobile operating systems, database cores, and cloud infrastructure. He researched loop kernels during his master's studies, worked on the Linux Kernel at LG Electronics, and developed SAP HANA database core technology at SAP Labs Korea. His work also covered failure recovery and validating changes.",
     title: 'Founder Yeonghun Jeong',
-    lead: 'An engineer with 13 years of experience developing mobile operating systems, database cores, and cloud infrastructure.',
+    lead: "An engineer with a master's degree in Computer Engineering and 13 years of experience developing mobile operating systems, database cores, and cloud infrastructure.",
     steps: [
-      ['Master’s studies', 'Compiler research', 'Researched compiler techniques to improve loop-kernel performance.'],
+      ["Master's degree in Computer Engineering", 'Compiler research', 'Researched compiler techniques to improve loop-kernel performance.'],
       ['LG Electronics', 'Linux Kernel', 'Developed scheduling and power management systems for mobile operating systems.'],
       ['SAP Labs Korea', 'SAP HANA', 'Developed database core technology and cloud infrastructure.'],
     ],

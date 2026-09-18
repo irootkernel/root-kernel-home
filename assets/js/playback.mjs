@@ -2,6 +2,7 @@ export const AI_START = 0.28;
 export const AI_END = 0.76;
 export const MOBILE_READING_HOLD = 0.18;
 export const MOBILE_QUESTION_POSITIONING = 0.12;
+const DIALOGUE_END_PADDING = 0.001;
 export const clamp = value => value < 1e-9 ? 0 : value > 1-1e-9 ? 1 : value;
 const segmenters = Object.fromEntries(['ko','en'].map(locale=>[locale,new Intl.Segmenter(locale,{granularity:'grapheme'})]));
 export const glyphs = (text,locale='ko') => [...segmenters[locale].segment(text)].map(part=>part.segment);
@@ -11,6 +12,7 @@ export function makeTimeline(compiled, mobile = false, locale = 'ko') {
   const entries = compiled.turns.map((turn,index) => {
     const scenes = turn.scenes.filter(scene=>!mobile || scene.mobile);
     if (!scenes.length) throw new Error(`No scenes for ${turn.id}`);
+    const inlineScenes = mobile ? scenes.filter(scene=>scene.mobileInline !== false) : scenes;
     const frames = turn.segments.map(segment=>compiled.frames[segment.frameIndex]);
     const textLength = glyphs(turn.ai,locale).length;
     const positioningDuration = mobile && index > 0 ? MOBILE_QUESTION_POSITIONING : 0;
@@ -22,14 +24,25 @@ export function makeTimeline(compiled, mobile = false, locale = 'ko') {
       offset += glyphs(segment.text,locale).length + (i < turn.segments.length-1 ? 1 : 0);
       return {...segment,boundary,frame:frames[i]};
     });
-    const length = positioningDuration + (mobile ? 1.1 : 1) + (scenes.length-1)*0.5;
-    const holdDuration = mobile && index < compiled.turns.length-1 ? MOBILE_READING_HOLD : 0;
-    const entry = {index,start,questionStart,answerEnd,positioningDuration,contentEnd:start+length,end:start+length+holdDuration,holdDuration,turn,frames,segments,scenes};
+    const readingLength = mobile
+      ? inlineScenes.length ? 1.1+(inlineScenes.length-1)*0.5 : AI_END+DIALOGUE_END_PADDING
+      : 1+(scenes.length-1)*0.5;
+    const length = positioningDuration+readingLength;
+    const holdDuration = mobile && inlineScenes.length && index < compiled.turns.length-1 ? MOBILE_READING_HOLD : 0;
+    const entry = {index,start,questionStart,answerEnd,positioningDuration,contentEnd:start+length,end:start+length+holdDuration,holdDuration,turn,frames,segments,scenes,inlineScenes};
     start = entry.end;
     return entry;
   });
   return {entries,length:start,mobile,locale};
 }
+
+/** Fresh and restarted playback always begins before the first question. */
+export function playbackFloor() { return 0; }
+
+export function restoredPlaybackFloor() { return 0; }
+
+export const scrollPosition = (scrollY, unit, floor = 0) => floor + Math.max(0, scrollY) / unit;
+export const scrollOffset = (position, unit, floor = 0) => Math.max(0, position - floor) * unit;
 
 export function locate(timeline, position) {
   const value = Math.max(0,Math.min(timeline.length-0.0001,position));
@@ -41,14 +54,14 @@ export function locate(timeline, position) {
   entry.segments.forEach((segment,i)=>{ if(local>=segment.boundary-1e-9) segmentIndex=i; });
   const frame = entry.frames[Math.max(0,segmentIndex)];
   const committed = segmentIndex >= 0;
-  const mediaProgress = clamp((value-entry.answerEnd)/(entry.contentEnd-entry.answerEnd));
+  const mediaProgress = entry.inlineScenes.length ? clamp((value-entry.answerEnd)/(entry.contentEnd-entry.answerEnd)) : 0;
   const sceneIndex = Math.min(entry.scenes.length-1,Math.floor(mediaProgress*entry.scenes.length));
   const holding = entry.holdDuration > 0 && value >= entry.contentEnd;
   const holdProgress = holding ? clamp((value-entry.contentEnd)/entry.holdDuration) : 0;
   return {...entry,local,dialogueLocal,placementProgress,segmentIndex,frame,committed,sceneIndex,mediaProgress,holding,holdProgress,
     snapshot:committed ? frame.after : entry.frames[0].before,
     humanProgress:clamp(dialogueLocal/0.23),aiProgress:clamp((dialogueLocal-AI_START)/(AI_END-AI_START)),
-    mediaVisible:value>=entry.answerEnd-1e-9};
+    mediaVisible:entry.inlineScenes.length>0 && value>=entry.answerEnd-1e-9};
 }
 
 export function deliveredProgress(timeline, position, index, reducedMotion=false) {
@@ -67,7 +80,7 @@ export function messageProgress(timeline,position,frontier,index,reducedMotion=f
     p.ai=glyphs(available.map(s=>s.text).join(' '),timeline.locale).length/glyphs(entry.turn.ai,timeline.locale).length;
   }
   return {...p,delivered:deliveredProgress(timeline,frontier,index).committed,
-    mediaVisible:position>=timeline.entries[index].answerEnd-1e-9};
+    mediaVisible:timeline.entries[index].inlineScenes.length>0 && position>=timeline.entries[index].answerEnd-1e-9};
 }
 
 export function sampleScroll(position,target,elapsedMs,idleMs,reducedMotion=false) {
@@ -83,6 +96,7 @@ export function remapPosition(from,to,position) {
   if(point.holding) return Math.min(target.end-.0001,target.contentEnd+point.holdProgress*target.holdDuration);
   if(point.dialogueLocal<0) return target.start+point.placementProgress*target.positioningDuration;
   if(point.dialogueLocal<AI_END) return target.questionStart+point.dialogueLocal;
+  if(!target.inlineScenes.length) return target.answerEnd;
   const scene=point.scenes[point.sceneIndex].id;
   const sceneIndex=Math.max(0,target.scenes.findIndex(s=>s.id===scene));
   const withinScene=point.mediaProgress*point.scenes.length-point.sceneIndex;
@@ -102,10 +116,16 @@ export function mobileChatOffset({top,fullHeight,viewHeight,mediaHeight,answerHe
   return questionOffset+(mediaOffset-questionOffset)*mediaProgress;
 }
 
-export function navigatePosition(timeline,position,direction) {
+export function navigatePosition(timeline,position,direction,floor=0) {
   const point=locate(timeline,position);
-  const stops=timeline.entries.flatMap(entry=>entry.scenes.map((_,i)=>Math.min(entry.end-.0001,entry.answerEnd+(i+(timeline.mobile?1:.95))/entry.scenes.length*(entry.contentEnd-entry.answerEnd))));
+  const stops=[floor,...timeline.entries.flatMap(entry=>{
+    if (!entry.inlineScenes.length) return [(entry.answerEnd + entry.contentEnd) / 2];
+    const scenes=entry.inlineScenes;
+    return scenes.map((_,i)=>Math.min(entry.end-.0001,entry.answerEnd+(i+(timeline.mobile?1:.95))/scenes.length*(entry.contentEnd-entry.answerEnd)));
+  })]
+    .filter((stop,index,all)=>stop>=floor-1e-9 && all.indexOf(stop)===index)
+    .sort((a,b)=>a-b);
   if(direction>0) return stops.find(stop=>stop>position+.01) ?? position;
-  if(position<=point.start+.01) return [...stops].reverse().find(stop=>stop<point.start) ?? 0;
-  return point.index ? stops.filter(stop=>stop<point.start).at(-1) : 0;
+  if(position<=point.start+.01) return [...stops].reverse().find(stop=>stop<point.start) ?? floor;
+  return point.index ? stops.filter(stop=>stop<point.start).at(-1) ?? floor : floor;
 }

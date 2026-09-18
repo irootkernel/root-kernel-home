@@ -1,8 +1,9 @@
-import {pageHref} from './locale.mjs?v=7377d0539e3c69ae';
-import {homeText as koHomeText} from './home-panels.ko.mjs?v=7377d0539e3c69ae';
-import {homeText as enHomeText} from './home-panels.en.mjs?v=7377d0539e3c69ae';
+import {pageHref} from './locale.mjs?v=fe5964d6adc705a5';
+import {homeText as koHomeText} from './home-panels.ko.mjs?v=fe5964d6adc705a5';
+import {homeText as enHomeText} from './home-panels.en.mjs?v=fe5964d6adc705a5';
 
 const resources = {ko: koHomeText, en: enHomeText};
+const e = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
 function assertTranslation(reference, candidate, path) {
   if (Array.isArray(reference)) {
@@ -63,9 +64,17 @@ export function renderHomePanel(id, state, stage, products, locale = 'ko') {
     const copy = text.todoDesign;
     return `<article class="todo-design">${heading(copy.label, copy.title)}<div class="todo-layout"><div class="todo-state-map" aria-label="${copy.ariaLabel}"><p class="state-entry">${copy.addTask} <span>→ ${copy.inProgress}</span></p><div class="todo-state-row"><div class="todo-state"><small>STATE 01</small><strong>${copy.inProgress}</strong></div><div class="todo-state-arrows"><span>${copy.markComplete}</span><span>${copy.resume}</span></div><div class="todo-state"><small>STATE 02</small><strong>${copy.complete}</strong></div></div><div class="todo-state-delete"><span>${copy.deleteFromStates}</span><b>↓</b><div class="todo-state"><strong>${copy.deleted}</strong><small>${copy.removed}</small></div></div></div><div class="todo-details"><h3>${copy.conditionsHeading}</h3>${checks(copy.conditions, false)}<div class="todo-storage-rule"><span>${copy.storageLabel}</span><p>${copy.storageBody}</p></div></div></div></article>`;
   }
+  if (id === 'founder-responsibility') {
+    const copy = text.founder;
+    return `<article class="founder-responsibility">${heading(copy.label, e(copy.title))}<p class="founder-credential">${e(copy.credential)}</p><p class="panel-lead">${e(copy.description)}</p><ul class="founder-experience">${copy.experience.map(item => `<li>${e(item)}</li>`).join('')}</ul><div class="panel-links"><a href="${pageHref('company', locale)}#step=company-founder">${e(copy.companyLink)}</a><a href="${pageHref('technology', locale)}">${e(copy.technologyLink)}</a></div></article>`;
+  }
+  if (id === 'services') {
+    const copy = text.services;
+    return `<article class="services-overview">${heading(copy.label, copy.title, e(copy.lead))}<ol class="service-scopes">${copy.scopes.map(([number, label]) => `<li><span>${e(number)}</span><h3>${e(label)}</h3></li>`).join('')}</ol><div class="panel-links"><a href="${pageHref('technology', locale)}">${e(copy.technologyLink)}</a><a href="${pageHref('contact', locale)}">${e(copy.contactLink)}</a></div></article>`;
+  }
   if (id === 'products-overview') {
     const copy = text.productsOverview;
-    return `<article>${heading(copy.label, copy.title, copy.lead)}<div class="product-overview">${Object.entries(products).map(([key, product]) => `<a href="${pageHref('products', locale)}#step=product-${key}"><img src="/assets/images/${product.image}" alt="${product.alt}" width="1000" height="580"><h3>${product.name} <span>↗</span></h3><p>${copy.summaries[key]}</p><small>${product.caption}</small></a>`).join('')}</div></article>`;
+    return `<article>${heading(copy.label, copy.title, copy.lead)}<div class="product-overview">${Object.entries(products).map(([key, product]) => `<a href="${pageHref('products', locale)}#step=product-${key}"><img src="/assets/images/${e(product.image)}" alt="${e(product.alt)}" width="1000" height="580"><h3>${e(product.name)} <span>↗</span></h3><p>${e(copy.summaries[key])}</p><strong class="product-status">${e(product.status)}</strong><small>${e(product.caption)}</small></a>`).join('')}</div><a class="text-link products-contact-link" href="${pageHref('contact', locale)}">${e(copy.contactLink)}</a></article>`;
   }
 
   const revision = state.revision;

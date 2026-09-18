@@ -1,8 +1,9 @@
-import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=7377d0539e3c69ae';
-import {getTechnologyContent, getProductData} from './topic-content.mjs?v=7377d0539e3c69ae';
-import {getCompanyContent} from './company-content.mjs?v=7377d0539e3c69ae';
+import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=fe5964d6adc705a5';
+import {getTechnologyContent, getProductData} from './topic-content.mjs?v=fe5964d6adc705a5';
+import {getCompanyContent} from './company-content.mjs?v=fe5964d6adc705a5';
 
 export const escapeHtml = text => String(text).replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
+const escapeWithBreaks = text => String(text).split('<br>').map(escapeHtml).join('<br>');
 
 export function panelTitle(id, locale = 'ko') {
   const products = getProductData(locale);
@@ -15,7 +16,7 @@ export function renderPanel(id, state, stage = 3, locale = 'ko') {
   const technology = getTechnologyContent(locale);
   if (homePanelTitle(id, locale)) return renderHomePanel(id, state, stage, products, locale);
   const product = products[id];
-  if (product) return `<article class="product-scene"><div class="product-heading"><div class="eyebrow">${product.number} / ${product.category}</div><h2>${product.name}</h2></div><figure><img src="/assets/images/${product.image}" alt="${product.alt}" width="1000" height="580"><figcaption>${product.caption}</figcaption></figure><div class="product-copy"><h3>${product.heading}</h3><p>${product.description}</p></div></article>`;
+  if (product) return `<article class="product-scene"><div class="product-heading"><div class="eyebrow">${escapeHtml(product.number)} / ${escapeHtml(product.category)}</div><h2>${escapeHtml(product.name)}</h2><p class="product-status">${escapeHtml(product.status)}</p></div><figure><img src="/assets/images/${escapeHtml(product.image)}" alt="${escapeHtml(product.alt)}" width="1000" height="580"><figcaption>${escapeHtml(product.caption)}</figcaption></figure><div class="product-copy"><h3>${escapeWithBreaks(product.heading)}</h3><p>${escapeHtml(product.description)}</p></div></article>`;
   const topic = technology.find(item => `tech-${item.id}` === id);
   if (topic) return `<article class="technology-scene"><div class="eyebrow">TECHNOLOGY / ${topic.label}</div><h2>${topic.title}</h2><p class="panel-lead">${topic.lead}</p>${topic.body}</article>`;
   const company = getCompanyContent(locale).find(item => `company-${item.id}` === id);

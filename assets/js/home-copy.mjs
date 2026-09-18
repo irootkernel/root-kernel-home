@@ -10,6 +10,8 @@ const ko = {
     "security": "Security",
     "reliability": "Reliability",
     "review": "리뷰 결과",
+    "founder": "시스템 설계와 검증",
+    "services": "개발 서비스",
     "products": "제품"
   },
   "questions": {
@@ -24,11 +26,13 @@ const ko = {
     "todo-retest": "이제 새로고침해도 남아 있어?",
     "rereview-start": "수정한 코드도 다시 검토해줘.",
     "rereview-result": "아까 발견한 문제는 해결됐어?",
-    "products": "실제로 만드는 제품도 보여줘."
+    "founder": "꽤 복잡한 시스템 같은데, 누가 설계하고 만든 거야? 검증은 어떻게 했어?",
+    "services": "나도 이 기술들을 이용할 수 있을까?",
+    "products": "실제로 만드는 제품들도 있어?"
   },
   "answers": {
-    "company": "루트커널은 AI를 제어하는 기술을 만듭니다. AI의 작업 범위와 실행 절차를 정하고, 사람이 정한 규칙과 승인에 따라 일하도록 합니다.",
-    "control": "루트커널은 FSM에 기반한 두 가지 기술을 가지고 있습니다. AI-SPARK는 검증하고 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. Podway는 작업 절차와 진행 조건을 관리하고, 문제가 생겼을 때 돌아갈 경로를 정합니다.",
+    "company": "루트커널은 AI가 정해진 범위와 절차 안에서만 작업하도록 제어하는 기술을 만드는 소프트웨어 회사입니다. AI에게 맡길 일과 검증 방법, 문제가 생겼을 때 돌아갈 단계와 복구 절차를 구조적으로 정의해 AI의 작업을 제어합니다.",
+    "control": "루트커널은 여러 AI 제어 기술과 도구를 만들고 있습니다. AI-SPARK는 검증을 거쳐 사람이 승인한 명세에 따라 AI가 코드를 작성하도록 합니다. Podway는 이 원칙을 분석·문서 작성·검토 등 다양한 작업으로 확장한 도구입니다. 작업 단계와 진행 조건을 관리하고, 문제가 생기면 필요한 단계로 돌아가 작업과 검증을 다시 수행하도록 합니다. 이 밖에도 AI의 작업을 제어하는 여러 도구를 오픈소스로 공개했습니다.",
     "design-start": "먼저 할 일의 상태와 전이를 FSM으로 설계하겠습니다. 추가한 할 일은 진행 중에서 완료로, 필요하면 다시 진행 중으로 바꿀 수 있습니다. 삭제한 항목은 목록에서 빠지고, 나머지 항목과 완료 상태는 새로고침해도 유지되도록 정하겠습니다.",
     "build-start": "설계한 상태 전이에 맞춰 입력창과 목록을 만들겠습니다.",
     "build-done": "입력창과 목록을 만들었습니다. 이제 기능을 확인하겠습니다.",
@@ -48,6 +52,8 @@ const ko = {
     "security-second": "저장한 내용도 안전하게 표시합니다.",
     "reliability-second": "새로고침 후 목록이 사라지던 문제도 해결됐습니다.",
     "review-join-second": "세 리뷰가 모두 통과했습니다. 수정 내용과 확인 결과도 함께 남겼습니다.",
+    "founder": "창업자 정영훈이 설계하고 구현했습니다. 컴퓨터공학 석사로, Linux Kernel과 SAP HANA 등을 개발하며 쌓은 13년의 경험을 바탕으로 작업 절차와 검증 기준을 설계했습니다. 직접 만든 도구를 자체 제품 개발에 활용하며 개선하고 있고, 공개한 오픈소스 도구의 코드는 GitHub에서 살펴보실 수 있습니다.",
+    "services": "네. 공개한 오픈소스 도구를 직접 사용하실 수 있고, 도입이나 개발을 루트커널에 맡기실 수도 있습니다. 홈페이지와 웹서비스, 사내 업무 도구, 맞춤형 소프트웨어를 설계하고 개발합니다. AI Agent를 개발 과정이나 업무에 적용하는 일도 함께합니다.",
     "products": "실시간 밸런스 게임 Sudal, 사람과 AI가 함께 일하는 프로젝트 관리 도구 Doksuri, 물리 퍼즐 RPG Ember Quest를 개발합니다. 직접 만든 도구를 제품 개발에 활용하고, 그 경험을 다시 기술에 반영합니다."
   },
   "evidence": {
@@ -69,7 +75,7 @@ const ko = {
 
 const en = {
   greeting: 'Hello! It’s good to meet you. We’re Root Kernel.',
-  nodes: {intro:'Root Kernel',approach:'AI control',design:'Design',build:'Implement',test:'Test',architect:'Architect',security:'Security',reliability:'Reliability',review:'Review results',products:'Products'},
+  nodes: {intro:'Root Kernel',approach:'AI control',design:'Design',build:'Implement',test:'Test',architect:'Architect',security:'Security',reliability:'Reliability',review:'Review results',founder:'System design and verification',services:'Services',products:'Products'},
   questions: {
     hello:'What is Root Kernel?',
     approach:'How do you control the way AI works?',
@@ -82,11 +88,13 @@ const en = {
     'todo-retest':'Does it keep the list after a refresh now?',
     'rereview-start':'Review the updated code too.',
     'rereview-result':'Is the issue you found earlier resolved?',
-    products:'Show me the products you’re building.',
+    founder:'This looks like a complex system. Who designed and built it? How was it verified?',
+    services:'Can I use these technologies too?',
+    products:'Are you building any products of your own too?',
   },
   answers: {
-    company:'Root Kernel builds technology that controls AI. We define the scope and steps of its work so it follows rules and approvals set by people.',
-    control:'We have two technologies based on finite state machines, or FSMs. AI-SPARK guides AI to write code from validated, approved specifications. Podway manages the workflow, the conditions for moving forward, and where to return when something goes wrong.',
+    company:'Root Kernel is a software company that builds technology to keep AI working only within defined boundaries and procedures. We structure the work assigned to AI, how it is verified, and the steps for returning and recovering when something goes wrong.',
+    control:'Root Kernel develops a range of AI control technologies and tools. AI-SPARK guides AI to write code from specifications that have been validated and approved by a person. Podway extends these principles to tasks such as analysis, documentation, and review. It manages work stages and transition conditions, returning to the necessary stage to repeat work and verification when a problem is found. We have also released other tools for controlling AI work as open source.',
     'design-start':'First, let’s define the task states and transitions with an FSM. A task can move from in progress to complete and back again. Deleted tasks leave the list. The remaining tasks and their completion status should survive a refresh.',
     'build-start':'I’ll build the input field and list around those state transitions.',
     'build-done':'The input field and list are ready. Let’s check the features.',
@@ -106,6 +114,8 @@ const en = {
     'security-second':'Saved content is displayed safely too.',
     'reliability-second':'The list no longer disappears after a refresh.',
     'review-join-second':'All three reviews passed. The changes and verification results have been recorded.',
+    founder:'Founder Yeonghun Jeong designed and implemented it. He holds a master’s degree in Computer Engineering and drew on 13 years of engineering experience, including work on Linux Kernel and SAP HANA, to define its procedures and verification criteria. We use our own tools in product development and improve them through that work. You can also inspect the code for our open-source tools on GitHub.',
+    services:'Yes. You can use our open-source tools directly or work with Root Kernel on adoption and development. We design and build websites, web services, internal tools, and custom software. We also help teams apply AI Agents to development and business workflows.',
     products:'We’re building Sudal, a live would-you-rather game; Doksuri, a project management tool for people and AI; and Ember Quest, a physics puzzle RPG. We use our own tools to develop these products and bring what we learn back into the technology.',
   },
   evidence: {

@@ -1,3 +1,5 @@
+import {founderProfile} from './company-content.ko.mjs?v=fe5964d6adc705a5';
+
 export const homeText = {
   titles: {
     identity: 'Root Kernel',
@@ -11,6 +13,8 @@ export const homeText = {
     'todo-retest': 'ToDo / 재테스트',
     'todo-rereview-start': '수정된 코드 리뷰',
     'todo-rereview-result': '재리뷰 결과',
+    'founder-responsibility': '시스템 설계와 검증',
+    services: '개발 서비스',
     'products-overview': 'Products',
   },
   identity: {
@@ -81,6 +85,28 @@ export const homeText = {
       doksuri: '사람과 AI의 프로젝트 관리',
       ember: '불씨로 길을 여는 물리 퍼즐 RPG',
     },
+    contactLink: '함께 이야기하기 →',
+  },
+  founder: {
+    label: 'SYSTEM DESIGN & VERIFICATION',
+    title: founderProfile.identity,
+    credential: founderProfile.credential,
+    description: founderProfile.responsibility,
+    experience: [founderProfile.lg, founderProfile.sap],
+    companyLink: 'Company에서 자세히 보기 →',
+    technologyLink: '공개 도구 살펴보기 →',
+  },
+  services: {
+    label: 'SERVICES',
+    title: '조직에 필요한<br>소프트웨어를 함께 만듭니다.',
+    lead: '아래 항목은 정해진 패키지가 아니라, 함께 설계하고 개발할 수 있는 일의 예시입니다.',
+    scopes: [
+      ['01', '홈페이지와 웹서비스'],
+      ['02', '사내 업무 도구와 워크플로 자동화'],
+      ['03', '맞춤형 소프트웨어와 AI Agent 통합'],
+    ],
+    technologyLink: '기술 직접 사용하기 →',
+    contactLink: '개발 의뢰하기 →',
   },
   review: {
     startRepeatTitle: '수정된 코드를<br>다시 검토합니다.',
