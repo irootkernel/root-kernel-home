@@ -1,6 +1,6 @@
-import {pageHref} from './locale.mjs?v=fe5964d6adc705a5';
-import {homeText as koHomeText} from './home-panels.ko.mjs?v=fe5964d6adc705a5';
-import {homeText as enHomeText} from './home-panels.en.mjs?v=fe5964d6adc705a5';
+import {pageHref} from './locale.mjs?v=c2e532ba3ebb92d1';
+import {homeText as koHomeText} from './home-panels.ko.mjs?v=c2e532ba3ebb92d1';
+import {homeText as enHomeText} from './home-panels.en.mjs?v=c2e532ba3ebb92d1';
 
 const resources = {ko: koHomeText, en: enHomeText};
 const e = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -66,7 +66,7 @@ export function renderHomePanel(id, state, stage, products, locale = 'ko') {
   }
   if (id === 'founder-responsibility') {
     const copy = text.founder;
-    return `<article class="founder-responsibility">${heading(copy.label, e(copy.title))}<p class="founder-credential">${e(copy.credential)}</p><p class="panel-lead">${e(copy.description)}</p><ul class="founder-experience">${copy.experience.map(item => `<li>${e(item)}</li>`).join('')}</ul><div class="panel-links"><a href="${pageHref('company', locale)}#step=company-founder">${e(copy.companyLink)}</a><a href="${pageHref('technology', locale)}">${e(copy.technologyLink)}</a></div></article>`;
+    return `<article class="founder-responsibility">${heading(copy.label, e(copy.title))}<p class="founder-credential">${e(copy.credential)}</p><p class="panel-lead">${e(copy.description)}</p><ul class="founder-experience">${copy.experience.map(item => `<li>${e(item)}</li>`).join('')}</ul></article>`;
   }
   if (id === 'services') {
     const copy = text.services;

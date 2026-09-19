@@ -1,16 +1,16 @@
-import {pageHref} from './locale.mjs?v=fe5964d6adc705a5';
+import {pageHref} from './locale.mjs?v=c2e532ba3ebb92d1';
 import {
   technologyText as koTechnologyText,
   productConversationText as koProductConversationText,
   productText as koProductText,
   sharedText as koSharedText,
-} from './topic-content.ko.mjs?v=fe5964d6adc705a5';
+} from './topic-content.ko.mjs?v=c2e532ba3ebb92d1';
 import {
   technologyText as enTechnologyText,
   productConversationText as enProductConversationText,
   productText as enProductText,
   sharedText as enSharedText,
-} from './topic-content.en.mjs?v=fe5964d6adc705a5';
+} from './topic-content.en.mjs?v=c2e532ba3ebb92d1';
 
 const resources = {
   ko: {technology: koTechnologyText, productConversation: koProductConversationText, products: koProductText, shared: koSharedText},
@@ -42,10 +42,10 @@ function content(locale) {
 }
 
 const technologyOrder = ['spark', 'podway', 'aquarium', 'dolgorae', 'checks', 'documents', 'atn', 'dispatch'];
-const productConversationOrder = ['doksuri', 'sudal', 'ember'];
+const productConversationOrder = ['overview', 'doksuri', 'sudal', 'ember'];
 const productMeta = {
-  sudal: {name: 'Sudal', number: '02', category: 'PEOPLE / CONVERSATION', image: 'sudal-usage.jpg', status: 'IN DEVELOPMENT · CONCEPT PREVIEW'},
   doksuri: {name: 'Doksuri', number: '01', category: 'PEOPLE / AI COLLABORATION', image: 'doksuri-collaboration.png', status: 'IN DEVELOPMENT · CONCEPT PREVIEW'},
+  sudal: {name: 'Sudal', number: '02', category: 'PEOPLE / CONVERSATION', image: 'sudal-usage.jpg', status: 'IN DEVELOPMENT · CONCEPT PREVIEW'},
   ember: {name: 'Ember Quest', number: '03', category: 'PLAY / PUZZLE', image: 'ember-quest-prototype.png', status: 'IN DEVELOPMENT · CONCEPT PREVIEW'},
 };
 

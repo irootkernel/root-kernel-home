@@ -1,7 +1,7 @@
-import {getHome} from './home-story.mjs?v=fe5964d6adc705a5';
-import {getTechnologyContent,getProductData,getProductConversation} from './topic-content.mjs?v=fe5964d6adc705a5';
-import {getCompanyContent} from './company-content.mjs?v=fe5964d6adc705a5';
-export {homeGraph,homeTurns} from './home-story.mjs?v=fe5964d6adc705a5';
+import {getHome} from './home-story.mjs?v=c2e532ba3ebb92d1';
+import {getTechnologyContent,getProductData,getProductConversation} from './topic-content.mjs?v=c2e532ba3ebb92d1';
+import {getCompanyContent} from './company-content.mjs?v=c2e532ba3ebb92d1';
+export {homeGraph,homeTurns} from './home-story.mjs?v=c2e532ba3ebb92d1';
 const node=(id,label,x,y=51)=>({id,label,x,y});
 function topicScenario(items,prefix,version=3) {
   return {version,graph:{nodes:items.map((item,i)=>node(item.id,item.label,75+i*1020/Math.max(1,items.length-1))),edges:items.slice(1).map((item,i)=>({from:items[i].id,to:item.id}))},
@@ -12,7 +12,7 @@ export function getScenarios(locale = 'ko') {
   return {
     home:getHome(locale),
     technology:topicScenario(getTechnologyContent(locale),'tech'),
-    products:topicScenario(getProductConversation(locale).map(item=>({...item,label:data[item.id].name})),'product',4),
+    products:topicScenario(getProductConversation(locale).map(item=>({...item,label:data[item.id]?.name || item.label})),'product',5),
     company:topicScenario(getCompanyContent(locale),'company',1),
   };
 }

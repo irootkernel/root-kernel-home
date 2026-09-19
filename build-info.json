@@ -1,6 +1,6 @@
 {
   "site": "root-kernel",
-  "assetVersion": "fe5964d6adc705a5",
+  "assetVersion": "c2e532ba3ebb92d1",
   "locales": [
     "ko",
     "en"
@@ -24,20 +24,20 @@
         "mobileUnits": 10.900000000000002
       },
       "products": {
-        "turns": 3,
-        "events": 3,
-        "visits": 3,
+        "turns": 4,
+        "events": 4,
+        "visits": 4,
         "revision": 1,
-        "desktopUnits": 3,
-        "mobileUnits": 3.9000000000000004
+        "desktopUnits": 4,
+        "mobileUnits": 5.300000000000001
       },
       "company": {
-        "turns": 5,
-        "events": 5,
-        "visits": 5,
+        "turns": 4,
+        "events": 4,
+        "visits": 4,
         "revision": 1,
-        "desktopUnits": 5,
-        "mobileUnits": 6.700000000000001
+        "desktopUnits": 4,
+        "mobileUnits": 5.300000000000001
       }
     },
     "en": {
@@ -58,44 +58,44 @@
         "mobileUnits": 10.900000000000002
       },
       "products": {
-        "turns": 3,
-        "events": 3,
-        "visits": 3,
+        "turns": 4,
+        "events": 4,
+        "visits": 4,
         "revision": 1,
-        "desktopUnits": 3,
-        "mobileUnits": 3.9000000000000004
+        "desktopUnits": 4,
+        "mobileUnits": 5.300000000000001
       },
       "company": {
-        "turns": 5,
-        "events": 5,
-        "visits": 5,
+        "turns": 4,
+        "events": 4,
+        "visits": 4,
         "revision": 1,
-        "desktopUnits": 5,
-        "mobileUnits": 6.700000000000001
+        "desktopUnits": 4,
+        "mobileUnits": 5.300000000000001
       }
     }
   },
   "sourceSha256": {
     "src/app.mjs": "1a008a7d9aa3d9bb20762712eb0d6f4f6a44bec2af6865bc191bc1863c00b3b0",
-    "src/company-content.en.mjs": "2003e3409d074aab9eaaea38b46176436e1156c2314728ba71a3ebf1147bf996",
-    "src/company-content.ko.mjs": "f57556a574e99653132bb98e8008754853bf2b68dcd1e02a8d3429b66d8e2e8e",
-    "src/company-content.mjs": "83104bfe56636ab3b65d963a0b22a164363bfd9ee01414792aeaaed48e617f0b",
+    "src/company-content.en.mjs": "5895825cd899d9cbfb880df3b7e7f5bdba145628ea36cf83f5d368a0691b30e8",
+    "src/company-content.ko.mjs": "82f6122f3a92d69004135e95966d4a12ca8c10794753ee916527eddadadd7799",
+    "src/company-content.mjs": "feb0ffba53b60f88f15b3af91c784c1329600fd02e106744d8ae05221df836a9",
     "src/engine.mjs": "c7e55f8b3919e66727e5164c48be1ed5320805291cf453409f5957ebd143cded",
-    "src/home-copy.mjs": "7ffe8981f47673c2da500041d4e00b0aaf89f24acd46fb227084c985bb28cd6e",
-    "src/home-panels.en.mjs": "fc716f055a90c0af319e7aa88631e6e9e23d69ffde4308c153db7f697904c50d",
-    "src/home-panels.ko.mjs": "a500f34a7b345b04001b8a22139ae94ebf67686aea4a7f9d2fc4c7db58d74c33",
-    "src/home-panels.mjs": "a342835a5e06b62f7d0ae47d84566c99b800d228509667df8b74ebbd26f69a68",
+    "src/home-copy.mjs": "24cd161313f51c402e795f12760d9db3eb61d31a9f5007e2897f579c255fced6",
+    "src/home-panels.en.mjs": "1dc84d29a42f78f4bb7ffef0deded5d76dda444795ba87cdbf79a0ad3148f9d1",
+    "src/home-panels.ko.mjs": "daa349b42f48140fa2bc7a014cf8705215fb9ee27ba6ed3a7602c0f32a63eaea",
+    "src/home-panels.mjs": "009180cc4d46448dcbb21e0a04132db7e0e6fa787f437b88b3736e4f30b215fb",
     "src/home-story.mjs": "2af1591d771beb88e8a9957907bd82b319b25eb94c81e4c4946d5a50a288e85d",
-    "src/locale.mjs": "e63865568417355d07d2ca394f7837a5ee4f02261aa8e602eb2e3f5d16e84442",
-    "src/panels.mjs": "dc4c622fd03cdae5e0371641da858321ee16d50e0d0f6a3a643db8548f876fa5",
+    "src/locale.mjs": "27fbc83f20106f40dee3a74ef2d311e14897923107bbbb0c1b67c3375ed526fb",
+    "src/panels.mjs": "9aad7297a17219ac791a9a2f3224e510dfcc38b40faf6dd21d5d87b38ded3acf",
     "src/playback.mjs": "d4cfef3b104e05f6a87c1b1345653d8a7a600c9d5a4f8d2decfcbbdabf971621",
     "src/session.mjs": "7f5956499d5313793ee6a3c5587c1626e09401c126c83c89513d71a17b237103",
-    "src/story.mjs": "a4f09342a5e95d264de77ddb25348be9c3d68449a003212949c89d1b8c5ff424",
-    "src/topic-content.en.mjs": "31a0345ea4dd2eb931f1f981dac446f2483433374ebeed356f86828d706b6637",
-    "src/topic-content.ko.mjs": "c322e3b470dcc8ebeabc56ea77282105479d5f9c91a680f26a4de6670d3a37f5",
-    "src/topic-content.mjs": "a3398b7db16c77700d86dd2236881a79dbb7b5c6dd2b27c93f1bc7d9ff3ac5de",
-    "src/site.css": "542589fd5847c4bd58e7832053048bc699a06f047fb9632bd30d4f0cf0e76770",
-    "scripts/build.mjs": "774889024c3dfd79ab10b6efad63d4be084e349421ccbfcc57ffe748700eba22",
+    "src/story.mjs": "0d1463434c6d945850a5d8e7b99ccade65854c85f3589f2abddbe46d528d8356",
+    "src/topic-content.en.mjs": "aadcac144a5395480b52271396cae44fc6c79ade15f7a2de6232923a603dcab1",
+    "src/topic-content.ko.mjs": "71a7cd4ece1f64332041ecf5c4c3fb471bc9d215e43d5a563ca70c630c9d948b",
+    "src/topic-content.mjs": "9cc53303aea7992fbfc36ebdffef8006fe006fdcb0cf0e7a0f4a0014672bb6ea",
+    "src/site.css": "18fdc0b7c1609e7f25a9a685c1a5e14edb79578158b90553abfd87cd9d9ab6c9",
+    "scripts/build.mjs": "7eabb03d621f50a2667994c213b58daa094cd197e732334fa8514c7aabad9025",
     "scripts/validate-locales.mjs": "bcb1b1851ab18f16c70beccda50f152980bc041d62b295dcd217f947c940af05"
   }
 }
