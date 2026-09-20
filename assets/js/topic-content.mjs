@@ -1,16 +1,16 @@
-import {pageHref} from './locale.mjs?v=c2e532ba3ebb92d1';
+import {pageHref} from './locale.mjs?v=d907efda0e947f5e';
 import {
   technologyText as koTechnologyText,
   productConversationText as koProductConversationText,
   productText as koProductText,
   sharedText as koSharedText,
-} from './topic-content.ko.mjs?v=c2e532ba3ebb92d1';
+} from './topic-content.ko.mjs?v=d907efda0e947f5e';
 import {
   technologyText as enTechnologyText,
   productConversationText as enProductConversationText,
   productText as enProductText,
   sharedText as enSharedText,
-} from './topic-content.en.mjs?v=c2e532ba3ebb92d1';
+} from './topic-content.en.mjs?v=d907efda0e947f5e';
 
 const resources = {
   ko: {technology: koTechnologyText, productConversation: koProductConversationText, products: koProductText, shared: koSharedText},

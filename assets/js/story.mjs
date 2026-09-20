@@ -1,7 +1,7 @@
-import {getHome} from './home-story.mjs?v=c2e532ba3ebb92d1';
-import {getTechnologyContent,getProductData,getProductConversation} from './topic-content.mjs?v=c2e532ba3ebb92d1';
-import {getCompanyContent} from './company-content.mjs?v=c2e532ba3ebb92d1';
-export {homeGraph,homeTurns} from './home-story.mjs?v=c2e532ba3ebb92d1';
+import {getHome} from './home-story.mjs?v=d907efda0e947f5e';
+import {getTechnologyContent,getProductData,getProductConversation} from './topic-content.mjs?v=d907efda0e947f5e';
+import {getCompanyContent} from './company-content.mjs?v=d907efda0e947f5e';
+export {homeGraph,homeTurns} from './home-story.mjs?v=d907efda0e947f5e';
 const node=(id,label,x,y=51)=>({id,label,x,y});
 function topicScenario(items,prefix,version=3) {
   return {version,graph:{nodes:items.map((item,i)=>node(item.id,item.label,75+i*1020/Math.max(1,items.length-1))),edges:items.slice(1).map((item,i)=>({from:items[i].id,to:item.id}))},

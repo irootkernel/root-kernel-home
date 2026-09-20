@@ -1,6 +1,6 @@
-import {pageHref} from './locale.mjs?v=c2e532ba3ebb92d1';
-import {homeText as koHomeText} from './home-panels.ko.mjs?v=c2e532ba3ebb92d1';
-import {homeText as enHomeText} from './home-panels.en.mjs?v=c2e532ba3ebb92d1';
+import {pageHref} from './locale.mjs?v=d907efda0e947f5e';
+import {homeText as koHomeText} from './home-panels.ko.mjs?v=d907efda0e947f5e';
+import {homeText as enHomeText} from './home-panels.en.mjs?v=d907efda0e947f5e';
 
 const resources = {ko: koHomeText, en: enHomeText};
 const e = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));

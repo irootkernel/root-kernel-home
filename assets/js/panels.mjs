@@ -1,6 +1,6 @@
-import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=c2e532ba3ebb92d1';
-import {getTechnologyContent, getProductData, getProductConversation} from './topic-content.mjs?v=c2e532ba3ebb92d1';
-import {getCompanyContent} from './company-content.mjs?v=c2e532ba3ebb92d1';
+import {homePanelTitle, renderHomePanel} from './home-panels.mjs?v=d907efda0e947f5e';
+import {getTechnologyContent, getProductData, getProductConversation} from './topic-content.mjs?v=d907efda0e947f5e';
+import {getCompanyContent} from './company-content.mjs?v=d907efda0e947f5e';
 
 export const escapeHtml = text => String(text).replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
 const escapeWithBreaks = text => String(text).split('<br>').map(escapeHtml).join('<br>');

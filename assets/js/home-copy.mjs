@@ -26,7 +26,7 @@ const ko = {
     "todo-retest": "이제 새로고침해도 남아 있어?",
     "rereview-start": "수정한 코드도 다시 검토해줘.",
     "rereview-result": "아까 발견한 문제는 해결됐어?",
-    "founder": "꽤 복잡한 시스템 같은데, 누가 설계하고 만든 거야? 검증은 어떻게 했어?",
+    "founder": "할 일 목록은 예제이고, Podway로 설계부터 검증까지 할 수 있는 거네? 누가 만든 거야?",
     "services": "나도 이 기술들을 이용할 수 있을까?",
     "products": "실제로 만드는 제품들도 있어?"
   },
@@ -88,7 +88,7 @@ const en = {
     'todo-retest':'Does it keep the list after a refresh now?',
     'rereview-start':'Review the updated code too.',
     'rereview-result':'Is the issue you found earlier resolved?',
-    founder:'This looks like a complex system. Who designed and built it? How was it verified?',
+    founder:'The to-do list was just the example. With Podway you can take work from design through verification? Who built it?',
     services:'Can I use these technologies too?',
     products:'Are you building any products of your own too?',
   },

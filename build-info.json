@@ -1,6 +1,6 @@
 {
   "site": "root-kernel",
-  "assetVersion": "c2e532ba3ebb92d1",
+  "assetVersion": "d907efda0e947f5e",
   "locales": [
     "ko",
     "en"
@@ -81,7 +81,7 @@
     "src/company-content.ko.mjs": "82f6122f3a92d69004135e95966d4a12ca8c10794753ee916527eddadadd7799",
     "src/company-content.mjs": "feb0ffba53b60f88f15b3af91c784c1329600fd02e106744d8ae05221df836a9",
     "src/engine.mjs": "c7e55f8b3919e66727e5164c48be1ed5320805291cf453409f5957ebd143cded",
-    "src/home-copy.mjs": "24cd161313f51c402e795f12760d9db3eb61d31a9f5007e2897f579c255fced6",
+    "src/home-copy.mjs": "83009791afbb4bc431b2c7f1231edcff6c5559d67d1f12220eba0407cdde41f6",
     "src/home-panels.en.mjs": "1dc84d29a42f78f4bb7ffef0deded5d76dda444795ba87cdbf79a0ad3148f9d1",
     "src/home-panels.ko.mjs": "daa349b42f48140fa2bc7a014cf8705215fb9ee27ba6ed3a7602c0f32a63eaea",
     "src/home-panels.mjs": "009180cc4d46448dcbb21e0a04132db7e0e6fa787f437b88b3736e4f30b215fb",

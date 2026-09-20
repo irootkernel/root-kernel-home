@@ -1,5 +1,5 @@
-import ko from './company-content.ko.mjs?v=c2e532ba3ebb92d1';
-import en from './company-content.en.mjs?v=c2e532ba3ebb92d1';
+import ko from './company-content.ko.mjs?v=d907efda0e947f5e';
+import en from './company-content.en.mjs?v=d907efda0e947f5e';
 
 const resources = {ko, en};
 const order = ['name', 'founding', 'founder', 'history'];

@@ -1,4 +1,4 @@
-import {founderProfile} from './company-content.ko.mjs?v=c2e532ba3ebb92d1';
+import {founderProfile} from './company-content.ko.mjs?v=d907efda0e947f5e';
 
 export const homeText = {
   titles: {
