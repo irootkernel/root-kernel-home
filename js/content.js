@@ -86,11 +86,11 @@ export const SVC = {
   ax: {
     no: '03', area: 'AI', name: 'AI 전환(AX) 구축', short: 'AI 전환(AX) 구축', slug: 'ax',
     desc: '업무에는 AI Agent를, 개발팀에는 AI Harness를 도입합니다.',
-    scope: 'AI Agent·AI Harness 도입', ex: '쇼핑몰 문의에 답하는 AI', ex2: '우리 팀에 AI Harness 도입', scenarios: ['agent', 'consult'],
+    scope: 'AI Agent·AI Harness 도입', ex: '우리 팀에 AI Harness 도입', scenarios: ['consult'],
   },
 };
 // scenario → area
-export const SCENARIO_AREA = { web: 'web', app: 'erp', agent: 'ax', consult: 'ax' };
+export const SCENARIO_AREA = { web: 'web', app: 'erp', consult: 'ax' };
 // Retired service slugs → new ones (for /services/<old>/ redirects)
 export const SVC_SLUG_REDIRECT = { web: 'web-app', app: 'erp', agent: 'ax', consult: 'ax' };
 // A request for a plain homepage is redirected honestly to the 01 demo.

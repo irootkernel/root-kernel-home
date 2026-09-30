@@ -1,8 +1,8 @@
 // router.js — two routers, both small enough for the boot path.
 //  1. route(text): what does a request say? B's scoring router (deep/index.html 613–683: weights,
 //     INFO, TOOL_NAMES, price, info-first) re-cut for the three service areas (founder, 2026-09-28):
-//     keywords score a demo scenario (web · app · agent · consult), a scenario belongs to an area
-//     (content.js SCENARIO_AREA: web · erp · ax) and the areas compete. A plain-homepage request says so
+//     keywords score the areas (web · erp · ax), the areas compete, and the winner runs its demo scenario
+//     (content.js SVC[area].scenarios: web · app · consult). A plain-homepage request says so
 //     (`homepage` → HOMEPAGE_NOTE); `closest` is the honest "가장 가까운 예시" disclosure. Nothing on the page is
 //     typed any more (founder, 2026-09-28): this reads the q of /build/?q= links (a shared or reloaded demo).
 //  2. pages: depth = route (SPEC-experience §6). parse(location) → page; createNav() moves the scroll
@@ -10,9 +10,9 @@
 //     popstate, retired /services/<slug>/ links, and owns the opaque route panels (/company/, /contact/,
 //     /build/) and the strength scenes (/services/<slug>/, strengths/scene.js) — a service page opens its
 //     area's scene over the live world at the scene's own depth (SCENE_LAYER).
-import { $, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=9a563d68cad3';
-import { COPY, COMPANY, FOUNDER, MAIL, SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK } from './content.js?v=9a563d68cad3';
-import { travelSeconds } from './journey/director.js?v=9a563d68cad3';
+import { $, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=8999a49d35de';
+import { COPY, COMPANY, FOUNDER, MAIL, SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK } from './content.js?v=8999a49d35de';
+import { travelSeconds } from './journey/director.js?v=8999a49d35de';
 
 /* =========================================================================
    1. intent
@@ -36,7 +36,7 @@ const KW = {
     ...kw(1.5, '엑셀|스프레드시트|자동화|대시보드|입고|출고|정산|거래처|물류'), ...kw(1.5, /dashboard|automat|excel|spreadsheet/), ...kw(0.8, '신청|팀장')],
   // …and the words that only say where the work happens: with AI in the request they describe where the AI works
   erpCtx: [...kw(2, '사내|임직원'), ...kw(1.5, '내부|직원|사원|업무'), ...kw(1.5, /internal|employee|\bstaff\b/)],
-  // 03 AI · AI 전환(AX): area words (either scenario), then each scenario's own words
+  // 03 AI · AI 전환(AX): area words, then AI Agent words and team (AI Harness) words; all three count for AX
   ai: [...kw(3, 'ai 전환|ai전환|인공지능 전환'), ...kw(3, /\bax\b/), ...kw(2.5, 'ai 도입|ai도입'), ...kw(2, /\bgpt|\bllm\b|\brag\b|chatgpt|claude|gemini|copilot|openai/), ...kw(1, /\bai\b|인공지능/)],
   agent: [...kw(3, '에이전트|챗봇|챗 봇|상담봇|문의 응대|자동 응답|자동응답'), ...kw(2, '비서|어시스턴트|faq'),
     ...kw(1.5, '답변|답하|응대|요약'), ...kw(1, '문의|고객센터|분류|번역'), ...kw(0.8, '상담'),
@@ -111,11 +111,6 @@ export function closestOf(scenario, raw, homepage = false) {
     const m = t.match(/(근태|출퇴근|결재|정산|일정|회계|급여|구매|발주|생산|물류|주문|예약|고객)/);
     return m ? `${m[1]} 관리 시스템` : '말씀하신 업무 시스템';
   }
-  if (scenario === 'agent') {
-    if (/요약|보고서|회의록|summar|report|minutes/.test(t)) return '문서 요약 AI';
-    const m = t.match(/(병원|치과|학원|호텔|식당|민원|사내|예약|은행|보험|학교|관공서)/);
-    return m ? m[1] : null;                                           // a shop's help desk — or AX in general — is exact
-  }
   if (scenario === 'consult') return /교육|강의|워크숍|워크샵|training|workshop|lecture|코칭|coaching/.test(t) ? '교육 과정' : null;
   return null;
 }
@@ -132,7 +127,7 @@ export function route(raw) {
   const price = PRICE.test(t);
   const infoFirst = info && INFO_FIRST.includes(info.key) && bestS < 2;
   if (best && bestS >= 1.2 && !infoFirst) {
-    const scenario = best === 'ax' ? (sc.s.consult > sc.s.agent ? 'consult' : 'agent') : SVC[best].scenarios[0];
+    const scenario = SVC[best].scenarios[0];
     const homepage = best === 'web' && sc.s.home > 0;
     return { type: 'commission', svc: best, scenario, closest: closestOf(scenario, text, homepage), price, example: false, homepage, score: +bestS.toFixed(2) };
   }
@@ -191,7 +186,7 @@ export function parse(pathname = location.pathname, search = location.search) {
     if (q) out.q = q;
     if (svc === 'handoff') out.qsvc = 'handoff';
     else {
-      // ?svc= is an area (web · erp · ax); older links carry a scenario there (web · app · agent · consult)
+      // ?svc= is an area (web · erp · ax); older links carry a scenario there (web · app · consult)
       const area = SVC[svc] ? svc : SCENARIO_AREA[svc] || SCENARIO_AREA[sc] || null;
       if (area) {
         out.qsvc = area;
@@ -257,7 +252,7 @@ export function createNav(env) {
     document.documentElement.classList.add('lock');
     if (state.mode === 'explore' || state.mode === 'intro') state.mode = 'panel';
     warm(page.layer === 0);
-    import('./journey/pages.js?v=9a563d68cad3').then((M) => {
+    import('./journey/pages.js?v=8999a49d35de').then((M) => {
       if (panelPage !== page) return;
       panel.innerHTML = M.panelHTML(page);
       panel.setAttribute('aria-labelledby', 'pageH');
@@ -285,7 +280,7 @@ export function createNav(env) {
   /* ---------- the strength scenes (a service page is its area's scene; details and demos below it) ---------- */
   let scenePage = null, sceneP = null, sceneBack = null;
   const sceneHost = $('#svcScene');
-  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=9a563d68cad3').then((M) => M.createScene({
+  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=8999a49d35de').then((M) => M.createScene({
     el: sceneHost, ensureJourney: env.ensureJourney, go,
     // × and Esc: back to where the visitor chose the area (the first screen, −200 m, the final question)
     onClose: () => go(sceneBack || LAYER_PATH[1]),

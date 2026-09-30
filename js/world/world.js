@@ -3,8 +3,8 @@
 // reverse current, creature bench modes) and the above-surface product scene.
 // Only this file (and director.js through the object it returns) touches three.js.
 import * as THREE from 'three';
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=9a563d68cad3';
-import { SVC_KEYS } from '../content.js?v=9a563d68cad3';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=8999a49d35de';
+import { SVC_KEYS } from '../content.js?v=8999a49d35de';
 
 const eOut3 = ease.out3, eIn3 = ease.in3, eIO3 = ease.io3, eIOs = ease.ios;
 const damp = (a, b, k, dt) => lerp(a, b, 1 - Math.exp(-k * dt));

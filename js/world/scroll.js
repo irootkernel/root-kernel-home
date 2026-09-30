@@ -3,7 +3,7 @@
 // there is no typing on the site.)
 // Home order (CONTRACT §5): 0 m → −200 m → −4,000 m → −10,935 m → quick rise → above the surface.
 // No three.js here: this runs from first paint, with or without a world.
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=9a563d68cad3';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=8999a49d35de';
 
 // `name` is the gauge read-out under the depth (English). The tick labels in index.html add the depth part
 // ("Services · −200 m", "Products · above surface"); above the surface the read-out itself says "+40 m".

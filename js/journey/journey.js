@@ -13,15 +13,15 @@
 // [시연 보기] or a /build/ link; at the gate the visitor approves or picks one of the scenario's preset
 // revisions. The request router (router.js route/closestOf) still reads /build/?q= links, which is how a
 // shared or reloaded demo comes back; nothing on the page reaches free text.
-import { $, bus, Runs, isCancel, REDUCED, setSpeed, isNarrow, clamp, qs } from '../core.js?v=9a563d68cad3';
-import { SVC, SVC_KEYS, SCENARIO_AREA, COPY } from '../content.js?v=9a563d68cad3';
-import { W, NullWorld } from './director.js?v=9a563d68cad3';
-import { createLog, createTicker } from '../log.js?v=9a563d68cad3';
-import { route as intent, closestOf, exampleOf, buildPath, LAYER_PATH, PRICE } from '../router.js?v=9a563d68cad3';
-import { showOverlay, hideOverlay } from '../world/labels.js?v=9a563d68cad3';
+import { $, bus, Runs, isCancel, REDUCED, setSpeed, isNarrow, clamp, qs } from '../core.js?v=8999a49d35de';
+import { SVC, SVC_KEYS, SCENARIO_AREA, COPY } from '../content.js?v=8999a49d35de';
+import { W, NullWorld } from './director.js?v=8999a49d35de';
+import { createLog, createTicker } from '../log.js?v=8999a49d35de';
+import { route as intent, closestOf, exampleOf, buildPath, LAYER_PATH, PRICE } from '../router.js?v=8999a49d35de';
+import { showOverlay, hideOverlay } from '../world/labels.js?v=8999a49d35de';
 
-const studioMod = () => import('../studio/studio.js?v=9a563d68cad3');
-const railMod = () => import('./rail.js?v=9a563d68cad3');   // the rail (and the studio's standalone.js) load with the first journey
+const studioMod = () => import('../studio/studio.js?v=8999a49d35de');
+const railMod = () => import('./rail.js?v=8999a49d35de');   // the rail (and the studio's standalone.js) load with the first journey
 const BASE_SPEED = clamp(parseFloat(qs.get('speed')) || 1, 0.25, 8);
 const alongside = (p) => { p?.catch?.(() => {}); return p; };   // runs beside the story; a cancel must not surface unhandled
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));

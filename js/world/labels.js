@@ -2,8 +2,8 @@
 // line (2379–2458). Changes from B: names come from content.js (Podway / Agent Dispatch / Agent Turn
 // Network / Aquarium are English-only), the card is hidden+inert while closed (B left it focusable at
 // opacity 0), and the product lights above the surface get one quiet label at a time.
-import { $, $$, clamp } from '../core.js?v=9a563d68cad3';
-import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS } from '../content.js?v=9a563d68cad3';
+import { $, $$, clamp } from '../core.js?v=8999a49d35de';
+import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS } from '../content.js?v=8999a49d35de';
 
 // CONTRACT §2 overlay rule. Show: remove hidden → inert=false → next frame .show.
 // Hide: inert=true at once → remove .show → hidden after the transition.

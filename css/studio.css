@@ -466,10 +466,12 @@
 .st-rn.na { opacity: .42; }
 .st-rail-arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .st-arc-p, .st-arc-h { fill: none; stroke: var(--st-teal); stroke-width: 1.5; }
+/* the gate's return (a person's revision) is warm; a failed test's return (rework) stays teal */
+.st-arc[data-loop="revise"] path { stroke: var(--st-warm); }
 .st-arc-p { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.st-arc-h { opacity: 0; transition: opacity .3s .8s; }
-.st-rail--arc .st-arc-p { stroke-dashoffset: 0; transition: stroke-dashoffset .9s var(--st-ease-io); }
-.st-rail--arc .st-arc-h { opacity: 1; }
+.st-arc-h { opacity: 0; transition: opacity .3s .8s; stroke-linecap: round; stroke-linejoin: round; }
+.st-arc.on .st-arc-p { stroke-dashoffset: 0; transition: stroke-dashoffset .9s var(--st-ease-io); }
+.st-arc.on .st-arc-h { opacity: 1; }
 .st-rail--arc .st-rn[data-k="build"] .st-rn-t::after { content: "rework r2"; margin-left: 4px; font: 600 11px var(--st-mono); color: var(--st-teal); }
 .st-rail-now { display: none; }
 .st-rail-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-left: 24px; }

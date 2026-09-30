@@ -7,13 +7,13 @@
 // which is its strength scene (founder, 2026-09-30; router.js → strengths/scene.js). The ~1-minute demos start only
 // from 시연 보기 in the details below each scene, or from a /build/ link.
 // The real WorldAdapter (journey/adapter.js) arrives with the world chunk; until then W is NullWorld.
-import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=9a563d68cad3';
-import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK } from './content.js?v=9a563d68cad3';
-import { W, NullWorld, DEPTH } from './journey/director.js?v=9a563d68cad3';
-import { createIntro } from './intro.js?v=9a563d68cad3';
-import { createScroll, metersFromLayer } from './world/scroll.js?v=9a563d68cad3';
-import { createLabels } from './world/labels.js?v=9a563d68cad3';
-import { createNav, LAYER_PATH } from './router.js?v=9a563d68cad3';
+import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=8999a49d35de';
+import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK } from './content.js?v=8999a49d35de';
+import { W, NullWorld, DEPTH } from './journey/director.js?v=8999a49d35de';
+import { createIntro } from './intro.js?v=8999a49d35de';
+import { createScroll, metersFromLayer } from './world/scroll.js?v=8999a49d35de';
+import { createLabels } from './world/labels.js?v=8999a49d35de';
+import { createNav, LAYER_PATH } from './router.js?v=8999a49d35de';
 
 const root = document.documentElement;
 const lateBoot = performance.now() > 2300;   // the CSS failsafe has already revealed the page
@@ -108,14 +108,14 @@ intro.start();
 let journeyP = null, journey = null;
 function ensureJourney() {
   if (!journeyP) {
-    journeyP = import('./journey/journey.js?v=9a563d68cad3')
+    journeyP = import('./journey/journey.js?v=8999a49d35de')
       .then(m => (journey = m.createJourney({ el, state, nav, labels, intro, scroll, loadWorld: () => loadWorld(), getTier: () => tier, getWorld: () => world })))
       .catch(e => { journeyP = null; console.error(e); return null; });
   }
   return journeyP;
 }
 // the area's scene arrives with the first hover / focus / press (it is not on the first-paint path)
-const prefetchScene = (svc) => { import('./strengths/scene.js?v=9a563d68cad3').then((M) => M.prefetch(svc)).catch(() => {}); };
+const prefetchScene = (svc) => { import('./strengths/scene.js?v=8999a49d35de').then((M) => M.prefetch(svc)).catch(() => {}); };
 
 /* ---------- the answers: a tap on a chip opens that area's service page (its strength scene); nothing is typed ---------- */
 // a plain left click takes over the link; a modified click (new tab, …) still opens the service page itself
@@ -173,7 +173,7 @@ function loadWorld() {
     const t0 = performance.now();
     let mod, A, w;
     // the world and its adapter (the verbs the journey uses) arrive together, off the first-paint path
-    try { [mod, A] = await Promise.all([import('./world/world.js?v=9a563d68cad3'), import('./journey/adapter.js?v=9a563d68cad3')]); } catch (e) { goPoster(); return null; }
+    try { [mod, A] = await Promise.all([import('./world/world.js?v=8999a49d35de'), import('./journey/adapter.js?v=8999a49d35de')]); } catch (e) { goPoster(); return null; }
     try { w = mod.createWorld({ canvas: el.gl, tier, narrow: NARROW }); } catch (e) { goPoster(); return null; }
     await w.compile();
     if (tier === 'poster') { w.dispose(); return null; }

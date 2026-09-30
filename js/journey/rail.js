@@ -1,11 +1,12 @@
 // journey/rail.js — during a journey the depth gauge becomes the 6-step procedure rail, in the same place.
-// The rail itself is the studio's (standalone.js mountRail: PROCEDURE labels, rework arc, ▸▸ 3배, depth);
+// The rail itself is the studio's (standalone.js mountRail: PROCEDURE labels, return arrows gate → spec and
+// test → build, ▸▸ 3배, depth);
 // this adds the swap with #gauge, the COPY.skip jump (after the human gate only), the rework caption
 // ("rework · r2 · Podway record") and a depth read-out that follows the camera while the world runs.
-import { mk, bus } from '../core.js?v=9a563d68cad3';
-import { COPY } from '../content.js?v=9a563d68cad3';
-import { mountRail } from '../studio/standalone.js?v=9a563d68cad3';
-import { hideOverlay } from '../world/labels.js?v=9a563d68cad3';
+import { mk, bus } from '../core.js?v=8999a49d35de';
+import { COPY } from '../content.js?v=8999a49d35de';
+import { mountRail } from '../studio/standalone.js?v=8999a49d35de';
+import { hideOverlay } from '../world/labels.js?v=8999a49d35de';
 
 const fmt = (m) => (m < -0.5 ? `+${Math.round(-m).toLocaleString('en-US')} m` : m < 0.5 ? '0 m' : `−${Math.round(m).toLocaleString('en-US')} m`);
 

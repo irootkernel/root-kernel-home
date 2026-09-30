@@ -2,9 +2,9 @@
 // conversation | frame | vertical 6-step rail. Used by the poster / calm tiers and studio.html.
 // runStandalone() is a deliberately small orchestrator for studio.html; the real one is the journey's.
 
-import { esc, bus, Runs, isCancel, setSpeed, getSpeed, REDUCED, clamp, ease } from '../core.js?v=9a563d68cad3';
-import { PROCEDURE, COPY, toolLabel } from '../content.js?v=9a563d68cad3';
-import { createTicker } from '../log.js?v=9a563d68cad3';
+import { esc, bus, Runs, isCancel, setSpeed, getSpeed, REDUCED, clamp, ease } from '../core.js?v=8999a49d35de';
+import { PROCEDURE, COPY, toolLabel } from '../content.js?v=8999a49d35de';
+import { createTicker } from '../log.js?v=8999a49d35de';
 
 /* ---------- layout ---------- */
 
@@ -86,22 +86,27 @@ const SUB = {
 };
 // read after each step (screen readers) and shown as the phone rail's status
 const STATE_SR = { act: 'In progress', wait: 'Waiting', done: 'Done', human: 'Approved by human', fail: 'Failed', na: 'n/a' };
+// returns to an earlier step, [from, to]: the human gate sends the spec back (a revision), a failed test the build (rework)
+const LOOPS = { revise: ['gate', 'spec'], rework: ['test', 'build'] };
 const fmtDepth = (m) => (m <= 0 ? '0 m' : `−${Math.round(m).toLocaleString('en-US')} m`);
 
 export function mountRail(el, { ff = true } = {}) {
   el.classList.add('st-rail');
   el.innerHTML =
     `<ol class="st-rail-ol">${PROCEDURE.map((p, i) => `<li class="st-rn" data-k="${p.k}"><i class="st-rn-dot" aria-hidden="true"></i><span class="st-rn-t"><i>0${i + 1}</i> <span class="st-rn-l">${esc(p.label)}</span></span><span class="st-rn-s">${esc(SUB[p.k])}</span><span class="st-sr st-rn-sr"></span></li>`).join('')}</ol>` +
-    '<svg class="st-rail-arc" aria-hidden="true"><path class="st-arc-p" pathLength="1"/><path class="st-arc-h"/></svg>' +
+    `<svg class="st-rail-arc" aria-hidden="true">${Object.keys(LOOPS).map((k) => `<g class="st-arc" data-loop="${k}"><path class="st-arc-p" pathLength="1"/><path class="st-arc-h"/></g>`).join('')}</svg>` +
     '<div class="st-rail-now" aria-hidden="true"></div>' +
     `<div class="st-rail-foot"><span class="st-depth" title="Depth">0 m</span>${ff ? `<button type="button" class="st-ff" aria-pressed="false" title="${esc(COPY.ffTip)}">▸▸ 3×</button>` : ''}</div>`;
   const node = (k) => el.querySelector(`.st-rn[data-k="${k}"]`);
   const now = el.querySelector('.st-rail-now');
   const depthEl = el.querySelector('.st-depth');
   const ffBtn = el.querySelector('.st-ff');
+  const svg = el.querySelector('.st-rail-arc');
+  const on = new Set();   // the returns drawn so far (LOOPS keys)
   let depth = 0;
   let depthRaf = 0;
   let rework = false;
+  let asked = false;      // the gate has asked once: a spec step after that is a revision
   let handoff = false;
 
   function set(k, st, label) {
@@ -122,18 +127,31 @@ export function mountRail(el, { ff = true } = {}) {
     }
   }
 
-  function arc() {
-    const b = node('build').querySelector('.st-rn-dot');
-    const t = node('test').querySelector('.st-rn-dot');
-    const r0 = el.getBoundingClientRect();
-    const rb = b.getBoundingClientRect(), rt = t.getBoundingClientRect();
-    const x = rb.left - r0.left + rb.width / 2;
-    const y1 = rt.top - r0.top + rt.height / 2 - 8, y2 = rb.top - r0.top + rb.height / 2 + 8;
-    const bulge = -24;
-    const p = el.querySelector('.st-arc-p');
-    p.setAttribute('d', `M${x - 4} ${y1} C${x + bulge} ${y1 - 4} ${x + bulge} ${y2 + 4} ${x - 4} ${y2}`);
-    el.querySelector('.st-arc-h').setAttribute('d', `M${x - 11} ${y2 + 3} L${x - 4} ${y2} L${x - 8} ${y2 + 8}`);
-    el.classList.add('st-rail--arc');
+  // A return leaves the later node's dot, bends through the rail's left margin and ends, arrowhead last, at the
+  // earlier node's dot. Measured in the SVG's own box, and redrawn whenever a node changes size: a sub-label that
+  // gains or loses lines moves every dot below it.
+  function drawLoops() {
+    if (!on.size) return;
+    const box = svg.getBoundingClientRect();
+    if (!box.width) return;   // hidden (the phone rail) or not laid out yet
+    const dot = (k) => node(k).querySelector('.st-rn-dot').getBoundingClientRect();
+    for (const k of on) {
+      const f = dot(LOOPS[k][0]), t = dot(LOOPS[k][1]);
+      const x = Math.min(f.left, t.left) - box.left - 2;
+      const yf = f.top - box.top + f.height / 2, yt = t.top - box.top + t.height / 2;
+      const g = svg.querySelector(`[data-loop="${k}"]`);
+      g.querySelector('.st-arc-p').setAttribute('d', `M${x} ${yf} C${x - 12} ${yf} ${x - 12} ${yt} ${x} ${yt}`);
+      g.querySelector('.st-arc-h').setAttribute('d', `M${x - 4.5} ${yt - 3.5} L${x} ${yt} L${x - 4.5} ${yt + 3.5}`);
+    }
+  }
+  function loop(k) {
+    on.add(k);
+    requestAnimationFrame(() => {
+      if (!on.has(k)) return;   // reset meanwhile
+      drawLoops();
+      svg.querySelector(`[data-loop="${k}"]`).classList.add('on');
+      if (k === 'rework') el.classList.add('st-rail--arc');
+    });
   }
 
   function spinDepth(to) {
@@ -164,7 +182,10 @@ export function mountRail(el, { ff = true } = {}) {
 
   function reset() {
     rework = false;
+    asked = false;
+    on.clear();
     el.classList.remove('st-rail--arc');
+    for (const g of svg.children) g.classList.remove('on');
     for (const p of PROCEDURE) set(p.k, '', '');
     now.textContent = '';
     spinDepth(0);
@@ -177,21 +198,24 @@ export function mountRail(el, { ff = true } = {}) {
       rework = true;
       set('test', 'fail', 'exit 1');
       set('build', 'act', 'fix r2');
-      requestAnimationFrame(arc);
+      loop('rework');
       return;
     }
     if (e.k === 'test' && e.st === 'act' && rework) set('build', 'done');
-    if (e.k === 'gate' && e.st === 'wait') { if (ffBtn) ffBtn.hidden = true; }
+    if (e.k === 'spec' && e.st === 'act' && asked) loop('revise');
+    if (e.k === 'gate' && e.st === 'wait') { asked = true; if (ffBtn) ffBtn.hidden = true; }
     else if (e.k === 'gate' && e.st === 'human') { if (ffBtn) ffBtn.hidden = false; }
     set(e.k, e.st, e.label);
   });
   const offSpeed = bus.on('speed', (s) => ffBtn?.setAttribute('aria-pressed', String(s > 1)));
   ffBtn?.addEventListener('click', () => setSpeed(getSpeed() > 1 ? 1 : 3));
   ffBtn?.setAttribute('aria-pressed', String(getSpeed() > 1));
-  const onResize = () => { if (el.classList.contains('st-rail--arc')) arc(); };
-  addEventListener('resize', onResize);
+  // keep the drawn returns on their nodes: any node that changes size moves the dots below it
+  const ro = new ResizeObserver(drawLoops);
+  for (const n of el.querySelectorAll('.st-rn')) ro.observe(n);
+  addEventListener('resize', drawLoops);
 
-  return { set, mode, reset, destroy() { off(); offSpeed(); removeEventListener('resize', onResize); } };
+  return { set, mode, reset, destroy() { off(); offSpeed(); ro.disconnect(); removeEventListener('resize', drawLoops); } };
 }
 
 /* ---------- a minimal orchestrator for studio.html ---------- */
@@ -206,7 +230,7 @@ function nullWorld() {
 // The handoff path: request → human check → (03–05 n/a) → hand over.
 // With S.layout === 'deep' it follows the deep order instead: the frame appears only after the
 // approval, and the ">" stamp lands on world.anchor('slot').
-// svc is the service area (web · erp · ax, or 'handoff'); scenario the demo it loads (web · app · agent · consult).
+// svc is the service area (web · erp · ax, or 'handoff'); scenario the demo it loads (web · app · consult).
 export async function runStandalone({ q, svc, scenario = svc, log, S, example = false, closest, price = false, homepage = false, qa = () => {}, world = null } = {}) {
   const run = Runs.start();
   const W = nullWorld();

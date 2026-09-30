@@ -2,13 +2,13 @@
 // route `panel: 'products'`), loaded by router.js the first time a panel route is shown, and the service details
 // that follow each strength scene (serviceDetailsHTML, used by strengths/scene.js for /services/<slug>/).
 // Opaque surfaces only; the page underneath is hidden and inert.
-// A service page is an AREA (content.js SVC: web-app · erp · ax); its [시연 보기] buttons name the demo
-// scenarios (data-demo = web · app · agent · consult) — AI 전환(AX) offers both of its demos.
+// A service page is an AREA (content.js SVC: web-app · erp · ax); its [시연 보기] button names the demo
+// scenario (data-demo = web · app · consult). An area with several demos gets one button per demo.
 // No typing on the site (founder, 2026-09-28): /contact/ offers two short choices (Topic · Timing) and
 // opens the visitor's mail app with them; the mail app is the only place anyone writes.
 // Copy (COPY-STYLE.md): English eyebrows and section labels, Korean body copy in 합니다체.
-import { esc } from '../core.js?v=9a563d68cad3';
-import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD } from '../content.js?v=9a563d68cad3';
+import { esc } from '../core.js?v=8999a49d35de';
+import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD } from '../content.js?v=8999a49d35de';
 
 // Topic (문의 종류 in the mail): the three areas (area · name), then 기타; Timing (희망 시기): four plain answers
 const KINDS = [...SVC_KEYS.map((k) => ({ id: k, a: SVC[k].area, n: SVC[k].name })), { id: 'etc', n: '기타' }];
@@ -22,7 +22,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
   }
   // a service page's 상담 메일: a draft with its area already chosen
   const svcMail = panel.querySelector('[data-mail-area]');
-  if (svcMail) import('../mail.js?v=9a563d68cad3').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: '상담' }).url; });
+  if (svcMail) import('../mail.js?v=8999a49d35de').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: '상담' }).url; });
   if (page.name === 'contact') {
     // "다른 문의가 있으신가요?" arrives with 문의 종류 = 기타 (history.state from main.js)
     const pre = history.state?.kind;
@@ -44,7 +44,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
       if (w) { sel.when = sel.when === w.dataset.when ? null : w.dataset.when; upd(); }
     });
     upd();
-    import('../mail.js?v=9a563d68cad3').then((mod) => {
+    import('../mail.js?v=8999a49d35de').then((mod) => {
       M = mod;
       upd();
       cp.addEventListener('click', async () => {
@@ -61,7 +61,7 @@ function aiLine(t) { return `<div class="jr-page-ai"><span class="jr-who">루트
 function serviceBody(k, hid, eyebrow) {
   const s = SVC[k], d = COPY.svcPage[k];
   const row = (t, v) => `<div><dt>${esc(t)}</dt><dd>${esc(v)}</dd></div>`;
-  // one [시연 보기] per demo; with two demos each button names its example (SVC.ax.ex / ex2)
+  // one [시연 보기] per demo; with two demos each button names its example (SVC[k].ex / ex2)
   const demos = s.scenarios.map((sc, i) => `<button type="button" class="jr-btn jr-demo" data-demo="${esc(sc)}"><span>시연 보기 · 약 1분</span>${s.scenarios.length > 1 ? `<small>${esc(i ? s[`ex${i + 1}`] : s.ex)}</small>` : ''}</button>`).join('');
   return `<p class="jr-page-k">${eyebrow}</p>` +
     `<h2 class="jr-page-h" id="${hid}">${esc(s.name)}</h2>` +

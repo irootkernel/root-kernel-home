@@ -4,7 +4,7 @@
 // (for the copy fallback) keeps every line. Nothing is sent: the visitor's mail app does that — and the
 // mail app is the only place anyone types (founder, 2026-09-28): the site itself only offers choices.
 
-import { MAIL, SVC } from './content.js?v=9a563d68cad3';
+import { MAIL, SVC } from './content.js?v=8999a49d35de';
 
 export const MAILTO_LIMIT = 1800;
 // the disclosure over the demo's counts (ship card and mail): these numbers come from a browser simulation

@@ -37,7 +37,6 @@
   "js/mail.js",
   "js/main.js",
   "js/router.js",
-  "js/scenarios/agent.js",
   "js/scenarios/app.js",
   "js/scenarios/consult.js",
   "js/scenarios/handoff.js",

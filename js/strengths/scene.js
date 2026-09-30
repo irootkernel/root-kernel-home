@@ -5,10 +5,10 @@
 // live world. Each scene is mounted in a shadow root (its markup, CSS and ids never meet the site's), and the
 // service details follow below it, with the ~1-minute demos behind 시연 보기 (founder: "상세의 '시연 보기'로만").
 // The scene modules are generated from the approved prototypes (lab/formats/live/…); see their headers.
-import { $, REDUCED } from '../core.js?v=9a563d68cad3';
-import { SVC } from '../content.js?v=9a563d68cad3';
+import { $, REDUCED } from '../core.js?v=8999a49d35de';
+import { SVC } from '../content.js?v=8999a49d35de';
 
-const MODS = { web: () => import('./stack.js?v=9a563d68cad3'), erp: () => import('./gear.js?v=9a563d68cad3'), ax: () => import('./doksuri.js?v=9a563d68cad3') };
+const MODS = { web: () => import('./stack.js?v=8999a49d35de'), erp: () => import('./gear.js?v=8999a49d35de'), ax: () => import('./doksuri.js?v=8999a49d35de') };
 export const prefetch = (svc) => MODS[svc]?.().catch(() => {});
 
 // Three layouts (founder, 2026-09-30: the diagram must keep its size — "규모가 1/10으로 확 줄었네"):
@@ -120,7 +120,7 @@ export function createScene({ el, onClose, ensureJourney, go }) {
   }
 
   function renderDetails(svc) {
-    return import('../journey/pages.js?v=9a563d68cad3').then((P) => {
+    return import('../journey/pages.js?v=8999a49d35de').then((P) => {
       if (want !== svc) return;
       const page = { name: 'service', svc, layer: 1 };
       details.innerHTML = P.serviceDetailsHTML(svc);
