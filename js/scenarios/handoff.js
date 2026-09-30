@@ -2,8 +2,8 @@
 // No build, test or review. The "spec" of a handoff is the mail draft, streamed into the frame verbatim.
 // Reached from a /build/?svc=handoff&q= link (nothing on the site is typed); at the gate the visitor may add one
 // of three preset lines to the letter.
-import { COPY, MAIL } from '../content.js?v=cfb647b9bfd4';
-import { esc } from '../studio/studio.js?v=cfb647b9bfd4';
+import { COPY, MAIL } from '../content.js?v=9a563d68cad3';
+import { esc } from '../studio/studio.js?v=9a563d68cad3';
 
 const oneLine = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 const clip = (s, n) => { const a = Array.from(s); return a.length > n ? `${a.slice(0, n).join('')}…` : s; };

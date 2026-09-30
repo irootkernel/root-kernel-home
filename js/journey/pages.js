@@ -7,8 +7,8 @@
 // No typing on the site (founder, 2026-09-28): /contact/ offers two short choices (Topic · Timing) and
 // opens the visitor's mail app with them; the mail app is the only place anyone writes.
 // Copy (COPY-STYLE.md): English eyebrows and section labels, Korean body copy in 합니다체.
-import { esc } from '../core.js?v=cfb647b9bfd4';
-import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD } from '../content.js?v=cfb647b9bfd4';
+import { esc } from '../core.js?v=9a563d68cad3';
+import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD } from '../content.js?v=9a563d68cad3';
 
 // Topic (문의 종류 in the mail): the three areas (area · name), then 기타; Timing (희망 시기): four plain answers
 const KINDS = [...SVC_KEYS.map((k) => ({ id: k, a: SVC[k].area, n: SVC[k].name })), { id: 'etc', n: '기타' }];
@@ -22,7 +22,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
   }
   // a service page's 상담 메일: a draft with its area already chosen
   const svcMail = panel.querySelector('[data-mail-area]');
-  if (svcMail) import('../mail.js?v=cfb647b9bfd4').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: '상담' }).url; });
+  if (svcMail) import('../mail.js?v=9a563d68cad3').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: '상담' }).url; });
   if (page.name === 'contact') {
     // "다른 문의가 있으신가요?" arrives with 문의 종류 = 기타 (history.state from main.js)
     const pre = history.state?.kind;
@@ -44,7 +44,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
       if (w) { sel.when = sel.when === w.dataset.when ? null : w.dataset.when; upd(); }
     });
     upd();
-    import('../mail.js?v=cfb647b9bfd4').then((mod) => {
+    import('../mail.js?v=9a563d68cad3').then((mod) => {
       M = mod;
       upd();
       cp.addEventListener('click', async () => {

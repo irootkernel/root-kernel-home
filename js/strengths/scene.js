@@ -5,10 +5,10 @@
 // live world. Each scene is mounted in a shadow root (its markup, CSS and ids never meet the site's), and the
 // service details follow below it, with the ~1-minute demos behind 시연 보기 (founder: "상세의 '시연 보기'로만").
 // The scene modules are generated from the approved prototypes (lab/formats/live/…); see their headers.
-import { $, REDUCED } from '../core.js?v=cfb647b9bfd4';
-import { SVC } from '../content.js?v=cfb647b9bfd4';
+import { $, REDUCED } from '../core.js?v=9a563d68cad3';
+import { SVC } from '../content.js?v=9a563d68cad3';
 
-const MODS = { web: () => import('./stack.js?v=cfb647b9bfd4'), erp: () => import('./gear.js?v=cfb647b9bfd4'), ax: () => import('./doksuri.js?v=cfb647b9bfd4') };
+const MODS = { web: () => import('./stack.js?v=9a563d68cad3'), erp: () => import('./gear.js?v=9a563d68cad3'), ax: () => import('./doksuri.js?v=9a563d68cad3') };
 export const prefetch = (svc) => MODS[svc]?.().catch(() => {});
 
 // Three layouts (founder, 2026-09-30: the diagram must keep its size — "규모가 1/10으로 확 줄었네"):
@@ -17,6 +17,10 @@ export const prefetch = (svc) => MODS[svc]?.().catch(() => {});
 //   m  ≤ 760 px (the site's phone layout) — the phone composition; the product scene shows its stack above the list.
 export const sceneLayout = () => (innerWidth <= 760 ? 'm' : innerWidth < 1152 ? 't' : 'd');
 const FRAME_W = 1440, FRAME_H = 900;
+// every scene's text column starts at x 72 of the design space (lab/formats/live/shared.css .msg);
+// the page's gutter is base.css --gut, clamp(20px, 5vw, 72px)
+const MSG_X = 72;
+const gutter = () => Math.min(72, Math.max(20, innerWidth * 0.05));
 
 // shared by every scene: the frame, and the quiet link that leads to the service details below
 const FRAME_CSS = `
@@ -61,7 +65,9 @@ export function createScene({ el, onClose, ensureJourney, go }) {
       const h = H.clientHeight;
       scale = Math.max(0.6, Math.min(1.25, w / FRAME_W, h / FRAME_H));
       H.style.setProperty('--fs', scale.toFixed(4));
-      H.style.setProperty('--fx', px((w - FRAME_W * scale) / 2));
+      // the frame's text column lands on the page's left line, as every layer's text does (founder, 2026-09-30:
+      // "서비스 항목부터 왼쪽 정렬"); a wider screen shows more of the world on the right, not a centred frame
+      H.style.setProperty('--fx', px(gutter() - MSG_X * scale));
       H.style.setProperty('--fy', px(Math.max(0, (h - FRAME_H * scale) / 2)));
       return;
     }
@@ -69,7 +75,7 @@ export function createScene({ el, onClose, ensureJourney, go }) {
     const crop = cur.layout === 't' ? cur.crop?.t : cur.crop?.m;
     if (!crop) { scale = 1; return; }
     const [x0, y0, x1, y1] = crop, cw = x1 - x0, ch = y1 - y0;
-    const gx = cur.layout === 't' ? Math.min(72, Math.max(20, innerWidth * 0.05)) : 12;
+    const gx = cur.layout === 't' ? gutter() : 12;
     const avail = w - 2 * gx;
     // medium: as wide as the column, but never taller than the screen below the header
     scale = cur.layout === 't' ? Math.min(1.1, avail / cw, (innerHeight - 96) / ch) : Math.min(0.9, avail / cw);
@@ -114,7 +120,7 @@ export function createScene({ el, onClose, ensureJourney, go }) {
   }
 
   function renderDetails(svc) {
-    return import('../journey/pages.js?v=cfb647b9bfd4').then((P) => {
+    return import('../journey/pages.js?v=9a563d68cad3').then((P) => {
       if (want !== svc) return;
       const page = { name: 'service', svc, layer: 1 };
       details.innerHTML = P.serviceDetailsHTML(svc);

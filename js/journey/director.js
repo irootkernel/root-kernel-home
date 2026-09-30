@@ -6,7 +6,7 @@
 // the world chunk: it is useless without three.js, so it stays off the first-paint path.
 //
 // No three.js import here (this module is on the first-paint path).
-import { clamp, ease, isNarrow, REDUCED } from '../core.js?v=cfb647b9bfd4';
+import { clamp, ease, isNarrow, REDUCED } from '../core.js?v=9a563d68cad3';
 
 // route depths (meters; negative = above the surface)
 export const DEPTH = { company: 0, services: 200, tools: 4000, kernel: 10935, products: -40 };

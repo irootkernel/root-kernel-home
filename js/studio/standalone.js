@@ -2,9 +2,9 @@
 // conversation | frame | vertical 6-step rail. Used by the poster / calm tiers and studio.html.
 // runStandalone() is a deliberately small orchestrator for studio.html; the real one is the journey's.
 
-import { esc, bus, Runs, isCancel, setSpeed, getSpeed, REDUCED, clamp, ease } from '../core.js?v=cfb647b9bfd4';
-import { PROCEDURE, COPY, toolLabel } from '../content.js?v=cfb647b9bfd4';
-import { createTicker } from '../log.js?v=cfb647b9bfd4';
+import { esc, bus, Runs, isCancel, setSpeed, getSpeed, REDUCED, clamp, ease } from '../core.js?v=9a563d68cad3';
+import { PROCEDURE, COPY, toolLabel } from '../content.js?v=9a563d68cad3';
+import { createTicker } from '../log.js?v=9a563d68cad3';
 
 /* ---------- layout ---------- */
 

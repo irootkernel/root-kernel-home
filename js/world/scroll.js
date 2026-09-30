@@ -3,7 +3,7 @@
 // there is no typing on the site.)
 // Home order (CONTRACT §5): 0 m → −200 m → −4,000 m → −10,935 m → quick rise → above the surface.
 // No three.js here: this runs from first paint, with or without a world.
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=cfb647b9bfd4';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=9a563d68cad3';
 
 // `name` is the gauge read-out under the depth (English). The tick labels in index.html add the depth part
 // ("Services · −200 m", "Products · above surface"); above the surface the read-out itself says "+40 m".
@@ -139,12 +139,13 @@ export function createScroll({ el, state }) {
   }
 
   /* ---- legibility scrims (B): left column + bottom scrim under the kernel text and the final ask ---- */
-  function updateScrims(narrow) {
+  // every layer's text sits in the left column (the kernel's too, since 2026-09-30), so the left scrim stays on
+  function updateScrims() {
     const F = state.layerF, off = state.mode === 'journey';
     const kernel = sstep(2.55, 2.95, F) * (1 - sstep(3.05, 3.45, F));
     const prod = sstep(3.6, 3.95, F);
     const b = off ? 0 : Math.max(sstep(0, 0.5, state.kpK) * kernel * 0.95, sstep(0.45, 0.9, state.kpP) * prod * 0.9);
-    const l = off ? 0 : sstep(0.35, 0.8, F) * (narrow ? 1 : 1 - kernel * 0.6);
+    const l = off ? 0 : sstep(0.35, 0.8, F);
     el.scrimB.style.opacity = b.toFixed(3);
     el.scrim.style.opacity = l.toFixed(3);
   }

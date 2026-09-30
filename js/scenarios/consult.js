@@ -1,7 +1,7 @@
 // scenarios/consult.js — 03 AI · AI 전환(AX) 구축, the development side: a first-draft diagnosis of a team's AI development system (A SC.consult).
 // Taps only (founder, 2026-09-28): after delivery each checkpoint folds open ("How to verify") — an accordion, nothing typed.
-import { COPY, gateSubAt } from '../content.js?v=cfb647b9bfd4';
-import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=cfb647b9bfd4';
+import { COPY, gateSubAt } from '../content.js?v=9a563d68cad3';
+import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=9a563d68cad3';
 
 function closestOf(ctx = {}) {
   if (ctx.closest !== undefined) return ctx.closest || null;

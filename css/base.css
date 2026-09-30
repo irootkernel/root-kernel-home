@@ -279,6 +279,19 @@ html.js .rv.rv-t{opacity:1}
 .foot{margin:72px 0 0;font-family:var(--mono);font-size:11px;color:var(--ink3)}
 .foot a{color:var(--ink2);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .foot a:hover{color:var(--ink)}
+/* desktop: from the services down, every text block starts on the header logo's line, like the layers above
+   (founder, 2026-09-30: "첫화면의 로고와 본문은 가운데 유지하자. 그 밑에 서비스 항목부터 왼쪽 정렬").
+   The first screen stays centred; phones keep their layout. The kernel column is as wide as its two-column split. */
+@media (min-width:761px){
+  .layer-k .layer-in{max-width:640px;margin:0;text-align:left}
+  .layer-k .eyebrow{justify-content:flex-start}
+  .layer-k .lede,.layer-k .split,.layer-k .spark,.layer-k .record{margin-left:0;margin-right:0}
+  .final-wrap{margin:0;text-align:left}
+  .final{align-items:flex-start}
+  .final .pick-list{justify-content:start}
+  /* the link's own 8 px padding: its words start on the line */
+  .final .pick-other{margin-left:-8px}
+}
 
 /* ---------- buttons ---------- */
 .btn-warm,.btn-ghost,.btn-teal{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:12px;font-size:15px;font-weight:600;letter-spacing:-.01em;cursor:pointer;text-decoration:none;transition:transform .25s var(--ease),box-shadow .35s var(--ease),background .3s,border-color .3s,color .3s;white-space:nowrap}

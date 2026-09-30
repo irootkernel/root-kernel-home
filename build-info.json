@@ -1,7 +1,7 @@
 {
   "site": "root-kernel",
   "generation": "v5",
-  "assetVersion": "cfb647b9bfd4",
+  "assetVersion": "9a563d68cad3",
   "threeVersion": "08fd7545d13d",
   "routes": [
     "/",
@@ -45,7 +45,7 @@
   "versionedSpecifiers": 73,
   "sourceSha256": {
     "src/index.html": "210c6f5d4d8f392d8ea8ad0dc993e141479257b9c716c82060f879e6a44ab1be",
-    "src/css/base.css": "7ed95eac3d8a6c911b2b0498e15206007cf2cd2573772b9aca478f3bcc0f1c51",
+    "src/css/base.css": "c9081ede25acca91bc0a9aafc14b1bb8d911916ac702983ff04e4902653a10ea",
     "src/css/journey.css": "eb955398a022013eae014486a216a05fce82a5c139c4440f4b7b5a396b6290f0",
     "src/css/sites.css": "c2d6d38c779b58690f63bad6a1874c5a2824c09e86673bc95505d6efca4c89d1",
     "src/css/strengths.css": "1bd502bbf43eba176dfee4838ba5401b6f4eb917655f357d44935a279e495e00",
@@ -60,7 +60,7 @@
     "src/js/journey/rail.js": "8a913cdfe90f19a1aa4befb0591bb4d79c5c818a757480bf501edc49bd9ab3d9",
     "src/js/log.js": "30359da6c2eae332941f97541148ce9ed93b15d96ff8b2f9bb3b17278ac3afdf",
     "src/js/mail.js": "533908f0387c2996f7dac2f62b2ab455272230af4a3ec86fb687ad91b1e016f2",
-    "src/js/main.js": "8eddd2ec42a975e7d71ad6b7f905fbd27a6d4087a982c8cc12e41afda436ffde",
+    "src/js/main.js": "004813c03e55a2ba1abc27b6ef71e1197357867f04d42f782844bdc6d90f4eb7",
     "src/js/router.js": "5eb66ff1b6f96a33e204581bfe6e385be0c0e7b587701a63636187269efb3bb1",
     "src/js/scenarios/agent.js": "ecfda132efb0d689729b8145cb885608e9345d96a218e95c1308238199d18f6c",
     "src/js/scenarios/app.js": "3c8e046751feb10fe52269b261797554f8596fd520d425f9bdec816c11fa4ee6",
@@ -69,12 +69,12 @@
     "src/js/scenarios/web.js": "c862c9383f10dcb2dc79976f3a23d80a6f2cc002a12cd9557a4ff6d0ee809c6f",
     "src/js/strengths/doksuri.js": "05fcc04cc4d97eea8839ec16bfdd106e1c0f0f9d2ad6cc7feb519dde55ade76f",
     "src/js/strengths/gear.js": "6f786e333fc14142db0f78f1367f2ee5e2d8d007c005847008c879bf6397ca0a",
-    "src/js/strengths/scene.js": "dcd742c96b497b6f47792c62fc4041c180147aa7837a4baa820ce51879e07185",
+    "src/js/strengths/scene.js": "c6244fb0892cdaedb48aa5f929ae6ccdf154018a661ff5fa6d6b1a66f93b33f4",
     "src/js/strengths/stack.js": "993ba4cb3b7070bcfe8c6c5b39b31fa52da139d2766f53764456eadd2d412c29",
     "src/js/studio/standalone.js": "ecb010945179cc26277e7c936cbbb18cdda0de4b88bea3722f38879361e5f1d9",
     "src/js/studio/studio.js": "022b17fdbf8dd8ac4b524b60346915bacb04099cf7f383a58b6b3ee1e1cc9a74",
     "src/js/world/labels.js": "be954f72fcdafe2e0acd96036da09ad41f206fcf8ec526852f17888e1224bfc2",
-    "src/js/world/scroll.js": "c0eceb74474b3a3a9db2b576a6832d1b7ed7b328ddbf68369fbf4ac07dc0a345",
+    "src/js/world/scroll.js": "f7c620db78b0963877606477c13d5d44acda73edafd44136699809533108e0d1",
     "src/js/world/world.js": "831d0f204e98ae0fff8dd1b7dcd7ce429101a41693ef7ec01a33e06dd86fabd7",
     "src/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
     "scripts/build.mjs": "c96468ac62c811597aab6835f5e7c59cd483a41e6e9176765325ff5d914e94c4"

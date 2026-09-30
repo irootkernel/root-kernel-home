@@ -6,9 +6,9 @@
 // time, fast-forward aware, cancellable); cleanup goes through run.defer; and it tolerates being abandoned
 // by run.within(p, maxMs) — each actor is "claimed" by the newest verb, so an older tween that is still
 // running stops writing instead of fighting the new one.
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=cfb647b9bfd4';
-import { SVC_KEYS, LOGO } from '../content.js?v=cfb647b9bfd4';
-import { DEPTH, travelSeconds, rectAt, fromRect, toRect } from './director.js?v=cfb647b9bfd4';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=9a563d68cad3';
+import { SVC_KEYS, LOGO } from '../content.js?v=9a563d68cad3';
+import { DEPTH, travelSeconds, rectAt, fromRect, toRect } from './director.js?v=9a563d68cad3';
 
 /* =========================================================================
    The real adapter.

@@ -1,10 +1,10 @@
 // scenarios/agent.js — 03 AI · AI 전환(AX) 구축, the work side: an AI agent answering an online shop's questions (A SC.agent).
 // Taps only (founder, 2026-09-28): the widget offers suggested questions as buttons — three it may answer from its
 // documents, one out of scope that it hands to a person instead of guessing. Nothing is typed.
-import { COPY, gateSubAt } from '../content.js?v=cfb647b9bfd4';
-import { REDUCED } from '../core.js?v=cfb647b9bfd4';
-import { stream } from '../log.js?v=cfb647b9bfd4';
-import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=cfb647b9bfd4';
+import { COPY, gateSubAt } from '../content.js?v=9a563d68cad3';
+import { REDUCED } from '../core.js?v=9a563d68cad3';
+import { stream } from '../log.js?v=9a563d68cad3';
+import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=9a563d68cad3';
 
 function closestOf(ctx = {}) {
   if (ctx.closest !== undefined) return ctx.closest || null;

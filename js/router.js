@@ -10,9 +10,9 @@
 //     popstate, retired /services/<slug>/ links, and owns the opaque route panels (/company/, /contact/,
 //     /build/) and the strength scenes (/services/<slug>/, strengths/scene.js) — a service page opens its
 //     area's scene over the live world at the scene's own depth (SCENE_LAYER).
-import { $, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=cfb647b9bfd4';
-import { COPY, COMPANY, FOUNDER, MAIL, SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK } from './content.js?v=cfb647b9bfd4';
-import { travelSeconds } from './journey/director.js?v=cfb647b9bfd4';
+import { $, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=9a563d68cad3';
+import { COPY, COMPANY, FOUNDER, MAIL, SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK } from './content.js?v=9a563d68cad3';
+import { travelSeconds } from './journey/director.js?v=9a563d68cad3';
 
 /* =========================================================================
    1. intent
@@ -257,7 +257,7 @@ export function createNav(env) {
     document.documentElement.classList.add('lock');
     if (state.mode === 'explore' || state.mode === 'intro') state.mode = 'panel';
     warm(page.layer === 0);
-    import('./journey/pages.js?v=cfb647b9bfd4').then((M) => {
+    import('./journey/pages.js?v=9a563d68cad3').then((M) => {
       if (panelPage !== page) return;
       panel.innerHTML = M.panelHTML(page);
       panel.setAttribute('aria-labelledby', 'pageH');
@@ -285,7 +285,7 @@ export function createNav(env) {
   /* ---------- the strength scenes (a service page is its area's scene; details and demos below it) ---------- */
   let scenePage = null, sceneP = null, sceneBack = null;
   const sceneHost = $('#svcScene');
-  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=cfb647b9bfd4').then((M) => M.createScene({
+  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=9a563d68cad3').then((M) => M.createScene({
     el: sceneHost, ensureJourney: env.ensureJourney, go,
     // × and Esc: back to where the visitor chose the area (the first screen, −200 m, the final question)
     onClose: () => go(sceneBack || LAYER_PATH[1]),
