@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://home.rootkernel.xyz/ko/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/ko/technology/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/ko/products/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/ko/company/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/ko/contact/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/en/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/en/technology/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/en/products/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/en/company/</loc></url>
-  <url><loc>https://home.rootkernel.xyz/en/contact/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/services/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/services/web-app/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/services/erp/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/services/ax/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/aquarium/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/podway/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/gaori/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/mulgae/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/sanho/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/sorage/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/dolgorae/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/dispatch/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/open-source/atn/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/technology/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/products/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/company/</loc></url>
+  <url><loc>https://home.rootkernel.xyz/contact/</loc></url>
 </urlset>

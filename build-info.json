@@ -1,101 +1,82 @@
 {
   "site": "root-kernel",
-  "assetVersion": "d907efda0e947f5e",
-  "locales": [
-    "ko",
-    "en"
+  "generation": "v5",
+  "assetVersion": "cfb647b9bfd4",
+  "threeVersion": "08fd7545d13d",
+  "routes": [
+    "/",
+    "/services/",
+    "/services/web-app/",
+    "/services/erp/",
+    "/services/ax/",
+    "/build/",
+    "/open-source/",
+    "/open-source/aquarium/",
+    "/open-source/podway/",
+    "/open-source/gaori/",
+    "/open-source/mulgae/",
+    "/open-source/sanho/",
+    "/open-source/sorage/",
+    "/open-source/dolgorae/",
+    "/open-source/dispatch/",
+    "/open-source/atn/",
+    "/technology/",
+    "/products/",
+    "/company/",
+    "/contact/"
   ],
-  "scenarios": {
-    "ko": {
-      "home": {
-        "turns": 14,
-        "events": 24,
-        "visits": 18,
-        "revision": 2,
-        "desktopUnits": 14,
-        "mobileUnits": 18.262
-      },
-      "technology": {
-        "turns": 8,
-        "events": 8,
-        "visits": 8,
-        "revision": 1,
-        "desktopUnits": 8,
-        "mobileUnits": 10.900000000000002
-      },
-      "products": {
-        "turns": 4,
-        "events": 4,
-        "visits": 4,
-        "revision": 1,
-        "desktopUnits": 4,
-        "mobileUnits": 5.300000000000001
-      },
-      "company": {
-        "turns": 4,
-        "events": 4,
-        "visits": 4,
-        "revision": 1,
-        "desktopUnits": 4,
-        "mobileUnits": 5.300000000000001
-      }
-    },
-    "en": {
-      "home": {
-        "turns": 14,
-        "events": 24,
-        "visits": 18,
-        "revision": 2,
-        "desktopUnits": 14,
-        "mobileUnits": 18.262
-      },
-      "technology": {
-        "turns": 8,
-        "events": 8,
-        "visits": 8,
-        "revision": 1,
-        "desktopUnits": 8,
-        "mobileUnits": 10.900000000000002
-      },
-      "products": {
-        "turns": 4,
-        "events": 4,
-        "visits": 4,
-        "revision": 1,
-        "desktopUnits": 4,
-        "mobileUnits": 5.300000000000001
-      },
-      "company": {
-        "turns": 4,
-        "events": 4,
-        "visits": 4,
-        "revision": 1,
-        "desktopUnits": 4,
-        "mobileUnits": 5.300000000000001
-      }
-    }
+  "redirects": {
+    "/services/web/": "/services/web-app/",
+    "/services/app/": "/services/erp/",
+    "/services/agent/": "/services/ax/",
+    "/services/consult/": "/services/ax/",
+    "/ko/": "/",
+    "/ko/technology/": "/technology/",
+    "/ko/products/": "/products/",
+    "/ko/company/": "/company/",
+    "/ko/contact/": "/contact/",
+    "/en/": "/",
+    "/en/technology/": "/technology/",
+    "/en/products/": "/products/",
+    "/en/company/": "/company/",
+    "/en/contact/": "/contact/"
   },
+  "sitemap": 19,
+  "versionedSpecifiers": 73,
   "sourceSha256": {
-    "src/app.mjs": "1a008a7d9aa3d9bb20762712eb0d6f4f6a44bec2af6865bc191bc1863c00b3b0",
-    "src/company-content.en.mjs": "5895825cd899d9cbfb880df3b7e7f5bdba145628ea36cf83f5d368a0691b30e8",
-    "src/company-content.ko.mjs": "82f6122f3a92d69004135e95966d4a12ca8c10794753ee916527eddadadd7799",
-    "src/company-content.mjs": "feb0ffba53b60f88f15b3af91c784c1329600fd02e106744d8ae05221df836a9",
-    "src/engine.mjs": "c7e55f8b3919e66727e5164c48be1ed5320805291cf453409f5957ebd143cded",
-    "src/home-copy.mjs": "83009791afbb4bc431b2c7f1231edcff6c5559d67d1f12220eba0407cdde41f6",
-    "src/home-panels.en.mjs": "1dc84d29a42f78f4bb7ffef0deded5d76dda444795ba87cdbf79a0ad3148f9d1",
-    "src/home-panels.ko.mjs": "daa349b42f48140fa2bc7a014cf8705215fb9ee27ba6ed3a7602c0f32a63eaea",
-    "src/home-panels.mjs": "009180cc4d46448dcbb21e0a04132db7e0e6fa787f437b88b3736e4f30b215fb",
-    "src/home-story.mjs": "2af1591d771beb88e8a9957907bd82b319b25eb94c81e4c4946d5a50a288e85d",
-    "src/locale.mjs": "27fbc83f20106f40dee3a74ef2d311e14897923107bbbb0c1b67c3375ed526fb",
-    "src/panels.mjs": "9aad7297a17219ac791a9a2f3224e510dfcc38b40faf6dd21d5d87b38ded3acf",
-    "src/playback.mjs": "d4cfef3b104e05f6a87c1b1345653d8a7a600c9d5a4f8d2decfcbbdabf971621",
-    "src/session.mjs": "7f5956499d5313793ee6a3c5587c1626e09401c126c83c89513d71a17b237103",
-    "src/story.mjs": "0d1463434c6d945850a5d8e7b99ccade65854c85f3589f2abddbe46d528d8356",
-    "src/topic-content.en.mjs": "aadcac144a5395480b52271396cae44fc6c79ade15f7a2de6232923a603dcab1",
-    "src/topic-content.ko.mjs": "71a7cd4ece1f64332041ecf5c4c3fb471bc9d215e43d5a563ca70c630c9d948b",
-    "src/topic-content.mjs": "9cc53303aea7992fbfc36ebdffef8006fe006fdcb0cf0e7a0f4a0014672bb6ea",
-    "src/site.css": "18fdc0b7c1609e7f25a9a685c1a5e14edb79578158b90553abfd87cd9d9ab6c9",
-    "scripts/build.mjs": "7eabb03d621f50a2667994c213b58daa094cd197e732334fa8514c7aabad9025",
-    "scripts/validate-locales.mjs": "bcb1b1851ab18f16c70beccda50f152980bc041d62b295dcd217f947c940af05"
+    "src/index.html": "210c6f5d4d8f392d8ea8ad0dc993e141479257b9c716c82060f879e6a44ab1be",
+    "src/css/base.css": "7ed95eac3d8a6c911b2b0498e15206007cf2cd2573772b9aca478f3bcc0f1c51",
+    "src/css/journey.css": "eb955398a022013eae014486a216a05fce82a5c139c4440f4b7b5a396b6290f0",
+    "src/css/sites.css": "c2d6d38c779b58690f63bad6a1874c5a2824c09e86673bc95505d6efca4c89d1",
+    "src/css/strengths.css": "1bd502bbf43eba176dfee4838ba5401b6f4eb917655f357d44935a279e495e00",
+    "src/css/studio.css": "6c9d0681f7ead744022652714dd607f9fe516f07a3311e66272fba75cd6eac3a",
+    "src/js/content.js": "f6a7fd682db90342a466565ba3ec64c65710f7d76c04928d662b8d1052b78dab",
+    "src/js/core.js": "9bf169166a39cf0b05fa47f8a3f3ba620414bc60e35070547f19f2191a085ba6",
+    "src/js/intro.js": "4f3330c44e20d5a7898f65ba71addf4e1498b4bfc55e8507d69dd1de265d95c2",
+    "src/js/journey/adapter.js": "b59a9760e2c075f8a62d62a22359b5a4fa84e9245bd40eb27e565ce2a0b9af9f",
+    "src/js/journey/director.js": "8c43a772d5da6cbfefbf42a54dde74d7e3a0f1ec12fe4ea822abb07577aeeb31",
+    "src/js/journey/journey.js": "76946e3616572dbf7836afff95ddfc9e8b201a7064b351baa07a51cf491aa15a",
+    "src/js/journey/pages.js": "d7c4d08364ee0e42520ff72fa703694512a685ba4161c471eba532e7d86bea5b",
+    "src/js/journey/rail.js": "8a913cdfe90f19a1aa4befb0591bb4d79c5c818a757480bf501edc49bd9ab3d9",
+    "src/js/log.js": "30359da6c2eae332941f97541148ce9ed93b15d96ff8b2f9bb3b17278ac3afdf",
+    "src/js/mail.js": "533908f0387c2996f7dac2f62b2ab455272230af4a3ec86fb687ad91b1e016f2",
+    "src/js/main.js": "8eddd2ec42a975e7d71ad6b7f905fbd27a6d4087a982c8cc12e41afda436ffde",
+    "src/js/router.js": "5eb66ff1b6f96a33e204581bfe6e385be0c0e7b587701a63636187269efb3bb1",
+    "src/js/scenarios/agent.js": "ecfda132efb0d689729b8145cb885608e9345d96a218e95c1308238199d18f6c",
+    "src/js/scenarios/app.js": "3c8e046751feb10fe52269b261797554f8596fd520d425f9bdec816c11fa4ee6",
+    "src/js/scenarios/consult.js": "d767cce4688366de2a1cd35e8a523cc19785d5dac3deeec1199367585dc16146",
+    "src/js/scenarios/handoff.js": "477e58e627241bef9bbd00e07444adb244f260324c9fe1893314d0276c037300",
+    "src/js/scenarios/web.js": "c862c9383f10dcb2dc79976f3a23d80a6f2cc002a12cd9557a4ff6d0ee809c6f",
+    "src/js/strengths/doksuri.js": "05fcc04cc4d97eea8839ec16bfdd106e1c0f0f9d2ad6cc7feb519dde55ade76f",
+    "src/js/strengths/gear.js": "6f786e333fc14142db0f78f1367f2ee5e2d8d007c005847008c879bf6397ca0a",
+    "src/js/strengths/scene.js": "dcd742c96b497b6f47792c62fc4041c180147aa7837a4baa820ce51879e07185",
+    "src/js/strengths/stack.js": "993ba4cb3b7070bcfe8c6c5b39b31fa52da139d2766f53764456eadd2d412c29",
+    "src/js/studio/standalone.js": "ecb010945179cc26277e7c936cbbb18cdda0de4b88bea3722f38879361e5f1d9",
+    "src/js/studio/studio.js": "022b17fdbf8dd8ac4b524b60346915bacb04099cf7f383a58b6b3ee1e1cc9a74",
+    "src/js/world/labels.js": "be954f72fcdafe2e0acd96036da09ad41f206fcf8ec526852f17888e1224bfc2",
+    "src/js/world/scroll.js": "c0eceb74474b3a3a9db2b576a6832d1b7ed7b328ddbf68369fbf4ac07dc0a345",
+    "src/js/world/world.js": "831d0f204e98ae0fff8dd1b7dcd7ce429101a41693ef7ec01a33e06dd86fabd7",
+    "src/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "scripts/build.mjs": "c96468ac62c811597aab6835f5e7c59cd483a41e6e9176765325ff5d914e94c4"
   }
 }

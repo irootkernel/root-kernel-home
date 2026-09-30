@@ -1,0 +1,41 @@
+/* strengths.css — the service pages' strength scenes (js/strengths/scene.js).
+   One overlay over the live world: the scene (a shadow root) fills the first screen, the service details follow.
+   The page underneath, the gauge and the world's labels step aside while it is open (body.sx-open). */
+.sx { position: fixed; inset: 0; z-index: 64; opacity: 0; transition: opacity .5s var(--ease); }
+.sx[hidden] { display: none; }
+.sx.show { opacity: 1; }
+/* the scenes' own falloff over the real world (text side dark), the world a little out of focus behind a diagram */
+.sx::before { content: ""; position: fixed; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(1,8,10,.9) 0%, rgba(1,8,10,.78) 30%, rgba(1,8,10,.42) 50%, rgba(1,8,10,.3) 100%); }
+@supports ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  html:not(.rm) .sx::before { -webkit-backdrop-filter: blur(2px) brightness(.72); backdrop-filter: blur(2px) brightness(.72); }
+}
+/* its own stacking context: a scene's z-indexes stay inside, under the × */
+.sx-scroll { position: absolute; inset: 0; z-index: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(237,233,231,.16) transparent; }
+.sx-scroll:focus { outline: none; }
+.sx-stage { position: relative; }
+
+/* × sits where the header's links are (they step aside while a scene is open) */
+.sx-x { position: fixed; z-index: 2; top: 18px; right: calc(var(--gut) - 12px); width: 44px; height: 44px; display: grid; place-items: center;
+  border: 1px solid transparent; border-radius: 10px; background: none; color: var(--ink2); font-size: 24px; line-height: 1; cursor: pointer; transition: color .2s, background .2s; }
+.sx-x:hover { color: var(--ink); background: rgba(237,233,231,.06); }
+.sx-x:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+/* the service details below the scene: the route panels' opaque surface, in the page flow */
+.sx-details { position: relative; width: min(640px, calc(100% - 2 * var(--gut))); margin: 8px 0 110px var(--gut); padding: 24px 26px 22px;
+  background: #041114; border: 1px solid var(--line2); border-radius: 16px; box-shadow: 0 30px 90px -30px rgba(0,0,0,.85); }
+.sx-details:empty { display: none; }
+.sx-details a:not(.jr-btn) { color: var(--teal2); }
+
+body.sx-open #page { opacity: 0; pointer-events: none; }
+body.sx-open .gauge, body.sx-open .labels, body.sx-open .hover-tag, body.sx-open .leader,
+body.sx-open .top-nav, body.sx-open .depth-m, body.sx-open .scrim, body.sx-open .scrim-b, body.sx-open #rail { opacity: 0 !important; visibility: hidden; }
+
+@media (max-width: 760px) {
+  .sx::before { background: linear-gradient(180deg, rgba(1,8,10,.5) 0%, rgba(1,8,10,.82) 38%, rgba(1,8,10,.9) 100%); }
+  /* on a phone the scene scrolls below the header, never under the logo */
+  .sx-scroll { top: 56px; }
+  .sx-x { top: 8px; right: 8px; }
+  .sx-details { width: auto; margin: 8px 16px 72px; padding: 20px 18px; }
+}
+html.rm .sx { transition: opacity .18s; }

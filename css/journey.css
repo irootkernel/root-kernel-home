@@ -1,0 +1,233 @@
+/* journey.css — the journey's final geometry (SPEC-experience §3), z-order (CONTRACT §2), route panels,
+   the gauge→rail swap, phones (M1–M5) and the poster/calm fallbacks.
+   Rules: text only on opaque surfaces (no backdrop-filter), 3D only around/behind the frame, one moving actor.
+   Desktop 1440: convo band x 0–520 (log x 72–472), frame 680×540 at x 538–1218 y 150–690, rail x 1256–1368.
+   1280: convo 360, frame 620. ≤1100: rail horizontal above the frame. ≤760: phones. */
+
+:root {
+  --jr-convoW: 400px;
+  --jr-railW: 112px;
+  --jr-gapL: 48px;           /* convo → stage */
+  --jr-gapR: 20px;           /* stage → rail */
+  --jr-pad: 36px;            /* breathing room inside the stage */
+  --jr-frameMax: 680px;
+  --jr-frameY: clamp(96px, 16.7vh, 150px);
+  --jr-frameH: clamp(360px, calc(100vh - var(--jr-frameY) - 150px), 540px);
+  --jr-handH: clamp(300px, calc(100vh - var(--jr-frameY) - 330px), 420px);
+}
+@media (max-width: 1280px) { :root { --jr-convoW: 360px; --jr-gapL: 30px; --jr-gapR: 30px; --jr-pad: 0px; --jr-frameMax: 620px; } }
+@media (max-width: 1100px) { :root { --jr-convoW: 300px; --jr-railW: 0px; --jr-gapL: 26px; --jr-gapR: 0px; --jr-pad: 0px; --jr-frameY: 150px; } }
+
+/* ---------- header: brand left, links + restart right ---------- */
+.top { justify-content: flex-start; }
+.top-nav { margin-left: auto; }
+.jr-restart { margin-left: 10px; min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line2); background: #031013; color: var(--ink); font: 500 12px var(--mono); letter-spacing: .02em; cursor: pointer; transition: border-color .2s, background .2s; }
+.jr-restart:hover { border-color: var(--ink3); background: #062024; }
+
+/* ---------- the band behind the conversation column (opaque, fades out over its last 32 px) ---------- */
+.jr-band { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50; width: calc(var(--gut) + var(--jr-convoW) + var(--jr-gapL)); pointer-events: none; opacity: 0; transition: opacity .6s var(--ease);
+  background: linear-gradient(90deg, rgba(1,8,10,.95) 0, rgba(1,8,10,.95) calc(100% - 32px), rgba(1,8,10,0)); }
+.jr-band.show { opacity: 1; }
+
+/* ---------- the gauge becomes the procedure rail, in place (opaque panel: its text never sits on 3D) ---------- */
+.gauge.jr-away { opacity: 0 !important; pointer-events: none; }
+#rail.jr-rail { right: calc(var(--gut) - 14px); width: calc(var(--jr-railW) + 28px); padding: 18px 14px 14px; background: #041114; border: 1px solid var(--line); border-radius: 14px; opacity: 0; transition: opacity .5s var(--ease); box-shadow: 0 30px 80px -40px rgba(0,0,0,.9); }
+#rail.jr-rail.show { opacity: 1; }
+#rail.jr-rail .st-rail-ol { gap: 20px; }
+#rail.jr-rail .st-rn-s { white-space: pre-line; overflow-wrap: anywhere; }
+#rail.jr-rail.st-rail--arc .st-rn[data-k="build"] .st-rn-t::after { content: none; }
+#rail.jr-rail.st-rail--arc .st-rn[data-k="build"] .st-rn-s { color: var(--teal); }
+#rail.jr-rail .st-rail-foot { margin-top: 18px; gap: 8px; }
+#rail.jr-rail .st-ff { min-height: 40px; }
+#rail.jr-rail:not(.jr-live) .jr-depth, #rail.jr-rail.jr-live .st-depth:not(.jr-depth) { display: none; }
+#rail.jr-rail .jr-skip { border-color: rgba(244,215,184,.34); color: var(--warm); }
+#rail.jr-rail.jr-done .st-rail-foot { margin-top: 10px; }
+
+/* ---------- conversation column (journey). There is no ask under it any more (no typing on the site):
+   the column runs down to where the ask used to end, so the log and the ship card get that room. ---------- */
+html.jr-on #convo { left: var(--gut); width: var(--jr-convoW); top: 96px; bottom: 76px; max-height: none; transform: none; background: none; border: 0; border-radius: 0; padding: 0; box-shadow: none;
+  -webkit-mask-image: none; mask-image: none; justify-content: flex-end; }
+html.jr-standalone #convo { pointer-events: auto; }   /* the standalone log is a scroll region */
+/* the column is there at once (nothing focusable ever waits at opacity 0) */
+.convo { transition: none; }
+/* B's gauge label was 11.5 px Pretendard: the non-mono floor is 12 px */
+.g-lay { font-size: 12px; }
+/* cards in the log (spec summary, ship card) enter from .35, never from 0: they hold focusable controls */
+.st-log .st-msg--card { animation: jrCardIn .45s var(--ease) both; }
+@keyframes jrCardIn { from { opacity: .35; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+html.rm .st-log .st-msg--card { animation: none; }
+/* the log's controls and cards take clicks; empty areas of the column still pass them to the world */
+.st-log a, .st-log button, .st-log summary, .st-log .st-msg--card { pointer-events: auto; }
+
+/* ---------- the stage: spec card, work frame, handoff gate ---------- */
+html.jr-on #specHost, html.jr-on #bench, html.jr-on #gate {
+  --jr-sL: calc(var(--gut) + var(--jr-convoW) + var(--jr-gapL));
+  --jr-sR: calc(100% - var(--gut) - var(--jr-railW) - var(--jr-gapR));
+}
+html.jr-on #bench { position: fixed; z-index: 40;
+  --jr-fW: min(var(--jr-frameMax), calc(var(--jr-sR) - var(--jr-sL) - var(--jr-pad)));
+  left: calc((var(--jr-sL) + var(--jr-sR)) / 2 - var(--jr-fW) / 2); width: var(--jr-fW);
+  top: var(--jr-frameY); height: var(--jr-frameH); --st-frame-w: 4000px;
+  opacity: 0; transition: opacity .3s var(--ease), transform .7s var(--ease2); transform-origin: 50% 40%; }
+html.jr-on #bench.show { opacity: 1; }
+html.jr-on #bench.jr-pre { opacity: 0 !important; }
+#bench.jr-shrink { transform: scale(.82); }
+#bench .st-frame { transition: box-shadow .6s, border-color 1.2s, border-radius .6s; }
+#bench.jr-warm .st-frame { border-color: rgba(244,215,184,.55); box-shadow: 0 0 0 1px rgba(244,215,184,.16), 0 30px 90px -30px rgba(255,184,112,.34), 0 40px 110px -40px rgba(0,0,0,.85); }
+html.jr-handoff #bench { height: var(--jr-handH); }
+html.jr-on #gate { --jr-fW: min(var(--jr-frameMax), calc(var(--jr-sR) - var(--jr-sL) - var(--jr-pad)));
+  left: calc((var(--jr-sL) + var(--jr-sR)) / 2 - var(--jr-fW) / 2); width: var(--jr-fW); top: calc(var(--jr-frameY) + var(--jr-handH) + 16px);
+  /* its 덧붙이기 chips can open below the fold on a short screen: the gate scrolls, it never runs off the screen */
+  max-height: calc(100vh - var(--jr-frameY) - var(--jr-handH) - 28px); overflow-y: auto; overscroll-behavior: contain; border-radius: 14px; scrollbar-width: thin; scrollbar-color: var(--line2) transparent; }
+html.jr-on #specHost { --jr-cW: min(540px, calc(var(--jr-sR) - var(--jr-sL) - 24px));
+  left: calc((var(--jr-sL) + var(--jr-sR)) / 2 - var(--jr-cW) / 2); width: var(--jr-cW); top: 250px; }
+#specHost .st-spec { max-height: var(--jr-spec-max, calc(100vh - 270px)); }
+/* compact enough that the gate and all three amber assumptions share the screen at 1440×900 */
+#specHost .st-spec-h { padding: 10px 16px; }
+#specHost .st-rows { padding: 2px 16px 6px; }
+#specHost .st-row { padding-top: 7px; padding-bottom: 7px; }
+#specHost .st-row dd { font-size: 13.5px; line-height: 1.55; }
+#specHost .st-wfs { gap: 6px; }
+#specHost .st-wfc { padding: 5px; }
+#specHost .st-wfc b { margin-top: 4px; }
+#specHost .st-wf { height: 40px; }
+#specHost .st-spec-f { padding: 8px 16px; }
+#specHost .st-gate { padding: 12px 16px 14px; }
+#specHost .st-gate-q { font-size: 19px; margin: 6px 0 2px; }
+#specHost .st-gate-p { font-size: 13px; line-height: 1.5; margin: 0 0 10px; }
+#specHost .st-approve, #specHost .st-revise { min-height: 50px; }
+
+/* ---------- route panels: /company/ · /contact/ · /services/<slug>/ · /build/ ---------- */
+body.jr-panel #page { opacity: 0; pointer-events: none; }
+.jr-page { position: fixed; z-index: 64; left: var(--gut); top: 92px; width: min(560px, calc(100% - 2 * var(--gut))); max-height: calc(100vh - 92px - 40px); overflow-y: auto; overscroll-behavior: contain;
+  background: #041114; border: 1px solid var(--line2); border-radius: 16px; padding: 22px 24px 22px; box-shadow: 0 30px 90px -30px rgba(0,0,0,.85);
+  opacity: 0; transform: translateY(10px); transition: opacity .35s var(--ease), transform .45s var(--ease); scrollbar-width: thin; scrollbar-color: var(--line2) transparent; }
+.jr-page.show { opacity: 1; transform: none; }
+.jr-page:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+.jr-page-x { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: var(--ink3); font-size: 22px; line-height: 1; cursor: pointer; }
+.jr-page-x:hover { color: var(--ink); background: rgba(237,233,231,.05); }
+.jr-page-k { margin: 0 44px 10px 0; font: 500 12px var(--mono); color: var(--teal); letter-spacing: .02em; }
+.jr-page-k b { color: var(--ink); font-weight: 500; margin-right: 8px; }
+.jr-page-h { margin: 0 32px 0 0; font-size: 24px; line-height: 1.35; font-weight: 650; letter-spacing: -.022em; color: var(--ink); word-break: keep-all; }
+.jr-page-lede { margin: 6px 32px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink2); word-break: keep-all; }
+.jr-page-ai { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: baseline; margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); }
+.jr-page-ai .jr-who { font: 11px var(--mono); color: var(--teal); letter-spacing: .02em; }
+.jr-page-ai p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink); word-break: keep-all; }
+.jr-founder { margin: 14px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #031013; font: 12px/1.7 var(--mono); color: var(--ink2); word-break: keep-all; }
+.jr-page-s { margin: 22px 0 8px; font: 600 12px var(--mono); letter-spacing: .05em; color: var(--ink3); }
+.jr-dl { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.jr-dl > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.jr-dl dt { font: 500 12px/1.7 var(--mono); color: var(--ink3); }
+.jr-dl dd { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink); word-break: keep-all; overflow-wrap: anywhere; }
+.jr-dl a, .jr-page a:not(.jr-btn):not(.jr-send):not(.pick-c) { color: var(--teal2); }
+.jr-track { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.jr-track li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.55; color: var(--ink2); word-break: keep-all; }
+.jr-track .mono { font-size: 12px; color: var(--ink3); padding-top: 2px; }
+.jr-list { margin: 0; padding: 0 0 0 18px; font-size: 14px; line-height: 1.8; color: var(--ink2); }
+.jr-page-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.jr-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 11px; border: 0; background: var(--ink); color: #0B0D0E; font: 650 15px var(--font); letter-spacing: -.01em; text-decoration: none; cursor: pointer; transition: box-shadow .3s; }
+.jr-btn:hover { box-shadow: 0 10px 40px -12px rgba(244,215,184,.55); }
+.jr-btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line2); }
+.jr-btn.ghost:hover { border-color: var(--ink3); box-shadow: none; }
+.jr-btn .mono { font-size: 11px; color: var(--teal); margin-right: 2px; }
+/* a service page's demos: with two demos each button names its example */
+.jr-demo { flex-direction: column; align-items: flex-start; justify-content: center; gap: 1px; padding: 8px 18px; }
+.jr-demo small { font: 500 12px/1.4 var(--font); color: rgba(11,13,14,.64); letter-spacing: -.005em; }
+.jr-page-acts--two { display: grid; grid-template-columns: 1fr 1fr; }
+.jr-page-acts--two .ghost { grid-column: 1 / -1; justify-self: start; }
+.jr-note a { color: var(--teal2); text-underline-offset: 3px; white-space: nowrap; }
+.jr-note { margin: 14px 0 0; font-size: 13px; color: var(--ink3); }
+.jr-proc { margin: 16px 0 0; font: 12.5px/1.8 var(--mono); color: var(--ink2); }
+/* /build/ (no request): the first screen's three answer chips, one per row */
+.jr-page .pick-list { grid-template-columns: 1fr; margin-top: 16px; gap: 8px; }
+.jr-page .pick-c { min-height: 70px; }
+/* /contact/: two short choices, then the mail app opens with them — the only place anyone types is the mail app */
+.jr-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.jr-opts--when { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.jr-opt { position: relative; display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 8px 12px 8px 12px; border-radius: 12px; border: 1px solid var(--line2); background: #031013; color: var(--ink); font: 500 14px/1.35 var(--font); letter-spacing: -.01em; text-align: left; cursor: pointer; word-break: keep-all; transition: border-color .2s, background-color .2s, box-shadow .3s; }
+.jr-opt::before { content: ""; flex: none; width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid var(--ink4); transition: border-color .2s, background .2s, box-shadow .3s; }
+.jr-opt:hover { border-color: rgba(16,196,190,.5); }
+.jr-opt[aria-pressed="true"] { border-color: rgba(16,196,190,.72); background: #04191c; box-shadow: 0 0 0 1px rgba(16,196,190,.1), 0 12px 34px -20px rgba(16,196,190,.55); }
+.jr-opt[aria-pressed="true"]::before { border-color: var(--teal); background: radial-gradient(circle, #e8fffc 0 26%, #39d8d1 52%, #10C4BE 68%); box-shadow: 0 0 8px 1px rgba(16,196,190,.55); }
+.jr-opt .a { color: var(--teal2); }
+.jr-opts--when .jr-opt { justify-content: center; padding: 8px 10px; }
+.jr-opts--when .jr-opt::before { display: none; }
+.jr-send { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; min-height: 58px; padding: 0 20px; border-radius: 12px; background: var(--ink); color: #0B0D0E; font: 650 16.5px var(--font); letter-spacing: -.01em; text-decoration: none; transition: box-shadow .3s; }
+.jr-send:hover { box-shadow: 0 10px 40px -12px rgba(244,215,184,.55); }
+.jr-send:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; border-radius: 12px; }
+.jr-send svg { height: 18px; width: auto; flex: none; }
+.jr-send svg path { fill: #0B0D0E; }
+.jr-send small { margin-left: auto; font: 500 12px var(--mono); color: rgba(11,13,14,.62); }
+.jr-hint { margin: 10px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--ink2); word-break: keep-all; }
+.jr-copyrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; font-size: 12.5px; color: var(--ink3); }
+.jr-copyrow button { min-height: 44px; padding: 0 2px 0 10px; border: 0; background: none; color: var(--ink2); font: 500 12px var(--mono); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line2); cursor: pointer; }
+.jr-copyrow button:hover { color: var(--ink); }
+.jr-out { min-height: 20px; margin: 2px 0 0; font-size: 13px; color: var(--teal2); }
+.jr-out:empty { min-height: 0; }
+
+/* ---------- ≤1100: the rail turns horizontal above the frame ---------- */
+@media (max-width: 1100px) and (min-width: 761px) {
+  #rail.jr-rail { left: calc(var(--gut) + var(--jr-convoW) + var(--jr-gapL)); right: var(--gut); width: auto; top: 76px; transform: none; padding: 10px 14px 8px; }
+  #rail.jr-rail .st-rail-foot { flex-wrap: nowrap; }
+  html.jr-on #specHost { top: 250px; }
+}
+
+/* ---------- phones (M1–M5): header · 36 px rail · ticker · full-width frame (to the bottom) · CTA bar at delivery ---------- */
+@media (max-width: 760px) {
+  :root { --jr-mFrameH: max(360px, calc(100svh - 158px - 18px - env(safe-area-inset-bottom))); }
+  .top-nav + .jr-restart { margin-left: auto; }
+  .depth-m { margin-left: auto; }
+  .jr-restart:not([hidden]) + .depth-m { margin-left: 10px; }
+  .jr-restart { min-height: 40px; padding: 0 12px; }
+  .jr-band { display: none !important; }
+  html.jr-on .top { padding-top: 4px; padding-bottom: 4px; }
+  html.jr-on .top::before { inset: 0; background: #01080a; border-bottom: 1px solid var(--line); }
+  /* M2: while the spec sheet is up, the band above it shows "< _ [>]" — nothing else in front of it */
+  body:has(#st-sheet:not([hidden])) #ticker { display: none; }
+  #rail.jr-rail { left: 12px; right: 12px; top: 56px; width: auto; min-height: 46px; transform: none; padding: 0 0 0 12px; border-radius: 12px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 8px; align-items: center; }
+  #rail.jr-rail .st-rail-ol { grid-column: 1; grid-row: 1; gap: 4px; }
+  #rail.jr-rail .st-rail-now { grid-column: 1; grid-row: 2; margin-top: 6px; }
+  #rail.jr-rail .st-rail-arc { display: none; }
+  #rail.jr-rail .st-rail-foot { grid-column: 2; grid-row: 1 / span 2; display: flex; margin: 0; padding: 0; gap: 6px; flex-wrap: nowrap; }
+  #rail.jr-rail .st-depth { display: none !important; }
+  #rail.jr-rail .st-ff { min-height: 44px; padding: 0 10px; }
+  .jr-ticker { position: fixed; z-index: 66; left: 12px; right: 12px; top: 106px; }
+  html.jr-on #bench { left: 12px; right: 12px; width: auto; top: 158px; height: var(--jr-mFrameH); }
+  html.jr-handoff #bench { height: max(300px, calc(100svh - 158px - 330px)); }
+  html.jr-on #gate { left: 12px; right: 12px; width: auto; }
+  html.jr-on #convo { display: none; }
+  html.jr-on.jr-logsheet #convo { display: flex; position: fixed; z-index: 88; left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 72vh; height: 72svh; max-height: none;
+    padding: 64px 16px calc(20px + env(safe-area-inset-bottom)); background: #041114; border-top: 1px solid var(--line2); border-radius: 20px 20px 0 0; box-shadow: 0 -30px 80px rgba(0,0,0,.7);
+    overflow-y: auto; overscroll-behavior: contain; opacity: 1; pointer-events: auto; justify-content: flex-start; }
+  .jr-logclose { position: fixed; z-index: 89; right: 16px; bottom: calc(72svh - 56px); min-width: 64px; min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line2); background: #041114; color: var(--ink2); font: 500 12px var(--mono); cursor: pointer; }
+  html.jr-deep .st-sheet-scrim { background: rgba(1,5,7,.3); }
+  /* delivery (M5): the page flows — frame, then the ship card below it; the sticky CTA bar */
+  html.jr-flow #page { display: none; }
+  html.jr-flow #bench { position: absolute; }
+  html.jr-on #ship { position: absolute; z-index: 45; left: 12px; right: 12px; top: calc(158px + var(--jr-mFrameH) + 14px); padding-bottom: 104px; }
+  html.jr-handoff #ship { top: calc(158px + max(300px, calc(100svh - 158px - 330px)) + 14px); }
+  /* toasts clear the sticky CTA bar */
+  #toast { bottom: calc(28px + env(safe-area-inset-bottom)); }
+  html.jr-on #toast { bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .jr-page { left: 12px; right: 12px; width: auto; top: 64px; max-height: calc(100svh - 64px - 16px); padding: 18px 16px 18px; }
+  .jr-opts { grid-template-columns: 1fr; }
+  .jr-opts--when { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .jr-page-h { font-size: 21px; }
+  .jr-page-ai { grid-template-columns: 1fr; gap: 4px; }
+  .jr-dl > div, .jr-track li { grid-template-columns: 82px minmax(0, 1fr); }
+  .jr-svcgrid { grid-template-columns: 1fr; }
+  .jr-page-acts--two { grid-template-columns: 1fr; }
+}
+@media (min-width: 761px) { .jr-ticker, .jr-logclose { display: none !important; } }
+
+/* ---------- poster / calm: B's gradient, swapped by depth (no WebGL) ---------- */
+html.nogl[data-zone="lantern"] .nogl-bg { background: radial-gradient(36% 30% at 64% 30%, rgba(16,196,190,.16), transparent 70%), radial-gradient(70% 30% at 50% -10%, rgba(150,232,228,.10), transparent 70%), linear-gradient(180deg, #06262c 0%, #03161a 40%, #020b0e 100%); }
+html.nogl[data-zone="deep"] .nogl-bg { background: radial-gradient(55% 40% at 62% 60%, rgba(16,196,190,.09), transparent 70%), linear-gradient(180deg, #020a0d 0%, #01070a 60%, #010406 100%); }
+html.nogl[data-zone="home"] .nogl-bg { background: radial-gradient(90% 44% at 60% -8%, rgba(244,215,184,.20), transparent 70%), radial-gradient(90% 38% at 50% -6%, rgba(150,232,228,.22), transparent 70%), linear-gradient(180deg, #0c2e33 0%, #051b20 30%, #020d11 64%, #010507 100%); }
+
+/* ---------- reduced motion: ≤200 ms opacity only ---------- */
+html.rm .jr-band, html.rm #rail.jr-rail, html.rm .jr-page, html.rm.jr-on #bench { transition: opacity .18s !important; animation: none !important; }
+html.rm .jr-page { transform: none !important; }
+html.rm #bench.jr-shrink { transform: none !important; }
+html.rm .st-hl, html.rm .st-pinbox, html.rm .st-pin, html.rm .st-scan, html.rm .st-state { transition-duration: .18s !important; }

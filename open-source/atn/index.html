@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agent Turn Network · Agent deliberation · AI Agent · 루트커널</title>
+<meta name="description" content="Agent Turn Network · Agent deliberation — 여러 AI Agent의 논의 진행 상태와 기록을 관리합니다.">
+<link rel="canonical" href="https://home.rootkernel.xyz/open-source/atn/"><meta property="og:type" content="website"><meta property="og:site_name" content="루트커널 Root Kernel"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="Agent Turn Network · Agent deliberation · AI Agent · 루트커널"><meta property="og:description" content="Agent Turn Network · Agent deliberation — 여러 AI Agent의 논의 진행 상태와 기록을 관리합니다."><meta property="og:url" content="https://home.rootkernel.xyz/open-source/atn/"><meta property="og:image" content="https://home.rootkernel.xyz/og-root-kernel.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Root Kernel"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Agent Turn Network · Agent deliberation · AI Agent · 루트커널"><meta name="twitter:description" content="Agent Turn Network · Agent deliberation — 여러 AI Agent의 논의 진행 상태와 기록을 관리합니다."><meta name="twitter:image" content="https://home.rootkernel.xyz/og-root-kernel.png">
+<meta name="theme-color" content="#01080a">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>document.documentElement.classList.replace('nojs', 'js');</script>
+<link rel="stylesheet" href="/css/base.css?v=cfb647b9bfd4">
+<link rel="stylesheet" href="/css/journey.css?v=cfb647b9bfd4">
+<link rel="stylesheet" href="/css/studio.css?v=cfb647b9bfd4" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/strengths.css?v=cfb647b9bfd4" media="print" onload="this.media='all'">
+<script type="importmap">{"imports":{"three":"/vendor/three.module.min.js?v=08fd7545d13d"}}</script>
+<link rel="modulepreload" href="/js/core.js?v=cfb647b9bfd4">
+<script type="module" src="/js/main.js?v=cfb647b9bfd4"></script>
+</head>
+<body>
+<div class="nogl-bg" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="scrim" id="scrim" aria-hidden="true"></div>
+<div class="scrim-b" id="scrimB" aria-hidden="true"></div>
+
+<header class="top" id="hdr">
+  <a class="brand" href="/" data-go="0" aria-label="루트커널 홈">
+    <svg viewBox="-6 -6 194.5 71" aria-hidden="true"><path fill="#10C4BE" d="M39.5,0 L0,24 L0,33 L39.5,57 L39.5,44 L14,28.5 L39.5,13 Z"/><rect x="66" y="50" width="52" height="9" fill="#10C4BE"/><path fill="#EDE9E7" d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg>
+    <span class="brand-name">루트커널</span>
+  </a>
+  <nav class="top-nav" aria-label="외부 링크">
+    <a href="https://github.com/irootkernel" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:cs@rootkernel.xyz?subject=%5B%EB%A3%A8%ED%8A%B8%EC%BB%A4%EB%84%90%20%EB%AC%B8%EC%9D%98%5D">cs@rootkernel.xyz</a>
+  </nav>
+  <button type="button" class="jr-restart" id="restart" hidden>처음부터</button>
+  <div class="depth-m" aria-hidden="true"><span id="depthM">0 m</span></div>
+</header>
+
+<!-- depth gauge: top is above the surface, then 0 m and down (order = reading order) -->
+<aside class="gauge" id="gauge" aria-label="Depth">
+  <div class="g-track"></div>
+  <div class="g-surf" aria-hidden="true"></div>
+  <button type="button" class="g-tick up" data-go="4" style="top:0%"><span class="g-n">Products · above surface</span></button>
+  <button type="button" class="g-tick" data-go="0" style="top:25%"><span class="g-n">Company · 0 m</span></button>
+  <button type="button" class="g-tick" data-go="1" style="top:50%"><span class="g-n">Services · −200 m</span></button>
+  <button type="button" class="g-tick" data-go="2" style="top:75%"><span class="g-n">Open source · −4,000 m</span></button>
+  <button type="button" class="g-tick" data-go="3" style="top:100%"><span class="g-n">Kernel · −10,935 m</span></button>
+  <div class="g-marker" id="gMarker" aria-hidden="true"><span class="g-read"><span class="g-num"><span id="depthNow">0</span><i> m</i></span><span class="g-lay" id="gName">Company</span></span></div>
+</aside>
+<div id="rail" class="rail" hidden inert></div>
+
+<main id="page">
+  <section id="l0" class="layer layer-0" aria-labelledby="hHero" data-depth="0">
+    <div class="hero">
+      <svg class="nogl-logo" viewBox="-6 -6 194.5 71" aria-hidden="true"><path fill="#10C4BE" d="M39.5,0 L0,24 L0,33 L39.5,57 L39.5,44 L14,28.5 L39.5,13 Z"/><rect x="66" y="50" width="52" height="9" fill="#10C4BE"/><path fill="#EDE9E7" d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg>
+      <!-- the H1's lines = COMPANY.identityLines (main.js fills each .ln; the intro reveals them in turn) -->
+      <h1 class="hero-title" id="hHero"><span class="ln">AI를 제어하는 기술로</span><span class="ln">SW를 만듭니다.</span></h1>
+      <!-- the founding principle (COMPANY.principle): fades in with the H1's last line (base.css, no intro.js hook) -->
+      <p class="hero-sub" data-c="principle">Deterministic한 작업은 Tool이, 판단이 필요한 작업은 AI가, 중요한 결정은 사람이 합니다.</p>
+      <!-- the AI asks; the visitor answers with a tap (no typing anywhere on the site). No JS: the chips are plain links. -->
+      <div class="pick" id="pick">
+        <h2 class="pick-q" id="pickQ"><span data-c="ask">어떤 지원이 필요하신가요?</span><i class="pick-cur" id="pickCur" aria-hidden="true"></i></h2>
+        <div class="pick-list" id="pickList" role="group" aria-labelledby="pickQ">
+          <a class="pick-c" href="/services/web-app/" data-svc="web" aria-label="제품 — 고객용 웹 서비스·모바일 앱"><i class="orb" aria-hidden="true"></i><span class="pick-t">제품</span><span class="pick-e"><span class="pick-x">고객용 웹 서비스·모바일 앱</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+          <a class="pick-c" href="/services/erp/" data-svc="erp" aria-label="사내 시스템 — 업무 시스템·전사 ERP"><i class="orb" aria-hidden="true"></i><span class="pick-t">사내 시스템</span><span class="pick-e"><span class="pick-x">업무 시스템·전사 ERP</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+          <a class="pick-c" href="/services/ax/" data-svc="ax" aria-label="AI — AI Agent·AI Harness 도입"><i class="orb" aria-hidden="true"></i><span class="pick-t">AI</span><span class="pick-e"><span class="pick-x">AI Agent·AI Harness 도입</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+        </div>
+        <a class="pick-other" href="/contact/" data-kind="etc"><span data-c="pickOther">다른 문의가 있으신가요?</span><span class="pick-arr" aria-hidden="true">→</span></a>
+        <a class="btn-warm nojs-cta" href="mailto:cs@rootkernel.xyz?subject=%5B%EB%A3%A8%ED%8A%B8%EC%BB%A4%EB%84%90%20%EB%AC%B8%EC%9D%98%5D">cs@rootkernel.xyz로 상담 신청하기</a>
+      </div>
+    </div>
+    <div class="hero-foot" id="heroFoot">
+      <p class="founder"><span class="mono" data-c="founder">대표 정영훈 · 개발 경력 15년 이상 · 컴퓨터공학 석사 · LG전자 Linux Kernel · SAP Labs Korea SAP HANA</span></p>
+      <p class="cue" aria-hidden="true"><i></i>Scroll to dive</p>
+    </div>
+  </section>
+
+  <section id="l1" class="layer layer-1" aria-labelledby="h1s" data-depth="200">
+    <div class="layer-in">
+      <p class="eyebrow rv"><b>−200 m</b>&nbsp;· Services</p>
+      <h2 class="h2 rv" id="h1s" data-c="svcHook">From intent to execution.</h2>
+      <p class="lede rv"><b>루트커널은 다음의 서비스를 제공합니다.</b></p>
+      <!-- each row opens its service page (/services/<slug>/); the demo starts from there (시연 보기) or from the chips -->
+      <ul class="svc rv rv-t">
+        <li><a href="/services/web-app/" data-svc="web"><span class="n">01</span><span><span class="a">제품</span><span class="t">웹/앱 서비스 개발</span><span class="d">고객이 직접 쓰는 B2C·B2B 웹 서비스와 모바일 앱을 만듭니다.</span></span><span class="go" aria-hidden="true">→</span></a></li>
+        <li><a href="/services/erp/" data-svc="erp"><span class="n">02</span><span><span class="a">사내 시스템</span><span class="t">맞춤형 ERP 개발</span><span class="d">회사의 업무 흐름과 데이터에 맞춘 업무 시스템과 ERP를 설계하고, Cloud·DB 인프라까지 구축합니다.</span></span><span class="go" aria-hidden="true">→</span></a></li>
+        <li><a href="/services/ax/" data-svc="ax"><span class="n">03</span><span><span class="a">AI</span><span class="t">AI 전환(AX) 구축</span><span class="d">업무에는 AI Agent를, 개발팀에는 AI Harness를 도입합니다.</span></span><span class="go" aria-hidden="true">→</span></a></li>
+      </ul>
+      <p class="ops rv" data-c="ops">세 가지 모두 만든 뒤 운영·유지보수까지 함께합니다.</p>
+    </div>
+  </section>
+
+  <section id="l2" class="layer layer-2" aria-labelledby="h2s" data-depth="4000">
+    <div class="layer-in">
+      <p class="eyebrow rv"><b>−4,000 m</b>&nbsp;· Open source</p>
+      <h2 class="h2 rv" id="h2s">AI Harness &amp; AI Agent.</h2>
+      <p class="lede rv">루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다.</p>
+      <!-- two branches (founder docs: AI Harness · AI Agent · 제품): Agent Dispatch and Agent Turn Network are not Aquarium tools -->
+      <div class="tgroup rv rv-t" data-branch="harness">
+        <h3 class="tg-h">AI Harness <span>· Aquarium</span></h3>
+        <p class="tg-d">AI Agent에게 SW 개발을 맡기는 동안 쓰는 도구입니다. Deterministic한 작업은 CLI·MCP Tool로 만들어 AI와 분리했습니다. Test는 Gaori, Code review는 Mulgae, 작업 절차는 Podway가 맡습니다. 최종 승인은 사람이 합니다.</p>
+        <p class="tagline"><b>Aquarium</b> — Software engineering with AI Fleets, not vibe coding.</p>
+        <ul class="tools" id="toolList">
+          <li><button type="button" class="tool" data-tool="aquarium"><span class="tn">Aquarium</span><span class="tk">AI Harness · 0.1.17</span></button></li>
+          <li><button type="button" class="tool" data-tool="podway"><span class="tn">Podway</span><span class="tk">Procedure control · 0.2.11</span></button></li>
+          <li><button type="button" class="tool" data-tool="gaori"><span class="tn">Gaori<i>가오리</i></span><span class="tk">Test evidence · 0.1.17</span></button></li>
+          <li><button type="button" class="tool" data-tool="mulgae"><span class="tn">Mulgae<i>물개</i></span><span class="tk">Multi-model review · 0.1.23</span></button></li>
+          <li><button type="button" class="tool" data-tool="sanho"><span class="tn">Sanho<i>산호</i></span><span class="tk">Doc sync · 0.2.8</span></button></li>
+          <li><button type="button" class="tool" data-tool="sorage"><span class="tn">Sorage<i>소라게</i></span><span class="tk">Cross-session review · 0.1.1</span></button></li>
+          <li><button type="button" class="tool" data-tool="dolgorae"><span class="tn">Dolgorae<i>돌고래</i></span><span class="tk">Codex run control · 0.1.2</span></button></li>
+        </ul>
+      </div>
+      <div class="tgroup rv rv-t" data-branch="agent">
+        <h3 class="tg-h">AI Agent</h3>
+        <p class="tg-d">Agent를 실행하고, 심의하고, 전달하는 계층입니다. Agent Turn Network가 여러 Agent의 위임과 심의를 기록하고, Agent Dispatch가 파일 변경을 작업과 영수증으로 바꿔 내보냅니다.</p>
+        <ul class="tools" id="toolList2">
+          <li><button type="button" class="tool" data-tool="dispatch"><span class="tn">Agent Dispatch</span><span class="tk">File → work · 0.1.8</span></button></li>
+          <li><button type="button" class="tool" data-tool="atn"><span class="tn">Agent Turn Network</span><span class="tk">Agent deliberation</span></button></li>
+        </ul>
+      </div>
+      <p class="hint rv" id="pickHint">도구를 누르면 역할과 GitHub 저장소를 볼 수 있습니다.</p>
+      <div class="evid rv" id="evid">
+        <h3>Release checks</h3>
+        <p><b>Podway 0.2.11</b> — release qa · 21/21 passed</p>
+        <p><b>Aquarium 0.1.17</b> — scenarios · 46 passed</p>
+        <p><b>Gaori 0.1.17</b> — 1 fix · re-run passed</p>
+        <p><b>Agent Dispatch 0.1.8</b> — release build ×2 · byte-identical</p>
+      </div>
+      <a class="gh rv rv-t" href="https://github.com/irootkernel" target="_blank" rel="noopener">github.com/irootkernel <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section id="l3" class="layer layer-k" aria-labelledby="h3s" data-depth="10935">
+    <div class="layer-in">
+      <p class="eyebrow rv"><b>−10,935 m</b>&nbsp;· Kernel</p>
+      <h2 class="h2 rv" id="h3s">Deterministic → Tools.<br>Non-deterministic → AI.</h2>
+      <p class="lede rv"><b>모든 일을 AI에게 맡기지 않습니다.</b>같은 입력에 늘 같은 결과가 나와야 하는 Deterministic한 작업은 CLI·MCP Tool로 만들어 실행하고, 판단과 생성이 필요한 Non-deterministic한 작업만 AI/LLM에게 맡깁니다.</p>
+      <p class="lede rv">프로그래밍과 AI/LLM 사이의 최적의 균형. Aquarium과 루트커널은 여기서 출발했습니다.</p>
+      <!-- the founding principle as two columns (stacked on phones) -->
+      <div class="split rv">
+        <div class="split-c">
+          <p class="split-h"><b>Deterministic</b> · CLI / MCP Tool</p>
+          <p class="split-w">Test 실행 · 작업 절차와 상태 기록 · 작업 전달 · 문서 동기화</p>
+          <p class="split-t">Gaori · Podway · Agent Dispatch · Sanho</p>
+        </div>
+        <div class="split-c ai">
+          <p class="split-h"><b>Non-deterministic</b> · AI / LLM</p>
+          <p class="split-w">Spec 초안 · 코드 작성 · Code review</p>
+          <p class="split-t">AI Agent · Mulgae</p>
+        </div>
+      </div>
+      <p class="spark rv">AI-SPARK와 Podway는 이 경계를 지키는 기술입니다. 승인된 Spec이 코드와 배포, 상태 전이와 작업 절차의 기준이 됩니다.</p>
+      <p class="spark rv"><b>AI-SPARK</b> — 승인된 Spec으로 서버 개발을 제어합니다.<br><span class="mono" data-c="spark">AI-SPARK 국내 특허 출원(2026.04)</span></p>
+      <ul class="record rv" id="record" aria-label="Timeline">
+        <li><span class="mono">2026.01</span><span>Sudal 및 AI-SPARK 개발 착수</span></li>
+        <li><span class="mono">2026.02</span><span>서울50플러스재단 사무실 지원 사업 선정</span></li>
+        <li><span class="mono">2026.04</span><span>AI-SPARK 국내 특허 출원</span></li>
+        <li><span class="mono">2026.06</span><span>루트커널 설립</span></li>
+        <li><span class="mono">2026.07</span><span>Ember Quest · 게임제작환경 AX 지원사업 2차 선정</span></li>
+        <li><span class="mono">2026.08–12</span><span>국내 금융권 기업뱅킹 고도화 Project 참여</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="l4" class="layer layer-p" aria-labelledby="h4s" data-depth="-40">
+    <div class="layer-in">
+      <p class="eyebrow up rv"><b>Above surface</b>&nbsp;· Products</p>
+      <h2 class="h2 rv" id="h4s" data-c="prodHead">Three products.<br>One shared root.</h2>
+      <p class="lede rv" data-c="prodLede">제품에서 발견한 문제로 기술을 발전시키고, 개선한 기술을 다시 제품에 적용합니다.</p>
+      <!-- one row per content.js PRODUCTS entry: name · status, mono tag (+ badge), lead, one sentence -->
+      <ul class="prod rv" id="prodList">
+        <li data-prod="sudal"><span class="t">Sudal</span><span class="k">B2C · runs on AI-SPARK session runtime</span><span class="d">대화가 시작되는 실시간 밸런스 게임</span><span class="x">QR 코드나 초대 링크로 각자의 기기에서 참여하고, 연결이 잠시 끊겨도 다시 들어와 게임을 이어갑니다.</span><span class="s">In development</span></li>
+        <li data-prod="doksuri"><span class="t">Doksuri</span><span class="k">B2B · Markdown-native · two-way sync</span><span class="d">사람과 AI가 함께 일하는 Project 관리 도구</span><span class="x">AI는 Markdown 파일의 문맥을 읽고 고치며, 서버와 맞춰야 하는 작업은 CLI로 처리합니다. 중요한 변경은 사람이 승인합니다.</span><span class="s">In development</span></li>
+        <li data-prod="ember-quest"><span class="t">Ember Quest</span><span class="k">Game · Deterministic core<em>2026 AX 지원사업 선정</em></span><span class="d">불씨로 길을 여는 물리 퍼즐 RPG</span><span class="x">30Hz 고정 tick의 Deterministic core 위에서 움직여, 같은 명령을 넣으면 기기가 달라도 같은 결과가 나옵니다.</span><span class="s">In development</span></li>
+      </ul>
+    </div>
+    <div class="final-wrap">
+      <div class="final rv rv-t">
+        <h2 class="h2" id="finalQ" data-c="ask">어떤 지원이 필요하신가요?</h2>
+        <div class="pick-list pick-list--final" role="group" aria-labelledby="finalQ">
+          <a class="pick-c" href="/services/web-app/" data-svc="web" aria-label="제품 — 고객용 웹 서비스·모바일 앱"><i class="orb" aria-hidden="true"></i><span class="pick-t">제품</span><span class="pick-e"><span class="pick-x">고객용 웹 서비스·모바일 앱</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+          <a class="pick-c" href="/services/erp/" data-svc="erp" aria-label="사내 시스템 — 업무 시스템·전사 ERP"><i class="orb" aria-hidden="true"></i><span class="pick-t">사내 시스템</span><span class="pick-e"><span class="pick-x">업무 시스템·전사 ERP</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+          <a class="pick-c" href="/services/ax/" data-svc="ax" aria-label="AI — AI Agent·AI Harness 도입"><i class="orb" aria-hidden="true"></i><span class="pick-t">AI</span><span class="pick-e"><span class="pick-x">AI Agent·AI Harness 도입</span></span><svg class="pick-go" viewBox="144 0 38.5 57" aria-hidden="true" focusable="false"><path d="M144,0 L182.5,24 L182.5,33 L144,57 L144,44 L169.5,28.5 L144,13 Z"/></svg></a>
+        </div>
+        <a class="pick-other" href="/contact/" data-kind="etc"><span data-c="pickOther">다른 문의가 있으신가요?</span><span class="pick-arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="foot">루트커널 Root Kernel · 2026 · <a href="mailto:cs@rootkernel.xyz?subject=%5B%EB%A3%A8%ED%8A%B8%EC%BB%A4%EB%84%90%20%EB%AC%B8%EC%9D%98%5D">cs@rootkernel.xyz</a></p>
+    </div>
+  </section>
+</main>
+
+<div id="jrBand" class="jr-band" aria-hidden="true" hidden inert></div>
+<section class="convo" id="convo" aria-label="대화 기록"></section>
+<button type="button" id="ticker" class="jr-ticker" hidden></button>
+<button type="button" id="logClose" class="jr-logclose" hidden>닫기</button>
+
+<div class="labels" id="labels" aria-hidden="true"></div>
+<svg class="leader" id="leader" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="0"/></svg>
+<div class="hover-tag" id="hoverTag" aria-hidden="true"></div>
+
+<!-- route panels: /company/ · /contact/ · /build/ (opaque; the page underneath goes inert) -->
+<section id="pagePanel" class="jr-page" hidden inert></section>
+<!-- /services/<slug>/: the area's strength scene over the live world, then its details (js/strengths/scene.js) -->
+<section id="svcScene" class="sx" role="region" hidden inert>
+  <div class="sx-scroll" tabindex="-1"><div class="sx-stage"></div><div class="sx-details" id="svcDetails"></div></div>
+  <button type="button" class="sx-x" aria-label="닫기"><span aria-hidden="true">×</span></button>
+</section>
+
+<!-- journey / studio hosts (CONTRACT §2). Every overlay starts hidden + inert. -->
+<div id="bench" class="bench" hidden inert></div>
+<div id="specHost" hidden inert></div>
+<div id="gate" hidden inert></div>
+<div id="ship" hidden inert></div>
+<aside id="dev" aria-label="개발자 보기" hidden inert></aside>
+<div id="live" class="sr-only" aria-live="polite"></div>
+<div id="toast" hidden inert></div>
+
+<div class="card" id="card" role="dialog" aria-modal="false" aria-labelledby="cardName" hidden inert>
+  <button type="button" class="card-x" id="cardX" aria-label="닫기">×</button>
+  <div class="card-h"><p class="card-n" id="cardName"></p><span class="card-ko" id="cardKo"></span></div>
+  <p class="card-v" id="cardV"></p>
+  <p class="card-r" id="cardR"></p>
+  <p class="card-q" id="cardQ"></p>
+  <a class="card-a" id="cardA" href="https://github.com/irootkernel" target="_blank" rel="noopener">GitHub에서 보기 <span aria-hidden="true">↗</span></a>
+</div>
+</body>
+</html>
