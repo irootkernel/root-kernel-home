@@ -12,11 +12,11 @@
 //     area's scene over the live world at the scene's own depth (SCENE_LAYER).
 //  English pages (DECISIONS 4-21) live under /en/ with the same slugs and no demo: the other language's paths are not
 //  routes here, so following one (the EN / KO switch) loads that language's shell.
-import { $, $$, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=57f526fdc266';
-import * as TEXT from './text.js?v=57f526fdc266';
-import { SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT } from './text.js?v=57f526fdc266';
-import { BASE, href, counterpart } from './lang.js?v=57f526fdc266';
-import { travelSeconds } from './journey/director.js?v=57f526fdc266';
+import { $, $$, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=7797e944718b';
+import * as TEXT from './text.js?v=7797e944718b';
+import { SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT } from './text.js?v=7797e944718b';
+import { BASE, href, counterpart } from './lang.js?v=7797e944718b';
+import { travelSeconds } from './journey/director.js?v=7797e944718b';
 
 /* =========================================================================
    1. intent
@@ -267,7 +267,7 @@ export function createNav(env) {
     document.documentElement.classList.add('lock');
     if (state.mode === 'explore' || state.mode === 'intro') state.mode = 'panel';
     warm(page.layer === 0);
-    import('./journey/pages.js?v=57f526fdc266').then((M) => {
+    import('./journey/pages.js?v=7797e944718b').then((M) => {
       if (panelPage !== page) return;
       panel.innerHTML = M.panelHTML(page);
       panel.setAttribute('aria-labelledby', 'pageH');
@@ -295,7 +295,7 @@ export function createNav(env) {
   /* ---------- the strength scenes (a service page is its area's scene; details and demos below it) ---------- */
   let scenePage = null, sceneP = null, sceneBack = null;
   const sceneHost = $('#svcScene');
-  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=57f526fdc266').then((M) => M.createScene({
+  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=7797e944718b').then((M) => M.createScene({
     el: sceneHost, ensureJourney: env.ensureJourney, go,
     // × and Esc: back to where the visitor chose the area (the first screen, −200 m, the final question)
     onClose: () => go(sceneBack || LAYER_PATH[1]),

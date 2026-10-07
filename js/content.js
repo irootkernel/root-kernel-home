@@ -122,11 +122,19 @@ export const PROCEDURE = [
 // tools carry a Korean name (their literal meaning). Podway, Agent Dispatch, Agent Turn Network and Aquarium
 // are English-only (founder decision); they show their English tag instead. `license: null` means no LICENSE
 // file was found; do not print "MIT" for those.
+// Aquarium comes in two editions shown side by side, Codex and Claude Code (founder, 2026-10-08: Aquarium for
+// Claude as prominent as Aquarium): `host` names the edition on the tool list's second line, in place of the tag.
+// `install`, when nothing else fills the card's last line, shows how to install it.
 export const TOOLS = {
   aquarium: {
-    name: 'Aquarium', ko: '', tag: 'AI Harness', ver: '0.1.17', lang: 'Codex plugin', license: 'MIT', repo: 'aquarium',
+    name: 'Aquarium', ko: '', tag: 'AI Harness', host: 'Codex', ver: '0.1.18', lang: 'Codex plugin', license: 'MIT', repo: 'aquarium',
     role: '여러 Tool을 한 작업 흐름으로 묶는 AI Harness입니다. 계획을 승인하기 전에는 아무것도 바꾸지 않습니다.',
     quote: 'Software engineering with AI Fleets, not vibe coding.',
+  },
+  'aquarium-for-claude': {
+    name: 'Aquarium for Claude', ko: '', tag: 'AI Harness', host: 'Claude Code', ver: '0.1.17', lang: 'Claude Code plugin', license: 'MIT', repo: 'aquarium-for-claude',
+    role: 'Aquarium을 Claude Code 플러그인으로 만든 판입니다. 모든 작업의 상태를 기록하고, 완료하려면 검증된 증거가 있어야 하며, 중요한 실행은 사람의 승인을 기다립니다.',
+    install: 'claude plugin marketplace add irootkernel/aquarium-for-claude\nclaude plugin install aquarium@aquarium-for-claude',
   },
   podway: {
     name: 'Podway', ko: '', tag: 'Procedure control', ver: '0.2.11', lang: 'Rust', license: 'MIT', repo: 'podway',
@@ -166,7 +174,7 @@ export const TOOLS = {
     role: '여러 AI Agent의 논의 진행 상태와 기록을 관리합니다.',
   },
 };
-export const TOOL_ORDER = ['aquarium', 'podway', 'gaori', 'mulgae', 'sanho', 'sorage', 'dolgorae', 'dispatch', 'atn'];
+export const TOOL_ORDER = ['aquarium', 'aquarium-for-claude', 'podway', 'gaori', 'mulgae', 'sanho', 'sorage', 'dolgorae', 'dispatch', 'atn'];
 // Display helpers: "Gaori · 가오리", "Podway · Procedure control". Never produces "undefined".
 export const toolSub = (id) => TOOLS[id].ko || TOOLS[id].tag;
 export const toolLabel = (id) => [TOOLS[id].name, toolSub(id)].filter(Boolean).join(' · ');
@@ -288,7 +296,7 @@ export const DEMOS = true;
 export const META = {
   services: '루트커널은 다음의 서비스를 제공합니다',   // + ": " + the three service names + ". " + COPY.opsNote
   build: '서비스를 고르시면 Spec부터 시안까지 약 1분짜리 시연으로 보여 드립니다.',
-  openSource: '루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다. AI Harness는 Aquarium을 중심으로 Test·Code review·작업 절차를 맡고, AI Agent는 Agent를 실행하고 심의하고 전달합니다.',
+  openSource: '루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다. AI Harness는 Aquarium(Codex·Claude Code)을 중심으로 Test·Code review·작업 절차를 맡고, AI Agent는 Agent를 실행하고 심의하고 전달합니다.',
   kernel: '모든 일을 AI에게 맡기지 않습니다. Deterministic한 작업은 CLI·MCP Tool로 실행하고, 판단과 생성이 필요한 Non-deterministic한 작업만 AI/LLM에게 맡깁니다.',   // + " " + AI_SPARK + "."
   products: 'Sudal · Doksuri · Ember Quest. 루트커널이 직접 만드는 제품입니다. 모두 개발 중입니다.',
   contactTitle: '문의',

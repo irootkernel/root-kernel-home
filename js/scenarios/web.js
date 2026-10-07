@@ -4,8 +4,8 @@
 // draw → colour), fails the 390 px phone check once (menu name · price · stepper overlap), is reworked, and
 // after delivery really works inside the iframe (no network: the order number is local).
 // Taps only (founder, 2026-09-28): −/+ steppers, slot chips, 주문하기; the orderer is a read-only example.
-import { COPY, HOMEPAGE_NOTE, gateSubAt } from '../content.js?v=57f526fdc266';
-import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=57f526fdc266';
+import { COPY, HOMEPAGE_NOTE, gateSubAt } from '../content.js?v=7797e944718b';
+import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=7797e944718b';
 
 /* ---------- closest example (the router decides; this is only the fallback without one) ---------- */
 const BIZ = ['치과', '병원', '한의원', '미용실', '꽃집', '공방', '학원', '헬스장', '필라테스', '펜션', '쇼핑몰', '카페', '식당'];

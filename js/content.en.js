@@ -6,7 +6,7 @@
 // "15+ years"; AI-SPARK is a patent application, never granted; the financial client is only "a Korean
 // financial institution"; no solo-company or headcount wording and no numbers to boast; the tools are public on
 // GitHub, never "all open source".
-import * as KO from './content.js?v=57f526fdc266';
+import * as KO from './content.js?v=7797e944718b';
 
 export const { MAIL, GITHUB, repoUrl, LOGO, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOL_ORDER, RELEASES } = KO;
 export const DEMOS = false;
@@ -81,6 +81,7 @@ export const SVC = {
 const tool = (id, role) => ({ ...KO.TOOLS[id], ko: '', role });
 export const TOOLS = {
   aquarium: tool('aquarium', 'An AI Harness that ties many Tools into one workflow. It changes nothing until the plan is approved.'),
+  'aquarium-for-claude': tool('aquarium-for-claude', 'Aquarium as a Claude Code plugin. Every task keeps a tracked state, completion needs verified evidence, and consequential actions wait for a person to approve them.'),
   podway: tool('podway', 'Records the state of work as an FSM procedure with Gates and rework paths. It does not run checks itself.'),
   gaori: tool('gaori', 'Runs test commands, keeps the raw logs and returns the failure evidence. The exit code decides pass or fail.'),
   mulgae: tool('mulgae', 'Hands code review to several AI models. Its findings are advice only, with no authority to approve.'),
@@ -149,7 +150,7 @@ export const COPY = {
 
 export const META = {
   services: 'Root Kernel offers three services',
-  openSource: 'Tools Root Kernel builds and uses itself, all public on GitHub. The AI Harness, Aquarium, covers testing, code review and procedure; the AI Agent tools run, deliberate and dispatch Agents.',
+  openSource: 'Tools Root Kernel builds and uses itself, all public on GitHub. The AI Harness, Aquarium for Codex and Claude Code, covers testing, code review and procedure; the AI Agent tools run, deliberate and dispatch Agents.',
   kernel: 'We do not hand everything to AI. Deterministic work runs as CLI and MCP Tools, and only Non-deterministic work that needs judgment and generation goes to AI/LLMs.',
   products: 'Sudal · Doksuri · Ember Quest. Products Root Kernel builds itself, all in development.',
   contactTitle: 'Contact',

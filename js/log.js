@@ -3,8 +3,8 @@
 // Messages are never deleted: older ones fold behind an "이전 기록 N줄" toggle.
 // Every delay goes through the caller's Run (core.js), so Esc / restart cancel cleanly.
 
-import { mk, rnd, rand, REDUCED, isNarrow } from './core.js?v=57f526fdc266';
-import { SPEAKER } from './content.js?v=57f526fdc266';
+import { mk, rnd, rand, REDUCED, isNarrow } from './core.js?v=7797e944718b';
+import { SPEAKER } from './content.js?v=7797e944718b';
 
 /* ---------- streaming ---------- */
 

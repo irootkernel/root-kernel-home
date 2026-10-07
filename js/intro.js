@@ -6,7 +6,7 @@
 // The AI asks "어떤 지원이 필요하신가요?" and the logo's "_" is its cursor: on desktop the particle logo's bar flies to
 // the end of the question line (U.caretScreen) and the DOM cursor lights up where it lands. There is no typing
 // anywhere on the site (founder, 2026-09-28): the visitor answers with one of the chips.
-import { clamp, ease, Run, isCancel } from './core.js?v=57f526fdc266';
+import { clamp, ease, Run, isCancel } from './core.js?v=7797e944718b';
 
 const LOGO_DEADLINE = 0.95;   // s after navigation start
 

@@ -2,8 +2,8 @@
 // line (2379–2458). Changes from B: names come from content.js (Podway / Agent Dispatch / Agent Turn
 // Network / Aquarium are English-only), the card is hidden+inert while closed (B left it focusable at
 // opacity 0), and the product lights above the surface get one quiet label at a time.
-import { $, $$, clamp } from '../core.js?v=57f526fdc266';
-import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS, UI } from '../text.js?v=57f526fdc266';
+import { $, $$, clamp } from '../core.js?v=7797e944718b';
+import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS, UI } from '../text.js?v=7797e944718b';
 
 // CONTRACT §2 overlay rule. Show: remove hidden → inert=false → next frame .show.
 // Hide: inert=true at once → remove .show → hidden after the transition.
@@ -72,6 +72,7 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
     if (T.quote) return `“${T.quote}”`;
     if (T.limit) return `Known limits — “${T.limit}”`;
     if (T.roles) return T.roles.join(' · ');
+    if (T.install) return T.install;
     const r = RELEASES.find(x => x.tool === key);
     return r ? r.text : '';
   };
@@ -110,6 +111,8 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
   }
   function highlight(key, v) {
     const W = getWorld(); if (!W) return;
+    // either Aquarium edition is the whole harness: every tool lights with it
+    if (key === 'aquarium-for-claude') key = 'aquarium';
     W.gaori.hi = key === 'gaori' || key === 'aquarium' ? v : 0;
     W.mulgae.hi = key === 'mulgae' || key === 'aquarium' ? v : 0;
     W.pod.highlight = key === 'dolgorae' || key === 'aquarium' ? v : 0;
@@ -120,7 +123,7 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
   function anchorFor(key) {
     const W = getWorld(); if (!W) return null;
     const p = W.pickables.find(q => q.key === key);
-    return p ? p.pos : (key === 'aquarium' ? () => W.gaori.pos : null);
+    return p ? p.pos : (key === 'aquarium' || key === 'aquarium-for-claude' ? () => W.gaori.pos : null);
   }
   $$('.tool').forEach(b => {
     b.addEventListener('click', () => { const k = b.dataset.tool; if (cardTool === k) { closeCard(); return; } openCard(k, anchorFor(k)); });
