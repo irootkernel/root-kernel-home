@@ -17,11 +17,17 @@ export const LOGO = {
   warm: '#EDE9E7',
 };
 
+// The English address (founder, 2026-10-08), in parts: the footer and /company/ show it as one line (addressEn),
+// and the build gives the parts to the Organization JSON-LD (scripts/build.mjs).
+const ADDRESS_EN = { street: '1F, Seoul 50 Plus Southern Campus, 36-25 Oryu-ro', locality: 'Guro-gu', region: 'Seoul', country: 'Republic of Korea', countryCode: 'KR', postalCode: '08350' };
+
 export const COMPANY = {
   name: '루트커널',
   nameEn: 'Root Kernel',
   founded: '2026.06.17',
   address: '서울시 구로구 오류로 36-25, 서울시50플러스 남부캠퍼스 1층 공유오피스 힘나',
+  addressEn: `${ADDRESS_EN.street}, ${ADDRESS_EN.locality}, ${ADDRESS_EN.region}, ${ADDRESS_EN.country} (${ADDRESS_EN.postalCode})`,
+  addressEnParts: ADDRESS_EN,
   // The first screen's H1, one entry per line (.hero-title .ln). index.html carries the same lines for no-JS;
   // main.js fills each .ln from this array, so the line break never depends on searching the sentence.
   identityLines: ['AI를 제어하는 기술로', 'SW를 만듭니다.'],
@@ -34,6 +40,9 @@ export const COMPANY = {
 // Founder: one string everywhere (decided 2026-09-27: "15년 이상").
 export const FOUNDER = {
   name: '정영훈',
+  // English name and title for the footer, /company/ and the JSON-LD (founder, 2026-10-08)
+  nameEn: 'Karl Jeong',
+  title: 'Founder & CEO',
   experience: '개발 경력 15년 이상',
   line: '대표 정영훈 · 개발 경력 15년 이상 · 컴퓨터공학 석사 · LG전자 Linux Kernel · SAP Labs Korea SAP HANA',
 };
@@ -49,7 +58,7 @@ export const FOUNDER_PROFILE = [
   { k: 'SAP Labs Korea', v: '2016.10–2026.01 · SAP HANA RDBMS 코어 · 클라우드 DB 인프라 Tech Lead · 장애 시 세션 복구 설계' },
   { k: 'Patent', v: 'US 11,663,091 — 클라이언트 캐싱을 이용한 데이터베이스 세션 복구 (발명자 · 유럽·일본 패밀리 등록)' },
   { k: 'Application', v: 'US 2024/0362354 — 데이터베이스 테넌트 생명주기 관리 (심사 중)' },
-  { k: 'Credentials', v: 'CKA · CKAD (2022)' },
+  { k: 'Certificates', v: 'CKA · CKAD (2022)' },
 ];
 
 // Guardrails: never name or hint the financial client beyond "국내 금융권".
@@ -270,3 +279,55 @@ export const COPY = {
 // the English reading of r1…r9 (원 → 이, 투 → 가, 쓰리 → 가 … 세븐 → 이): "Spec r1이", "Spec r2가".
 const REV_JOSA = '이가가가가가이이이';
 export const gateSubAt = (rev = 1) => { const n = rev || 1; return COPY.gateSub.replace('Spec r1이', `Spec r${n}${REV_JOSA[n - 1] || '이'}`); };
+
+// The ~1-minute demos (journey/, studio/, scenarios/) run on the Korean pages only. content.en.js says false: the
+// English edition has no demo, no /build/ route and no demo wording (founder, 2026-10-08; DECISIONS 4-21).
+export const DEMOS = true;
+
+// Route descriptions that the tables above don't already say (router.js pagesFor).
+export const META = {
+  services: '루트커널은 다음의 서비스를 제공합니다',   // + ": " + the three service names + ". " + COPY.opsNote
+  build: '서비스를 고르시면 Spec부터 시안까지 약 1분짜리 시연으로 보여 드립니다.',
+  openSource: '루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다. AI Harness는 Aquarium을 중심으로 Test·Code review·작업 절차를 맡고, AI Agent는 Agent를 실행하고 심의하고 전달합니다.',
+  kernel: '모든 일을 AI에게 맡기지 않습니다. Deterministic한 작업은 CLI·MCP Tool로 실행하고, 판단과 생성이 필요한 Non-deterministic한 작업만 AI/LLM에게 맡깁니다.',   // + " " + AI_SPARK + "."
+  products: 'Sudal · Doksuri · Ember Quest. 루트커널이 직접 만드는 제품입니다. 모두 개발 중입니다.',
+  contactTitle: '문의',
+  contact: `${MAIL}로 보내 주시면 확인 후 답장드립니다.`,
+};
+
+// Interface strings of the route panels, the tool card and the scenes (journey/pages.js, world/labels.js,
+// strengths/scene.js). The demos keep their own (SPEAKER, COPY above).
+export const UI = {
+  close: '닫기',
+  ai: '루트커널 AI',
+  other: '기타',                                       // the fourth topic on /contact/ (and in its mail draft)
+  whens: ['가능한 한 빨리', '1–3개월', '3개월 이후', '아직 모름'],
+  copied: (mail) => `메일 주소를 복사했습니다: ${mail}`,
+  copyFailed: (mail) => `복사하지 못했습니다. ${mail}로 보내 주세요.`,
+  consult: '상담 신청하기',
+  quoteNote: '비용과 기간은 Spec을 확정한 뒤 견적으로 드립니다.',
+  contactPage: '문의 페이지 →',
+  toContact: '문의하기',
+  toOpenSource: 'Open source 보기',
+  contactAi: '두 가지를 고르면 메일 앱에 초안이 열립니다. 메일 앱에서 보내기 전에는 아무것도 전송되지 않습니다. 보내 주시면 확인 후 답장드립니다.',
+  openDraft: '메일 초안 열기',
+  noMailApp: '메일 앱이 열리지 않으면',
+  copyMail: '메일 주소 복사',
+  repoLink: (label) => `${label} · GitHub 저장소 열기`,
+  more: (name) => `${name} 자세히 보기`,
+};
+
+// Mail drafts (mail.js): the contact page and a service page's 상담 신청하기.
+export const MAIL_COPY = {
+  subjectOf: (tag) => `[루트커널 ${tag}]`,
+  tag: '문의',
+  consultTag: '상담',
+  greet: '안녕하세요. 루트커널 홈페이지에서 문의드립니다.',
+  kind: '문의 종류',
+  when: '희망 시기',
+  want: '[하고 싶은 일]',
+  contact: '[연락처]',
+  to: '받는 사람',
+  subject: '제목',
+  sendTo: '보낼 곳',
+};

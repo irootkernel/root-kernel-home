@@ -2,8 +2,8 @@
 // line (2379–2458). Changes from B: names come from content.js (Podway / Agent Dispatch / Agent Turn
 // Network / Aquarium are English-only), the card is hidden+inert while closed (B left it focusable at
 // opacity 0), and the product lights above the surface get one quiet label at a time.
-import { $, $$, clamp } from '../core.js?v=8999a49d35de';
-import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS } from '../content.js?v=8999a49d35de';
+import { $, $$, clamp } from '../core.js?v=57f526fdc266';
+import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS, UI } from '../text.js?v=57f526fdc266';
 
 // CONTRACT §2 overlay rule. Show: remove hidden → inert=false → next frame .show.
 // Hide: inert=true at once → remove .show → hidden after the transition.
@@ -83,7 +83,7 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
     el.cardR.textContent = T.role;
     const q = quoteOf(key); el.cardQ.textContent = q; el.cardQ.hidden = !q;
     el.cardA.href = repoUrl(T.repo);
-    el.cardA.setAttribute('aria-label', `${toolLabel(key)} · GitHub 저장소 열기`);
+    el.cardA.setAttribute('aria-label', UI.repoLink(toolLabel(key)));
     showOverlay(el.card);
     $$('.tool').forEach(b => b.classList.toggle('on', b.dataset.tool === key));
     highlight(key, 1);

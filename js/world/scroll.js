@@ -3,7 +3,7 @@
 // there is no typing on the site.)
 // Home order (CONTRACT §5): 0 m → −200 m → −4,000 m → −10,935 m → quick rise → above the surface.
 // No three.js here: this runs from first paint, with or without a world.
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=8999a49d35de';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=57f526fdc266';
 
 // `name` is the gauge read-out under the depth (English). The tick labels in index.html add the depth part
 // ("Services · −200 m", "Products · above surface"); above the surface the read-out itself says "+40 m".
@@ -35,13 +35,18 @@ export function createScroll({ el, state }) {
   const sections = el.sections;
   let holds = [];
   let gaugeH = 0;
+  // an element's document y before transforms (.rv text moves while it fades in)
+  const docTop = (n) => { let y = 0; for (; n; n = n.offsetParent) y += n.offsetTop; return y; };
   function computeHolds() {
     const vh = innerHeight;
     const max = Math.max(1, document.documentElement.scrollHeight - vh);
+    // the products hold ends where the final ask is centred, not at the page end: the company footer below it
+    // (DECISIONS 4-20) adds room without slowing the bottom scrim and the camera lift (kpP)
+    const ask = el.finalQ ? docTop(el.finalQ) + el.finalQ.offsetHeight / 2 - vh / 2 : max;
     holds = sections.map((s, i) => {
       const top = s.offsetTop, h = s.offsetHeight;
       if (i === 0) return [0, vh * 0.06];
-      const a = top - vh * 0.12, b = i === sections.length - 1 ? max : top + h - vh * 0.9;
+      const a = top - vh * 0.12, b = i === sections.length - 1 ? Math.min(max, ask) : top + h - vh * 0.9;
       return [Math.min(a, max), Math.min(Math.max(a, b), max)];
     });
     gaugeH = el.gauge ? el.gauge.clientHeight : 0;

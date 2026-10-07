@@ -1,19 +1,20 @@
 // main.js — boot. Sets the boot flag at once (nothing on this path imports three.js), picks the tier,
-// fills copy from content.js, runs the DOM intro, then imports the world after first paint (idle, or
+// fills copy from text.js, runs the DOM intro, then imports the world after first paint (idle, or
 // on the first scroll / focus), compiles it off the critical path and crossfades it in over the poster.
 // Owns the rAF loop, visibility pause, resize and the runtime tier downgrade.
 // No typing on the site (founder, 2026-09-28): the first screen asks COPY.ask ("어떤 지원이 필요하신가요?") and the
 // visitor answers with one of three chips (SVC areas). A chip, like a −200 m row, opens the area's service page,
 // which is its strength scene (founder, 2026-09-30; router.js → strengths/scene.js). The ~1-minute demos start only
-// from 시연 보기 in the details below each scene, or from a /build/ link.
+// from 시연 보기 in the details below each scene, or from a /build/ link. English pages (DEMOS false) never load them.
 // The real WorldAdapter (journey/adapter.js) arrives with the world chunk; until then W is NullWorld.
-import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=8999a49d35de';
-import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK } from './content.js?v=8999a49d35de';
-import { W, NullWorld, DEPTH } from './journey/director.js?v=8999a49d35de';
-import { createIntro } from './intro.js?v=8999a49d35de';
-import { createScroll, metersFromLayer } from './world/scroll.js?v=8999a49d35de';
-import { createLabels } from './world/labels.js?v=8999a49d35de';
-import { createNav, LAYER_PATH } from './router.js?v=8999a49d35de';
+import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=57f526fdc266';
+import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK, DEMOS } from './text.js?v=57f526fdc266';
+import { href } from './lang.js?v=57f526fdc266';
+import { W, NullWorld, DEPTH } from './journey/director.js?v=57f526fdc266';
+import { createIntro } from './intro.js?v=57f526fdc266';
+import { createScroll, metersFromLayer } from './world/scroll.js?v=57f526fdc266';
+import { createLabels } from './world/labels.js?v=57f526fdc266';
+import { createNav, LAYER_PATH } from './router.js?v=57f526fdc266';
 
 const root = document.documentElement;
 const lateBoot = performance.now() > 2300;   // the CSS failsafe has already revealed the page
@@ -25,7 +26,7 @@ const el = {
   pick: $('#pick'), pickQ: $('#pickQ'), pickList: $('#pickList'), pickOther: $('#pick .pick-other'), cursor: $('#pickCur'),
   convo: $('#convo'), labels: $('#labels'), leader: $('#leader'), leaderLine: $('#leader line'), hoverTag: $('#hoverTag'),
   card: $('#card'), cardName: $('#cardName'), cardKo: $('#cardKo'), cardV: $('#cardV'), cardR: $('#cardR'), cardQ: $('#cardQ'), cardA: $('#cardA'), cardX: $('#cardX'),
-  page: $('#page'), sections: $$('#page > section'), rv: $$('.rv'), bench: $('#bench'),
+  page: $('#page'), sections: $$('#page > section'), rv: $$('.rv'), bench: $('#bench'), finalQ: $('#finalQ'),
 };
 
 /* ---------- boot flag + tier ---------- */
@@ -43,7 +44,7 @@ const state = {
   nav: { active: false, f: 0 }, occluded: false,
 };
 
-/* ---------- copy from content.js (the static HTML carries the same strings for no-JS) ---------- */
+/* ---------- copy from text.js: content.js, or content.en.js on English pages (the static HTML carries the same strings for no-JS) ---------- */
 function hydrate() {
   $$('[data-c="founder"]').forEach(n => { n.textContent = FOUNDER.line; });
   // headline: one COMPANY.identityLines entry per .ln (the static markup has the same two spans; intro.js reveals them in turn)
@@ -59,14 +60,14 @@ function hydrate() {
   $$('.pick-c[data-svc]').forEach(a => {
     const s = SVC[a.dataset.svc]; if (!s) return;
     fill(a, '.pick-t', s.area); fill(a, '.pick-x', s.scope);
-    if (a.tagName === 'A') a.setAttribute('href', `/services/${s.slug}/`);
+    if (a.tagName === 'A') a.setAttribute('href', href(`/services/${s.slug}/`));
     a.setAttribute('aria-label', `${s.area} — ${s.scope}`);
   });
   // the −200 m rows: links to the area's service page
   $$('.svc [data-svc]').forEach(b => {
     const s = SVC[b.dataset.svc]; if (!s) return;
     fill(b, '.n', s.no); fill(b, '.a', s.area); fill(b, '.t', s.name); fill(b, '.d', s.desc);
-    if (b.tagName === 'A') b.setAttribute('href', `/services/${s.slug}/`);
+    if (b.tagName === 'A') b.setAttribute('href', href(`/services/${s.slug}/`));
   });
   $$('[data-c="ops"]').forEach(n => { n.textContent = COPY.opsNote; });
   // tools: English names; only the sea creatures carry their Korean meaning; the tag + version below
@@ -107,15 +108,16 @@ intro.start();
 /* ---------- the journey: a lazy chunk (orchestrator + log), loaded on first focus / tap / deep link; the rail and the studio follow with the first journey ---------- */
 let journeyP = null, journey = null;
 function ensureJourney() {
+  if (!DEMOS) return Promise.resolve(null);   // the English edition has no demos (DECISIONS 4-21)
   if (!journeyP) {
-    journeyP = import('./journey/journey.js?v=8999a49d35de')
+    journeyP = import('./journey/journey.js?v=57f526fdc266')
       .then(m => (journey = m.createJourney({ el, state, nav, labels, intro, scroll, loadWorld: () => loadWorld(), getTier: () => tier, getWorld: () => world })))
       .catch(e => { journeyP = null; console.error(e); return null; });
   }
   return journeyP;
 }
 // the area's scene arrives with the first hover / focus / press (it is not on the first-paint path)
-const prefetchScene = (svc) => { import('./strengths/scene.js?v=8999a49d35de').then((M) => M.prefetch(svc)).catch(() => {}); };
+const prefetchScene = (svc) => { import('./strengths/scene.js?v=57f526fdc266').then((M) => M.prefetch(svc)).catch(() => {}); };
 
 /* ---------- the answers: a tap on a chip opens that area's service page (its strength scene); nothing is typed ---------- */
 // a plain left click takes over the link; a modified click (new tab, …) still opens the service page itself
@@ -136,18 +138,18 @@ $$('.pick-c[data-svc], .svc [data-svc]').forEach(b => {
     if (b.tagName === 'A' && !plainClick(e)) return;
     e.preventDefault();
     const svc = b.dataset.svc;
-    if (SVC[svc]) nav.go(`/services/${SVC[svc].slug}/`);
+    if (SVC[svc]) nav.go(href(`/services/${SVC[svc].slug}/`));
   });
 });
 // "다른 문의가 있으신가요? →": the contact page, with 문의 종류 = 기타 already chosen
 $$('.pick-other').forEach(a => a.addEventListener('click', (e) => {
   if (!plainClick(e)) return;
   e.preventDefault();
-  nav.go('/contact/', { state: { kind: a.dataset.kind || null } });
+  nav.go(href('/contact/'), { state: { kind: a.dataset.kind || null } });
 }));
 // the gauge is navigation: depth = route (router.js moves the scroll; the camera follows)
-el.ticks.forEach(b => b.addEventListener('click', () => { if (state.mode !== 'journey') nav.go(LAYER_PATH[+b.dataset.go] || '/'); }));
-$('.brand')?.addEventListener('click', e => { e.preventDefault(); nav.go('/'); });
+el.ticks.forEach(b => b.addEventListener('click', () => { if (state.mode !== 'journey') nav.go(LAYER_PATH[+b.dataset.go] || href('/')); }));
+$('.brand')?.addEventListener('click', e => { e.preventDefault(); nav.go(href('/')); });
 
 /* ---------- journey hooks (for journey.js) ---------- */
 function setMode(m) {
@@ -173,7 +175,7 @@ function loadWorld() {
     const t0 = performance.now();
     let mod, A, w;
     // the world and its adapter (the verbs the journey uses) arrive together, off the first-paint path
-    try { [mod, A] = await Promise.all([import('./world/world.js?v=8999a49d35de'), import('./journey/adapter.js?v=8999a49d35de')]); } catch (e) { goPoster(); return null; }
+    try { [mod, A] = await Promise.all([import('./world/world.js?v=57f526fdc266'), import('./journey/adapter.js?v=57f526fdc266')]); } catch (e) { goPoster(); return null; }
     try { w = mod.createWorld({ canvas: el.gl, tier, narrow: NARROW }); } catch (e) { goPoster(); return null; }
     await w.compile();
     if (tier === 'poster') { w.dispose(); return null; }

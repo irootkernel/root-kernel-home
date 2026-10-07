@@ -272,13 +272,23 @@ html.js .rv.rv-t{opacity:1}
 .record .mono{font-size:12px;color:var(--ink3);padding-top:2px}
 /* products above the surface, then the final ask */
 .layer-p .layer-in{padding-top:30vh;padding-bottom:30vh}
-.final-wrap{max-width:960px;margin:0 auto;padding:0 0 16vh;text-align:center}
+.final-wrap{max-width:960px;margin:0 auto;padding:0 0 calc(28px + env(safe-area-inset-bottom));text-align:center}
 .final{display:flex;flex-direction:column;align-items:center}
 .final .h2{font-size:clamp(28px,2.8vw,40px)}
 .final .pick-list{margin-top:28px}
-.foot{margin:72px 0 0;font-family:var(--mono);font-size:11px;color:var(--ink3)}
-.foot a{color:var(--ink2);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+/* the company's facts (DECISIONS 4-20), left-aligned at every width, well apart from the final ask (founder: at least
+   five times the first 56 px). The products hold ends at the final ask (scroll.js), so this room never slows kpP. */
+.foot{margin:280px 0 0;text-align:left;font-size:13px;line-height:1.6;color:var(--ink2)}
+.foot-n{margin:0 0 10px;font-size:14px;color:var(--ink3)}
+.foot-n b{margin-right:4px;font-weight:600;color:var(--ink)}
+.foot-dl{margin:0;display:grid;gap:4px}
+.foot-dl>div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;align-items:baseline}
+.foot-dl dt{font-family:var(--mono);font-size:12px;color:var(--ink3)}
+.foot-dl dd{margin:0;overflow-wrap:anywhere}
+.foot-l{margin:8px 0 0;display:flex;flex-wrap:wrap;align-items:center;column-gap:10px;font-family:var(--mono);font-size:12px;color:var(--ink3)}
+.foot a{color:var(--ink2);text-decoration:none}
 .foot a:hover{color:var(--ink)}
+.foot-l a{display:inline-flex;align-items:center;gap:.3em;min-height:44px}
 /* desktop: from the services down, every text block starts on the header logo's line, like the layers above
    (founder, 2026-09-30: "첫화면의 로고와 본문은 가운데 유지하자. 그 밑에 서비스 항목부터 왼쪽 정렬").
    The first screen stays centred; phones keep their layout. The kernel column is as wide as its two-column split. */

@@ -10,9 +10,13 @@
 //     popstate, retired /services/<slug>/ links, and owns the opaque route panels (/company/, /contact/,
 //     /build/) and the strength scenes (/services/<slug>/, strengths/scene.js) — a service page opens its
 //     area's scene over the live world at the scene's own depth (SCENE_LAYER).
-import { $, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=8999a49d35de';
-import { COPY, COMPANY, FOUNDER, MAIL, SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK } from './content.js?v=8999a49d35de';
-import { travelSeconds } from './journey/director.js?v=8999a49d35de';
+//  English pages (DECISIONS 4-21) live under /en/ with the same slugs and no demo: the other language's paths are not
+//  routes here, so following one (the EN / KO switch) loads that language's shell.
+import { $, $$, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=57f526fdc266';
+import * as TEXT from './text.js?v=57f526fdc266';
+import { SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT } from './text.js?v=57f526fdc266';
+import { BASE, href, counterpart } from './lang.js?v=57f526fdc266';
+import { travelSeconds } from './journey/director.js?v=57f526fdc266';
 
 /* =========================================================================
    1. intent
@@ -147,35 +151,43 @@ export function exampleOf(scenario) {
 /* =========================================================================
    2. pages (depth = route)
    ========================================================================= */
-export const LAYER_PATH = ['/', '/services/', '/open-source/', '/technology/', '/products/'];
+export const LAYER_PATH = ['/', '/services/', '/open-source/', '/technology/', '/products/'].map(href);
 // where each area's strength scene is seen (founder, 2026-09-30): 제품 at the −200 m lanterns, 사내 시스템 on the
 // −4,000 m floor where the tools live, AI above the surface where Doksuri (the eagle) flies
 export const SCENE_LAYER = { web: 1, erp: 2, ax: 4 };
 export const LAYER_METERS = [0, 200, 4000, 10935, -40];
-const TITLE = (s) => `${s} · ${COMPANY.name}`;
-const P = [
-  { path: '/', name: 'home', layer: 0, title: `${COMPANY.name} · ${COMPANY.identityLines.join(' ').replace(/\.$/, '')}`, desc: `${COMPANY.identity} ${COMPANY.principle}` },
-  { path: '/services/', name: 'services', layer: 1, title: TITLE('Services'), desc: `루트커널은 다음의 서비스를 제공합니다: ${SVC_KEYS.map((k) => SVC[k].name).join(', ')}. ${COPY.opsNote}` },
-  ...SVC_KEYS.map((k) => ({ path: `/services/${SVC[k].slug}/`, name: 'service', layer: SCENE_LAYER[k], svc: k, scene: true, title: TITLE(SVC[k].name), desc: `${SVC[k].name} — ${SVC[k].desc.replace(/\.\s*$/, '')}. ${COPY.svcPage[k].make}` })),
-  { path: '/build/', name: 'build', layer: null, panel: 'build', noindex: true, title: TITLE('Demo'), desc: '서비스를 고르시면 Spec부터 시안까지 약 1분짜리 시연으로 보여 드립니다.' },
-  { path: '/open-source/', name: 'tools', layer: 2, title: TITLE('AI Harness · AI Agent'), desc: '루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다. AI Harness는 Aquarium을 중심으로 Test·Code review·작업 절차를 맡고, AI Agent는 Agent를 실행하고 심의하고 전달합니다.' },
-  // a tool's title names its branch, once (Aquarium's own label already ends with AI Harness)
-  ...TOOL_ORDER.map((id) => ({ path: `/open-source/${id}/`, name: 'tool', layer: 2, tool: id, title: TITLE([toolLabel(id), TOOLS[id].branch || 'AI Harness'].reduce((l, b) => (l.endsWith(b) ? l : `${l} · ${b}`))), desc: `${toolLabel(id)} — ${TOOLS[id].role}` })),
-  { path: '/technology/', name: 'kernel', layer: 3, title: TITLE('Kernel'), desc: `모든 일을 AI에게 맡기지 않습니다. Deterministic한 작업은 CLI·MCP Tool로 실행하고, 판단과 생성이 필요한 Non-deterministic한 작업만 AI/LLM에게 맡깁니다. ${AI_SPARK}.` },
-  { path: '/products/', name: 'products', layer: 4, title: TITLE('Products'), desc: 'Sudal · Doksuri · Ember Quest. 루트커널이 직접 만드는 제품입니다. 모두 개발 중입니다.' },
-  { path: '/company/', name: 'company', layer: 0, panel: 'company', title: TITLE('Company'), desc: `${FOUNDER.line}. ${COMPANY.identity}` },
-  { path: '/contact/', name: 'contact', layer: 0, panel: 'contact', title: TITLE('문의'), desc: `${MAIL}로 보내 주시면 확인 후 답장드립니다.` },
-];
+// one language's page table from its copy (content.js or content.en.js) under its base ('' or '/en'): the browser
+// builds this page's language; the build and the tests build both
+export function pagesFor(C, base = '') {
+  const { COMPANY, COPY, FOUNDER, SVC, SVC_KEYS, TOOLS, TOOL_ORDER, toolLabel, AI_SPARK, META, DEMOS } = C;
+  const TITLE = (s) => `${s} · ${COMPANY.name}`;
+  const at = (p) => base + p;
+  return [
+    { path: at('/'), name: 'home', layer: 0, title: `${COMPANY.name} · ${COMPANY.identityLines.join(' ').replace(/\.$/, '')}`, desc: `${COMPANY.identity} ${COMPANY.principle}` },
+    { path: at('/services/'), name: 'services', layer: 1, title: TITLE('Services'), desc: `${META.services}: ${SVC_KEYS.map((k) => SVC[k].name).join(', ')}. ${COPY.opsNote}` },
+    ...SVC_KEYS.map((k) => ({ path: at(`/services/${SVC[k].slug}/`), name: 'service', layer: SCENE_LAYER[k], svc: k, scene: true, title: TITLE(SVC[k].name), desc: `${SVC[k].name} — ${SVC[k].desc.replace(/\.\s*$/, '')}. ${COPY.svcPage[k].make}` })),
+    ...(DEMOS ? [{ path: at('/build/'), name: 'build', layer: null, panel: 'build', noindex: true, title: TITLE('Demo'), desc: META.build }] : []),
+    { path: at('/open-source/'), name: 'tools', layer: 2, title: TITLE('AI Harness · AI Agent'), desc: META.openSource },
+    // a tool's title names its branch, once (Aquarium's own label already ends with AI Harness)
+    ...TOOL_ORDER.map((id) => ({ path: at(`/open-source/${id}/`), name: 'tool', layer: 2, tool: id, title: TITLE([toolLabel(id), TOOLS[id].branch || 'AI Harness'].reduce((l, b) => (l.endsWith(b) ? l : `${l} · ${b}`))), desc: `${toolLabel(id)} — ${TOOLS[id].role}` })),
+    { path: at('/technology/'), name: 'kernel', layer: 3, title: TITLE('Kernel'), desc: `${META.kernel} ${AI_SPARK}.` },
+    { path: at('/products/'), name: 'products', layer: 4, title: TITLE('Products'), desc: META.products },
+    { path: at('/company/'), name: 'company', layer: 0, panel: 'company', title: TITLE('Company'), desc: `${FOUNDER.line}. ${COMPANY.identity}` },
+    { path: at('/contact/'), name: 'contact', layer: 0, panel: 'contact', title: TITLE(META.contactTitle), desc: META.contact },
+  ];
+}
+const P = pagesFor(TEXT, BASE);
 const BY_PATH = new Map(P.map((p) => [p.path, p]));
 export const PAGES = P;
 
 export function parse(pathname = location.pathname, search = location.search) {
   let path = pathname || '/';
   if (!path.endsWith('/')) path += '/';
-  // retired service slugs (/services/web|app|agent|consult/) open their area's page; `moved` makes the caller replace the URL
-  const old = /^\/services\/([a-z]+)\/$/.exec(path);
+  // retired service slugs (/services/web|app|agent|consult/, under /en/ too) open their area's page; `moved` makes the
+  // caller replace the URL
+  const old = path.startsWith(`${BASE}/services/`) ? /^\/services\/([a-z]+)\/$/.exec(path.slice(BASE.length)) : null;
   const moved = old && !BY_PATH.has(path) ? SVC_SLUG_REDIRECT[old[1]] : null;
-  const page = BY_PATH.get(moved ? `/services/${moved}/` : path);
+  const page = BY_PATH.get(moved ? href(`/services/${moved}/`) : path);
   if (!page) return null;
   const qs = new URLSearchParams(search || '');
   const out = { ...page };
@@ -206,7 +218,7 @@ export const buildPath = (svc, scenario, q) => `/build/?${new URLSearchParams(sc
    ========================================================================= */
 export function createNav(env) {
   const { scroll, state } = env;
-  let cur = parse() || parse('/');
+  let cur = parse() || parse(href('/'));
   let animating = 0;
   let lastScroll = 0;
   addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true });
@@ -218,6 +230,9 @@ export function createNav(env) {
     let r = $('meta[name="robots"]');
     if (page.noindex) { if (!r) { r = mk('meta'); r.name = 'robots'; document.head.appendChild(r); } r.content = 'noindex'; }
     else r?.remove();
+    // the EN / KO switch names this page in the other language (the Korean /build/ has no English page)
+    const other = counterpart(page.name === 'build' ? href('/') : page.path);
+    for (const a of $$('a[data-lang-switch]')) a.setAttribute('href', other);
   }
 
   // the scroll moves; the camera follows it (B's rig). Travel time = SPEC's depth formula.
@@ -252,7 +267,7 @@ export function createNav(env) {
     document.documentElement.classList.add('lock');
     if (state.mode === 'explore' || state.mode === 'intro') state.mode = 'panel';
     warm(page.layer === 0);
-    import('./journey/pages.js?v=8999a49d35de').then((M) => {
+    import('./journey/pages.js?v=57f526fdc266').then((M) => {
       if (panelPage !== page) return;
       panel.innerHTML = M.panelHTML(page);
       panel.setAttribute('aria-labelledby', 'pageH');
@@ -280,7 +295,7 @@ export function createNav(env) {
   /* ---------- the strength scenes (a service page is its area's scene; details and demos below it) ---------- */
   let scenePage = null, sceneP = null, sceneBack = null;
   const sceneHost = $('#svcScene');
-  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=8999a49d35de').then((M) => M.createScene({
+  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=57f526fdc266').then((M) => M.createScene({
     el: sceneHost, ensureJourney: env.ensureJourney, go,
     // × and Esc: back to where the visitor chose the area (the first screen, −200 m, the final question)
     onClose: () => go(sceneBack || LAYER_PATH[1]),
@@ -312,7 +327,7 @@ export function createNav(env) {
     env.beforeRoute?.(page, how);
     if (page.name === 'build') {
       hidePanel(); closeScene();
-      if (page.q || page.qsvc) { env.ensureJourney().then((J) => J.fromRoute(page, how)); return; }
+      if (page.q || page.qsvc) { env.ensureJourney().then((J) => J?.fromRoute(page, how)); return; }
       showPanel(page);
       return;
     }
@@ -361,6 +376,14 @@ export function createNav(env) {
     if (u.origin !== location.origin || !parse(u.pathname, u.search)) return;
     e.preventDefault();
     go(u.pathname + u.search);
+  });
+
+  // Esc closes a route panel. A journey keeps Esc for itself (stop, the log sheet, the developer view), and the
+  // English edition never loads the journey (no demos), so the panel's Esc lives here.
+  addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || e.defaultPrevented || !panelPage || state.mode === 'journey') return;
+    if (document.documentElement.classList.contains('jr-logsheet') || $('#dev')?.hidden === false) return;
+    go(LAYER_PATH[panelPage.layer ?? 0]);
   });
 
   addEventListener('popstate', () => {

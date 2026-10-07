@@ -4,7 +4,7 @@
 // (for the copy fallback) keeps every line. Nothing is sent: the visitor's mail app does that — and the
 // mail app is the only place anyone types (founder, 2026-09-28): the site itself only offers choices.
 
-import { MAIL, SVC } from './content.js?v=8999a49d35de';
+import { MAIL, SVC, MAIL_COPY } from './text.js?v=57f526fdc266';
 
 export const MAILTO_LIMIT = 1800;
 // the disclosure over the demo's counts (ship card and mail): these numbers come from a browser simulation
@@ -81,7 +81,8 @@ function fit(subject, items) {
 }
 
 // The full-text copy ends with where to send it.
-const footer = () => ['--', `보낼 곳: ${MAIL}`];
+const footer = () => ['--', `${MAIL_COPY.sendTo}: ${MAIL}`];
+const fullText = (subject, body) => `${MAIL_COPY.to}: ${MAIL}\n${MAIL_COPY.subject}: ${subject}\n\n${body.join('\n')}\n\n${footer().join('\n')}`;
 
 // Delivery (the ship card's "상담 신청하기"): the same short consultation request as the contact page, with the
 // demo's area already chosen. The consultation is about the visitor's own project, not the demo draft (founder,
@@ -107,19 +108,20 @@ export function buildHandoffMail(text, { notes = [] } = {}) {
     { t: '', p: 99 }, { t: '연락처:', p: 99 }, { t: '희망 일정:', p: 99 },
   ];
   const { url, trimmed } = fit(subject, L);
-  return { subject, url, full: `받는 사람: ${MAIL}\n제목: ${subject}\n\n${body.join('\n')}\n\n${footer().join('\n')}`, trimmed, letter: body.join('\n') };
+  return { subject, url, full: fullText(subject, body), trimmed, letter: body.join('\n') };
 }
 
 // Contact (the /contact/ chips) and a service page's "상담 메일": the visitor's choices go into the draft,
-// then empty sections to write in — in the mail app. area: an SVC key; kind: '기타' (or another label); when: 희망 시기.
-export function buildContactMail({ area = null, kind = null, when = null, tag = '문의', greet = '안녕하세요. 루트커널 홈페이지에서 문의드립니다.' } = {}) {
+// then empty sections to write in — in the mail app. area: an SVC key; kind: UI.other (or another label); when: 희망 시기.
+// The labels are MAIL_COPY's, so an English page drafts in English (DECISIONS 4-21).
+export function buildContactMail({ area = null, kind = null, when = null, tag = MAIL_COPY.tag, greet = MAIL_COPY.greet } = {}) {
   const k = SVC[area] ? `${SVC[area].area} · ${SVC[area].name}` : wellFormed(kind || '');
   const w = wellFormed(when || '');
-  const subject = `[루트커널 ${tag}]${k ? ` ${k}` : ''}`;
-  const body = [greet, '', `문의 종류: ${k}`, `희망 시기: ${w}`, '', '[하고 싶은 일]', '', '', '[연락처]', ''];
+  const subject = `${MAIL_COPY.subjectOf(tag)}${k ? ` ${k}` : ''}`;
+  const body = [greet, '', `${MAIL_COPY.kind}: ${k}`, `${MAIL_COPY.when}: ${w}`, '', MAIL_COPY.want, '', '', MAIL_COPY.contact, ''];
   // short by construction (two choices, fixed lines): well under MAILTO_LIMIT, no trimming needed
   const url = mailtoURL(subject, body);
-  return { subject, url, full: `받는 사람: ${MAIL}\n제목: ${subject}\n\n${body.join('\n')}\n\n${footer().join('\n')}` };
+  return { subject, url, full: fullText(subject, body) };
 }
 
 // Clipboard, with a fallback that selects a plain (non-editable) node: no text field ever appears on the page.

@@ -112,6 +112,8 @@ body.jr-panel #page { opacity: 0; pointer-events: none; }
 .jr-page-lede { margin: 6px 32px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink2); word-break: keep-all; }
 .jr-page-ai { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: baseline; margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); }
 .jr-page-ai .jr-who { font: 11px var(--mono); color: var(--teal); letter-spacing: .02em; }
+/* English pages: "Root Kernel AI" keeps one line beside the text (phones put it above, as in Korean) */
+@media (min-width: 761px) { html[lang="en"] .jr-page-ai { grid-template-columns: 100px minmax(0, 1fr); } }
 .jr-page-ai p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink); word-break: keep-all; }
 .jr-founder { margin: 14px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #031013; font: 12px/1.7 var(--mono); color: var(--ink2); word-break: keep-all; }
 .jr-page-s { margin: 22px 0 8px; font: 600 12px var(--mono); letter-spacing: .05em; color: var(--ink3); }
