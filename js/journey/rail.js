@@ -3,10 +3,10 @@
 // test → build, ▸▸ 3배, depth);
 // this adds the swap with #gauge, the COPY.skip jump (after the human gate only), the rework caption
 // ("rework · r2 · Podway record") and a depth read-out that follows the camera while the world runs.
-import { mk, bus } from '../core.js?v=0cd00b25fdf6';
-import { COPY } from '../content.js?v=0cd00b25fdf6';
-import { mountRail } from '../studio/standalone.js?v=0cd00b25fdf6';
-import { hideOverlay } from '../world/labels.js?v=0cd00b25fdf6';
+import { mk, bus } from '../core.js?v=cfd99ce5c804';
+import { COPY } from '../content.js?v=cfd99ce5c804';
+import { mountRail } from '../studio/standalone.js?v=cfd99ce5c804';
+import { hideOverlay } from '../world/labels.js?v=cfd99ce5c804';
 
 const fmt = (m) => (m < -0.5 ? `+${Math.round(-m).toLocaleString('en-US')} m` : m < 0.5 ? '0 m' : `−${Math.round(m).toLocaleString('en-US')} m`);
 

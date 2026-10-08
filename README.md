@@ -21,8 +21,8 @@ separately authorized push is made. `build-info.json` records source hashes.
 
 Every route has its own `index.html` in both languages, with its own title,
 description, canonical URL, and hreflang links to its twin. Every page also
-carries the company's facts: a footer with the name, founder, business
-registration number, address, email, and founding year, and the same
-Organization JSON-LD. The v4 `/ko/` addresses redirect to the matching Korean
+carries the company's facts: a footer in the page's language with the name,
+founder, business registration number, address, email, and founding year, and
+the same Organization JSON-LD. The v4 `/ko/` addresses redirect to the matching Korean
 page; its `/en/` addresses are English pages.
 The site loads three.js r170 (MIT) from `vendor/`.

@@ -6,14 +6,14 @@
 // service details follow below it, with the ~1-minute demos behind 시연 보기 (founder: "상세의 '시연 보기'로만").
 // The scene modules are generated from the approved prototypes (lab/formats/live/…); see their headers. English pages
 // (DECISIONS 4-21) load the English modules, generated from the same prototypes and each scene's en.json.
-import { $, REDUCED } from '../core.js?v=0cd00b25fdf6';
-import { SVC, UI } from '../text.js?v=0cd00b25fdf6';
-import { LANG } from '../lang.js?v=0cd00b25fdf6';
+import { $, REDUCED } from '../core.js?v=cfd99ce5c804';
+import { SVC, UI } from '../text.js?v=cfd99ce5c804';
+import { LANG } from '../lang.js?v=cfd99ce5c804';
 
 // literal specifiers: the build versions each one
 const MODS = LANG === 'en'
-  ? { web: () => import('./stack.en.js?v=0cd00b25fdf6'), erp: () => import('./gear.en.js?v=0cd00b25fdf6'), ax: () => import('./doksuri.en.js?v=0cd00b25fdf6') }
-  : { web: () => import('./stack.js?v=0cd00b25fdf6'), erp: () => import('./gear.js?v=0cd00b25fdf6'), ax: () => import('./doksuri.js?v=0cd00b25fdf6') };
+  ? { web: () => import('./stack.en.js?v=cfd99ce5c804'), erp: () => import('./gear.en.js?v=cfd99ce5c804'), ax: () => import('./doksuri.en.js?v=cfd99ce5c804') }
+  : { web: () => import('./stack.js?v=cfd99ce5c804'), erp: () => import('./gear.js?v=cfd99ce5c804'), ax: () => import('./doksuri.js?v=cfd99ce5c804') };
 export const prefetch = (svc) => MODS[svc]?.().catch(() => {});
 
 // Three layouts (founder, 2026-09-30: the diagram must keep its size — "규모가 1/10으로 확 줄었네"):
@@ -125,7 +125,7 @@ export function createScene({ el, onClose, ensureJourney, go }) {
   }
 
   function renderDetails(svc) {
-    return import('../journey/pages.js?v=0cd00b25fdf6').then((P) => {
+    return import('../journey/pages.js?v=cfd99ce5c804').then((P) => {
       if (want !== svc) return;
       const page = { name: 'service', svc, layer: 1 };
       details.innerHTML = P.serviceDetailsHTML(svc);

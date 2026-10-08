@@ -8,9 +8,9 @@
 // opens the visitor's mail app with them; the mail app is the only place anyone writes.
 // Copy (COPY-STYLE.md): English eyebrows and section labels, Korean body copy in 합니다체. English pages (DECISIONS
 // 4-21) take every string from content.en.js through text.js and show no demo: no [시연 보기], no /build/ panel.
-import { esc } from '../core.js?v=0cd00b25fdf6';
-import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS } from '../text.js?v=0cd00b25fdf6';
-import { LANG, href } from '../lang.js?v=0cd00b25fdf6';
+import { esc } from '../core.js?v=cfd99ce5c804';
+import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS } from '../text.js?v=cfd99ce5c804';
+import { LANG, href } from '../lang.js?v=cfd99ce5c804';
 
 // Topic (문의 종류 in the mail): the three areas (area · name), then 기타; Timing (희망 시기): four plain answers
 const KINDS = [...SVC_KEYS.map((k) => ({ id: k, a: SVC[k].area, n: SVC[k].name })), { id: 'etc', n: UI.other }];
@@ -24,7 +24,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
   }
   // a service page's 상담 메일: a draft with its area already chosen
   const svcMail = panel.querySelector('[data-mail-area]');
-  if (svcMail) import('../mail.js?v=0cd00b25fdf6').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
+  if (svcMail) import('../mail.js?v=cfd99ce5c804').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
   if (page.name === 'contact') {
     // "다른 문의가 있으신가요?" arrives with 문의 종류 = 기타 (history.state from main.js)
     const pre = history.state?.kind;
@@ -46,7 +46,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
       if (w) { sel.when = sel.when === w.dataset.when ? null : w.dataset.when; upd(); }
     });
     upd();
-    import('../mail.js?v=0cd00b25fdf6').then((mod) => {
+    import('../mail.js?v=cfd99ce5c804').then((mod) => {
       M = mod;
       upd();
       cp.addEventListener('click', async () => {

@@ -2,11 +2,11 @@
 // Every fact (address, versions, repositories, slugs, release lines) comes from content.js; this file holds only the
 // English text, in content.js's shape. The ~1-minute demos are Korean-only (DEMOS false): their fields (SVC.ex,
 // SPEAKER, PROCEDURE, HOMEPAGE_NOTE, gateSubAt and the demo keys of COPY) have no English and are left out.
-// Rules (COPY-STYLE.md, "English edition"): the company is Root Kernel and its founder Karl Jeong (Founder & CEO);
+// Rules (COPY-STYLE.md, "English edition"): the company is Root Kernel and its founder Yeonghun Jeong (Founder & CEO);
 // "15+ years"; AI-SPARK is a patent application, never granted; the financial client is only "a Korean
 // financial institution"; no solo-company or headcount wording and no numbers to boast; the tools are public on
 // GitHub, never "all open source".
-import * as KO from './content.js?v=0cd00b25fdf6';
+import * as KO from './content.js?v=cfd99ce5c804';
 
 export const { MAIL, GITHUB, repoUrl, LOGO, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOL_ORDER, RELEASES } = KO;
 export const DEMOS = false;

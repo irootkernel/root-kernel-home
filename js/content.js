@@ -28,7 +28,7 @@ export const COMPANY = {
   // the business registration number (사업자등록번호; founder, 2026-10-08): the footer and /company/ label it
   // "Business Reg. No.", and the build gives it to the Organization JSON-LD as taxID
   bizRegNo: '838-78-00573',
-  address:'서울시 구로구 오류로 36-25, 서울시50플러스 남부캠퍼스 1층 공유오피스 힘나',
+  address: '서울시 구로구 오류로 36-25, 서울시50플러스 남부캠퍼스 1층 공유오피스 힘나',
   addressEn: `${ADDRESS_EN.street}, ${ADDRESS_EN.locality}, ${ADDRESS_EN.region}, ${ADDRESS_EN.country} (${ADDRESS_EN.postalCode})`,
   addressEnParts: ADDRESS_EN,
   // The first screen's H1, one entry per line (.hero-title .ln). index.html carries the same lines for no-JS;
@@ -43,8 +43,9 @@ export const COMPANY = {
 // Founder: one string everywhere (decided 2026-09-27: "15년 이상").
 export const FOUNDER = {
   name: '정영훈',
-  // English name and title for the footer, /company/ and the JSON-LD (founder, 2026-10-08)
-  nameEn: 'Karl Jeong',
+  // English name and title for the footer, /company/ and the JSON-LD (founder, 2026-10-08);
+  // the name is the one on the passport, patents and papers (DECISIONS 4-25)
+  nameEn: 'Yeonghun Jeong',
   title: 'Founder & CEO',
   experience: '개발 경력 15년 이상',
   line: '대표 정영훈 · 개발 경력 15년 이상 · 컴퓨터공학 석사 · LG전자 Linux Kernel · SAP Labs Korea SAP HANA',
