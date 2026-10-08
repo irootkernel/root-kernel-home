@@ -25,7 +25,10 @@ export const COMPANY = {
   name: '루트커널',
   nameEn: 'Root Kernel',
   founded: '2026.06.17',
-  address: '서울시 구로구 오류로 36-25, 서울시50플러스 남부캠퍼스 1층 공유오피스 힘나',
+  // the business registration number (사업자등록번호; founder, 2026-10-08): the footer and /company/ label it
+  // "Business Reg. No.", and the build gives it to the Organization JSON-LD as taxID
+  bizRegNo: '838-78-00573',
+  address:'서울시 구로구 오류로 36-25, 서울시50플러스 남부캠퍼스 1층 공유오피스 힘나',
   addressEn: `${ADDRESS_EN.street}, ${ADDRESS_EN.locality}, ${ADDRESS_EN.region}, ${ADDRESS_EN.country} (${ADDRESS_EN.postalCode})`,
   addressEnParts: ADDRESS_EN,
   // The first screen's H1, one entry per line (.hero-title .ln). index.html carries the same lines for no-JS;

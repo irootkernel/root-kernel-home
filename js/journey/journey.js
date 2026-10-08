@@ -13,15 +13,15 @@
 // [시연 보기] or a /build/ link; at the gate the visitor approves or picks one of the scenario's preset
 // revisions. The request router (router.js route/closestOf) still reads /build/?q= links, which is how a
 // shared or reloaded demo comes back; nothing on the page reaches free text.
-import { $, bus, Runs, isCancel, REDUCED, setSpeed, isNarrow, clamp, qs } from '../core.js?v=7797e944718b';
-import { SVC, SVC_KEYS, SCENARIO_AREA, COPY } from '../content.js?v=7797e944718b';
-import { W, NullWorld } from './director.js?v=7797e944718b';
-import { createLog, createTicker } from '../log.js?v=7797e944718b';
-import { route as intent, closestOf, exampleOf, buildPath, PRICE } from '../router.js?v=7797e944718b';
-import { showOverlay, hideOverlay } from '../world/labels.js?v=7797e944718b';
+import { $, bus, Runs, isCancel, REDUCED, setSpeed, isNarrow, clamp, qs } from '../core.js?v=0cd00b25fdf6';
+import { SVC, SVC_KEYS, SCENARIO_AREA, COPY } from '../content.js?v=0cd00b25fdf6';
+import { W, NullWorld } from './director.js?v=0cd00b25fdf6';
+import { createLog, createTicker } from '../log.js?v=0cd00b25fdf6';
+import { route as intent, closestOf, exampleOf, buildPath, PRICE } from '../router.js?v=0cd00b25fdf6';
+import { showOverlay, hideOverlay } from '../world/labels.js?v=0cd00b25fdf6';
 
-const studioMod = () => import('../studio/studio.js?v=7797e944718b');
-const railMod = () => import('./rail.js?v=7797e944718b');   // the rail (and the studio's standalone.js) load with the first journey
+const studioMod = () => import('../studio/studio.js?v=0cd00b25fdf6');
+const railMod = () => import('./rail.js?v=0cd00b25fdf6');   // the rail (and the studio's standalone.js) load with the first journey
 const BASE_SPEED = clamp(parseFloat(qs.get('speed')) || 1, 0.25, 8);
 const alongside = (p) => { p?.catch?.(() => {}); return p; };   // runs beside the story; a cancel must not surface unhandled
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));

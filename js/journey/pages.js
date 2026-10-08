@@ -8,9 +8,9 @@
 // opens the visitor's mail app with them; the mail app is the only place anyone writes.
 // Copy (COPY-STYLE.md): English eyebrows and section labels, Korean body copy in 합니다체. English pages (DECISIONS
 // 4-21) take every string from content.en.js through text.js and show no demo: no [시연 보기], no /build/ panel.
-import { esc } from '../core.js?v=7797e944718b';
-import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS } from '../text.js?v=7797e944718b';
-import { LANG, href } from '../lang.js?v=7797e944718b';
+import { esc } from '../core.js?v=0cd00b25fdf6';
+import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS } from '../text.js?v=0cd00b25fdf6';
+import { LANG, href } from '../lang.js?v=0cd00b25fdf6';
 
 // Topic (문의 종류 in the mail): the three areas (area · name), then 기타; Timing (희망 시기): four plain answers
 const KINDS = [...SVC_KEYS.map((k) => ({ id: k, a: SVC[k].area, n: SVC[k].name })), { id: 'etc', n: UI.other }];
@@ -24,7 +24,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
   }
   // a service page's 상담 메일: a draft with its area already chosen
   const svcMail = panel.querySelector('[data-mail-area]');
-  if (svcMail) import('../mail.js?v=7797e944718b').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
+  if (svcMail) import('../mail.js?v=0cd00b25fdf6').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
   if (page.name === 'contact') {
     // "다른 문의가 있으신가요?" arrives with 문의 종류 = 기타 (history.state from main.js)
     const pre = history.state?.kind;
@@ -46,7 +46,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
       if (w) { sel.when = sel.when === w.dataset.when ? null : w.dataset.when; upd(); }
     });
     upd();
-    import('../mail.js?v=7797e944718b').then((mod) => {
+    import('../mail.js?v=0cd00b25fdf6').then((mod) => {
       M = mod;
       upd();
       cp.addEventListener('click', async () => {
@@ -95,9 +95,10 @@ export function panelHTML(page) {
       aiLine(`${COPY.companyLine} ${COMPANY.principle}`) +
       `<p class="jr-founder">${esc(FOUNDER.line)}</p>` +
       // the company's facts come first (DECISIONS 4-20); on Korean pages the address in Korean, then the footer's
-      // English line (English pages: the English line only)
+      // English line (English pages: the English line only). The no-break space keeps "Reg. No." together on the
+      // label's second line, as in the footer.
       '<h3 class="jr-page-s">Company</h3>' +
-      `<dl class="jr-dl"><div><dt>Name</dt><dd>${named(COMPANY)}</dd></div><div><dt>${esc(FOUNDER.title)}</dt><dd>${named(FOUNDER)}</dd></div>${row('Founded', COMPANY.founded)}<div><dt>Address</dt><dd>${COMPANY.address === COMPANY.addressEn ? esc(COMPANY.addressEn) : `${esc(COMPANY.address)}<br><span lang="en">${esc(COMPANY.addressEn)}</span>`}</dd></div>${row('Ongoing', CLIENT_LABEL)}<div><dt>Contact</dt><dd><a href="mailto:${esc(MAIL)}">${esc(MAIL)}</a></dd></div></dl>` +
+      `<dl class="jr-dl"><div><dt>Name</dt><dd>${named(COMPANY)}</dd></div><div><dt>${esc(FOUNDER.title)}</dt><dd>${named(FOUNDER)}</dd></div>${row('Business Reg. No.', COMPANY.bizRegNo)}${row('Founded', COMPANY.founded)}<div><dt>Address</dt><dd>${COMPANY.address === COMPANY.addressEn ? esc(COMPANY.addressEn) : `${esc(COMPANY.address)}<br><span lang="en">${esc(COMPANY.addressEn)}</span>`}</dd></div>${row('Ongoing', CLIENT_LABEL)}<div><dt>Contact</dt><dd><a href="mailto:${esc(MAIL)}">${esc(MAIL)}</a></dd></div></dl>` +
       '<h3 class="jr-page-s">Founder</h3>' +
       `<dl class="jr-dl">${FOUNDER_PROFILE.map((r) => row(r.k, r.v)).join('')}</dl>` +
       '<h3 class="jr-page-s">Timeline</h3>' +

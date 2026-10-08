@@ -2,8 +2,8 @@
 // Taps only (founder, 2026-09-28): 종류 as segmented chips (연차 · 반차 · 병가), dates with −/+ steppers (a working
 // day at a time), 사유 as optional preset chips, 신청하기 → 내 신청. A 직원 | 팀장 switch opens the team lead's
 // inbox, which approves or rejects by buttons — and the employee's list follows. No text or date is ever typed.
-import { COPY, SVC, gateSubAt } from '../content.js?v=7797e944718b';
-import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=7797e944718b';
+import { COPY, SVC, gateSubAt } from '../content.js?v=0cd00b25fdf6';
+import { tx, esc, topic, genericRevise, reviseWith } from '../studio/studio.js?v=0cd00b25fdf6';
 
 const EXAMPLE = SVC.erp.ex;   // 사내 연차 신청/승인 시스템
 

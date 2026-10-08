@@ -4,11 +4,11 @@
 // mini-site lives in an <iframe srcdoc>, and DOM light over the frame (scan band, overlap box, pins).
 // Every delay runs on the caller's Run (core.js), so Esc / back / restart cancel cleanly.
 
-import { $$, mk, esc, rand, clamp, ease, REDUCED, Run, bus, isNarrow } from '../core.js?v=7797e944718b';
-import { LOGO, MAIL, GITHUB, repoUrl, FOUNDER, TOOLS, TOOL_ORDER, toolLabel, RELEASES, COPY, SVC } from '../content.js?v=7797e944718b';
-import { stream } from '../log.js?v=7797e944718b';
-import { buildBriefMail, buildHandoffMail, copyText, summaryPairs, SIM_LABEL } from '../mail.js?v=7797e944718b';
-import { layoutStandalone } from './standalone.js?v=7797e944718b';
+import { $$, mk, esc, rand, clamp, ease, REDUCED, Run, bus, isNarrow } from '../core.js?v=0cd00b25fdf6';
+import { LOGO, MAIL, GITHUB, repoUrl, FOUNDER, TOOLS, TOOL_ORDER, toolLabel, RELEASES, COPY, SVC } from '../content.js?v=0cd00b25fdf6';
+import { stream } from '../log.js?v=0cd00b25fdf6';
+import { buildBriefMail, buildHandoffMail, copyText, summaryPairs, SIM_LABEL } from '../mail.js?v=0cd00b25fdf6';
+import { layoutStandalone } from './standalone.js?v=0cd00b25fdf6';
 
 export { esc };
 
@@ -41,7 +41,7 @@ export function reviseWith(presets, note) {
    Module constants and DOM utilities
    ========================================================================= */
 
-const SITES_CSS = new URL('../../css/sites.css?v=7797e944718b', import.meta.url).href;
+const SITES_CSS = new URL('../../css/sites.css?v=0cd00b25fdf6', import.meta.url).href;
 const PRETENDARD = 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css';
 const MONO_FONT = 'IBM+Plex+Mono:wght@400;500';
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -773,7 +773,7 @@ export async function mountStudio(host = document.body, { layout = 'standalone',
     async load(scenario) {
       const id = { home: 'web', tool: 'app' }[scenario] || scenario;
       if (!['web', 'app', 'consult', 'handoff'].includes(id)) throw new Error(`unknown scenario: ${scenario}`);
-      const mod = await import(`../scenarios/${id}.js?v=7797e944718b`);
+      const mod = await import(`../scenarios/${id}.js?v=0cd00b25fdf6`);
       st.sc = mod.default;
       st.said.clear();
       st.gateWaits = 0;

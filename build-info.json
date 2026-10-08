@@ -1,7 +1,7 @@
 {
   "site": "root-kernel",
   "generation": "v5",
-  "assetVersion": "7797e944718b",
+  "assetVersion": "0cd00b25fdf6",
   "threeVersion": "08fd7545d13d",
   "routes": [
     "/",
@@ -64,21 +64,21 @@
   "sitemap": 40,
   "versionedSpecifiers": 81,
   "sourceSha256": {
-    "src/index.html": "e2e59976a62fae8f989bd5b839b59a7ff134a9a460c8d5a9a969300e1df82ee9",
-    "src/index.en.html": "d6b7fbed0918a8a32edb0208712e303387787ced8bf7bb8d2336b996df88794e",
+    "src/index.html": "e4b9d2169b6ab26ddfc4f55cb55503570167d0611a7c5fb3d5e10f4aa55bf316",
+    "src/index.en.html": "e915c8badc8328e3570bb8fdc0dbbb6efc88373e6ed0b91930c6d82fd00bdb26",
     "src/css/base.css": "55d3e4b0a1063fd0a504095faee0b6944673596bf6c6706abba277b0de576526",
     "src/css/journey.css": "853ef7d387b43b2aa892ad08cdea6184f9e7bff1a65699496e420eafb57eb8d8",
     "src/css/sites.css": "77da632d0c89d3e4c897d5bec1444268d87afbdd2f2480919a10824649988610",
     "src/css/strengths.css": "1bd502bbf43eba176dfee4838ba5401b6f4eb917655f357d44935a279e495e00",
     "src/css/studio.css": "0615252025fbf67de45ac0cfe4fb254a023c5e26278ad4a373a9069f4d7ce674",
     "src/js/content.en.js": "7b66fd7864f088f9c72b707d944b0d38f6bcc7c21a76f9cfb2f4a32d7f376477",
-    "src/js/content.js": "a46d306ffa4df9814f2153a5fb3f3eff44ab030b2d08b488da1d822c605fb289",
+    "src/js/content.js": "5a753fa47f67b666c8c0d4d42d5ff4a043b3dc176180a82a4baf7f2dd1b4cf95",
     "src/js/core.js": "9bf169166a39cf0b05fa47f8a3f3ba620414bc60e35070547f19f2191a085ba6",
     "src/js/intro.js": "4f3330c44e20d5a7898f65ba71addf4e1498b4bfc55e8507d69dd1de265d95c2",
     "src/js/journey/adapter.js": "b59a9760e2c075f8a62d62a22359b5a4fa84e9245bd40eb27e565ce2a0b9af9f",
     "src/js/journey/director.js": "8c43a772d5da6cbfefbf42a54dde74d7e3a0f1ec12fe4ea822abb07577aeeb31",
     "src/js/journey/journey.js": "327725c2c2eeafbb74b654348840c71706b26a93acce99824a786d56a1bfc194",
-    "src/js/journey/pages.js": "7ab12cee9e7fc4ba4182479d5f728b94d17b87f841ad6b934261816b578c6d64",
+    "src/js/journey/pages.js": "a5e06015ed47e43fb691a228c9f1cea999c3a2333b5f15c376731e921a2eb608",
     "src/js/journey/rail.js": "4b198172875347850304b2548a05cabfe4492325e825d6343ae3b1e22ffadabb",
     "src/js/lang.js": "a13e429d3b54dfd15024953164f0bdfa5fb218d9a2a8060a0074cb7b88ea16c3",
     "src/js/log.js": "30359da6c2eae332941f97541148ce9ed93b15d96ff8b2f9bb3b17278ac3afdf",
@@ -103,6 +103,6 @@
     "src/js/world/scroll.js": "a3ab98d623b599d580fb39a7ecb69854ce3b960c6c11650228edc5c8758e1553",
     "src/js/world/world.js": "831d0f204e98ae0fff8dd1b7dcd7ce429101a41693ef7ec01a33e06dd86fabd7",
     "src/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
-    "scripts/build.mjs": "0cb281a3933c4379e7ff9b9f4c5b6c30128fff94f3cd4f301733d6c460b374fc"
+    "scripts/build.mjs": "ad8bd4927541bb346cba97bc1fc7e8f00dae6a822313044caaa79f1a602b9c3c"
   }
 }

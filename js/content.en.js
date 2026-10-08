@@ -6,7 +6,7 @@
 // "15+ years"; AI-SPARK is a patent application, never granted; the financial client is only "a Korean
 // financial institution"; no solo-company or headcount wording and no numbers to boast; the tools are public on
 // GitHub, never "all open source".
-import * as KO from './content.js?v=7797e944718b';
+import * as KO from './content.js?v=0cd00b25fdf6';
 
 export const { MAIL, GITHUB, repoUrl, LOGO, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOL_ORDER, RELEASES } = KO;
 export const DEMOS = false;
