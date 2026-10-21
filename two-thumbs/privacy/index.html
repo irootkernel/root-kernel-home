@@ -91,7 +91,7 @@
       <nav class="lang" aria-label="언어"><a href="#ko" aria-current="true">한국어</a><a href="#en" lang="en">English</a></nav>
     </div>
     <h1>Two Thumbs 개인정보처리방침</h1>
-    <p class="meta">시행일 2026년 10월 16일</p>
+    <p class="meta">시행일 2026년 10월 22일</p>
   </header>
 
   <p>루트커널(이하 “회사”)은 Android 앱 Two Thumbs(이하 “앱”)를 이용하는 분의 개인정보를 「개인정보 보호법」 등 관계 법령에 따라 보호합니다. 이 방침은 앱이 다루는 정보와 회사가 받는 정보를 설명합니다.</p>
@@ -112,14 +112,15 @@
     <h2><span class="n">1</span>휴대폰에만 저장되는 정보</h2>
     <p>앱은 다음 정보를 휴대폰의 앱 전용 저장소에 저장합니다. 이 정보는 회사로 전송되지 않으며, 회사는 이 정보를 볼 수 없습니다.</p>
     <dl class="items">
-      <div><dt>연결한 기기</dt><dd>기기 이름(직접 바꾼 이름 포함), 블루투스 주소, 기기별 키보드·트랙패드 설정, 그 기기가 입력을 받으려고 등록한 상태. 기기를 연결하고 다시 연결하며 기기별 설정을 적용하는 데 씁니다.</dd></div>
+      <div><dt>연결한 기기</dt><dd>기기 이름(직접 바꾼 이름 포함), 블루투스 주소, 기기별 키보드·트랙패드 설정, 그 기기가 입력을 받으려고 등록한 상태, Android에 그 기기의 접근 허용을 물었는지 여부. 기기를 연결하고 다시 연결하며 기기별 설정을 적용하는 데 씁니다.</dd></div>
       <div><dt>매크로</dt><dd>직접 입력한 문구와 별칭. 한 번 눌러 입력하는 데 씁니다.</dd></div>
+      <div><dt>지난 목록</dt><dd>텍스트 보내기로 보낸 글과 직접 붙인 이름, 최대 100개. 다시 보내는 데 씁니다. ‘저장 안 함’을 체크하고 보낸 글은 남기지 않습니다.</dd></div>
       <div><dt>설정</dt><dd>키보드 배치, 단축키, 테마, 효과 등 앱 설정.</dd></div>
       <div><dt>구매 기록</dt><dd>Google Play가 발급한 구매 정보(주문 번호, 구매 토큰, 구매 시각, 상품). 앱이 휴대폰에서 검증한 뒤, Google Play에 연결되지 않을 때에도 구매한 기능을 쓸 수 있도록 보관합니다.</dd></div>
     </dl>
-    <p>입력한 글자는 저장하지 않습니다. 설정 › 일반 › 입력 표시를 켜면 호스트로 보낸 최근 글자를 휴대폰 화면에 보여 주지만, 이 글자는 메모리에만 두고 저장하지 않습니다. 앱은 입력 내용을 로그에 남기지 않습니다.</p>
-    <p>매크로 문구는 입력한 그대로 휴대폰에 저장됩니다. 비밀번호 같은 민감한 정보는 매크로에 넣지 않기를 권합니다.</p>
-    <p>앱은 이 정보를 Android 백업과 기기 간 이전에서 뺍니다. 그래서 클라우드나 새 휴대폰으로 옮겨지지 않습니다. 앱에서 기기나 매크로를 삭제하면 해당 정보가 바로 지워지고, 앱 데이터를 지우거나 앱을 삭제하면 모든 정보가 지워집니다.</p>
+    <p>키보드로 입력한 글자는 저장하지 않습니다. 설정 › 일반 › 입력 표시를 켜면 호스트로 보낸 최근 글자를 휴대폰 화면에 보여 주지만, 이 글자는 메모리에만 두고 저장하지 않습니다. 앱은 입력 내용을 로그에 남기지 않습니다.</p>
+    <p>매크로 문구와 지난 목록의 글은 입력한 그대로 휴대폰에 저장됩니다. 비밀번호 같은 민감한 정보는 매크로에 넣지 말고, 텍스트 보내기로 보낼 때는 ‘저장 안 함’을 체크하기를 권합니다.</p>
+    <p>앱은 이 정보를 Android 백업과 기기 간 이전에서 뺍니다. 그래서 클라우드나 새 휴대폰으로 옮겨지지 않습니다. 앱에서 기기나 매크로, 지난 목록의 글을 삭제하면 해당 정보가 바로 지워지고, 앱 데이터를 지우거나 앱을 삭제하면 모든 정보가 지워집니다.</p>
   </section>
 
   <section id="ko-2">
@@ -130,6 +131,7 @@
       <li>연결할 기기를 찾고 그 기기의 종류(예: Apple 기기)를 판단하려고, 휴대폰에 페어링된 기기의 이름, 블루투스 주소, 서비스 정보를 읽습니다.</li>
       <li>페어링 안내에 이 휴대폰의 블루투스 이름을 표시합니다.</li>
       <li>호스트 추가 화면이 열려 있는 동안과 저장한 호스트에 연결하는 동안, 호스트가 이 휴대폰을 찾을 수 있도록 이 휴대폰의 블루투스 이름을 담은 블루투스 LE 신호를 내보냅니다.</li>
+      <li>호스트에 처음 연결할 때 Android가 Two Thumbs가 그 호스트에 접근해도 되는지 묻습니다. 허용하면 Android가 그 호스트가 연결되어 있거나 근처에 있는 동안 앱을 실행 상태로 둡니다. 호스트가 근처에 있는지는 Android가 확인하며, 앱은 그 결과를 저장하거나 보내지 않습니다. 앱에서 그 호스트를 삭제하면 이 허용도 해제됩니다.</li>
       <li>앱에서 기기를 삭제해도 Android의 블루투스 페어링은 남습니다. 페어링은 Android 설정에서 해제합니다.</li>
     </ul>
     <p>앱이 요청하는 권한과 그 용도는 다음과 같습니다.</p>
@@ -139,6 +141,7 @@
       <div><dt>알림</dt><dd>“나간 뒤 연결 유지”를 켜 두면, 연결하는 동안 연결한 호스트를, 앱을 나간 뒤에는 남은 시간과 연결 끊기 버튼을 알림으로 보여 줍니다. 이 설정을 켜 두고 처음 연결할 때 허용을 묻습니다.</dd></div>
       <div><dt>포그라운드 서비스(연결된 기기)</dt><dd>Two Thumbs Pro의 “나간 뒤 연결 유지”에서, 앱을 나가거나 화면을 꺼도 고른 시간(5–30분) 동안 호스트와의 블루투스 연결을 유지합니다.</dd></div>
       <div><dt>절전 모드 방지</dt><dd>연결을 유지하는 동안 휴대폰이 잠들어 연결이 끊기지 않게 합니다.</dd></div>
+      <div><dt>컴패니언 기기 상태 확인</dt><dd>접근을 허용한 호스트가 연결되어 있거나 근처에 있는 동안 Android가 앱을 실행 상태로 두게 합니다. 그 호스트의 키보드가 앱과 함께 사라지지 않게 하려는 것입니다.</dd></div>
       <div><dt>Google Play 결제</dt><dd>인앱 구매를 처리합니다.</dd></div>
       <div><dt>네트워크 연결 보기</dt><dd>Google Play 결제 라이브러리가 함께 넣는 권한입니다. 네트워크 연결 상태를 보는 권한일 뿐이며, 앱에는 인터넷 접근 권한이 없습니다.</dd></div>
       <div><dt>Google Play 라이선스 확인</dt><dd>Google Play가 앱을 배포할 때 넣는 앱 보호 기능의 권한입니다. 휴대폰의 Google Play 스토어 앱으로 이 앱이 Google Play에서 설치됐는지 확인합니다.</dd></div>
@@ -243,7 +246,8 @@
 
   <section id="ko-13">
     <h2><span class="n">13</span>개인정보처리방침의 변경</h2>
-    <p>이 방침은 2026년 10월 16일부터 적용합니다. 방침을 바꿀 때는 시행 7일 전부터 이 페이지에 바뀌는 내용과 시행일을 알립니다.</p>
+    <p>이 방침은 2026년 10월 22일부터 적용합니다. 방침을 바꿀 때는 시행 7일 전부터 이 페이지에 바뀌는 내용과 시행일을 알립니다.</p>
+    <p>2026년 10월 22일 바뀐 내용: 호스트별 Android 접근 허용과 컴패니언 기기 상태 확인 권한, 그 용도를 더했습니다. 텍스트 보내기로 보낸 글을 휴대폰의 지난 목록에 남기게 되어, 휴대폰에만 저장되는 정보에 지난 목록을 더했습니다. 수집하거나 보내는 정보는 바뀌지 않았습니다.</p>
     <p>2026년 10월 16일 바뀐 내용: 블루투스 연결을 블루투스 LE로 바꾸면서, 호스트가 이 휴대폰을 찾는 방식과 휴대폰에 저장하는 연결 정보를 고쳤습니다. 수집하거나 보내는 정보는 바뀌지 않았습니다.</p>
     <p>2026년 10월 13일 바뀐 내용: 알림, 포그라운드 서비스(연결된 기기), 절전 모드 방지 권한과 그 용도를 더했습니다. 수집하거나 보내는 정보는 바뀌지 않았습니다.</p>
   </section>
@@ -261,7 +265,7 @@
       <nav class="lang" aria-label="Language"><a href="#ko" lang="ko">한국어</a><a href="#en" aria-current="true">English</a></nav>
     </div>
     <h1>Two Thumbs Privacy Policy</h1>
-    <p class="meta">Effective October 16, 2026</p>
+    <p class="meta">Effective October 22, 2026</p>
   </header>
 
   <p>Root Kernel (“we”) protects the personal information of people who use Two Thumbs, our Android app (“the app”), under Korea’s Personal Information Protection Act and other applicable laws. This policy explains what the app handles and what we receive.</p>
@@ -282,14 +286,15 @@
     <h2><span class="n">1</span>Information that stays on your phone</h2>
     <p>The app saves the following in its private storage on your phone. None of it is sent to us, and we cannot see it.</p>
     <dl class="items">
-      <div><dt>Connected devices</dt><dd>Each device’s name (including a name you give it), Bluetooth address, keyboard and trackpad settings, and whether it signed up to receive input, used to connect, reconnect and apply each device’s settings.</dd></div>
+      <div><dt>Connected devices</dt><dd>Each device’s name (including a name you give it), Bluetooth address, keyboard and trackpad settings, whether it signed up to receive input, and whether Android has asked to let Two Thumbs access it, used to connect, reconnect and apply each device’s settings.</dd></div>
       <div><dt>Macros</dt><dd>The text and alias you enter, used to type the text with one tap.</dd></div>
+      <div><dt>History</dt><dd>The texts you send with Send text and the names you give them, up to 100, used to send them again. A text sent with Don’t save checked is not kept.</dd></div>
       <div><dt>Settings</dt><dd>Keyboard layout, shortcuts, theme, effects and other app settings.</dd></div>
       <div><dt>Purchase record</dt><dd>The purchase details Google Play issues (order ID, purchase token, purchase time and product). The app verifies them on your phone and keeps them so your purchases still work when Google Play can’t be reached.</dd></div>
     </dl>
-    <p>The app never saves what you type. With Settings › General › Show typed text on, your phone’s screen shows the last characters sent to the host; the app keeps them in memory only and never saves them. The app does not write what you type to its logs.</p>
-    <p>Macro text is saved on your phone exactly as you enter it. We recommend not putting passwords or other sensitive information in macros.</p>
-    <p>The app leaves all of this out of Android backups and device-to-device transfers, so it never moves to the cloud or to a new phone. Deleting a device or a macro in the app erases it at once, and clearing the app’s data or uninstalling the app erases everything.</p>
+    <p>The app never saves what you type on its keyboard. With Settings › General › Show typed text on, your phone’s screen shows the last characters sent to the host; the app keeps them in memory only and never saves them. The app does not write what you type to its logs.</p>
+    <p>Macro text and the texts in History are saved on your phone exactly as you enter them. We recommend not putting passwords or other sensitive information in macros, and checking Don’t save when you send one with Send text.</p>
+    <p>The app leaves all of this out of Android backups and device-to-device transfers, so it never moves to the cloud or to a new phone. Deleting a device, a macro or a text in History in the app erases it at once, and clearing the app’s data or uninstalling the app erases everything.</p>
   </section>
 
   <section id="en-2">
@@ -300,6 +305,7 @@
       <li>To find the device to connect and tell what kind of device it is (for example, an Apple device), the app reads the names, Bluetooth addresses and service information of the devices paired with your phone.</li>
       <li>The app shows your phone’s Bluetooth name in its pairing instructions.</li>
       <li>While Add host is open, and while the app connects to a saved host, your phone sends a Bluetooth LE signal carrying its Bluetooth name so the host can find it.</li>
+      <li>The first time you connect each host, Android asks whether Two Thumbs may access it. If you allow it, Android keeps the app running while that host is connected or nearby. Android itself checks whether the host is nearby; the app does not store or send that. Deleting the host in the app removes this access.</li>
       <li>Deleting a device in the app keeps its Bluetooth pairing in Android. You remove the pairing in Android’s settings.</li>
     </ul>
     <p>The app asks for these permissions:</p>
@@ -309,6 +315,7 @@
       <div><dt>Notifications</dt><dd>To show the connected host and, after you leave the app, the time left and a Disconnect button, when “Stay connected after leaving” is on. The app asks the first time you connect with it on.</dd></div>
       <div><dt>Foreground service (connected device)</dt><dd>To keep the Bluetooth link to the host for the time you pick (5 to 30 minutes) after you leave the app or turn the screen off, with Two Thumbs Pro’s “Stay connected after leaving”.</dd></div>
       <div><dt>Prevent phone from sleeping</dt><dd>To keep the phone awake while it stays connected, so the link does not drop.</dd></div>
+      <div><dt>Observe companion device presence</dt><dd>To let Android keep the app running while a host you allowed is connected or nearby, so that host’s keyboard does not go away with the app.</dd></div>
       <div><dt>Google Play billing</dt><dd>To process in-app purchases.</dd></div>
       <div><dt>View network connections</dt><dd>Added by Google Play’s billing library. It only shows whether a network is connected; the app has no internet permission.</dd></div>
       <div><dt>Google Play license check</dt><dd>Added by Google Play’s app protection when Google Play distributes the app. It checks with the Google Play Store app on your phone that the app was installed from Google Play.</dd></div>
@@ -413,7 +420,8 @@
 
   <section id="en-13">
     <h2><span class="n">13</span>Changes to this policy</h2>
-    <p>This policy takes effect on October 16, 2026. When we change it, we post the changes and their effective date on this page at least 7 days before they take effect.</p>
+    <p>This policy takes effect on October 22, 2026. When we change it, we post the changes and their effective date on this page at least 7 days before they take effect.</p>
+    <p>Changed on October 22, 2026: we added Android’s per-host access and the observe-companion-device-presence permission, and what they are for. The app now keeps the texts you send with Send text in History on your phone, so History joins what stays on your phone. What the app collects or sends did not change.</p>
     <p>Changed on October 16, 2026: with the move to Bluetooth LE, we updated how hosts find your phone and the connection details the app keeps on it. What the app collects or sends did not change.</p>
     <p>Changed on October 13, 2026: we added the notifications, foreground service (connected device) and prevent-sleep permissions and what they are for. What the app collects or sends did not change.</p>
   </section>
