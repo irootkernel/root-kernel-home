@@ -5,6 +5,8 @@
 export const MAIL = 'cs@rootkernel.xyz';
 export const GITHUB = 'https://github.com/irootkernel';
 export const repoUrl = (repo) => `${GITHUB}/${repo}`;
+// a released product's Google Play listing, from its package (PRODUCTS[].play)
+export const playUrl = (pkg) => `https://play.google.com/store/apps/details?id=${pkg}`;
 
 // Logo geometry (viewBox "-6 -6 194.5 71").
 // "<" and "_" are the machine side (teal); ">" is the human side (warm white).
@@ -77,6 +79,7 @@ export const TRACK = [
   ['2026.06', '루트커널 설립'],
   ['2026.07', 'Ember Quest · 게임제작환경 AX 지원사업 2차 선정'],
   ['2026.08–12', '국내 금융권 기업뱅킹 고도화 Project 참여'],
+  ['2026.10', 'Two Thumbs Google Play 출시'],
 ];
 
 // The four things people can hire Root Kernel for. Key order == lantern index at −200 m.
@@ -192,10 +195,18 @@ export const RELEASES = [
   { tool: 'dispatch', text: 'Agent Dispatch 0.1.8 — release build ×2 · byte-identical' },
 ];
 
-// Products live above the surface (land / sky); Ember Quest is off-axis (founder-approved copy, 2026-09-29).
+// Products live above the surface (land / sky); Ember Quest is off-axis (founder-approved copy, 2026-09-29) and Two
+// Thumbs on the water (DECISIONS 4-30). Two Thumbs leads as the one released product.
 // tag: mono tech tag · badge: small pill after the tag · line: the lead · note: one sentence (home layer)
-// · desc: the fuller description (/products/ panel) · status: chip.
+// · desc: the fuller description (/products/ panel) · status: chip · play: the Google Play package (a released product).
 export const PRODUCTS = [
+  {
+    id: 'two-thumbs', name: 'Two Thumbs', ko: '', place: 'water', tag: 'B2C · Android · Bluetooth LE HID',
+    line: '휴대폰을 블루투스 키보드와 트랙패드로 바꾸는 Android 앱',
+    note: '가로로 들면 두 엄지로 iPhone, iPad, Mac에 입력합니다. 인터넷 권한이 없고, 입력은 블루투스로 연결한 기기에만 갑니다.',
+    desc: 'Android 휴대폰, 폴더블, 태블릿을 블루투스 키보드와 트랙패드로 바꿉니다. 가로로 들면 두 엄지로 치는 키보드, 세로로 들면 휴대폰 키보드 배열입니다. 상대 기기에는 앱을 설치하지 않습니다. 숫자 패드와 미디어 키 패널이 있고, 방향키·단축키·매크로를 키 하나로 엽니다. 한국어 입력을 지원합니다. 인터넷 권한, 계정, 광고가 없고, 입력은 블루투스로 연결한 기기에만 갑니다. Two Thumbs Pro는 한 번 구매로 분할 키보드와 키 옆 트랙패드 등을 더합니다.',
+    status: 'Released', play: 'xyz.rootkernel.twothumbs.app',
+  },
   {
     id: 'sudal', name: 'Sudal', ko: '수달', place: 'land', tag: 'B2C · runs on AI-SPARK session runtime',
     line: '대화가 시작되는 실시간 밸런스 게임',
@@ -220,7 +231,7 @@ export const PRODUCTS = [
 ];
 // The products heading (two lines on the home layer, one on /products/) and its lede.
 export const PRODUCTS_HEAD = {
-  lines: ['Three products.', 'One shared root.'],
+  lines: ['Four products.', 'One shared root.'],
   lede: '제품에서 발견한 문제로 기술을 발전시키고, 개선한 기술을 다시 제품에 적용합니다.',
 };
 
@@ -302,7 +313,7 @@ export const META = {
   build: '서비스를 고르시면 Spec부터 시안까지 약 1분짜리 시연으로 보여 드립니다.',
   openSource: '루트커널이 직접 만들어 쓰는 도구입니다. 모두 GitHub에 공개했습니다. AI Harness는 Aquarium(Codex·Claude Code)을 중심으로 Test·Code review·작업 절차를 맡고, AI Agent는 Agent를 실행하고 심의하고 전달합니다.',
   kernel: '모든 일을 AI에게 맡기지 않습니다. Deterministic한 작업은 CLI·MCP Tool로 실행하고, 판단과 생성이 필요한 Non-deterministic한 작업만 AI/LLM에게 맡깁니다.',   // + " " + AI_SPARK + "."
-  products: 'Sudal · Doksuri · Ember Quest. 루트커널이 직접 만드는 제품입니다. 모두 개발 중입니다.',
+  products: 'Two Thumbs · Sudal · Doksuri · Ember Quest. 루트커널이 직접 만드는 제품입니다. Two Thumbs는 Google Play에 출시했고, Sudal·Doksuri·Ember Quest는 개발 중입니다.',
   contactTitle: '문의',
   contact: `${MAIL}로 보내 주시면 확인 후 답장드립니다.`,
 };
@@ -327,6 +338,9 @@ export const UI = {
   copyMail: '메일 주소 복사',
   repoLink: (label) => `${label} · GitHub 저장소 열기`,
   more: (name) => `${name} 자세히 보기`,
+  // a released product's row (PRODUCTS[].play): the link and its accessible name
+  play: 'Google Play에서 받기',
+  playLink: (name) => `${name} · Google Play에서 받기`,
 };
 
 // Mail drafts (mail.js): the contact page and a service page's 상담 신청하기.

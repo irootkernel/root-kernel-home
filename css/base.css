@@ -219,6 +219,10 @@ html.js .rv.rv-t{opacity:1}
 .prod .k em{display:inline-block;margin-left:8px;padding:0 8px;border:1px solid rgba(244,215,184,.3);border-radius:999px;font-style:normal;font-size:11px;color:var(--warm);white-space:nowrap}
 .prod .d{grid-column:1/-1;grid-row:3;margin-top:6px;font-size:15px;line-height:1.55;color:var(--ink)}
 .prod .x{grid-column:1/-1;grid-row:4;margin-top:3px;font-size:14px;line-height:1.65;color:var(--ink2)}
+/* a released product: a teal chip and its store link (44 px tall to tap; the negative margin keeps the row's rhythm) */
+.prod li.released .s{color:var(--teal);border-color:rgba(16,196,190,.4)}
+.prod .l{grid-column:1/-1;grid-row:5;justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin:0 0 -12px;font-family:var(--mono);font-size:13px;color:var(--teal);text-decoration:none}
+.prod .l:hover{text-decoration:underline;text-underline-offset:4px}
 .jr-page .prod{margin-top:18px}
 /* panel row labels (English, mono) never break inside a word ("Deliverables" in the 82 px phone column) */
 .jr-dl dt{overflow-wrap:normal}
@@ -348,7 +352,7 @@ html.js .rv.rv-t{opacity:1}
 .lbl.note span{border-left:2px solid var(--teal2)}
 .lbl.gate{color:var(--teal2)}
 .lbl.human,.lbl.prod{color:var(--warm)}
-.lbl.prod span b{font-weight:500;color:var(--ink);margin-right:6px}
+.lbl.prod span{font-weight:500;color:var(--ink)}
 
 /* ---------- "< _ >": the logo's brackets at the capsule's ends (projected DOM, sits in the labels layer) ---------- */
 .wglyph{position:absolute;left:0;top:0;width:40px;height:57px;opacity:0;transition:opacity .45s var(--ease);will-change:transform;overflow:visible}

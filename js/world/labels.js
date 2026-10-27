@@ -2,8 +2,8 @@
 // line (2379–2458). Changes from B: names come from content.js (Podway / Agent Dispatch / Agent Turn
 // Network / Aquarium are English-only), the card is hidden+inert while closed (B left it focusable at
 // opacity 0), and the product lights above the surface get one quiet label at a time.
-import { $, $$, clamp } from '../core.js?v=cfd99ce5c804';
-import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS, UI } from '../text.js?v=cfd99ce5c804';
+import { $, $$, clamp } from '../core.js?v=31783de3e240';
+import { TOOLS, toolLabel, toolSub, repoUrl, RELEASES, PRODUCTS, UI } from '../text.js?v=31783de3e240';
 
 // CONTRACT §2 overlay rule. Show: remove hidden → inert=false → next frame .show.
 // Hide: inert=true at once → remove .show → hidden after the transition.
@@ -134,9 +134,15 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
   });
   function hoverList(key, btn) { listHover = key ? { key, btn, kind: 'tool' } : null; if (!cardTool) highlight(key, key ? 0.8 : 0); }
 
-  /* ---- products above the surface: hover a row → its light brightens; one label at a time ---- */
-  const prodAnchor = (id) => { const W = getWorld(); if (!W) return null; return id === 'sudal' ? () => W.sudal.glow.position : id === 'doksuri' ? () => W.doksuri.pos : () => W.ember.pos; };
-  const prodLit = (id, v) => { const W = getWorld(); if (!W) return; W.sudal.hi = id === 'sudal' ? v : 0; W.doksuri.hi = id === 'doksuri' ? v : 0; W.ember.hi = id === 'ember-quest' ? v : 0; };
+  /* ---- products above the surface: hover a row → its light brightens; one label at a time, the name alone
+     (the status chip stays in the list; DECISIONS 4-30) ---- */
+  // each product's light (world.js §3.7): the object whose .hi brightens it, and the point its label marks
+  const PROD_LIGHT = {
+    'two-thumbs': (W) => [W.thumbs, W.thumbs.pos], sudal: (W) => [W.sudal, W.sudal.glow.position],
+    doksuri: (W) => [W.doksuri, W.doksuri.pos], 'ember-quest': (W) => [W.ember, W.ember.pos],
+  };
+  const prodAnchor = (id) => { const W = getWorld(); if (!W || !PROD_LIGHT[id]) return null; const p = PROD_LIGHT[id](W)[1]; return () => p; };
+  const prodLit = (id, v) => { const W = getWorld(); if (!W) return; for (const k in PROD_LIGHT) PROD_LIGHT[k](W)[0].hi = k === id ? v : 0; };
   let prodHover = null, prodCycle = 0, prodIdx = -1, prodOn = false;
   $$('#prodList [data-prod]').forEach(li => {
     li.addEventListener('mouseenter', () => { prodHover = { key: li.dataset.prod, btn: li, kind: 'prod' }; prodLit(li.dataset.prod, 0.9); showProd(PRODUCTS.findIndex(p => p.id === li.dataset.prod)); });
@@ -145,7 +151,7 @@ export function createLabels({ el, state, getWorld, isNarrow }) {
   function showProd(i) {
     const P = PRODUCTS[i], a = P && prodAnchor(P.id); if (!a) return;
     prodIdx = i;
-    const L = Labels.add('prod', '', a, 'prod', [16, -9], 'right', `<b>${P.name}</b>${P.status}`);
+    const L = Labels.add('prod', P.name, a, 'prod', [16, -9], 'right');
     L.auto = true;
   }
   function updateProducts(dt) {

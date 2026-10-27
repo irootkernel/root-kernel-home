@@ -132,7 +132,7 @@ export function run(env) {
 const LAYERS = [
   { id: 'app', name: 'Web · App', sub: '화면', ev: 'Sudal 모바일 앱 · Doksuri 데스크톱 앱',
     exp: null,
-    prod: ['Sudal · Flutter 모바일 앱과 웹 운영 도구', 'Doksuri · React·Tauri 데스크톱 앱'] },
+    prod: ['Two Thumbs · Google Play에 출시한 Kotlin Android 앱', 'Sudal · Flutter 모바일 앱과 웹 운영 도구', 'Doksuri · React·Tauri 데스크톱 앱'] },
   { id: 'server', name: 'Server', sub: 'API · 상태', ev: '실시간 세션 runtime · SQL 오케스트레이션',
     exp: ['SAP HANA · SQL 실행 오케스트레이션', '장애 시 세션 복구 설계'],
     prod: ['Sudal · gRPC 계약과 FSM으로 만든 세션 runtime'] },

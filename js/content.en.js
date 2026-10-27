@@ -6,9 +6,9 @@
 // "15+ years"; AI-SPARK is a patent application, never granted; the financial client is only "a Korean
 // financial institution"; no solo-company or headcount wording and no numbers to boast; the tools are public on
 // GitHub, never "all open source".
-import * as KO from './content.js?v=cfd99ce5c804';
+import * as KO from './content.js?v=31783de3e240';
 
-export const { MAIL, GITHUB, repoUrl, LOGO, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOL_ORDER, RELEASES } = KO;
+export const { MAIL, GITHUB, repoUrl, playUrl, LOGO, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT, TOOL_ORDER, RELEASES } = KO;
 export const DEMOS = false;
 
 const pick = (o, keys) => Object.fromEntries(keys.map((k) => [k, o[k]]));
@@ -53,6 +53,7 @@ export const TRACK = [
   ['2026.06', 'Founded Root Kernel'],
   ['2026.07', 'Ember Quest · selected for the AX support program for game development (round 2)'],
   ['2026.08–12', 'Corporate banking upgrade project at a Korean financial institution'],
+  ['2026.10', 'Released Two Thumbs on Google Play'],
 ];
 
 // The three service areas, in content.js's order. "Product" is the visitor's own product (the site's own products
@@ -96,6 +97,11 @@ export const toolLabel = (id) => [TOOLS[id].name, toolSub(id)].filter(Boolean).j
 
 const prod = (id, o) => ({ ...KO.PRODUCTS.find((p) => p.id === id), ko: '', ...o });
 export const PRODUCTS = [
+  prod('two-thumbs', {
+    line: 'An Android app that turns your phone into a Bluetooth keyboard and trackpad',
+    note: 'Hold it sideways and type on an iPhone, iPad or Mac with both thumbs. It has no internet permission: what you type goes only to the device you connect over Bluetooth.',
+    desc: 'Turns an Android phone, foldable or tablet into a Bluetooth keyboard and trackpad. Held sideways it is a keyboard for both thumbs; held upright, a phone-style keyboard. The other device needs no app. A number pad and media keys have panels of their own, and the arrow keys, shortcuts and macros are one key away. Korean input is built in. No internet permission, no account, no ads: what you type goes only to the device you connect over Bluetooth. Two Thumbs Pro, one purchase, adds the split keyboard, the trackpad beside the keys and more.',
+  }),
   prod('sudal', {
     line: 'A real-time would-you-rather game that starts conversations',
     note: 'Everyone joins on their own device by QR code or invite link, and can rejoin and keep playing after a brief disconnect.',
@@ -152,7 +158,7 @@ export const META = {
   services: 'Root Kernel offers three services',
   openSource: 'Tools Root Kernel builds and uses itself, all public on GitHub. The AI Harness, Aquarium for Codex and Claude Code, covers testing, code review and procedure; the AI Agent tools run, deliberate and dispatch Agents.',
   kernel: 'We do not hand everything to AI. Deterministic work runs as CLI and MCP Tools, and only Non-deterministic work that needs judgment and generation goes to AI/LLMs.',
-  products: 'Sudal · Doksuri · Ember Quest. Products Root Kernel builds itself, all in development.',
+  products: 'Two Thumbs · Sudal · Doksuri · Ember Quest. Products Root Kernel builds itself. Two Thumbs is on Google Play; Sudal, Doksuri and Ember Quest are in development.',
   contactTitle: 'Contact',
   contact: `Write to ${MAIL} and we will reply once we have read it.`,
 };
@@ -175,6 +181,8 @@ export const UI = {
   copyMail: 'Copy email address',
   repoLink: (label) => `${label} · open the GitHub repository`,
   more: (name) => `More about ${name}`,
+  play: 'Get it on Google Play',
+  playLink: (name) => `${name} · get it on Google Play`,
 };
 
 export const MAIL_COPY = {

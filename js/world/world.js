@@ -3,8 +3,8 @@
 // reverse current, creature bench modes) and the above-surface product scene.
 // Only this file (and director.js through the object it returns) touches three.js.
 import * as THREE from 'three';
-import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=cfd99ce5c804';
-import { SVC_KEYS } from '../content.js?v=cfd99ce5c804';
+import { clamp, lerp, sstep, ease, REDUCED } from '../core.js?v=31783de3e240';
+import { SVC_KEYS } from '../content.js?v=31783de3e240';
 
 const eOut3 = ease.out3, eIn3 = ease.in3, eIO3 = ease.io3, eIOs = ease.ios;
 const damp = (a, b, k, dt) => lerp(a, b, 1 - Math.exp(-k * dt));
@@ -655,7 +655,8 @@ export function createWorld(opts = {}) {
 
   /* ---------- 3.7 products above the surface (SPEC-experience §6) ----------
      Sudal on land (the warm lights of people gathered), Doksuri in the sky (a great bird of light),
-     Ember Quest off-axis (an ember lighting a path over the water). Replaces B's −1,000 m products. */
+     Ember Quest off-axis (an ember lighting a path over the water), Two Thumbs on the water (two keys tapping in turn,
+     DECISIONS 4-30). Replaces B's −1,000 m products. */
   const glowGeo = new THREE.PlaneGeometry(1, 1);
   const glowMat = (col, size, flick = 0) => new THREE.ShaderMaterial({
     uniforms: { uCol: { value: V3(...col) }, uI: { value: 1 }, uSize: { value: size }, uTime: { value: 0 }, uFlick: { value: flick } },
@@ -758,6 +759,22 @@ export function createWorld(opts = {}) {
     pixMats.push(m);
     ember.sparks = new THREE.Points(g, m); ember.sparks.frustumCulled = false; ember.sparksMat = m; above.group.add(ember.sparks);
   }
+  // Two Thumbs — on the water: two small lights (the icon's cream and cyan keys) tap the surface in turn, like two
+  // thumbs typing, and each tap sends a ring across the water
+  const TT_COL = [[1.0, 0.86, 0.62], [0.36, 0.95, 0.92]];
+  const thumbs = { base: V3(), pos: V3(), side: V3(1, 0, 0), hi: 0, keys: TT_COL.map(c => new THREE.Mesh(glowGeo, glowMat(c, 2.8))) };
+  thumbs.keys.forEach(m => { m.frustumCulled = false; above.group.add(m); });
+  {
+    const g = new THREE.PlaneGeometry(18, 18); g.rotateX(-Math.PI / 2);
+    thumbs.ringMat = new THREE.ShaderMaterial({
+      uniforms: { uA: { value: V3() }, uB: { value: V3() }, uP: { value: new THREE.Vector2() }, uI: { value: 1 } },
+      vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+      fragmentShader: `uniform vec3 uA; uniform vec3 uB; uniform vec2 uP; uniform float uI; varying vec3 vW;
+        float ring(vec3 c, float p){ float d = length(vW.xz - c.xz) - (0.4 + p * 6.0); return exp(-d * d * 6.0) * (1.0 - p) * (1.0 - p); }
+        void main(){ gl_FragColor = vec4((vec3(${TT_COL[0]}) * ring(uA, uP.x) + vec3(${TT_COL[1]}) * ring(uB, uP.y)) * 0.5 * uI, 1.0); }`,
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+    thumbs.ring = new THREE.Mesh(g, thumbs.ringMat); thumbs.ring.frustumCulled = false; above.group.add(thumbs.ring);
+  }
   function updateAbove(dt, t, cy) {
     // only the last stretch below the surface sees them (through Snell's window); fully lit above
     const k = sstep(SURF - 14, SURF + 1.5, cy), kl = sstep(SURF - 1, SURF + 2, cy);
@@ -782,6 +799,16 @@ export function createWorld(opts = {}) {
     ember.pos.copy(ember.base).add(_v.set(Math.sin(t * 0.3) * 1.2, Math.sin(t * 0.7) * 0.35, Math.cos(t * 0.23) * 1.2));
     ember.core.position.copy(ember.pos); ember.core.material.uniforms.uI.value = k * (1 + ember.hi);
     ember.sparksMat.uniforms.uC.value.copy(ember.pos); ember.sparksMat.uniforms.uTime.value = t; ember.sparksMat.uniforms.uI.value = k * (1 + ember.hi * 0.8); ember.sparksMat.uniforms.uPath.value.copy(ember.dir);
+    // each key lifts off the water and lands half a beat after the other (1.6 s); it flares as it lands
+    thumbs.keys.forEach((m, i) => {
+      const p = (t / 1.6 + i * 0.5) % 1;
+      m.position.copy(thumbs.base).addScaledVector(thumbs.side, i ? 1.3 : -1.3);
+      m.position.y += 0.25 + sstep(0, 0.3, p) * (1 - sstep(0.7, 1, p));
+      m.material.uniforms.uI.value = k * (0.6 + 1.5 * Math.exp(-p * 9) + thumbs.hi);
+      thumbs.ringMat.uniforms.uP.value.setComponent(i, p);
+    });
+    thumbs.ringMat.uniforms.uA.value.copy(thumbs.keys[0].position); thumbs.ringMat.uniforms.uB.value.copy(thumbs.keys[1].position);
+    thumbs.ringMat.uniforms.uI.value = kl * (1 + thumbs.hi); thumbs.ring.visible = kl > 0.001;
     seaTopMat.uniforms.uL1.value.copy(sudal.pos); seaTopMat.uniforms.uL2.value.copy(ember.pos);
   }
 
@@ -1608,7 +1635,7 @@ export function createWorld(opts = {}) {
     lantern.items.forEach((L, i) => { const [sx, sy, d] = LP[i]; L.base.copy(unprojectWith(c1, sx, sy, d)); });
     // products — above the surface, framed from the product camera (text column on the left / below on mobile)
     const c4 = camAt(lay.poses[4].p, lay.poses[4].t);
-    const PL = lay.narrow ? { land: [0.3, 0.46, 215], dok: [0.62, 0.15, 185], emb: [0.8, 0.5, 64] } : { land: [0.7, 0.64, 215], dok: [0.64, 0.25, 190], emb: [0.865, 0.8, 58] };
+    const PL = lay.narrow ? { land: [0.3, 0.46, 215], dok: [0.62, 0.15, 185], emb: [0.8, 0.5, 64], tt: [0.66, 0.59, 48] } : { land: [0.7, 0.64, 215], dok: [0.64, 0.25, 190], emb: [0.865, 0.8, 58], tt: [0.56, 0.84, 58] };
     const lp = unprojectWith(c4, ...PL.land); lp.y = SURF - 0.3; land.position.copy(lp);
     sudal.pos.copy(lp).add(V3(0, landPeak() + 0.3, 0));
     sudal.glow.position.copy(sudal.pos).add(V3(0, 2.2, 0)); sudal.lights.position.copy(sudal.pos);
@@ -1618,6 +1645,10 @@ export function createWorld(opts = {}) {
     doksuri.tr.reset(doksuri.c);
     ember.base.copy(unprojectWith(c4, ...PL.emb)); ember.base.y = Math.max(ember.base.y, SURF + 2.6);
     ember.dir.set(ember.base.x - c4.position.x, 0, ember.base.z - c4.position.z).normalize().applyAxisAngle(V3(0, 1, 0), -0.55);
+    // Two Thumbs on the water; its two keys sit side by side across the line of sight (its label marks their middle)
+    thumbs.base.copy(unprojectWith(c4, ...PL.tt)); thumbs.base.y = SURF; thumbs.pos.copy(thumbs.base).setY(SURF + 0.9);
+    thumbs.side.set(c4.position.z - thumbs.base.z, 0, thumbs.base.x - c4.position.x).normalize();
+    thumbs.ring.position.set(thumbs.base.x, SURF + 0.05, thumbs.base.z);
     // logo — framed in the upper third at the moment it has formed (t ≈ 1.4 s)
     const i0 = 0.085, P0 = lay.poses[0];
     const cl = camAt(V3(P0.p.x, P0.p.y + 5 * (1 - i0), P0.p.z + 8 * (1 - i0)), V3(P0.t.x, P0.t.y + 6.5 * (1 - i0), P0.t.z + 10 * (1 - i0)));
@@ -1912,6 +1943,6 @@ export function createWorld(opts = {}) {
   rig.prev.copy(rig.pos);
   Object.assign(W, { snowMat, lantern, followCap, holdCam, update, render, resize, rig, U, cap, swarm, swMat, swGeo, swA, swB, swR, SW_N: W.SW_N, gaori, mulgae, gates, main, currents, corals, pod, atn, sorage, kernel, pickables, project, screenToWorld, worldPerPixel, startSweep, camDepthMeters, lay, poseAt, getDpr: () => dpr, setDpr, DPR_MAX, human, HUMAN, humanMat, seabedH,
     SURF, LY, camAt, unprojectWith, bench, benchMesh, benchProjectedRect, buildFeeder, feeder, dispatchPulse, pulses, rimSparks, beam, beamMat, animTo, hooks,
-    above, sudal, doksuri, ember, land, seaTop, setTier, setLoad, compile, dispose, size: () => [vw, vh], P });
+    above, sudal, doksuri, ember, thumbs, land, seaTop, setTier, setLoad, compile, dispose, size: () => [vw, vh], P });
   return W;
 }

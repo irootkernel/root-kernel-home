@@ -8,9 +8,9 @@
 // opens the visitor's mail app with them; the mail app is the only place anyone writes.
 // Copy (COPY-STYLE.md): English eyebrows and section labels, Korean body copy in 합니다체. English pages (DECISIONS
 // 4-21) take every string from content.en.js through text.js and show no demo: no [시연 보기], no /build/ panel.
-import { esc } from '../core.js?v=cfd99ce5c804';
-import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS } from '../text.js?v=cfd99ce5c804';
-import { LANG, href } from '../lang.js?v=cfd99ce5c804';
+import { esc } from '../core.js?v=31783de3e240';
+import { COPY, COMPANY, FOUNDER, FOUNDER_PROFILE, TRACK, CLIENT_LABEL, MAIL, SVC, SVC_KEYS, LOGO, PRODUCTS, PRODUCTS_HEAD, UI, MAIL_COPY, DEMOS, playUrl } from '../text.js?v=31783de3e240';
+import { LANG, href } from '../lang.js?v=31783de3e240';
 
 // Topic (문의 종류 in the mail): the three areas (area · name), then 기타; Timing (희망 시기): four plain answers
 const KINDS = [...SVC_KEYS.map((k) => ({ id: k, a: SVC[k].area, n: SVC[k].name })), { id: 'etc', n: UI.other }];
@@ -24,7 +24,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
   }
   // a service page's 상담 메일: a draft with its area already chosen
   const svcMail = panel.querySelector('[data-mail-area]');
-  if (svcMail) import('../mail.js?v=cfd99ce5c804').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
+  if (svcMail) import('../mail.js?v=31783de3e240').then((M) => { svcMail.href = M.buildContactMail({ area: svcMail.dataset.mailArea, tag: MAIL_COPY.consultTag }).url; });
   if (page.name === 'contact') {
     // "다른 문의가 있으신가요?" arrives with 문의 종류 = 기타 (history.state from main.js)
     const pre = history.state?.kind;
@@ -46,7 +46,7 @@ export function wirePanel(panel, page, { ensureJourney, close }) {
       if (w) { sel.when = sel.when === w.dataset.when ? null : w.dataset.when; upd(); }
     });
     upd();
-    import('../mail.js?v=cfd99ce5c804').then((mod) => {
+    import('../mail.js?v=31783de3e240').then((mod) => {
       M = mod;
       upd();
       cp.addEventListener('click', async () => {
@@ -123,7 +123,8 @@ export function panelHTML(page) {
   if (page.name === 'service') return x + serviceBody(page.svc, 'pageH', `<b>−200 m</b>· Services · ${esc(SVC[page.svc].no)} ${esc(SVC[page.svc].area)}`);
   if (page.name === 'products') {
     // the home layer's rows, with the fuller description (PRODUCTS.desc) in place of the one sentence
-    const item = (P) => `<li><span class="t">${esc(P.name)}</span><span class="k">${esc(P.tag)}${P.badge ? `<em>${esc(P.badge)}</em>` : ''}</span><span class="d">${esc(P.line)}</span><span class="x">${esc(P.desc)}</span><span class="s">${esc(P.status)}</span></li>`;
+    const play = (P) => (P.play ? `<a class="l" href="${esc(playUrl(P.play))}" target="_blank" rel="noopener" aria-label="${esc(UI.playLink(P.name))}">${esc(UI.play)} <span aria-hidden="true">↗</span></a>` : '');
+    const item = (P) => `<li${P.play ? ' class="released"' : ''}><span class="t">${esc(P.name)}</span><span class="k">${esc(P.tag)}${P.badge ? `<em>${esc(P.badge)}</em>` : ''}</span><span class="d">${esc(P.line)}</span><span class="x">${esc(P.desc)}</span><span class="s">${esc(P.status)}</span>${play(P)}</li>`;
     return x + '<p class="jr-page-k"><b>Above surface</b>· Products</p>' +
       `<h2 class="jr-page-h" id="pageH">${esc(PRODUCTS_HEAD.lines.join(' '))}</h2>` +
       `<p class="jr-page-lede">${esc(PRODUCTS_HEAD.lede)}</p>` +

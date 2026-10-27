@@ -12,11 +12,11 @@
 //     area's scene over the live world at the scene's own depth (SCENE_LAYER).
 //  English pages (DECISIONS 4-21) live under /en/ with the same slugs and no demo: the other language's paths are not
 //  routes here, so following one (the EN / KO switch) loads that language's shell.
-import { $, $$, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=cfd99ce5c804';
-import * as TEXT from './text.js?v=cfd99ce5c804';
-import { SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT } from './text.js?v=cfd99ce5c804';
-import { BASE, href, counterpart } from './lang.js?v=cfd99ce5c804';
-import { travelSeconds } from './journey/director.js?v=cfd99ce5c804';
+import { $, $$, mk, clamp, bus, REDUCED, isNarrow } from './core.js?v=31783de3e240';
+import * as TEXT from './text.js?v=31783de3e240';
+import { SVC, SVC_KEYS, SCENARIO_AREA, SVC_SLUG_REDIRECT } from './text.js?v=31783de3e240';
+import { BASE, href, counterpart } from './lang.js?v=31783de3e240';
+import { travelSeconds } from './journey/director.js?v=31783de3e240';
 
 /* =========================================================================
    1. intent
@@ -58,7 +58,7 @@ const INFO = [
   { key: 'demo', re: /시연|데모|demo|진짜\s?(ai|에이아이)|진짜로|실제로\s?만들|정말\s?만들|가짜|시뮬레이션|미리\s?짜/ },
   { key: 'tools', re: /오픈\s?소스|open\s?source|github|깃허브|깃헙|aquarium|아쿠아리움|podway|포드웨이|gaori|가오리|mulgae|물개|sanho|산호|sorage|소라게|dolgorae|돌고래|dispatch|디스패치|turn network|하네스|harness/ },
   { key: 'kernel', re: /커널|kernel|제어|control|ai-?spark|스파크|특허|patent|경계|승인 게이트/ },
-  { key: 'products', re: /제품|product|sudal|수달|doksuri|독수리|ember|엠버|게임|game/ },
+  { key: 'products', re: /제품|product|two ?thumbs|sudal|수달|doksuri|독수리|ember|엠버|게임|game/ },
   { key: 'price', re: PRICE },
   { key: 'contact', re: /연락|메일|이메일|전화|contact|e-?mail|\bmail\b|\bcall\b/ },
   { key: 'about', re: /대표|회사|누구|창업|설립|founder|ceo|about|\bwho\b|정영훈|경력|연혁|실적|어떤 곳/ },
@@ -267,7 +267,7 @@ export function createNav(env) {
     document.documentElement.classList.add('lock');
     if (state.mode === 'explore' || state.mode === 'intro') state.mode = 'panel';
     warm(page.layer === 0);
-    import('./journey/pages.js?v=cfd99ce5c804').then((M) => {
+    import('./journey/pages.js?v=31783de3e240').then((M) => {
       if (panelPage !== page) return;
       panel.innerHTML = M.panelHTML(page);
       panel.setAttribute('aria-labelledby', 'pageH');
@@ -295,7 +295,7 @@ export function createNav(env) {
   /* ---------- the strength scenes (a service page is its area's scene; details and demos below it) ---------- */
   let scenePage = null, sceneP = null, sceneBack = null;
   const sceneHost = $('#svcScene');
-  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=cfd99ce5c804').then((M) => M.createScene({
+  const scenes = () => (sceneP ||= import('./strengths/scene.js?v=31783de3e240').then((M) => M.createScene({
     el: sceneHost, ensureJourney: env.ensureJourney, go,
     // × and Esc: back to where the visitor chose the area (the first screen, −200 m, the final question)
     onClose: () => go(sceneBack || LAYER_PATH[1]),

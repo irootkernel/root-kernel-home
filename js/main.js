@@ -7,14 +7,14 @@
 // which is its strength scene (founder, 2026-09-30; router.js → strengths/scene.js). The ~1-minute demos start only
 // from 시연 보기 in the details below each scene, or from a /build/ link. English pages (DEMOS false) never load them.
 // The real WorldAdapter (journey/adapter.js) arrives with the world chunk; until then W is NullWorld.
-import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=cfd99ce5c804';
-import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK, DEMOS } from './text.js?v=cfd99ce5c804';
-import { href } from './lang.js?v=cfd99ce5c804';
-import { W, NullWorld, DEPTH } from './journey/director.js?v=cfd99ce5c804';
-import { createIntro } from './intro.js?v=cfd99ce5c804';
-import { createScroll, metersFromLayer } from './world/scroll.js?v=cfd99ce5c804';
-import { createLabels } from './world/labels.js?v=cfd99ce5c804';
-import { createNav, LAYER_PATH } from './router.js?v=cfd99ce5c804';
+import { qs, REDUCED, $, $$, bus, detectTier, isNarrow, esc } from './core.js?v=31783de3e240';
+import { COPY, COMPANY, FOUNDER, SVC, SVC_KEYS, TOOLS, toolLabel, RELEASES, PRODUCTS, PRODUCTS_HEAD, AI_SPARK, TRACK, DEMOS, UI, playUrl } from './text.js?v=31783de3e240';
+import { href } from './lang.js?v=31783de3e240';
+import { W, NullWorld, DEPTH } from './journey/director.js?v=31783de3e240';
+import { createIntro } from './intro.js?v=31783de3e240';
+import { createScroll, metersFromLayer } from './world/scroll.js?v=31783de3e240';
+import { createLabels } from './world/labels.js?v=31783de3e240';
+import { createNav, LAYER_PATH } from './router.js?v=31783de3e240';
 
 const root = document.documentElement;
 const lateBoot = performance.now() > 2300;   // the CSS failsafe has already revealed the page
@@ -85,12 +85,15 @@ function hydrate() {
   const rec = $('#record');
   if (rec) rec.innerHTML = TRACK.map(([d, t]) => `<li><span class="mono">${esc(d)}</span><span>${esc(t)}</span></li>`).join('');
   // products: the heading (one line per entry) and lede, then per row name · mono tag (+ badge) · lead · one sentence · status
+  // (+ a released product's Google Play link)
   $$('[data-c="prodHead"]').forEach(n => { n.innerHTML = PRODUCTS_HEAD.lines.map(esc).join('<br>'); });
   $$('[data-c="prodLede"]').forEach(n => { n.textContent = PRODUCTS_HEAD.lede; });
   $$('#prodList [data-prod]').forEach(li => {
     const P = PRODUCTS.find(p => p.id === li.dataset.prod); if (!P) return;
     fill(li, '.d', P.line); fill(li, '.x', P.note); fill(li, '.s', P.status);
     const k = li.querySelector('.k'); if (k) k.innerHTML = esc(P.tag) + (P.badge ? `<em>${esc(P.badge)}</em>` : '');
+    const a = li.querySelector('.l');
+    if (a && P.play) { a.href = playUrl(P.play); a.setAttribute('aria-label', UI.playLink(P.name)); a.innerHTML = `${esc(UI.play)} <span aria-hidden="true">↗</span>`; }
   });
 }
 hydrate();
@@ -111,14 +114,14 @@ let journeyP = null, journey = null;
 function ensureJourney() {
   if (!DEMOS) return Promise.resolve(null);   // the English edition has no demos (DECISIONS 4-21)
   if (!journeyP) {
-    journeyP = import('./journey/journey.js?v=cfd99ce5c804')
+    journeyP = import('./journey/journey.js?v=31783de3e240')
       .then(m => (journey = m.createJourney({ el, state, nav, labels, intro, scroll, loadWorld: () => loadWorld(), getTier: () => tier, getWorld: () => world })))
       .catch(e => { journeyP = null; console.error(e); return null; });
   }
   return journeyP;
 }
 // the area's scene arrives with the first hover / focus / press (it is not on the first-paint path)
-const prefetchScene = (svc) => { import('./strengths/scene.js?v=cfd99ce5c804').then((M) => M.prefetch(svc)).catch(() => {}); };
+const prefetchScene = (svc) => { import('./strengths/scene.js?v=31783de3e240').then((M) => M.prefetch(svc)).catch(() => {}); };
 
 /* ---------- the answers: a tap on a chip opens that area's service page (its strength scene); nothing is typed ---------- */
 // a plain left click takes over the link; a modified click (new tab, …) still opens the service page itself
@@ -176,7 +179,7 @@ function loadWorld() {
     const t0 = performance.now();
     let mod, A, w;
     // the world and its adapter (the verbs the journey uses) arrive together, off the first-paint path
-    try { [mod, A] = await Promise.all([import('./world/world.js?v=cfd99ce5c804'), import('./journey/adapter.js?v=cfd99ce5c804')]); } catch (e) { goPoster(); return null; }
+    try { [mod, A] = await Promise.all([import('./world/world.js?v=31783de3e240'), import('./journey/adapter.js?v=31783de3e240')]); } catch (e) { goPoster(); return null; }
     try { w = mod.createWorld({ canvas: el.gl, tier, narrow: NARROW }); } catch (e) { goPoster(); return null; }
     await w.compile();
     if (tier === 'poster') { w.dispose(); return null; }

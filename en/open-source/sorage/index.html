@@ -14,15 +14,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script>document.documentElement.classList.replace('nojs', 'js');</script>
-<link rel="stylesheet" href="/css/base.css?v=cfd99ce5c804">
-<link rel="stylesheet" href="/css/journey.css?v=cfd99ce5c804">
-<link rel="stylesheet" href="/css/studio.css?v=cfd99ce5c804" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="/css/strengths.css?v=cfd99ce5c804" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/base.css?v=31783de3e240">
+<link rel="stylesheet" href="/css/journey.css?v=31783de3e240">
+<link rel="stylesheet" href="/css/studio.css?v=31783de3e240" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/strengths.css?v=31783de3e240" media="print" onload="this.media='all'">
 <script type="importmap">{"imports":{"three":"/vendor/three.module.min.js?v=08fd7545d13d"}}</script>
-<link rel="modulepreload" href="/js/core.js?v=cfd99ce5c804">
+<link rel="modulepreload" href="/js/core.js?v=31783de3e240">
 <!-- the English edition's copy (text.js awaits it): fetched alongside main.js, not after it -->
-<link rel="modulepreload" href="/js/content.en.js?v=cfd99ce5c804">
-<script type="module" src="/js/main.js?v=cfd99ce5c804"></script>
+<link rel="modulepreload" href="/js/content.en.js?v=31783de3e240">
+<script type="module" src="/js/main.js?v=31783de3e240"></script>
 </head>
 <body>
 <div class="nogl-bg" aria-hidden="true"></div>
@@ -169,6 +169,7 @@
         <li><span class="mono">2026.06</span><span>Founded Root Kernel</span></li>
         <li><span class="mono">2026.07</span><span>Ember Quest · selected for the AX support program for game development (round 2)</span></li>
         <li><span class="mono">2026.08–12</span><span>Corporate banking upgrade project at a Korean financial institution</span></li>
+        <li><span class="mono">2026.10</span><span>Released Two Thumbs on Google Play</span></li>
       </ul>
     </div>
   </section>
@@ -176,10 +177,12 @@
   <section id="l4" class="layer layer-p" aria-labelledby="h4s" data-depth="-40">
     <div class="layer-in">
       <p class="eyebrow up rv"><b>Above surface</b>&nbsp;· Products</p>
-      <h2 class="h2 rv" id="h4s" data-c="prodHead">Three products.<br>One shared root.</h2>
+      <h2 class="h2 rv" id="h4s" data-c="prodHead">Four products.<br>One shared root.</h2>
       <p class="lede rv" data-c="prodLede">Problems we find in our products move our technology forward, and the improved technology goes back into the products.</p>
-      <!-- one row per PRODUCTS entry: name · status, mono tag (+ badge), lead, one sentence -->
-      <ul class="prod rv" id="prodList">
+      <!-- one row per PRODUCTS entry: name · status, mono tag (+ badge), lead, one sentence; a released product
+           (.released) adds its Google Play link, so the list only slides in (rv-t: links never sit at opacity 0) -->
+      <ul class="prod rv rv-t" id="prodList">
+        <li data-prod="two-thumbs" class="released"><span class="t">Two Thumbs</span><span class="k">B2C · Android · Bluetooth LE HID</span><span class="d">An Android app that turns your phone into a Bluetooth keyboard and trackpad</span><span class="x">Hold it sideways and type on an iPhone, iPad or Mac with both thumbs. It has no internet permission: what you type goes only to the device you connect over Bluetooth.</span><span class="s">Released</span><a class="l" href="https://play.google.com/store/apps/details?id=xyz.rootkernel.twothumbs.app" target="_blank" rel="noopener" aria-label="Two Thumbs · get it on Google Play">Get it on Google Play <span aria-hidden="true">↗</span></a></li>
         <li data-prod="sudal"><span class="t">Sudal</span><span class="k">B2C · runs on AI-SPARK session runtime</span><span class="d">A real-time would-you-rather game that starts conversations</span><span class="x">Everyone joins on their own device by QR code or invite link, and can rejoin and keep playing after a brief disconnect.</span><span class="s">In development</span></li>
         <li data-prod="doksuri"><span class="t">Doksuri</span><span class="k">B2B · Markdown-native · two-way sync</span><span class="d">Project management where people and AI work together</span><span class="x">AI reads and edits the context of Markdown files, and handles the work that has to match the server through a CLI. People approve the important changes.</span><span class="s">In development</span></li>
         <li data-prod="ember-quest"><span class="t">Ember Quest</span><span class="k">Game · Deterministic core<em>Selected · 2026 AX program</em></span><span class="d">A physics puzzle RPG where embers light the way</span><span class="x">It runs on a Deterministic core with a fixed 30Hz tick, so the same commands give the same result on any device.</span><span class="s">In development</span></li>

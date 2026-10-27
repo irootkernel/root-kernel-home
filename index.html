@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script>document.documentElement.classList.replace('nojs', 'js');</script>
-<link rel="stylesheet" href="/css/base.css?v=cfd99ce5c804">
-<link rel="stylesheet" href="/css/journey.css?v=cfd99ce5c804">
-<link rel="stylesheet" href="/css/studio.css?v=cfd99ce5c804" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="/css/strengths.css?v=cfd99ce5c804" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/base.css?v=31783de3e240">
+<link rel="stylesheet" href="/css/journey.css?v=31783de3e240">
+<link rel="stylesheet" href="/css/studio.css?v=31783de3e240" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/strengths.css?v=31783de3e240" media="print" onload="this.media='all'">
 <script type="importmap">{"imports":{"three":"/vendor/three.module.min.js?v=08fd7545d13d"}}</script>
-<link rel="modulepreload" href="/js/core.js?v=cfd99ce5c804">
-<script type="module" src="/js/main.js?v=cfd99ce5c804"></script>
+<link rel="modulepreload" href="/js/core.js?v=31783de3e240">
+<script type="module" src="/js/main.js?v=31783de3e240"></script>
 </head>
 <body>
 <div class="nogl-bg" aria-hidden="true"></div>
@@ -167,6 +167,7 @@
         <li><span class="mono">2026.06</span><span>루트커널 설립</span></li>
         <li><span class="mono">2026.07</span><span>Ember Quest · 게임제작환경 AX 지원사업 2차 선정</span></li>
         <li><span class="mono">2026.08–12</span><span>국내 금융권 기업뱅킹 고도화 Project 참여</span></li>
+        <li><span class="mono">2026.10</span><span>Two Thumbs Google Play 출시</span></li>
       </ul>
     </div>
   </section>
@@ -174,10 +175,12 @@
   <section id="l4" class="layer layer-p" aria-labelledby="h4s" data-depth="-40">
     <div class="layer-in">
       <p class="eyebrow up rv"><b>Above surface</b>&nbsp;· Products</p>
-      <h2 class="h2 rv" id="h4s" data-c="prodHead">Three products.<br>One shared root.</h2>
+      <h2 class="h2 rv" id="h4s" data-c="prodHead">Four products.<br>One shared root.</h2>
       <p class="lede rv" data-c="prodLede">제품에서 발견한 문제로 기술을 발전시키고, 개선한 기술을 다시 제품에 적용합니다.</p>
-      <!-- one row per content.js PRODUCTS entry: name · status, mono tag (+ badge), lead, one sentence -->
-      <ul class="prod rv" id="prodList">
+      <!-- one row per content.js PRODUCTS entry: name · status, mono tag (+ badge), lead, one sentence; a released
+           product (.released) adds its Google Play link, so the list only slides in (rv-t: links never sit at opacity 0) -->
+      <ul class="prod rv rv-t" id="prodList">
+        <li data-prod="two-thumbs" class="released"><span class="t">Two Thumbs</span><span class="k">B2C · Android · Bluetooth LE HID</span><span class="d">휴대폰을 블루투스 키보드와 트랙패드로 바꾸는 Android 앱</span><span class="x">가로로 들면 두 엄지로 iPhone, iPad, Mac에 입력합니다. 인터넷 권한이 없고, 입력은 블루투스로 연결한 기기에만 갑니다.</span><span class="s">Released</span><a class="l" href="https://play.google.com/store/apps/details?id=xyz.rootkernel.twothumbs.app" target="_blank" rel="noopener" aria-label="Two Thumbs · Google Play에서 받기">Google Play에서 받기 <span aria-hidden="true">↗</span></a></li>
         <li data-prod="sudal"><span class="t">Sudal</span><span class="k">B2C · runs on AI-SPARK session runtime</span><span class="d">대화가 시작되는 실시간 밸런스 게임</span><span class="x">QR 코드나 초대 링크로 각자의 기기에서 참여하고, 연결이 잠시 끊겨도 다시 들어와 게임을 이어갑니다.</span><span class="s">In development</span></li>
         <li data-prod="doksuri"><span class="t">Doksuri</span><span class="k">B2B · Markdown-native · two-way sync</span><span class="d">사람과 AI가 함께 일하는 Project 관리 도구</span><span class="x">AI는 Markdown 파일의 문맥을 읽고 고치며, 서버와 맞춰야 하는 작업은 CLI로 처리합니다. 중요한 변경은 사람이 승인합니다.</span><span class="s">In development</span></li>
         <li data-prod="ember-quest"><span class="t">Ember Quest</span><span class="k">Game · Deterministic core<em>2026 AX 지원사업 선정</em></span><span class="d">불씨로 길을 여는 물리 퍼즐 RPG</span><span class="x">30Hz 고정 tick의 Deterministic core 위에서 움직여, 같은 명령을 넣으면 기기가 달라도 같은 결과가 나옵니다.</span><span class="s">In development</span></li>
